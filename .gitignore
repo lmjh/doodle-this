@@ -7,4 +7,10 @@ __pycache__/
 node_modules/
 .github/
 cloudinary_python.txt
+
+# sqlite development database
 *.sqlite3
+
+# test coverage files
+.coverage
+htmlcov/
