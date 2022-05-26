@@ -1,8 +1,60 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block page_title %}Doodle This{% endblock %}
+{% block page_title %}Sketchbook - Doodle This{% endblock %}
 
 {% block content %}
-    <h1>Doodle This</h1>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-3 col-lg-2 m-md-2">
+            <div class="row">
+                <div class="control-panel p-2">
+                    <div class="col-12 mb-2 d-none d-md-block">
+                        <img class="control-panel-logo" src="/media/svg/doodle-this-logo.svg" alt="Doodle This logo">
+                    </div>
+                    <div class="col-12 mb-2">
+                        <div class="drawing-prompt-box">
+                        </div>
+                    </div>
+                    <div class="col-12 mb-2">
+                        <div class="text-center d-md-grid gap-md-2">
+                            <button class="btn btn-brand-primary" type="button">New Prompt</button>
+                            <button class="btn btn-brand-primary" type="button">Hide Prompt</button>
+                          </div>
+                    </div>
+                    <div class="col-12 mb-2 d-none d-md-flex justify-content-between">
+                        <button type="button" class="btn btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" 
+                            title="Clear Sketchbook"><i class="fa-solid fa-trash"></i></button>
+                        <button type="button" class="btn btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" 
+                            title="Sketchbook Settings"><i class="fa-solid fa-gear"></i></button>
+                        <button type="button" class="btn btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" 
+                            title="Save Doodle"><i class="fa-solid fa-floppy-disk"></i></button>
+                        <button type="button" class="btn btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" 
+                            title="My Gallery"><i class="fa-solid fa-images"></i></button>
+                    </div>
+                    <div class="col-12 d-none d-md-block">
+                        <p class="small"><a href="">Sign in</a> or <a href="">register</a> to save your doodles.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-8">
+
+        </div>
+        <div class="col-12 col-md-3 col-md-2">
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block page_js %}
+<script>
+    // Initialise Bootstrap tooltips
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(
+        tooltipTriggerEl))
+</script>
 {% endblock %}
