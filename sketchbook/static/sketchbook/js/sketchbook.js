@@ -33,8 +33,17 @@ function resizeCanvas() {
     scaler.style.transform = 'scale(' + scale + ')';
 };
 
-// run resizeCanvas function
+// call resizeCanvas function
 resizeCanvas();
 
-// add event listener to run resizeCanvas function on window resize 
-addEventListener("resize", resizeCanvas);
+// add event listener to call resizeCanvas function on window resize
+// to prevent multiple successive resize operations, add a short delay so that resize function is not called until the 
+// user has stopped resizing the window (based on this answer from SO: https://stackoverflow.com/a/15205745)
+let resizeTimer = null
+
+addEventListener("resize", function() {
+    if (resizeTimer != null) window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(function() {
+        resizeCanvas();
+    }, 200);
+});
