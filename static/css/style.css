@@ -52,8 +52,7 @@ a:hover {
     box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14),0 6px 30px 5px rgba(0,0,0,0.12),0 8px 10px -7px rgba(0,0,0,0.2);
 }
 
-.btn-brand-primary:hover, 
-.btn-brand-primary:focus {
+.btn-brand-primary:hover {
     color: var(--text-dark);
     background-color: var(--brand-primary-color);
     border-color: var(--brand-primary-color);
@@ -102,21 +101,32 @@ footer {
     border-color: var(--bg-grey);
     background-color: var(--bg-grey);
     border-width: 4px;
-    width: 33px;
-    height: 33px;
-    font-size: 23px;
-    line-height: 23px;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    line-height: 20px;
     padding: 0;
     transition: 0.3s ease-in-out;
     box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14),0 6px 30px 5px rgba(0,0,0,0.12),0 8px 10px -7px rgba(0,0,0,0.2);
 }
 
-.btn-icon:hover,
-.btn-icon:focus {
+.btn-icon:hover {
     color: var(--text-dark);
     background-color: var(--brand-primary-color);
     border-color: var(--brand-primary-color);
     box-shadow: 0 3px 3px 0 rgba(0,0,0,0.14),0 1px 7px 0 rgba(0,0,0,0.12),0 3px 1px -1px rgba(0,0,0,0.2);
+}
+
+#sketchbook-background {
+    height: 980px;
+    width: 1340px;
+    background-image: url("/media/svg/sketchbook-background.svg");
+}
+
+#sketchbook {
+    position: absolute;
+    top: 110px;
+    left: 30px;
 }
 
 @media (min-width: 992px) {

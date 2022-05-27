@@ -9,37 +9,40 @@
     <div class="row mt-lg-3 mx-lg-0">
         <div class="col-12 col-lg-2 mb-2">
             <div class="row control-panel">
-                    <div class="col-12 mt-2 d-none d-lg-block">
-                        <img class="control-panel-logo" src="/media/svg/doodle-this-logo.svg" alt="Doodle This logo">
+                <div class="col-12 mt-2 d-none d-lg-block">
+                    <img class="control-panel-logo" src="/media/svg/doodle-this-logo.svg" alt="Doodle This logo">
+                </div>
+                <div class="col-12 col-sm-8 col-lg-12 my-2">
+                    <div class="drawing-prompt-box">
                     </div>
-                    <div class="col-12 col-sm-8 col-lg-12 my-2">
-                        <div class="drawing-prompt-box">
-                        </div>
+                </div>
+                <div class="col-12 col-sm-4 col-lg-12 my-auto">
+                    <div class="text-center d-sm-grid gap-sm-2 mb-2 mb-sm-0">
+                        <button class="btn btn-brand-primary" type="button">New Prompt</button>
+                        <button class="btn btn-brand-primary" type="button">Hide Prompt</button>
                     </div>
-                    <div class="col-12 col-sm-4 col-lg-12 my-auto">
-                        <div class="text-center d-sm-grid gap-sm-2 mb-2 mb-sm-0">
-                            <button class="btn btn-brand-primary" type="button">New Prompt</button>
-                            <button class="btn btn-brand-primary" type="button">Hide Prompt</button>
-                        </div>
-                    </div>
-                    <div class="col-12 my-2 d-none d-lg-flex justify-content-between">
-                        <button type="button" class="btn btn-icon" data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Clear Sketchbook"><i class="fa-solid fa-trash"></i></button>
-                        <button type="button" class="btn btn-icon" data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Sketchbook Settings"><i class="fa-solid fa-gear"></i></button>
-                        <button type="button" class="btn btn-icon" data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Save Doodle"><i class="fa-solid fa-floppy-disk"></i></button>
-                        <button type="button" class="btn btn-icon" data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="My Gallery"><i class="fa-solid fa-images"></i></button>
-                    </div>
-                    <div class="col-12 d-none d-lg-block">
-                        <p class="small"><a href="">Sign in</a> or <a href="">register</a> to save your doodles.</p>
-                    </div>
+                </div>
+                <div class="col-12 my-2 d-none d-lg-flex justify-content-between">
+                    <button type="button" class="btn btn-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Clear Sketchbook"><i class="fa-solid fa-trash"></i></button>
+                    <button type="button" class="btn btn-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Sketchbook Settings"><i class="fa-solid fa-gear"></i></button>
+                    <button type="button" class="btn btn-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Save Doodle"><i class="fa-solid fa-floppy-disk"></i></button>
+                    <button type="button" class="btn btn-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="My Gallery"><i class="fa-solid fa-images"></i></button>
+                </div>
+                <div class="col-12 d-none d-lg-block">
+                    <p class="small"><a href="">Sign in</a> or <a href="">register</a> to save your doodles.</p>
+                </div>
             </div>
         </div>
         <div class="col-12 col-md-9 col-lg-8 mb-2">
-            <div class="row px-2">
-                <div class="control-panel p-2">
+            <div id="scaler-holder">
+                <div id="sketchbook-scaler">
+                    <div id="sketchbook-background">
+                        <canvas id="sketchbook"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -55,10 +58,6 @@
 {% endblock %}
 
 {% block page_js %}
-<script>
-    // Initialise Bootstrap tooltips
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(
-        tooltipTriggerEl))
-</script>
+<script src="{% static 'sketchbook/js/atrament.min.js' %}"></script>
+<script src="{% static 'sketchbook/js/sketchbook.js' %}"></script>
 {% endblock %}
