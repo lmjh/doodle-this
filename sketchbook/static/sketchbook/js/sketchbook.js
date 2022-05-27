@@ -24,8 +24,8 @@ function resizeCanvas() {
     let holderWidth = holder.getBoundingClientRect().width;
 
     // divide holderWidth by the fixed width of the sketchbook to find the scaling ratio
-    // limit to 2 decimal places
-    let scale = (holderWidth / 1340).toFixed(2);
+    // limit to 3 decimal places
+    let scale = (holderWidth / 1340).toFixed(3);
 
     // set the scaler to transform from the top left
     scaler.style.transformOrigin = '0 0';
