@@ -31,6 +31,9 @@ function resizeCanvas() {
     scaler.style.transformOrigin = '0 0';
     // scale the contents of the scaler by the calculated ratio
     scaler.style.transform = 'scale(' + scale + ')';
+
+    // set scaler-holder height to height of scaler to fix layout bug
+    $('#scaler-holder').height(scaler.getBoundingClientRect().height)
 };
 
 // call resizeCanvas function
