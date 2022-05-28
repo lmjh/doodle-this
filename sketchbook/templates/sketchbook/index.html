@@ -7,21 +7,25 @@
 
 <div class="container-fluid overflow-hidden">
     <div class="row mt-lg-3 mx-lg-0">
+        <!-- controls at top on small screens and on left on large screens -->
         <div class="col-12 col-lg-2 mb-2">
             <div class="row control-panel">
                 <div class="col-12 mt-2 d-none d-lg-block">
                     <img class="control-panel-logo" src="/media/svg/doodle-this-logo.svg" alt="Doodle This logo">
                 </div>
+                <!-- drawing prompt box -->
                 <div class="col-12 col-sm-8 col-lg-12 my-2">
                     <div class="drawing-prompt-box">
                     </div>
                 </div>
+                <!-- prompt control buttons -->
                 <div class="col-12 col-sm-4 col-lg-12 my-auto">
                     <div class="text-center d-sm-grid gap-sm-2 mb-2 mb-sm-0">
                         <button class="btn btn-brand-primary" type="button">New Prompt</button>
                         <button class="btn btn-brand-primary" type="button">Hide Prompt</button>
                     </div>
                 </div>
+                <!-- sketchbook control buttons -->
                 <div class="col-12 my-2 d-none d-lg-flex justify-content-between">
                     <button type="button" class="btn btn-icon" data-bs-toggle="tooltip" data-bs-placement="top"
                         title="Clear Sketchbook"><i class="fa-solid fa-trash"></i></button>
@@ -37,18 +41,146 @@
                 </div>
             </div>
         </div>
+        <!-- sketchbook canvas section -->
         <div class="col-12 col-md-9 col-lg-8 mb-2">
+            <!-- div to hold the scaling div and provide width for scale ratio calculation -->
             <div id="scaler-holder">
+                <!-- div to scale the canvas and its background image up and down by screensize -->
                 <div id="sketchbook-scaler">
+                    <!-- div containing background image of sketchbook -->
                     <div id="sketchbook-background">
+                        <!-- atrament canvas  -->
                         <canvas id="sketchbook"></canvas>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- controls at bottom on small screens and on right on large screens -->
         <div class="col-12 col-md-3 col-lg-2 mb-2">
-            <div class="row pe-md-2 pe-lg-0">
-                <div class="control-panel p-2">
+            <div class="row control-panel">
+                <div class="col-6 col-md-12 order-1 d-flex flex-column justify-content-center d-md-block">
+                    <!-- drawing cursor preview -->
+                    <div class="col-12 d-flex justify-content-center my-2">
+                        <div class="cursor-holder">
+                        </div>
+                    </div>
+                    <!-- stroke width control -->
+                    <div class="col-12 mb-2">
+                        <label for="stroke-width" class="form-label visually-hidden">Stroke Width</label>
+                        <input type="range" class="form-range" id="stroke-width" min="2" max="40"
+                            value="20" step="2">
+                    </div>
+                </div>
+                <!-- colour picker -->
+                <div class="col-12 mb-2 order-3 order-md-2">
+                    <div></div>
+                </div>
+                <!-- responsive grid of colour selection circles built with flex-box -->
+                <!-- based on this tutorial: https://dev.to/stretch0/a-grid-layout-with-responsive-squares-59c6 -->
+                <div class="col-12 mb-2 order-4 order-md-3">
+                    <div class="colour-circle-holder">
+                        <div class="colour-circle">
+                            <button class="colour-button">
+                            </button>
+                        </div>
+                        <div class="colour-circle">
+                            <button class="colour-button">
+                            </button>
+                        </div>
+                        <div class="colour-circle">
+                            <button class="colour-button">
+                            </button>
+                        </div>
+                        <div class="colour-circle">
+                            <button class="colour-button">
+                            </button>
+                        </div>
+                        <div class="colour-circle">
+                            <button class="colour-button">
+                            </button>
+                        </div>
+                        <div class="colour-circle">
+                            <button class="colour-button">
+                            </button>
+                        </div>
+                        <div class="colour-circle">
+                            <button class="colour-button">
+                            </button>
+                        </div>
+                        <div class="colour-circle">
+                            <button class="colour-button">
+                            </button>
+                        </div>
+                        <div class="colour-circle">
+                            <button class="colour-button">
+                            </button>
+                        </div>
+                        <div class="colour-circle">
+                            <button class="colour-button">
+                            </button>
+                        </div>
+                        <div class="colour-circle">
+                            <button class="colour-button">
+                            </button>
+                        </div>
+                        <div class="colour-circle">
+                            <button class="colour-button">
+                            </button>
+                        </div>
+                        <div class="colour-circle">
+                            <button class="colour-button">
+                            </button>
+                        </div>
+                        <div class="colour-circle">
+                            <button class="colour-button">
+                            </button>
+                        </div>
+                        <div class="colour-circle">
+                            <button class="colour-button">
+                            </button>
+                        </div>
+                        <div class="colour-circle">
+                            <button class="colour-button">
+                            </button>
+                        </div>
+                        <div class="colour-circle">
+                            <button class="colour-button">
+                            </button>
+                        </div>
+                        <div class="colour-circle">
+                            <button class="colour-button">
+                            </button>
+                        </div>
+                        <div class="colour-circle">
+                            <button class="colour-button">
+                            </button>
+                        </div>
+                        <div class="colour-circle">
+                            <button class="colour-button">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- tool selection controls -->
+                <div class="col-6 col-md-12 mb-2 order-2 order-md-4">
+                    <div class="tool-holder h-100 mt-2 mt-md-0">
+                        <button class="tool-button">
+                            <img src="/media/svg/pencil.svg" alt="Pencil tool icon" aria-hidden="true" class="tool-icon">
+                            <span class="visually-hidden">Pencil tool</span>
+                        </button>
+                        <button class="tool-button">
+                            <img src="/media/svg/pen.svg" alt="Pen tool icon" aria-hidden="true" class="tool-icon">
+                            <span class="visually-hidden">Pen tool</span>
+                        </button>
+                        <button class="tool-button">
+                            <img src="/media/svg/fill.svg" alt="Fill tool icon" aria-hidden="true" class="tool-icon">
+                            <span class="visually-hidden">Fill tool</span>
+                        </button>
+                        <button class="tool-button">
+                            <img src="/media/svg/eraser.svg" alt="Eraser tool icon" aria-hidden="true" class="tool-icon">
+                            <span class="visually-hidden">Eraser tool</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

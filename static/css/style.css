@@ -129,6 +129,78 @@ footer {
     left: 30px;
 }
 
+.cursor-holder {
+	height: 50px;
+	width: 50px;
+	border: 5px var(--bg-light) solid;
+	border-radius: 50%;
+}
+
+.colour-circle-holder {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.colour-circle {
+    position: relative;
+    flex-basis: calc(10% - 4px);
+    margin: 2px;
+    box-sizing: border-box;
+}
+
+.colour-circle::before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+}
+
+.colour-circle .colour-button {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    width: 100%;
+    border: 1px solid;
+    border-radius: 50%;
+}
+
+.tool-holder {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tool-button {
+    position: relative;
+    flex-basis: calc(25% - 4px);
+    margin: 2px;
+    box-sizing: border-box;
+    border: none;
+    background: none;
+    cursor: pointer;
+    filter: saturate(0%);
+    transition: all 0.2s ease-in-out;
+}
+
+.tool-button:hover,
+.tool-button:focus {
+    filter: saturate(100%);
+    transform: scale(1.1);
+}
+
+.tool-icon {
+    max-height: 100px;
+}
+
+/* MEDIA QUERIES */
+
+@media (min-width: 768px) {
+    .colour-circle {
+        position: relative;
+        flex-basis: calc(25% - 4px);
+        margin: 2px;
+        box-sizing: border-box;
+    }
+}
+
 @media (min-width: 992px) {
     .control-panel {
         border: 2px solid #606060;
