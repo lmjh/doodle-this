@@ -77,3 +77,27 @@ document.getElementById("preset-colour-holder").addEventListener("click", functi
         changeColor(e.target.value);
         }
 })
+
+/**
+ * Takes a selected tool button node and sets that tool as the Atrament canvas' current mode.
+ * Removes the 'active-tool' class from all tool buttons, then adds it to the selected tool butotn. 
+ */
+function changeTool(selectedTool) {
+    sketchbook.mode = selectedTool.value;
+    $('.tool-button').removeClass('active-tool');
+    selectedTool.classList.add('active-tool');
+}
+
+// add an event listener to the element that holds the tool buttons
+document.getElementById("tool-holder").addEventListener("click", function(e) {
+    // if the user presses enter with one of the tool buttons focused, the button will be the event target
+    if (e.target && e.target.matches(".tool-button")) {
+        // pass the value of the button to the changeTool function
+        changeTool(e.target);
+        }
+    // if the user clicks on one of the tool buttons, the svg image will be the event target
+    else if (e.target && e.target.matches(".tool-icon")) {
+        // pass the value of the image's parent button element to the changeTool function
+        changeTool(e.target.parentElement);
+        }
+})
