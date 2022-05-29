@@ -1,20 +1,22 @@
-// Initialise Bootstrap tooltips
+// initialise Bootstrap tooltips
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(
     tooltipTriggerEl))
 
-// Find sketchbook element
+// find sketchbook element
 const canvas = document.querySelector('#sketchbook');
 
-// Initialise Atrament canvas
-const sketchpad = new Atrament(canvas, {
+// initialise Atrament canvas
+const sketchbook = new Atrament(canvas, {
     width: 1280,
     height: 720,
     color: "#000000",
     weight: 20,
 });
 
-// use CSS transform to scale the contents of the #sketchbook-scaler element
+/**
+ * Uses CSS transforms to scale the contents of the #sketchbook-scaler element
+ */
 function resizeCanvas() {
     // find sketchbook-scaler and scaler-holder divs
     let scaler = document.getElementById('sketchbook-scaler')
@@ -50,3 +52,28 @@ addEventListener("resize", function() {
         resizeCanvas();
     }, 200);
 });
+
+/**
+ * Takes the name of a selected colour and finds the corresponding hex code from the document's CSS root variable 
+ * colours, then uses it to set the Atrament canvas' current colour.
+ */
+function changeColor(selectedColor) {
+    // assign document colours to a variable
+    // https://stackoverflow.com/a/41725782
+    let colors = getComputedStyle(document.body);
+
+    // find the hex code of the selected colour  
+    let color = colors.getPropertyValue(selectedColor);
+
+    // set the colour as the canvas' current colour
+    sketchbook.color = color;
+}
+
+// add an event listener to the element that holds the preset colour buttons
+document.getElementById("preset-colour-holder").addEventListener("click", function(e) {
+    // if the user clicks on one of the colour buttons inside the holder element
+    if (e.target && e.target.matches(".colour-button")) {
+        // pass the clicked button's value to the changeColor function
+        changeColor(e.target.value);
+        }
+})
