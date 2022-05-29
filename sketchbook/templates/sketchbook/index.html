@@ -6,43 +6,50 @@
 {% block content %}
 
 <div class="container-fluid overflow-hidden">
-    <div class="row mt-lg-3 mx-lg-0">
+    <div class="row mt-xl-3 mx-xl-0">
         <!-- controls at top on small screens and on left on large screens -->
-        <div class="col-12 col-lg-2 mb-2">
-            <div class="row control-panel">
-                <div class="col-12 mt-2 d-none d-lg-block">
+        <div class="col-12 col-xl-2 mb-2">
+            <div class="row control-panel py-2">
+                <div class="col-12 mt-2 d-none d-xl-block">
                     <img class="control-panel-logo" src="/media/svg/doodle-this-logo.svg" alt="Doodle This logo">
                 </div>
                 <!-- drawing prompt box -->
-                <div class="col-12 col-sm-8 col-lg-12 my-2">
-                    <div class="drawing-prompt-box">
+                <div class="col-12 col-sm-8 col-lg-6 col-xl-12 my-2 d-flex flex-column justify-content-center">
+                    <div class="drawing-prompt-box p-2">
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque velit ea est. 
                     </div>
                 </div>
                 <!-- prompt control buttons -->
-                <div class="col-12 col-sm-4 col-lg-12 my-auto">
-                    <div class="text-center d-sm-grid gap-sm-2 mb-2 mb-sm-0">
-                        <button class="btn btn-brand-primary" type="button">New Prompt</button>
-                        <button class="btn btn-brand-primary" type="button">Hide Prompt</button>
+                <div class="col-12 col-sm-4 col-lg-6 col-xl-12 d-flex flex-column justify-content-center">
+                    <div class="flex-wrap-holder">
+                        <button class="btn btn-brand-primary prompt-button" type="button">New Prompt</button>
+                        <button class="btn btn-brand-primary prompt-button" type="button">Hide Prompt</button>
                     </div>
                 </div>
                 <!-- sketchbook control buttons -->
-                <div class="col-12 my-2 d-none d-lg-flex justify-content-between">
-                    <button type="button" class="btn btn-icon" data-bs-toggle="tooltip" data-bs-placement="top"
-                        title="Clear Sketchbook"><i class="fa-solid fa-trash"></i></button>
-                    <button type="button" class="btn btn-icon" data-bs-toggle="tooltip" data-bs-placement="top"
-                        title="Sketchbook Settings"><i class="fa-solid fa-gear"></i></button>
-                    <button type="button" class="btn btn-icon" data-bs-toggle="tooltip" data-bs-placement="top"
-                        title="Save Doodle"><i class="fa-solid fa-floppy-disk"></i></button>
-                    <button type="button" class="btn btn-icon" data-bs-toggle="tooltip" data-bs-placement="top"
-                        title="My Gallery"><i class="fa-solid fa-images"></i></button>
+                <div class="col-12 d-none d-xl-block">
+                    <div class="my-2 flex-wrap-holder">
+                        <button class="btn btn-brand-primary control-button">
+                            Clear
+                        </button>
+                        <button class="btn btn-brand-primary control-button">
+                            Options
+                        </button>
+                        <button class="btn btn-brand-primary control-button">
+                            Save
+                        </button>
+                        <button class="btn btn-brand-primary control-button">
+                            Gallery
+                        </button>
+                    </div>
                 </div>
-                <div class="col-12 d-none d-lg-block">
+                <div class="col-12 text-center d-none d-xl-block">
                     <p class="small"><a href="">Sign in</a> or <a href="">register</a> to save your doodles.</p>
                 </div>
             </div>
         </div>
         <!-- sketchbook canvas section -->
-        <div class="col-12 col-md-9 col-lg-8 mb-2">
+        <div class="col-12 col-md-9 col-xl-8 mb-2">
             <!-- div to hold the scaling div and provide width for scale ratio calculation -->
             <div id="scaler-holder">
                 <!-- div to scale the canvas and its background image up and down by screensize -->
@@ -56,8 +63,8 @@
             </div>
         </div>
         <!-- controls at bottom on small screens and on right on large screens -->
-        <div class="col-12 col-md-3 col-lg-2 mb-2">
-            <div class="row control-panel">
+        <div class="col-12 col-md-3 col-xl-2 mb-2">
+            <div class="row control-panel py-2">
                 <div class="col-6 col-md-12 order-1 d-flex flex-column justify-content-center d-md-block">
                     <!-- drawing cursor preview -->
                     <div class="col-12 d-flex justify-content-center my-2">
@@ -67,8 +74,7 @@
                     <!-- stroke width control -->
                     <div class="col-12 mb-2">
                         <label for="stroke-width" class="form-label visually-hidden">Stroke Width</label>
-                        <input type="range" class="form-range" id="stroke-width" min="2" max="40"
-                            value="20" step="2">
+                        <input type="range" class="form-range" id="stroke-width" min="2" max="40" value="20" step="2">
                     </div>
                 </div>
                 <!-- colour picker -->
@@ -78,7 +84,7 @@
                 <!-- responsive grid of colour selection circles built with flex-box -->
                 <!-- based on this tutorial: https://dev.to/stretch0/a-grid-layout-with-responsive-squares-59c6 -->
                 <div class="col-12 mb-2 order-4 order-md-3">
-                    <div class="colour-circle-holder">
+                    <div class="flex-wrap-holder">
                         <div class="colour-circle">
                             <button class="colour-button">
                             </button>
@@ -163,9 +169,10 @@
                 </div>
                 <!-- tool selection controls -->
                 <div class="col-6 col-md-12 mb-2 order-2 order-md-4">
-                    <div class="tool-holder h-100 mt-2 mt-md-0">
+                    <div class="flex-wrap-holder h-100 mt-2 mt-md-0">
                         <button class="tool-button">
-                            <img src="/media/svg/pencil.svg" alt="Pencil tool icon" aria-hidden="true" class="tool-icon">
+                            <img src="/media/svg/pencil.svg" alt="Pencil tool icon" aria-hidden="true"
+                                class="tool-icon">
                             <span class="visually-hidden">Pencil tool</span>
                         </button>
                         <button class="tool-button">
@@ -177,11 +184,32 @@
                             <span class="visually-hidden">Fill tool</span>
                         </button>
                         <button class="tool-button">
-                            <img src="/media/svg/eraser.svg" alt="Eraser tool icon" aria-hidden="true" class="tool-icon">
+                            <img src="/media/svg/eraser.svg" alt="Eraser tool icon" aria-hidden="true"
+                                class="tool-icon">
                             <span class="visually-hidden">Eraser tool</span>
                         </button>
                     </div>
                 </div>
+            </div>
+        </div>
+        <!-- sketchbook control buttons at bottom on screens up to 1199px -->
+        <div class="col-12 d-xl-none control-panel mt-2 mb-5">
+            <div class="my-2 flex-wrap-holder">
+                <button class="btn btn-brand-primary control-button">
+                    Clear
+                </button>
+                <button class="btn btn-brand-primary control-button">
+                    Options
+                </button>
+                <button class="btn btn-brand-primary control-button">
+                    Save
+                </button>
+                <button class="btn btn-brand-primary control-button">
+                    Gallery
+                </button>
+            </div>
+            <div class="col-12 text-center">
+                <p class="small"><a href="">Sign in</a> or <a href="">register</a> to save your doodles.</p>
             </div>
         </div>
     </div>
