@@ -8,6 +8,26 @@
     --bg-dark: #303030;
     --bg-light: #ebebeb;
     --bg-grey: #A3A3A3;
+    --red-ink: #D6281B;
+    --orange-ink: #F08F10;
+    --yellow-ink: #FFE921;
+    --green-ink: #0ECA2F;
+    --blue-ink: #2597D3;
+    --purple-ink: #8850E0;
+    --beige-ink: #D0A07C;
+    --brown-ink: #3C1F1B;
+    --black-ink: #000000;
+    --light-grey-ink: #BBBBBB;
+    --light-red-ink: #FF6666;
+    --light-orange-ink: #FEB450;
+    --light-yellow-ink: #FFFD77;
+    --light-green-ink: #9AE99A;
+    --light-blue-ink: #91C7DD;
+    --pink-ink: #E08EDB;
+    --light-beige-ink: #F7D1B2;
+    --light-brown-ink: #A65F2C;
+    --grey-ink: #515151;
+    --white-ink: #ffffff;
 }
 
 body {
@@ -152,6 +172,86 @@ footer {
     border-radius: 50%;
 }
 
+.red-ink {
+	background-color: var(--red-ink);
+}
+
+.orange-ink {
+	background-color: var(--orange-ink);
+}
+
+.yellow-ink {
+	background-color: var(--yellow-ink);
+}
+
+.green-ink {
+	background-color: var(--green-ink);
+}
+
+.blue-ink {
+	background-color: var(--blue-ink);
+}
+
+.purple-ink {
+	background-color: var(--purple-ink);
+}
+
+.beige-ink {
+	background-color: var(--beige-ink);
+}
+
+.brown-ink {
+	background-color: var(--brown-ink);
+}
+
+.black-ink {
+	background-color: var(--black-ink);
+}
+
+.light-grey-ink {
+	background-color: var(--light-grey-ink);
+}
+
+.light-red-ink {
+	background-color: var(--light-red-ink);
+}
+
+.light-orange-ink {
+	background-color: var(--light-orange-ink);
+}
+
+.light-yellow-ink {
+	background-color: var(--light-yellow-ink);
+}
+
+.light-green-ink {
+	background-color: var(--light-green-ink);
+}
+
+.light-blue-ink {
+	background-color: var(--light-blue-ink);
+}
+
+.pink-ink {
+	background-color: var(--pink-ink);
+}
+
+.light-beige-ink {
+	background-color: var(--light-beige-ink);
+}
+
+.light-brown-ink {
+	background-color: var(--light-brown-ink);
+}
+
+.grey-ink {
+	background-color: var(--grey-ink);
+}
+
+.white-ink {
+	background-color: var(--white-ink);
+}
+
 .tool-button {
     position: relative;
     flex-basis: calc(25% - 4px);
@@ -195,6 +295,31 @@ footer {
         margin: 2px;
         box-sizing: border-box;
     }
+
+    .colour-group-1 {
+        order: 1;
+    }
+
+    .colour-group-2 {
+        order: 2;
+    }
+
+    .colour-group-3 {
+        order: 3;
+    }
+
+    .colour-group-4 {
+        order: 4;
+    }
+
+    .colour-group-5 {
+        order: 5;
+    }
+
+    .colour-group-6 {
+        order: 6;
+    }
+
 }
 
 @media (min-width: 992px) {
