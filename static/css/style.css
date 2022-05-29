@@ -320,6 +320,10 @@ footer {
         order: 6;
     }
 
+    .colour-group-7 {
+        order: 7;
+    }
+
 }
 
 @media (min-width: 992px) {
