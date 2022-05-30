@@ -34,7 +34,7 @@
                 <div class="col-12 d-none d-xl-block">
                     <div class="my-2 flex-wrap-holder">
                         <button class="btn btn-brand-primary control-button" data-bs-toggle="modal" 
-                        data-bs-target="#clearModal">
+                            data-bs-target="#clearModal">
                             Clear
                         </button>
                         <button class="btn btn-brand-primary control-button">
@@ -73,7 +73,8 @@
                 <div class="col-6 col-md-12 order-1 d-flex flex-column justify-content-center d-md-block">
                     <!-- drawing cursor preview -->
                     <div class="col-12 d-flex justify-content-center my-2">
-                        <div class="cursor-holder">
+                        <div class="cursor-holder d-flex justify-content-center align-items-center">
+                            <div id="cursor"></div>
                         </div>
                     </div>
                     <!-- stroke width control -->
@@ -223,7 +224,8 @@
         <!-- sketchbook control buttons at bottom on screens up to 1199px -->
         <div class="col-12 d-xl-none control-panel mt-2 mb-5">
             <div class="my-2 flex-wrap-holder">
-                <button class="btn btn-brand-primary control-button">
+                <button class="btn btn-brand-primary control-button" data-bs-toggle="modal" 
+                    data-bs-target="#clearModal">
                     Clear
                 </button>
                 <button class="btn btn-brand-primary control-button">

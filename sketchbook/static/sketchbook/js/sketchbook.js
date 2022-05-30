@@ -26,9 +26,15 @@ Coloris({
     defaultColor: "#000000" ,
 });
 
-// add an event listener to set the Atrament canvas colour when a colour is selected with the Coloris picker
+// set the cursor element's colour to the value of the Coloris picker
+$('#cursor').css('background-color', document.getElementById('coloris-picker').value)
+
+// add an event listener to set the Atrament canvas colour and cursor preview colour when a colour is selected with the 
+// Coloris picker
 document.addEventListener('coloris:pick', event => {
-    sketchbook.color = event.detail.color
+    color = event.detail.color;
+    sketchbook.color = color;
+    $('#cursor').css('background-color', color);
 });
 
 /**
@@ -71,7 +77,8 @@ addEventListener("resize", function() {
 });
 
 /**
- * Takes a colour as a string and uses it to set the Atrament canvas' current colour and the Coloris picker's value
+ * Takes a colour as a string and uses it to set the Atrament canvas' current colour, the Coloris picker's value, and
+ * the cursor preview colour
  */
 function changeColor(color) {
     // set the received colour as the canvas' current colour
@@ -79,6 +86,8 @@ function changeColor(color) {
     // set the received colour as the Coloris picker's current value and displayed colour
     $('.coloris').val(color);
     $('.clr-field').css('color', color);
+    // set the received colour as the cursor preview's background colour
+    $('#cursor').css('background-color', color);
 }
 
 /**
@@ -130,13 +139,16 @@ document.getElementById("tool-holder").addEventListener("click", function(e) {
 })
 
 /**
- * Changes the stroke weight of the Atrament canvas to the value of the triggering event's target.
+ * Changes the stroke weight of the Atrament canvas to the value of the triggering event's target and updates the cursor
+ * preview to match.
  */
 function changeWeight(e) {
-    // assign event taget's value to a variable
-    weight = e.target.value
-    // convert the string to an int and pass to Atrament canvas
-    sketchbook.weight = parseInt(weight);
+    // convert the event taget's value to an int
+    weight = parseInt(e.target.value);
+    // pass to Atrament canvas
+    sketchbook.weight = weight;
+    // set cursor preview to same width and height as canvas tool
+    $('#cursor').css('width', weight).css('height', weight)
 }
 
 // add event listener to change Atrament canvas stroke weight when slider is changed

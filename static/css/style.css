@@ -166,6 +166,7 @@ footer {
 
 .modal-content {
     background-color: #303030ef;
+    border: 2px solid var(--border-grey);
 }
 
 .modal-header {
@@ -222,6 +223,14 @@ footer {
     width: 50px;
     border: 5px var(--bg-grey) solid;
     border-radius: 50%;
+    transform-origin: center;
+}
+
+#cursor {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #FEB450;
 }
 
 input[type=range]::-webkit-slider-thumb {
