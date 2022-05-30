@@ -11,7 +11,8 @@ const sketchbook = new Atrament(canvas, {
     width: 1280,
     height: 720,
     color: "#000000",
-    weight: 20,
+    // set weight to the current value of the stroke weight slider 
+    weight: parseInt(document.getElementById('stroke-weight').value),
 });
 
 /**
