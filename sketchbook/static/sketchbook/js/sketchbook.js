@@ -122,3 +122,9 @@ function changeWeight(e) {
 
 // add event listener to change Atrament canvas stroke weight when slider is changed
 document.getElementById('stroke-weight').addEventListener('change', changeWeight)
+
+// add event listener to clear Atrament canvas when clear confirmation button is clicked
+document.getElementById('clear-sketchbook').addEventListener('click', function() {
+    sketchbook.clear();
+})
+

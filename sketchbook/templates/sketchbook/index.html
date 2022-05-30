@@ -29,7 +29,8 @@
                 <!-- sketchbook control buttons -->
                 <div class="col-12 d-none d-xl-block">
                     <div class="my-2 flex-wrap-holder">
-                        <button class="btn btn-brand-primary control-button">
+                        <button class="btn btn-brand-primary control-button" data-bs-toggle="modal" 
+                        data-bs-target="#clearModal">
                             Clear
                         </button>
                         <button class="btn btn-brand-primary control-button">
@@ -235,6 +236,27 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block page_modals %}
+<!-- canvas clear confirmation modal -->
+<div class="modal fade" id="clearModal" tabindex="-1" aria-labelledby="clearModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="clearModalLabel">Clear Sketchbook</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to clear your sketchbook? Any unsaved doodles will be lost.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="clear-sketchbook">Clear Sketchbook</button>
+        </div>
+      </div>
+    </div>
+  </div>  
 {% endblock %}
 
 {% block page_js %}
