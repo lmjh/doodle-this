@@ -54,27 +54,34 @@ addEventListener("resize", function() {
 });
 
 /**
- * Takes the name of a selected colour and finds the corresponding hex code from the document's CSS root variable 
- * colours, then uses it to set the Atrament canvas' current colour.
+ * Takes a colour as a string and uses it to set the Atrament canvas' current colour.
  */
-function changeColor(selectedColor) {
-    // assign document colours to a variable
-    // https://stackoverflow.com/a/41725782
-    let colors = getComputedStyle(document.body);
-
-    // find the hex code of the selected colour  
-    let color = colors.getPropertyValue(selectedColor);
-
-    // set the colour as the canvas' current colour
+function changeColor(color) {
+    // set the received colour as the canvas' current colour
     sketchbook.color = color;
+}
+
+/**
+ * Takes a clicked preset colour button and finds its background colour. Finding the colours programmatically like this 
+ * rather than using a fixed set of options means that the colour presets can be easily changed with CSS root variables 
+ * and the correct colour will automatically found and passed to the Atrament canvas.
+ */
+function findColor(clickedButton) {
+        // get the computed style of the received button element
+        let compStyle = window.getComputedStyle(clickedButton);
+        // assign the background colour to a variable and return it
+        let color = compStyle.getPropertyValue('background-color');
+        return color;
 }
 
 // add an event listener to the element that holds the preset colour buttons
 document.getElementById("preset-colour-holder").addEventListener("click", function(e) {
     // if the user clicks on one of the colour buttons inside the holder element
     if (e.target && e.target.matches(".colour-button")) {
-        // pass the clicked button's value to the changeColor function
-        changeColor(e.target.value);
+        // pass the button to the findColor function to get its background colour as an rbg() formatted string
+        let color = findColor(e.target)
+        // pass the returned colour to the changeColor function
+        changeColor(color);
         }
 })
 
