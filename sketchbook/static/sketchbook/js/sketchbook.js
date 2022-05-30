@@ -108,3 +108,16 @@ document.getElementById("tool-holder").addEventListener("click", function(e) {
         changeTool(e.target.parentElement);
         }
 })
+
+/**
+ * Changes the stroke weight of the Atrament canvas to the value of the triggering event's target.
+ */
+function changeWeight(e) {
+    // assign event taget's value to a variable
+    weight = e.target.value
+    // convert the string to an int and pass to Atrament canvas
+    sketchbook.weight = parseInt(weight);
+}
+
+// add event listener to change Atrament canvas stroke weight when slider is changed
+document.getElementById('stroke-weight').addEventListener('change', changeWeight)
