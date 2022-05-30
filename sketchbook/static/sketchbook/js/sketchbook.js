@@ -77,16 +77,24 @@ addEventListener("resize", function() {
 });
 
 /**
- * Takes a colour as a string and uses it to set the Atrament canvas' current colour, the Coloris picker's value, and
- * the cursor preview colour
+ * Takes a colour as a string and uses it to set the Atrament canvas' current colour
  */
-function changeColor(color) {
-    // set the received colour as the canvas' current colour
+function changeAtramentColor(color) {
     sketchbook.color = color;
-    // set the received colour as the Coloris picker's current value and displayed colour
+}
+
+/**
+ * Takes a colour as a string and uses it to set the Coloris picker's value and displayed colour
+ */
+function changeColorisColor(color) {
     $('.coloris').val(color);
     $('.clr-field').css('color', color);
-    // set the received colour as the cursor preview's background colour
+}
+
+/**
+ * Takes a colour as a string and uses it to set the cursor preview colour
+ */
+function changeCursorColor(color) {
     $('#cursor').css('background-color', color);
 }
 
@@ -110,8 +118,17 @@ document.getElementById("preset-colour-holder").addEventListener("click", functi
         // pass the button to the findColor function to get its background colour as an rbg() formatted string
         let color = findColor(e.target)
         // pass the returned colour to the changeColor function
-        changeColor(color);
-        }
+        changeAtramentColor(color);
+        changeColorisColor(color);
+        changeCursorColor(color);
+    }
+})
+
+// add an event listener for the custom event 'colorpicked', triggered when the colour picker tool is used
+sketchbook.addEventListener('colorpicked', function(e) {
+    // use the colour returned by the colorpicked event to update the Coloris plugin and cursor preview 
+    changeColorisColor(e.color);
+    changeCursorColor(e.color);
 })
 
 /**
