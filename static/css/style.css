@@ -66,6 +66,12 @@ a:hover {
     background-color: var(--bg-dark) !important;
 }
 
+a:focus-visible,
+.tool-button:focus-visible {
+    outline: 1px solid;
+    outline-color: var(--brand-primary-color);
+}
+
 .btn-brand-primary {
     font-family: 'Baloo 2', Arial, Helvetica, sans-serif;
     font-weight: bold;
@@ -82,6 +88,13 @@ a:hover {
     background-color: var(--brand-primary-color);
     border-color: var(--brand-primary-color);
     box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -1px rgba(0, 0, 0, 0.2);
+}
+
+.btn-brand-primary:focus {
+    color: var(--text-dark);
+    background-color: var(--brand-primary-color);
+    border-color: var(--brand-primary-color);
+    box-shadow: 0 0 0 .25rem rgba(130,138,145,.5);
 }
 
 .btn {
@@ -231,6 +244,12 @@ footer {
     width: 100%;
     border: 1px solid;
     border-radius: 50%;
+}
+
+.colour-button:focus-visible {
+    outline: 1px solid;
+    outline-color: #fff;
+    box-shadow: 0 0 0 .25rem rgba(130,138,145,.5);
 }
 
 .red-ink {
