@@ -10,9 +10,25 @@ const canvas = document.querySelector('#sketchbook');
 const sketchbook = new Atrament(canvas, {
     width: 1280,
     height: 720,
-    color: "#000000",
+    // set colour to the current value of the coloris color picker 
+    color: document.getElementById('coloris-picker').value,
     // set weight to the current value of the stroke weight slider 
     weight: parseInt(document.getElementById('stroke-weight').value),
+});
+
+// initialise Coloris colour picker
+Coloris({
+    el: '.coloris',
+    theme: 'polaroid',
+    themeMode: 'dark',
+    alpha: false,
+    format: 'rgb',
+    defaultColor: "#000000" ,
+});
+
+// add an event listener to set the Atrament canvas colour when a colour is selected with the Coloris picker
+document.addEventListener('coloris:pick', event => {
+    sketchbook.color = event.detail.color
 });
 
 /**
@@ -55,11 +71,14 @@ addEventListener("resize", function() {
 });
 
 /**
- * Takes a colour as a string and uses it to set the Atrament canvas' current colour.
+ * Takes a colour as a string and uses it to set the Atrament canvas' current colour and the Coloris picker's value
  */
 function changeColor(color) {
     // set the received colour as the canvas' current colour
     sketchbook.color = color;
+    // set the received colour as the Coloris picker's current value and displayed colour
+    $('.coloris').val(color);
+    $('.clr-field').css('color', color);
 }
 
 /**

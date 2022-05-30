@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block page_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css"/>
+{% endblock %}
+
 {% block page_title %}Sketchbook - Doodle This{% endblock %}
 
 {% block content %}
@@ -80,7 +84,10 @@
                 </div>
                 <!-- colour picker -->
                 <div class="col-12 mb-2 order-3 order-md-2">
-                    <div></div>
+                    <div class="coloris-background">
+                        <input type="text" id="coloris-picker" class="coloris" value="#000000" aria-hidden="true" 
+                            tabindex="-1" data-coloris>
+                    </div>
                 </div>
                 <!-- responsive grid of colour selection circles built with flex-box -->
                 <!-- based on this tutorial: https://dev.to/stretch0/a-grid-layout-with-responsive-squares-59c6 -->
@@ -190,7 +197,7 @@
                 </div>
                 <!-- tool selection controls -->
                 <div class="col-6 col-md-12 mb-2 order-2 order-md-4">
-                    <div class="flex-wrap-holder h-100 mt-2 mt-md-0" id="tool-holder">
+                    <div class="flex-wrap-holder h-100 mt-2 mb-3 mt-md-0 mb-md-0" id="tool-holder">
                         <button class="tool-button active-tool" value="draw">
                             <img src="/media/svg/pencil.svg" alt="Pencil tool icon" aria-hidden="true"
                                 class="tool-icon">
@@ -260,6 +267,9 @@
 {% endblock %}
 
 {% block page_js %}
+<!-- load Atrament drawing plugin -->
 <script src="{% static 'sketchbook/js/atrament.min.js' %}"></script>
+<!-- load Coloris colour picker plugin -->
+<script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
 <script src="{% static 'sketchbook/js/sketchbook.js' %}"></script>
 {% endblock %}
