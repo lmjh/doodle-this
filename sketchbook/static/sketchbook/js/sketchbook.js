@@ -1,10 +1,5 @@
 // INITIALISE ELEMENTS AND STYLES
 
-// initialise Bootstrap tooltips
-const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(
-    tooltipTriggerEl));
-
 // find sketchbook element
 const canvas = document.querySelector('#sketchbook');
 // initialise Atrament canvas
@@ -178,4 +173,14 @@ document.getElementById('stroke-weight').addEventListener('change', changeWeight
 // add event listener to clear Atrament canvas when clear confirmation button is clicked
 document.getElementById('clear-sketchbook').addEventListener('click', function() {
     sketchbook.clear();
+});
+
+// add an event listener to the element that holds the adaptive stroke radio buttons
+document.getElementById("adaptive-stroke").addEventListener("click", function(e) {
+    // if the user selects one of the radio buttons
+    if (e.target && e.target.matches(".btn-check")) {
+        // the expression e.target.id == 'on' will evaluate to true if user selects the 'on' button.
+        // otherwise it will evaluate to false.
+        sketchbook.adaptiveStroke = e.target.id == 'on';
+    }
 });
