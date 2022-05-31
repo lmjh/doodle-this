@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block page_css %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css" />
 {% endblock %}
 
 {% block page_title %}Sketchbook - Doodle This{% endblock %}
@@ -20,7 +20,7 @@
                 <!-- drawing prompt box -->
                 <div class="col-12 col-sm-8 col-lg-6 col-xl-12 my-2 d-flex flex-column justify-content-center">
                     <div class="drawing-prompt-box p-2">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque velit ea est. 
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque velit ea est.
                     </div>
                 </div>
                 <!-- prompt control buttons -->
@@ -33,11 +33,12 @@
                 <!-- sketchbook control buttons -->
                 <div class="col-12 d-none d-xl-block">
                     <div class="my-2 flex-wrap-holder">
-                        <button class="btn btn-brand-primary control-button" data-bs-toggle="modal" 
+                        <button class="btn btn-brand-primary control-button" data-bs-toggle="modal"
                             data-bs-target="#clearModal">
                             Clear
                         </button>
-                        <button class="btn btn-brand-primary control-button">
+                        <button class="btn btn-brand-primary control-button" data-bs-toggle="modal"
+                            data-bs-target="#optionsModal">
                             Options
                         </button>
                         <button class="btn btn-brand-primary control-button" disabled>
@@ -86,7 +87,7 @@
                 <!-- colour picker -->
                 <div class="col-12 mb-2 order-3 order-md-2">
                     <div class="coloris-background">
-                        <input type="text" id="coloris-picker" class="coloris" value="#000000" aria-hidden="true" 
+                        <input type="text" id="coloris-picker" class="coloris" value="#000000" aria-hidden="true"
                             tabindex="-1" data-coloris>
                     </div>
                 </div>
@@ -210,11 +211,12 @@
                         </button>
                         <button class="tool-button" value="erase">
                             <img src="/media/svg/eraser.svg" alt="Eraser tool icon" aria-hidden="true"
-                            class="tool-icon">
+                                class="tool-icon">
                             <span class="visually-hidden">Eraser tool</span>
                         </button>
                         <button class="tool-button" value="picker">
-                            <img src="/media/svg/picker.svg" alt="Picker tool icon" aria-hidden="true" class="tool-icon">
+                            <img src="/media/svg/picker.svg" alt="Picker tool icon" aria-hidden="true"
+                                class="tool-icon">
                             <span class="visually-hidden">Picker tool</span>
                         </button>
                     </div>
@@ -224,11 +226,12 @@
         <!-- sketchbook control buttons at bottom on screens up to 1199px -->
         <div class="col-12 d-xl-none control-panel mt-2 mb-5">
             <div class="my-2 flex-wrap-holder">
-                <button class="btn btn-brand-primary control-button" data-bs-toggle="modal" 
+                <button class="btn btn-brand-primary control-button" data-bs-toggle="modal"
                     data-bs-target="#clearModal">
                     Clear
                 </button>
-                <button class="btn btn-brand-primary control-button">
+                <button class="btn btn-brand-primary control-button" data-bs-toggle="modal"
+                    data-bs-target="#optionsModal">
                     Options
                 </button>
                 <button class="btn btn-brand-primary control-button" disabled>
@@ -251,27 +254,73 @@
 <!-- canvas clear confirmation modal -->
 <div class="modal fade" id="clearModal" tabindex="-1" aria-labelledby="clearModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="clearModalLabel">Clear Sketchbook</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="clearModalLabel">Clear Sketchbook</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to clear your sketchbook? Any unsaved doodles will be lost.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="clear-sketchbook">Clear
+                    Sketchbook</button>
+            </div>
         </div>
-        <div class="modal-body">
-          Are you sure you want to clear your sketchbook? Any unsaved doodles will be lost.
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="clear-sketchbook">Clear Sketchbook</button>
-        </div>
-      </div>
     </div>
-  </div>  
-{% endblock %}
+</div>
 
-{% block page_js %}
-<!-- load Atrament drawing plugin -->
-<script src="{% static 'sketchbook/js/atrament.min.js' %}"></script>
-<!-- load Coloris colour picker plugin -->
-<script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
-<script src="{% static 'sketchbook/js/sketchbook.js' %}"></script>
-{% endblock %}
+<!-- canvas options modal -->
+<div class="modal fade" id="optionsModal" tabindex="-1" aria-labelledby="optionsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="optionsModalLabel">Sketchbook Options</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- canvas background selection controls -->
+                <fieldset class="flex-wrap-holder mb-3" id="paper-type">
+                    <legend class="fs-6">Paper background: </legend>
+                    <input type="radio" class="btn-check " name="paper-type" id="none" autocomplete="off" checked>
+                    <label class="btn btn-brand-primary settings-button" for="none">None</label>
+                    <input type="radio" class="btn-check" name="paper-type" id="watermark" autocomplete="off">
+                    <label class="btn btn-brand-primary settings-button" for="watermark">Watermark</label>
+                    <input type="radio" class="btn-check" name="paper-type" id="lines" autocomplete="off">
+                    <label class="btn btn-brand-primary settings-button" for="lines">Lines</label>
+                    <input type="radio" class="btn-check" name="paper-type" id="squares" autocomplete="off">
+                    <label class="btn btn-brand-primary settings-button" for="squares">Squares</label>
+                </fieldset>
+                <!-- stroke smoothing control slider -->
+                <div class="mb-2">
+                    <label for="smoothing" class="form-label">Stroke smoothing:</label>
+                    <input class="form-range" id="smoothing" type="range">
+                </div>
+                <!-- adaptive stroke on/off controls -->
+                <div class="mb-3">
+                    <fieldset class="flex-wrap-holder justify-content-end mb-3">
+                        <legend class="fs-6">Adaptive stroke: </legend>
+                        <input type="radio" class="btn-check" name="adaptive-stroke" id="on" autocomplete="off">
+                        <label class="btn btn-brand-primary settings-button" for="on">On</label>
+                        <input type="radio" class="btn-check" name="adaptive-stroke" id="off" autocomplete="off" checked>
+                        <label class="btn btn-brand-primary settings-button" for="off">Off</label>
+                    </fieldset>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-brand-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block page_js %}
+    <!-- load Atrament drawing plugin -->
+    <script src="{% static 'sketchbook/js/atrament.min.js' %}"></script>
+    <!-- load Coloris colour picker plugin -->
+    <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
+    <script src="{% static 'sketchbook/js/sketchbook.js' %}"></script>
+    {% endblock %}
