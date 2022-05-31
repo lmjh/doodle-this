@@ -217,6 +217,7 @@ footer {
     top: 110px;
     left: 30px;
     cursor: crosshair;
+    touch-action: none;
 }
 
 .cursor-holder {
