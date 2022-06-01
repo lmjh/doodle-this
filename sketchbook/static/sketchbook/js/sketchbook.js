@@ -6,6 +6,7 @@ const canvas = document.querySelector('#sketchbook');
 const sketchbook = new Atrament(canvas, {
     width: 1280,
     height: 720,
+    adaptiveStroke: false,
     // set colour to the current value of the coloris color picker 
     color: document.getElementById('coloris-picker').value,
     // set weight to the current value of the stroke weight slider 
@@ -108,12 +109,9 @@ function changeTool(selectedTool) {
 }
 
 /**
- * Changes the stroke weight of the Atrament canvas to the value of the triggering event's target and updates the cursor
- * preview to match.
+ * Changes the stroke weight of the Atrament canvas to the received int and updates the cursor preview to match.
  */
-function changeWeight(e) {
-    // convert the event taget's value to an int
-    let weight = parseInt(e.target.value);
+function changeWeight(weight) {
     // pass to Atrament canvas
     sketchbook.weight = weight;
     // set cursor preview to same width and height as canvas tool
@@ -121,25 +119,23 @@ function changeWeight(e) {
 }
 
 /**
- * Changes the stroke smoothing factor of the Atrament canvas to the value of the triggering event's target.
+ * Changes the stroke smoothing factor of the Atrament canvas to the value of received float.
  */
-function changeSmoothing(e) {
-    // convert the event taget's value to a float
-    let smoothing = parseFloat(e.target.value);
-    // pass to Atrament canvas
+function changeSmoothing(smoothing) {
+    // pass float to Atrament canvas
     sketchbook.smoothing = smoothing;
 }
 
 /**
- * Changes the background of the sketchbook to the target of the selected option
+ * Changes the background of the sketchbook according to the received string
  */
-function changePaper(e) {
+function changePaper(paperType) {
     // find the paper background element
     paper = $('#paper');
     // remove all paper classes
     paper.removeClass('plain-paper watermarked-paper lined-paper squared-paper');
-    // use the id of the triggering radio button to select the code to run from a switch statement
-    switch (e.target.id) {
+    // use the received string to set the paper class
+    switch (paperType) {
         case "none":
             paper.addClass('plain-paper');
             break;
@@ -214,7 +210,12 @@ document.getElementById("tool-holder").addEventListener("click", function(e) {
 });
 
 // add event listener to change Atrament canvas stroke weight when slider is changed
-document.getElementById('stroke-weight').addEventListener('change', changeWeight);
+document.getElementById('stroke-weight').addEventListener('change', function(e) {
+    // convert the event taget's value to an int
+    let weight = parseInt(e.target.value);
+    // pass to the changeWeight function
+    changeWeight(weight);
+});
 
 // add event listener to clear Atrament canvas when clear confirmation button is clicked
 document.getElementById('clear-sketchbook').addEventListener('click', function() {
@@ -222,7 +223,20 @@ document.getElementById('clear-sketchbook').addEventListener('click', function()
 });
 
 // add event listener to change Atrament canvas stroke smoothing factor when slider is changed
-document.getElementById('smoothing').addEventListener('change', changeSmoothing);
+document.getElementById('smoothing').addEventListener('change', function(e) {
+    // convert the value of the slider to a float and pass to the changeSmoothing function
+    smoothing = parseFloat(e.target.value);
+    changeSmoothing(smoothing);
+});
+
+
+
+document.getElementById('paper-type').addEventListener('click', function(e) {
+    if (e.target && e.target.matches(".btn-check")) {
+        // pass the id of the triggering button to the changePaper function
+        changePaper(e.target.id);
+    }
+});
 
 // add an event listener to the element that holds the adaptive stroke radio buttons
 document.getElementById("adaptive-stroke").addEventListener("click", function(e) {
@@ -231,11 +245,5 @@ document.getElementById("adaptive-stroke").addEventListener("click", function(e)
         // the expression e.target.id == 'on' will evaluate to true if user selects the 'on' button.
         // otherwise it will evaluate to false.
         sketchbook.adaptiveStroke = e.target.id == 'on';
-    }
-});
-
-document.getElementById('paper-type').addEventListener('click', function(e) {
-    if (e.target && e.target.matches(".btn-check")) {
-        changePaper(e);
     }
 });
