@@ -210,6 +210,8 @@ footer {
     color: var(--text-dark);
 }
 
+/* flex grids for buttons */
+
 .flex-wrap-holder {
     display: flex;
     flex-wrap: wrap;
@@ -231,6 +233,8 @@ footer {
     margin: 2px;
 }
 
+/* drawing canvas */
+
 #sketchbook-background {
     height: 980px;
     width: 1340px;
@@ -244,6 +248,33 @@ footer {
     cursor: crosshair;
     touch-action: none;
 }
+
+
+.plain-paper {
+    background-image: none;
+}
+
+.watermarked-paper {
+    background-image: url("/media/svg/watermark.svg");
+}
+
+/* Information on generating paper backgrounds with CSS gradients found in this thread:
+ https://stackoverflow.com/questions/3540194/how-to-make-a-grid-like-graph-paper-grid-with-just-css */
+
+ .lined-paper {
+    background-size: 20px 30px;
+    background-image:
+        linear-gradient(to bottom, rgb(147, 163, 255) 1px, transparent 2px);
+}
+
+.squared-paper {
+    background-size: 20px 20px;
+    background-image:
+        linear-gradient(to right, rgb(176, 176, 176) 1px, transparent 1px),
+        linear-gradient(to bottom, rgb(176, 176, 176) 1px, transparent 1px);
+}
+
+/* canvas cursor preview */
 
 .cursor-holder {
     height: 50px;
@@ -259,6 +290,8 @@ footer {
     border-radius: 50%;
     background-color: #FEB450;
 }
+
+/* slider styling */
 
 input[type=range]::-webkit-slider-thumb {
     background: var(--brand-primary-color);
@@ -283,6 +316,8 @@ input[type=range]:focus::-webkit-slider-runnable-track {
 input[type=range]:focus::-moz-range-track {
     background: var(--bg-light);
 }
+
+/* preset colour selection buttons */
 
 .colour-circle {
     position: relative;
@@ -392,6 +427,8 @@ input[type=range]:focus::-moz-range-track {
 .white-ink {
     background-color: var(--white-ink);
 }
+
+/* canvas tool selection buttons */
 
 .tool-button {
     position: relative;

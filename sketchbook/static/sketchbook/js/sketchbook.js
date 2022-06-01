@@ -122,6 +122,34 @@ function changeSmoothing(e) {
     sketchbook.smoothing = smoothing;
 }
 
+/**
+ * Changes the background of the sketchbook to the target of the selected option
+ */
+function changePaper(e) {
+    // find the sketchbook element
+    target = $('#sketchbook');
+    // remove all paper classes
+    target.removeClass('plain-paper watermarked-paper lined-paper squared-paper');
+    // use the id of the triggering radio button to select the code to run from a switch statement
+    switch (e.target.id) {
+        case "none":
+            target.addClass('plain-paper');
+            break;
+        case "watermark":
+            target.addClass('watermarked-paper');
+            break;
+        case "lined":
+            target.addClass('lined-paper');
+            break;
+        case "squared":
+            target.addClass('squared-paper');
+            break;
+        default:
+            // default to plain paper
+            target.addClass('plain-paper');
+    }
+}
+
 // ADD EVENT LISTENERS
 
 // add an event listener to set the Atrament canvas colour and cursor preview colour when a colour is selected with the 
@@ -195,5 +223,11 @@ document.getElementById("adaptive-stroke").addEventListener("click", function(e)
         // the expression e.target.id == 'on' will evaluate to true if user selects the 'on' button.
         // otherwise it will evaluate to false.
         sketchbook.adaptiveStroke = e.target.id == 'on';
+    }
+});
+
+document.getElementById('paper-type').addEventListener('click', function(e) {
+    if (e.target && e.target.matches(".btn-check")) {
+        changePaper(e);
     }
 });
