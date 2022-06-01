@@ -112,6 +112,16 @@ function changeWeight(e) {
     $('#cursor').css('width', weight).css('height', weight);
 }
 
+/**
+ * Changes the stroke smoothing factor of the Atrament canvas to the value of the triggering event's target.
+ */
+function changeSmoothing(e) {
+    // convert the event taget's value to a float
+    let smoothing = parseFloat(e.target.value);
+    // pass to Atrament canvas
+    sketchbook.smoothing = smoothing;
+}
+
 // ADD EVENT LISTENERS
 
 // add an event listener to set the Atrament canvas colour and cursor preview colour when a colour is selected with the 
@@ -174,6 +184,9 @@ document.getElementById('stroke-weight').addEventListener('change', changeWeight
 document.getElementById('clear-sketchbook').addEventListener('click', function() {
     sketchbook.clear();
 });
+
+// add event listener to change Atrament canvas stroke smoothing factor when slider is changed
+document.getElementById('smoothing').addEventListener('change', changeSmoothing);
 
 // add an event listener to the element that holds the adaptive stroke radio buttons
 document.getElementById("adaptive-stroke").addEventListener("click", function(e) {
