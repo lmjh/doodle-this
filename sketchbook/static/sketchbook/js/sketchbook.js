@@ -29,6 +29,9 @@ $('#cursor').css('background-color', document.getElementById('coloris-picker').v
 // call resizeCanvas function
 resizeCanvas();
 
+// call configureSketchbook function
+configureSketchbook()
+
 // DECLARE FUNCTIONS
 
 /**
@@ -63,11 +66,78 @@ function resizeCanvas() {
     paper.css('transform', 'scale(' + (1 / scale) + ')');
 }
 
+function configureSketchbook() {
+    if (localStorage.hasOwnProperty('color')) {
+        // if color is saved in local storage, load color
+        let color = localStorage.color;
+        changeAtramentColor(color);
+        changeColorisColor(color);
+        changeCursorColor(color);
+    } else {
+        // if color is not saved in local storage, set to black and save
+        let color = "rgb(0, 0, 0, 255)";
+        changeAtramentColor(color);
+        changeColorisColor(color);
+        changeCursorColor(color);
+    }
+
+    if (localStorage.hasOwnProperty('weight')) {
+        // if weight is saved in local storage, load weight
+        let weight = parseInt(localStorage.weight);
+        changeWeight(weight);
+    } else {
+        // if weight is not saved in local storage, set to 20 and save
+        let weight = 20;
+        changeWeight(weight)
+    }
+
+    if (localStorage.hasOwnProperty('paperType')) {
+        // if paperType is saved in local storage, load paperType
+        let paperType = localStorage.paperType;
+        changePaper(paperType);
+    } else {
+        // if paperType is not saved in local storage, set to 'watermarked' and save
+        let paperType = 'watermark';
+        changePaper(paperType)
+    }
+
+    if (localStorage.hasOwnProperty('smoothing')) {
+        // if smoothing is saved in local storage, load smoothing
+        let smoothing = parseFloat(localStorage.smoothing);
+        changeSmoothing(smoothing);
+    } else {
+        // if smoothing is not saved in local storage, set to 0.65 and save
+        let smoothing = 0.65;
+        changeSmoothing(smoothing)
+    }
+
+    if (localStorage.hasOwnProperty('adaptiveStroke')) {
+        // if adaptiveStroke is saved in local storage, load adaptiveStroke
+        let adaptiveStroke = localStorage.adaptiveStroke;
+        // set adaptiveStroke to boolean true if the string matches 'on', false if it doesn't
+        sketchbook.adaptiveStroke = adaptiveStroke == 'on';
+    } else {
+        // if adaptiveStroke is not saved in local storage, set to 'off' and save
+        adaptiveStroke = 'off';
+        sketchbook.adaptiveStroke = false;
+    }
+
+    // set page controls to match saved settings
+    $('#stroke-weight').val(localStorage.weight)
+    $('#smoothing').val(localStorage.smoothing)
+    // check the checkboxes with an ids matching the saved values
+    $(`#${localStorage.paperType}`).prop('checked', true)
+    $(`#${localStorage.adaptiveStroke}`).prop('checked', true)
+}
+
 /**
- * Takes a colour as a string and uses it to set the Atrament canvas' current colour
+ * Takes a colour as a string and uses it to set the Atrament canvas' current colour. Saves the selected colour in
+ * local storage.
  */
 function changeAtramentColor(color) {
     sketchbook.color = color;
+
+    localStorage.setItem('color', color);
 }
 
 /**
@@ -109,31 +179,40 @@ function changeTool(selectedTool) {
 }
 
 /**
- * Changes the stroke weight of the Atrament canvas to the received int and updates the cursor preview to match.
+ * Changes the stroke weight of the Atrament canvas to the received int and updates the cursor preview to match. Saves
+ * selected weight in local storage.
  */
 function changeWeight(weight) {
     // pass to Atrament canvas
     sketchbook.weight = weight;
     // set cursor preview to same width and height as canvas tool
     $('#cursor').css('width', weight).css('height', weight);
+
+    localStorage.setItem('weight', weight);
 }
 
 /**
- * Changes the stroke smoothing factor of the Atrament canvas to the value of received float.
+ * Changes the stroke smoothing factor of the Atrament canvas to the value of received float. Saves the value to local
+ * storage.
  */
 function changeSmoothing(smoothing) {
     // pass float to Atrament canvas
     sketchbook.smoothing = smoothing;
+
+    localStorage.setItem('smoothing', smoothing);
 }
 
 /**
- * Changes the background of the sketchbook according to the received string
+ * Changes the background of the sketchbook according to the received string. Saves the setting to local storage.
  */
 function changePaper(paperType) {
     // find the paper background element
     paper = $('#paper');
     // remove all paper classes
     paper.removeClass('plain-paper watermarked-paper lined-paper squared-paper');
+
+    localStorage.setItem('paperType', paperType);
+
     // use the received string to set the paper class
     switch (paperType) {
         case "none":
@@ -242,8 +321,12 @@ document.getElementById('paper-type').addEventListener('click', function(e) {
 document.getElementById("adaptive-stroke").addEventListener("click", function(e) {
     // if the user selects one of the radio buttons
     if (e.target && e.target.matches(".btn-check")) {
-        // the expression e.target.id == 'on' will evaluate to true if user selects the 'on' button.
+        let adaptiveStroke = e.target.id;
+
+        // the expression adaptiveStroke == 'on' will evaluate to true if user selects the 'on' button.
         // otherwise it will evaluate to false.
-        sketchbook.adaptiveStroke = e.target.id == 'on';
+        sketchbook.adaptiveStroke = adaptiveStroke  == 'on';
+
+        localStorage.setItem('adaptiveStroke', adaptiveStroke);
     }
 });
