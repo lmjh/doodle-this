@@ -63,7 +63,8 @@
                     <!-- div containing background image of sketchbook -->
                     <div id="sketchbook-background">
                         <!-- atrament canvas  -->
-                        <canvas id="sketchbook" class="watermarked-paper"></canvas>
+                        <div id="paper" class="watermarked-paper"></div>
+                        <canvas id="sketchbook"></canvas>
                     </div>
                 </div>
             </div>
@@ -285,9 +286,9 @@
                 <!-- canvas background selection controls -->
                 <fieldset class="flex-wrap-holder mb-3" id="paper-type">
                     <legend class="fs-6">Paper background: </legend>
-                    <input type="radio" class="btn-check " name="paper-type" id="none" autocomplete="off" checked>
+                    <input type="radio" class="btn-check " name="paper-type" id="none" autocomplete="off">
                     <label class="btn btn-brand-primary settings-button" for="none">None</label>
-                    <input type="radio" class="btn-check" name="paper-type" id="watermark" autocomplete="off">
+                    <input type="radio" class="btn-check" name="paper-type" id="watermark" autocomplete="off" checked>
                     <label class="btn btn-brand-primary settings-button" for="watermark">Watermark</label>
                     <input type="radio" class="btn-check" name="paper-type" id="lined" autocomplete="off">
                     <label class="btn btn-brand-primary settings-button" for="lined">Lined</label>

@@ -235,6 +235,10 @@ footer {
 
 /* drawing canvas */
 
+#sketchbook-scaler {
+    transform-origin: 0px 0px!important;
+}
+
 #sketchbook-background {
     height: 980px;
     width: 1340px;
@@ -249,9 +253,15 @@ footer {
     touch-action: none;
 }
 
+#paper {
+    position: absolute;
+    top: 110px;
+    left: 30px;
+    transform-origin: 0px 0px!important;
+}
 
 .plain-paper {
-    background-image: none;
+    display: none;
 }
 
 .watermarked-paper {

@@ -45,13 +45,21 @@ function resizeCanvas() {
     // limit to 3 decimal places
     let scale = (holderWidth / 1340).toFixed(3);
 
-    // set the scaler to transform from the top left
-    scaler.style.transformOrigin = '0 0';
     // scale the contents of the scaler by the calculated ratio
     scaler.style.transform = 'scale(' + scale + ')';
 
     // set scaler-holder height to height of scaler to fix layout bug
     $('#scaler-holder').height(scaler.getBoundingClientRect().height);
+
+    // find paper background element
+    paper = $('#paper')
+
+    // set background to same height and width as canvas by multiplying canvas dimensions by scaling ratio
+    $('#paper').height(720 * scale)
+    $('#paper').width(1280 * scale)
+
+    // transform paper by inverse of scaling ratio to cancel out transform and fix visual distortions
+    paper.css('transform', 'scale(' + (1 / scale) + ')');
 }
 
 /**
@@ -126,27 +134,27 @@ function changeSmoothing(e) {
  * Changes the background of the sketchbook to the target of the selected option
  */
 function changePaper(e) {
-    // find the sketchbook element
-    target = $('#sketchbook');
+    // find the paper background element
+    paper = $('#paper');
     // remove all paper classes
-    target.removeClass('plain-paper watermarked-paper lined-paper squared-paper');
+    paper.removeClass('plain-paper watermarked-paper lined-paper squared-paper');
     // use the id of the triggering radio button to select the code to run from a switch statement
     switch (e.target.id) {
         case "none":
-            target.addClass('plain-paper');
+            paper.addClass('plain-paper');
             break;
         case "watermark":
-            target.addClass('watermarked-paper');
+            paper.addClass('watermarked-paper');
             break;
         case "lined":
-            target.addClass('lined-paper');
+            paper.addClass('lined-paper');
             break;
         case "squared":
-            target.addClass('squared-paper');
+            paper.addClass('squared-paper');
             break;
         default:
             // default to plain paper
-            target.addClass('plain-paper');
+            paper.addClass('plain-paper');
     }
 }
 
