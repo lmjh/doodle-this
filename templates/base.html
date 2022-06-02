@@ -49,6 +49,17 @@
         {% include 'includes/navbar.html' %}
     </header>
 
+    {% if messages %}
+    <div>
+      <strong>Messages:</strong>
+      <ul>
+        {% for message in messages %}
+        <li>{{message}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
     <main>
         {% block content %}
         {% endblock %}
