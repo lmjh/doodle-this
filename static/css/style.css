@@ -166,6 +166,10 @@ a:focus-visible,
     background-color: #30303085;
 }
 
+.content-panel h1 {
+    text-align: center;
+}
+
 /* NAVBAR STYLES */
 
 .navbar-logo-text,
