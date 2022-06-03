@@ -41,17 +41,19 @@
                             data-bs-target="#optionsModal">
                             Options
                         </button>
-                        <button class="btn btn-brand-primary control-button" disabled>
+                        <button class="btn btn-brand-primary control-button" {% if not user.is_authenticated %}disabled{% endif %}>
                             Save
                         </button>
-                        <button class="btn btn-brand-primary control-button" disabled>
+                        <button class="btn btn-brand-primary control-button" {% if not user.is_authenticated %}disabled{% endif %}>
                             Gallery
                         </button>
                     </div>
                 </div>
+                {% if not user.is_authenticated %}
                 <div class="col-12 text-center d-none d-xl-block">
-                    <p class="small"><a href="">Sign in</a> or <a href="">register</a> to save your doodles.</p>
+                    <p class="small"><a href="{% url 'account_login' %}">Sign in</a> or <a href="{% url 'account_signup' %}">register</a> to save your doodles.</p>
                 </div>
+                {% endif %}
             </div>
         </div>
         <!-- sketchbook canvas section -->
@@ -235,16 +237,18 @@
                     data-bs-target="#optionsModal">
                     Options
                 </button>
-                <button class="btn btn-brand-primary control-button" disabled>
+                <button class="btn btn-brand-primary control-button" {% if not user.is_authenticated %}disabled{% endif %}>
                     Save
                 </button>
-                <button class="btn btn-brand-primary control-button" disabled>
+                <button class="btn btn-brand-primary control-button" {% if not user.is_authenticated %}disabled{% endif %}>
                     Gallery
                 </button>
             </div>
+            {% if not user.is_authenticated %}
             <div class="col-12 text-center">
-                <p class="small"><a href="">Sign in</a> or <a href="">register</a> to save your doodles.</p>
+                <p class="small"><a href="{% url 'account_login' %}">Sign in</a> or <a href="{% url 'account_signup' %}">register</a> to save your doodles.</p>
             </div>
+            {% endif %}
         </div>
     </div>
 </div>

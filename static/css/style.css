@@ -170,6 +170,14 @@ a:focus-visible,
     text-align: center;
 }
 
+.invalid-feedback{
+    color: var(--text-light);
+    background-color: var(--bs-danger-alt);
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid var(--bs-danger);
+}
+
 /* NAVBAR STYLES */
 
 .navbar-logo-text,
