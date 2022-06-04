@@ -8,6 +8,7 @@
     --bg-dark: #303030;
     --bg-light: #ebebeb;
     --bg-grey: #A3A3A3;
+    --bg-form: #202020;
     --border-grey: #606060;
     --red-ink: #D6281B;
     --orange-ink: #F08F10;
@@ -168,6 +169,16 @@ a:focus-visible,
 
 .content-panel h1 {
     text-align: center;
+}
+
+/* FORM STYLES */
+
+.form-control,
+.form-control:focus,
+.form-select,
+.form-select:focus {
+    background-color: var(--bg-form);
+    color: var(--text-light);
 }
 
 .invalid-feedback{

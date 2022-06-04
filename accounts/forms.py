@@ -1,0 +1,67 @@
+from django import forms
+
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Div, Field
+
+from django.contrib.auth.models import User
+from .models import UserAccount
+
+
+class NameUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name')
+    
+    def __init__(self, *args, **kwargs):
+        """
+        Configure form layout with crispyforms helper
+        """
+        super().__init__(*args, **kwargs)
+
+        # create layout helper
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helperdisable_csrf = True
+        self.helper.layout = Layout(
+            Div(Field("first_name"), css_class="col-6"),
+            Div(Field("last_name"), css_class="col-6"),
+        )
+
+
+class DefaultAddressForm(forms.ModelForm):
+    class Meta:
+        model = UserAccount
+        fields = ('default_address_1', 'default_address_2',
+                  'default_town', 'default_county', 'default_postcode',
+                  'default_country')
+
+    def __init__(self, *args, **kwargs):
+        """
+        Replace auto-generated labels and configure form layout
+        """
+        super().__init__(*args, **kwargs)
+        # replace labels
+        labels = {
+            "default_address_1": "Address 1",
+            "default_address_2": "Address 2",
+            "default_town": "Town",
+            "default_county": "County",
+            "default_postcode": "Postcode",
+            "default_country": "Country",
+        }
+
+        # create layout helper
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.disable_csrf = True
+        self.helper.layout = Layout(
+            Field("default_address_1", css_class="col-12"),
+            Field("default_address_2", css_class="col-12"),
+            Div(Field("default_town"), css_class="col-6"),
+            Div(Field("default_county"), css_class="col-6"),
+            Div(Field("default_postcode"), css_class="col-6"),
+            Div(Field("default_country"), css_class="col-6"),
+        )
+
+        for field in self.fields:
+            self.fields[field].label = labels[field]

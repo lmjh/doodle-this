@@ -1,17 +1,28 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
 
 <div class="container mt-5">
     <div class="row">
-        <div class="col-10 col-md-8 col-lg-6 offset-1 offset-md-2 offset-lg-3">
+        <div class="col-10 col-md-8 offset-1 offset-md-2">
             <div class="content-panel p-3 mb-5 row">
                 <h1>{{ request.user.username }}'s Profile</h1>
-                <div class="col-12 col-sm-6 mt-3">Username:</div>
+                <h2 class="mt-3">Account Details</h2>
+                <div class="col-12 col-sm-6">Username:</div>
                 <div class="col-12 col-sm-6 mt-sm-3 text-end">{{ request.user.username }}</div>
                 <div class="col-12 col-sm-6">Email:</div>
                 <div class="col-12 col-sm-6 text-end">{{ request.user.email }}</div>
                 <button class="btn btn-brand-primary col-12 col-md-5 mt-3">Update Email</button>
                 <button class="btn btn-brand-primary col-12 col-md-5 offset-md-2 mt-3">Update Password</button>
+                <h2 class="mt-5">Delivery Details</h2>
+                <form action="{% url 'profile' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        {% crispy name_update_form %}
+                        {% crispy default_address_form %}
+                        <button class="btn btn-brand-primary col-12 col-md-4 offset-md-4">Update</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
