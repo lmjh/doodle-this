@@ -65,3 +65,9 @@ class DefaultAddressForm(forms.ModelForm):
 
         for field in self.fields:
             self.fields[field].label = labels[field]
+
+
+class DrawingForm(forms.ModelForm):
+    class Meta:
+        model = Drawing
+        fields = ('image', 'number', 'title')
