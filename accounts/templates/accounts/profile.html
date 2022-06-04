@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-10 col-md-8 col-lg-6 offset-1 offset-md-2 offset-lg-3">
+            <div class="content-panel p-3 mb-5 row">
+                <h1>{{ request.user.username }}'s Profile</h1>
+                <div class="col-12 col-sm-6 mt-3">Username:</div>
+                <div class="col-12 col-sm-6 mt-sm-3 text-end">{{ request.user.username }}</div>
+                <div class="col-12 col-sm-6">Email:</div>
+                <div class="col-12 col-sm-6 text-end">{{ request.user.email }}</div>
+                <button class="btn btn-brand-primary col-12 col-md-5 mt-3">Update Email</button>
+                <button class="btn btn-brand-primary col-12 col-md-5 offset-md-2 mt-3">Update Password</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
