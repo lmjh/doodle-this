@@ -7,7 +7,7 @@ from django_countries.fields import CountryField
 
 # set upload directory for drawings model
 def upload_to(instance, filename):
-    return f"drawings/{instance.user.username.lower()}/{filename}"
+    return f"drawings/{filename}"
 
 
 class UserAccount(models.Model):
@@ -31,11 +31,14 @@ class Drawing(models.Model):
     """
     A model for storing a user's drawings
     """
-
-    user_account = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='drawings')
+    user_account = models.ForeignKey(UserAccount, on_delete=models.CASCADE,
+                                     related_name='drawings')
     image = models.ImageField(null=False, blank=False, upload_to=upload_to)
     title = models.CharField(max_length=254, null=True, blank=True)
     number = models.IntegerField(null=False, blank=False)
+
+    def __str__(self):
+        return f"{self.user_account} - Drawing {self.number}"
 
 
 @receiver(post_save, sender=User)

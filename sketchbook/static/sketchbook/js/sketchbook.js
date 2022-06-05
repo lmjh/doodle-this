@@ -233,6 +233,49 @@ function changePaper(paperType) {
     }
 }
 
+/**
+ * Converts canvas drawing to blob, gathers form data and sends to server to save drawing in database
+ */
+function saveDrawing() {
+    // convert canvas drawing to blob
+    canvas.toBlob((blob) => {
+        console.log('canvas converted to blob')
+        // create a new FormData object
+        let formData = new FormData();
+        // find csrf token elements and assign to variable
+        let csrf = document.getElementsByName('csrfmiddlewaretoken')
+        // find selected drawing number and assign to variable
+        let number = $('#id_number').val()
+
+        // append csrf token, number and canvas blob to form
+        formData.append('csrfmiddlewaretoken', csrf[0].value)
+        formData.append('image', blob, 'drawing.png');
+        formData.append('number', number);
+
+        // find drawing form
+        let drawingForm = document.getElementById('drawing-form')
+         
+        // send form and image to server with jquery AJAX
+        $.ajax({
+            type:'POST',
+            url: drawingForm.action,
+            enctype: 'multipart/form-data',
+            data: formData,
+            success: function(response){
+                console.log('Success: ', response)
+            },
+            error: function(error){
+                console.log('Error: ', error)
+            },
+            cache: false,
+            // set contentType and processData to false to allow passing files
+            // to the server
+            contentType: false,
+            processData: false,
+        })
+    })
+}
+
 // ADD EVENT LISTENERS
 
 // add an event listener to set the Atrament canvas colour and cursor preview colour when a colour is selected with the 
@@ -330,3 +373,6 @@ document.getElementById("adaptive-stroke").addEventListener("click", function(e)
         localStorage.setItem('adaptiveStroke', adaptiveStroke);
     }
 });
+
+// add an event listener to the save_drawing button
+document.getElementById('save_drawing').addEventListener('click', saveDrawing)

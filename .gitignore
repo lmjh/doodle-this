@@ -14,3 +14,6 @@ cloudinary_python.txt
 # test coverage files
 .coverage
 htmlcov/
+
+# user generated drawings
+media/drawings/

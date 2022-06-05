@@ -1,17 +1,22 @@
 from django import forms
+from django.contrib.auth.models import User
 
+# import objects from Crispy Forms to customise form layouts
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Field
 
-from django.contrib.auth.models import User
-from .models import UserAccount
+from .models import UserAccount, Drawing
 
 
 class NameUpdateForm(forms.ModelForm):
+    """
+    A form to update the first_name and last_name in the current user's User
+    model.
+    """
     class Meta:
         model = User
         fields = ('first_name', 'last_name')
-    
+
     def __init__(self, *args, **kwargs):
         """
         Configure form layout with crispyforms helper
@@ -29,6 +34,9 @@ class NameUpdateForm(forms.ModelForm):
 
 
 class DefaultAddressForm(forms.ModelForm):
+    """
+    A form to update the current user's default delivery address details
+    """
     class Meta:
         model = UserAccount
         fields = ('default_address_1', 'default_address_2',
@@ -63,11 +71,15 @@ class DefaultAddressForm(forms.ModelForm):
             Div(Field("default_country"), css_class="col-6"),
         )
 
+        # apply custom field labels
         for field in self.fields:
             self.fields[field].label = labels[field]
 
 
 class DrawingForm(forms.ModelForm):
+    """
+    A form to save the current user's drawing canvas into the database
+    """
     class Meta:
         model = Drawing
         fields = ('image', 'number', 'title')

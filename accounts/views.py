@@ -3,16 +3,16 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.models import User
+from django.http import JsonResponse
+
 from .models import UserAccount
-from .forms import DefaultAddressForm, NameUpdateForm
+from .forms import DefaultAddressForm, NameUpdateForm, DrawingForm
 
 
 @login_required
 def profile(request):
     """ A view to display a user's profile page """
 
-
-    
     account = get_object_or_404(UserAccount, user=request.user)
     user = get_object_or_404(User, username=request.user)
 
@@ -35,3 +35,21 @@ def profile(request):
         'test_user': user,
     }
     return render(request, template, context)
+
+
+@login_required
+def save_drawing(request):
+    """
+    A view to save a user's drawing to the database
+    """
+    account = get_object_or_404(UserAccount, user=request.user)
+    form = DrawingForm(request.POST, request.FILES)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            # set commit=False to allow attaching of user_account to form
+            drawing = form.save(commit=False)
+            # set current user account as user_account foreign key
+            drawing.user_account = account
+            drawing.save()
+            return JsonResponse({'message': 'Drawing successfully submitted.'})
