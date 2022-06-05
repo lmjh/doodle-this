@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 
-from .models import UserAccount
+from .models import UserAccount, Drawing
 from .forms import DefaultAddressForm, NameUpdateForm, DrawingForm
 
 
@@ -23,7 +23,7 @@ def profile(request):
             name_update_form.save()
             default_address_form.save()
             messages.success(request, 'Profile updated successfully')
-    
+
     template = 'accounts/profile.html'
 
     default_address_form = DefaultAddressForm(instance=account)
@@ -42,17 +42,34 @@ def save_drawing(request):
     """
     A view to save a user's drawing to the database
     """
-    account = get_object_or_404(UserAccount, user=request.user)
-    form = DrawingForm(request.POST, request.FILES)
 
     if request.method == 'POST':
+        # find user account and retrieve selected save slot from form
+        account = get_object_or_404(UserAccount, user=request.user)
+        drawing_number = request.POST['number']
+
+        # query database to find if current user has a drawing with the
+        # selected save_slot number
+        drawing_instance = Drawing.objects.filter(
+            user_account=account,
+            number=drawing_number
+            ).first()
+
+        # if the user already has a drawing with this save slot, set that
+        # drawing object as the instance to be edited
+        if drawing_instance:
+            form = DrawingForm(request.POST, request.FILES, instance=drawing_instance)
+        # otherwise, create a new object
+        else:
+            form = DrawingForm(request.POST, request.FILES)
+
         if form.is_valid():
             # set commit=False to allow attaching form data before saving
             drawing = form.save(commit=False)
             # set current user account as user_account foreign key and attach
             # submitted number and image data
             drawing.user_account = account
-            drawing.number = request.POST['number']
+            drawing.number = drawing_number
             drawing.image = request.FILES['image']
 
             drawing.save()
