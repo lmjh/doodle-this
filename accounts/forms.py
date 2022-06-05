@@ -29,8 +29,8 @@ class NameUpdateForm(forms.ModelForm):
         self.helper.form_tag = False
         self.helperdisable_csrf = True
         self.helper.layout = Layout(
-            Div(Field("first_name"), css_class="col-6"),
-            Div(Field("last_name"), css_class="col-6"),
+            Div(Field("first_name"), css_class="col-12 col-sm-6"),
+            Div(Field("last_name"), css_class="col-12 col-sm-6"),
         )
 
 
@@ -66,10 +66,10 @@ class DefaultAddressForm(forms.ModelForm):
         self.helper.layout = Layout(
             Field("default_address_1", css_class="col-12"),
             Field("default_address_2", css_class="col-12"),
-            Div(Field("default_town"), css_class="col-6"),
-            Div(Field("default_county"), css_class="col-6"),
-            Div(Field("default_postcode"), css_class="col-6"),
-            Div(Field("default_country"), css_class="col-6"),
+            Div(Field("default_town"), css_class="col-12 col-sm-6"),
+            Div(Field("default_county"), css_class="col-12 col-sm-6"),
+            Div(Field("default_postcode"), css_class="col-12 col-sm-6"),
+            Div(Field("default_country"), css_class="col-12 col-sm-6"),
         )
 
         # apply custom field labels
