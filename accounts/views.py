@@ -47,9 +47,13 @@ def save_drawing(request):
 
     if request.method == 'POST':
         if form.is_valid():
-            # set commit=False to allow attaching of user_account to form
+            # set commit=False to allow attaching form data before saving
             drawing = form.save(commit=False)
-            # set current user account as user_account foreign key
+            # set current user account as user_account foreign key and attach
+            # submitted number and image data
             drawing.user_account = account
+            drawing.number = request.POST['number']
+            drawing.image = request.FILES['image']
+
             drawing.save()
             return JsonResponse({'message': 'Drawing successfully submitted.'})

@@ -263,6 +263,12 @@ footer {
     margin: 2px;
 }
 
+.number-button {
+    font-size: 1rem;
+    flex-basis: calc(33% - 4px);
+    margin: 2px;
+}
+
 /* drawing canvas */
 
 #sketchbook-scaler {

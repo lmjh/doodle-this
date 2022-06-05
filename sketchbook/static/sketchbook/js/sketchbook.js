@@ -243,9 +243,9 @@ function saveDrawing() {
         // create a new FormData object
         let formData = new FormData();
         // find csrf token elements and assign to variable
-        let csrf = document.getElementsByName('csrfmiddlewaretoken')
-        // find selected drawing number and assign to variable
-        let number = $('#id_number').val()
+        let csrf = document.getElementsByName('csrfmiddlewaretoken');
+        // find selected drawing number radio button and assign to variable
+        let number = parseInt($('input[name=drawing-number]:checked', '#drawing-form').val());
 
         // append csrf token, number and canvas blob to form
         formData.append('csrfmiddlewaretoken', csrf[0].value)
@@ -263,9 +263,21 @@ function saveDrawing() {
             data: formData,
             success: function(response){
                 console.log('Success: ', response)
+                $('#save_drawing_result').append(`
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                Your drawing has been saved!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                `)
             },
             error: function(error){
                 console.log('Error: ', error)
+                $('#save_drawing_result').append(`
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                Oops. Something seems to have gone wrong. Please try again.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                `)
             },
             cache: false,
             // set contentType and processData to false to allow passing files

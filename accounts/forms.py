@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import HiddenInput
 from django.contrib.auth.models import User
 
 # import objects from Crispy Forms to customise form layouts
@@ -78,8 +79,10 @@ class DefaultAddressForm(forms.ModelForm):
 
 class DrawingForm(forms.ModelForm):
     """
-    A form to save the current user's drawing canvas into the database
+    A form to save the current user's drawing canvas into the database. Only
+    the title field is bound here. The other data for the model is gathered by
+    javascript and assigned in the save_drawing view.
     """
     class Meta:
         model = Drawing
-        fields = ('image', 'number', 'title')
+        fields = ('title',)

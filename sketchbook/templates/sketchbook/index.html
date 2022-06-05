@@ -41,7 +41,8 @@
                             data-bs-target="#optionsModal">
                             Options
                         </button>
-                        <button class="btn btn-brand-primary control-button" {% if not user.is_authenticated %}disabled{% endif %}>
+                        <button class="btn btn-brand-primary control-button" data-bs-toggle="modal" data-bs-target="#saveModal"
+                            {% if not user.is_authenticated %}disabled{% endif %}>
                             Save
                         </button>
                         <button class="btn btn-brand-primary control-button" {% if not user.is_authenticated %}disabled{% endif %}>
@@ -237,7 +238,8 @@
                     data-bs-target="#optionsModal">
                     Options
                 </button>
-                <button class="btn btn-brand-primary control-button" {% if not user.is_authenticated %}disabled{% endif %}>
+                <button class="btn btn-brand-primary control-button" data-bs-toggle="modal" data-bs-target="#saveModal"
+                    {% if not user.is_authenticated %}disabled{% endif %}>
                     Save
                 </button>
                 <button class="btn btn-brand-primary control-button" {% if not user.is_authenticated %}disabled{% endif %}>
@@ -250,13 +252,7 @@
             </div>
             {% endif %}
         </div>
-        {% if user.is_authenticated %}
-        <form method="post" action="{% url 'save_drawing' %}" id="drawing-form">
-            {% csrf_token %}
-            {{form.as_p}}
-        </form>
-        <button class="btn btn-brand-primary mt-3" id="save_drawing">confirm</button>
-        {% endif %}
+
     </div>
 </div>
 
@@ -327,7 +323,46 @@
             </div>
         </div>
     </div>
-    {% endblock %}
+</div>
+
+{% if user.is_authenticated %}
+<!-- canvas save drawing modal -->
+<div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="saveModalLabel">Save Drawing</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'save_drawing' %}" id="drawing-form">
+                    {% csrf_token %}
+                    {{form|crispy}}
+                <!-- drawing save slot selection controls -->
+                <fieldset class="flex-wrap-holder mb-3 justify-content-center" id="drawing_number">
+                    <legend class="fs-6">Select Save Slot: </legend>
+                    <input type="radio" class="btn-check" name="drawing-number" id="number_1" autocomplete="off" value="1" 
+                        checked>
+                    <label class="btn btn-brand-primary number-button" for="number_1">Drawing 1</label>
+                    <input type="radio" class="btn-check" name="drawing-number" id="number_2" autocomplete="off" value="2">
+                    <label class="btn btn-brand-primary number-button" for="number_2">Drawing 2</label>
+                    <input type="radio" class="btn-check" name="drawing-number" id="number_3" autocomplete="off" value="3">
+                    <label class="btn btn-brand-primary number-button" for="number_3">Drawing 3</label>
+                    <p class="small mt-2">Any drawings already saved in the selected slot will be lost.</p>
+                </fieldset>
+                </form>
+                <p id="save_drawing_result"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-brand-primary" id="save_drawing">Save Drawing</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
 
     {% block page_js %}
     <!-- load Atrament drawing plugin -->
