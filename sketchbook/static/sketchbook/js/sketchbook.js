@@ -246,11 +246,13 @@ function saveDrawing() {
         let csrf = document.getElementsByName('csrfmiddlewaretoken');
         // find selected save_slot radio button and assign to variable
         let save_slot = parseInt($('input[name=drawing-save_slot]:checked', '#drawing-form').val());
-
-        // append csrf token, save_slot and canvas blob to form
+        // get value of title field
+        let title = $('#id_title').val();
+        // append csrf token, save_slot, title and canvas blob to form
         formData.append('csrfmiddlewaretoken', csrf[0].value)
-        formData.append('image', blob, 'drawing.png');
         formData.append('save_slot', save_slot);
+        formData.append('title', title)
+        formData.append('image', blob, 'drawing.png');
 
         // find drawing form
         let drawingForm = document.getElementById('drawing-form')
