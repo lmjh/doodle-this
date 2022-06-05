@@ -49,7 +49,9 @@ def save_drawing(request):
         drawing_save_slot = request.POST['save_slot']
 
         # query database to find if current user has a drawing with the
-        # selected save_slot
+        # selected save_slot. 
+        # this query returns 'None' if no record is found:
+        # (https://stackoverflow.com/a/29455777)
         drawing_instance = Drawing.objects.filter(
             user_account=account,
             save_slot=drawing_save_slot

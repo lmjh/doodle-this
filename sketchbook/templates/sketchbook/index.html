@@ -252,7 +252,6 @@
             </div>
             {% endif %}
         </div>
-
     </div>
 </div>
 
@@ -340,23 +339,49 @@
                     {% csrf_token %}
                     {{form|crispy}}
                 <!-- drawing save slot selection controls -->
-                <fieldset class="flex-wrap-holder mb-3 justify-content-center" id="drawing_save_slot">
+                <div class="row">
+
+                    <div class="col-12 col-md-4"></div>
+                    <div class="col-12 col-md-4"></div>
+                </div>
+                <fieldset class="row g-2 mb-3 justify-content-center" id="drawing-save-slot">
                     <legend class="fs-6">Select Save Slot: </legend>
-                    <input type="radio" class="btn-check" name="drawing-save_slot" id="save_slot_1" autocomplete="off" value="1" 
-                        checked>
-                    <label class="btn btn-brand-primary save_slot-button" for="save_slot_1">Drawing 1</label>
-                    <input type="radio" class="btn-check" name="drawing-save_slot" id="save_slot_2" autocomplete="off" value="2">
-                    <label class="btn btn-brand-primary save_slot-button" for="save_slot_2">Drawing 2</label>
-                    <input type="radio" class="btn-check" name="drawing-save_slot" id="save_slot_3" autocomplete="off" value="3">
-                    <label class="btn btn-brand-primary save_slot-button" for="save_slot_3">Drawing 3</label>
-                    <p class="small mt-2">Any drawings already saved in the selected slot will be lost.</p>
+                    <div class="col-4">
+                        {% if saved_drawings.0 %}
+                        <img src="{{ saved_drawings.0.image.url }}" class="save-slot-preview" alt="Save slot 1 preview">
+                        {% else %}
+                        <img src="/media/svg/blank.svg" class="empty-save-slot" alt="Save slot 1 preview">
+                        {% endif %}
+                        <input type="radio" class="btn-check" name="drawing-save-slot" id="save-slot-1" autocomplete="off" value="1" 
+                            checked>
+                        <label class="btn btn-brand-primary save-slot-button mt-2" for="save-slot-1">1</label>
+                    </div>
+                    <div class="col-4">
+                        {% if saved_drawings.1 %}
+                        <img src="{{ saved_drawings.1.image.url }}" class="save-slot-preview" alt="Save slot 2 preview">
+                        {% else %}
+                        <img src="/media/svg/blank.svg" class="empty-save-slot" alt="Save slot 2 preview">
+                        {% endif %}
+                        <input type="radio" class="btn-check" name="drawing-save-slot" id="save-slot-2" autocomplete="off" value="2">
+                        <label class="btn btn-brand-primary save-slot-button mt-2" for="save-slot-2">2</label>
+                    </div>
+                    <div class="col-4">
+                        {% if saved_drawings.2 %}
+                        <img src="{{ saved_drawings.2.image.url }}" class="save-slot-preview" alt="Save slot 3 preview">
+                        {% else %}
+                        <img src="/media/svg/blank.svg" class="empty-save-slot" alt="Save slot 3 preview">
+                        {% endif %}
+                        <input type="radio" class="btn-check" name="drawing-save-slot" id="save-slot-3" autocomplete="off" value="3">
+                        <label class="btn btn-brand-primary save-slot-button mt-2" for="save-slot-3">3</label>
+                    </div>
+                    <p class="small mt-2 text-center">Drawings already saved in the selected slot will be lost.</p>
                 </fieldset>
                 </form>
-                <p id="save_drawing_result"></p>
+                <p id="save-drawing-result"></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-brand-primary" id="save_drawing">Save Drawing</button>
+                <button type="button" class="btn btn-brand-primary" id="save-drawing">Save Drawing</button>
             </div>
         </div>
     </div>

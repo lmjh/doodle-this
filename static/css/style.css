@@ -226,6 +226,23 @@ footer {
     border-top: 2px solid var(--border-grey);
 }
 
+.save-slot-preview {
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid var(--border-grey);
+    box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -7px rgba(0, 0, 0, 0.2);
+}
+
+.empty-save-slot {
+    width: 100%;
+    border: 1px solid var(--border-grey);
+    box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -7px rgba(0, 0, 0, 0.2);
+}
+
+.save-slot-button {
+    width: 100%;
+}
+
 /* SKETCHBOOK STYLES */
 
 .control-panel {
@@ -260,12 +277,6 @@ footer {
 .settings-button {
     font-size: 1rem;
     flex-basis: calc(50% - 4px);
-    margin: 2px;
-}
-
-.save_slot-button {
-    font-size: 1rem;
-    flex-basis: calc(33% - 4px);
     margin: 2px;
 }
 

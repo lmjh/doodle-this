@@ -245,12 +245,12 @@ function saveDrawing() {
         // find csrf token elements and assign to variable
         let csrf = document.getElementsByName('csrfmiddlewaretoken');
         // find selected save_slot radio button and assign to variable
-        let save_slot = parseInt($('input[name=drawing-save_slot]:checked', '#drawing-form').val());
+        let saveSlot = parseInt($('input[name=drawing-save-slot]:checked', '#drawing-form').val());
         // get value of title field
         let title = $('#id_title').val();
         // append csrf token, save_slot, title and canvas blob to form
         formData.append('csrfmiddlewaretoken', csrf[0].value)
-        formData.append('save_slot', save_slot);
+        formData.append('save_slot', saveSlot);
         formData.append('title', title)
         formData.append('image', blob, 'drawing.png');
 
@@ -265,7 +265,7 @@ function saveDrawing() {
             data: formData,
             success: function(response){
                 console.log('Success: ', response)
-                $('#save_drawing_result').append(`
+                $('#save-drawing-result').append(`
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                 Your drawing has been saved!
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -274,7 +274,7 @@ function saveDrawing() {
             },
             error: function(error){
                 console.log('Error: ', error)
-                $('#save_drawing_result').append(`
+                $('#save-drawing-result').append(`
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 Oops. Something seems to have gone wrong. Please try again.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -388,5 +388,5 @@ document.getElementById("adaptive-stroke").addEventListener("click", function(e)
     }
 });
 
-// add an event listener to the save_drawing button
-document.getElementById('save_drawing').addEventListener('click', saveDrawing)
+// add an event listener to the save-drawing button
+document.getElementById('save-drawing').addEventListener('click', saveDrawing)
