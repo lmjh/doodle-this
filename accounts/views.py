@@ -46,13 +46,13 @@ def save_drawing(request):
     if request.method == 'POST':
         # find user account and retrieve selected save slot from form
         account = get_object_or_404(UserAccount, user=request.user)
-        drawing_number = request.POST['number']
+        drawing_save_slot = request.POST['save_slot']
 
         # query database to find if current user has a drawing with the
-        # selected save_slot number
+        # selected save_slot
         drawing_instance = Drawing.objects.filter(
             user_account=account,
-            number=drawing_number
+            save_slot=drawing_save_slot
             ).first()
 
         # if the user already has a drawing with this save slot, set that
@@ -67,9 +67,9 @@ def save_drawing(request):
             # set commit=False to allow attaching form data before saving
             drawing = form.save(commit=False)
             # set current user account as user_account foreign key and attach
-            # submitted number and image data
+            # submitted save_slot and image data
             drawing.user_account = account
-            drawing.number = drawing_number
+            drawing.save_slot = drawing_save_slot
             drawing.image = request.FILES['image']
 
             drawing.save()

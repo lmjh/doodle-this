@@ -35,10 +35,10 @@ class Drawing(models.Model):
                                      related_name='drawings')
     image = models.ImageField(null=False, blank=False, upload_to=upload_to)
     title = models.CharField(max_length=254, null=True, blank=True)
-    number = models.IntegerField(null=False, blank=False)
+    save_slot = models.IntegerField(null=False, blank=False)
 
     def __str__(self):
-        return f"{self.user_account} - Drawing {self.number}"
+        return f"{self.user_account} - Drawing {self.save_slot}"
 
 
 @receiver(post_save, sender=User)

@@ -263,7 +263,7 @@ footer {
     margin: 2px;
 }
 
-.number-button {
+.save_slot-button {
     font-size: 1rem;
     flex-basis: calc(33% - 4px);
     margin: 2px;

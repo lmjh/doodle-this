@@ -340,22 +340,22 @@
                     {% csrf_token %}
                     {{form|crispy}}
                 <!-- drawing save slot selection controls -->
-                <fieldset class="flex-wrap-holder mb-3 justify-content-center" id="drawing_number">
+                <fieldset class="flex-wrap-holder mb-3 justify-content-center" id="drawing_save_slot">
                     <legend class="fs-6">Select Save Slot: </legend>
-                    <input type="radio" class="btn-check" name="drawing-number" id="number_1" autocomplete="off" value="1" 
+                    <input type="radio" class="btn-check" name="drawing-save_slot" id="save_slot_1" autocomplete="off" value="1" 
                         checked>
-                    <label class="btn btn-brand-primary number-button" for="number_1">Drawing 1</label>
-                    <input type="radio" class="btn-check" name="drawing-number" id="number_2" autocomplete="off" value="2">
-                    <label class="btn btn-brand-primary number-button" for="number_2">Drawing 2</label>
-                    <input type="radio" class="btn-check" name="drawing-number" id="number_3" autocomplete="off" value="3">
-                    <label class="btn btn-brand-primary number-button" for="number_3">Drawing 3</label>
+                    <label class="btn btn-brand-primary save_slot-button" for="save_slot_1">Drawing 1</label>
+                    <input type="radio" class="btn-check" name="drawing-save_slot" id="save_slot_2" autocomplete="off" value="2">
+                    <label class="btn btn-brand-primary save_slot-button" for="save_slot_2">Drawing 2</label>
+                    <input type="radio" class="btn-check" name="drawing-save_slot" id="save_slot_3" autocomplete="off" value="3">
+                    <label class="btn btn-brand-primary save_slot-button" for="save_slot_3">Drawing 3</label>
                     <p class="small mt-2">Any drawings already saved in the selected slot will be lost.</p>
                 </fieldset>
                 </form>
                 <p id="save_drawing_result"></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-brand-primary" id="save_drawing">Save Drawing</button>
             </div>
         </div>
