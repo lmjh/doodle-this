@@ -41,18 +41,20 @@
                             data-bs-target="#optionsModal">
                             Options
                         </button>
-                        <button class="btn btn-brand-primary control-button" data-bs-toggle="modal" data-bs-target="#saveModal"
-                            {% if not user.is_authenticated %}disabled{% endif %}>
+                        <button class="btn btn-brand-primary control-button" data-bs-toggle="modal"
+                            data-bs-target="#saveModal" {% if not user.is_authenticated %}disabled{% endif %}>
                             Save
                         </button>
-                        <button class="btn btn-brand-primary control-button" {% if not user.is_authenticated %}disabled{% endif %}>
+                        <button class="btn btn-brand-primary control-button"
+                            {% if not user.is_authenticated %}disabled{% endif %}>
                             Gallery
                         </button>
                     </div>
                 </div>
                 {% if not user.is_authenticated %}
                 <div class="col-12 text-center d-none d-xl-block">
-                    <p class="small"><a href="{% url 'account_login' %}">Sign in</a> or <a href="{% url 'account_signup' %}">register</a> to save your doodles.</p>
+                    <p class="small"><a href="{% url 'account_login' %}">Sign in</a> or <a
+                            href="{% url 'account_signup' %}">register</a> to save your doodles.</p>
                 </div>
                 {% endif %}
             </div>
@@ -242,13 +244,15 @@
                     {% if not user.is_authenticated %}disabled{% endif %}>
                     Save
                 </button>
-                <button class="btn btn-brand-primary control-button" {% if not user.is_authenticated %}disabled{% endif %}>
+                <button class="btn btn-brand-primary control-button"
+                    {% if not user.is_authenticated %}disabled{% endif %}>
                     Gallery
                 </button>
             </div>
             {% if not user.is_authenticated %}
             <div class="col-12 text-center">
-                <p class="small"><a href="{% url 'account_login' %}">Sign in</a> or <a href="{% url 'account_signup' %}">register</a> to save your doodles.</p>
+                <p class="small"><a href="{% url 'account_login' %}">Sign in</a> or <a
+                        href="{% url 'account_signup' %}">register</a> to save your doodles.</p>
             </div>
             {% endif %}
         </div>
@@ -312,7 +316,8 @@
                         <legend class="fs-6">Adaptive stroke: </legend>
                         <input type="radio" class="btn-check" name="adaptive-stroke" id="on" autocomplete="off">
                         <label class="btn btn-brand-primary settings-button" for="on">On</label>
-                        <input type="radio" class="btn-check" name="adaptive-stroke" id="off" autocomplete="off" checked>
+                        <input type="radio" class="btn-check" name="adaptive-stroke" id="off" autocomplete="off"
+                            checked>
                         <label class="btn btn-brand-primary settings-button" for="off">Off</label>
                     </fieldset>
                 </div>
@@ -338,61 +343,65 @@
                 <form method="post" action="{% url 'save_drawing' %}" id="drawing-form">
                     {% csrf_token %}
                     {{form|crispy}}
-                <!-- drawing save slot selection controls -->
-                <div class="row">
-
-                    <div class="col-12 col-md-4"></div>
-                    <div class="col-12 col-md-4"></div>
-                </div>
-                <fieldset class="row g-2 mb-3 justify-content-center" id="drawing-save-slot">
-                    <legend class="fs-6">Select Save Slot: </legend>
-                    <div class="col-4">
-                        {% if saved_drawings.0 %}
-                        <img src="{{ saved_drawings.0.image.url }}" class="save-slot-preview" alt="Save slot 1 preview">
-                        {% else %}
-                        <img src="/media/svg/blank.svg" class="empty-save-slot" alt="Save slot 1 preview">
-                        {% endif %}
-                        <input type="radio" class="btn-check" name="drawing-save-slot" id="save-slot-1" autocomplete="off" value="1" 
-                            checked>
-                        <label class="btn btn-brand-primary save-slot-button mt-2" for="save-slot-1">1</label>
-                    </div>
-                    <div class="col-4">
-                        {% if saved_drawings.1 %}
-                        <img src="{{ saved_drawings.1.image.url }}" class="save-slot-preview" alt="Save slot 2 preview">
-                        {% else %}
-                        <img src="/media/svg/blank.svg" class="empty-save-slot" alt="Save slot 2 preview">
-                        {% endif %}
-                        <input type="radio" class="btn-check" name="drawing-save-slot" id="save-slot-2" autocomplete="off" value="2">
-                        <label class="btn btn-brand-primary save-slot-button mt-2" for="save-slot-2">2</label>
-                    </div>
-                    <div class="col-4">
-                        {% if saved_drawings.2 %}
-                        <img src="{{ saved_drawings.2.image.url }}" class="save-slot-preview" alt="Save slot 3 preview">
-                        {% else %}
-                        <img src="/media/svg/blank.svg" class="empty-save-slot" alt="Save slot 3 preview">
-                        {% endif %}
-                        <input type="radio" class="btn-check" name="drawing-save-slot" id="save-slot-3" autocomplete="off" value="3">
-                        <label class="btn btn-brand-primary save-slot-button mt-2" for="save-slot-3">3</label>
-                    </div>
-                    <p class="small mt-2 text-center">Drawings already saved in the selected slot will be lost.</p>
-                </fieldset>
+                    <hr>
+                    <fieldset class="row g-2 mb-3 justify-content-center" id="drawing-save-slot">
+                        <!-- drawing save slot selection controls -->
+                        <legend class="fs-6">Select Save Slot: </legend>
+                        <div class="col-4">
+                            {% if saved_drawings.0 %}
+                            <img src="{{ saved_drawings.0.image.url }}" class="save-slot-preview"
+                            alt="Save slot 1 preview" id="save-preview-1">
+                            {% else %}
+                            <img src="/media/svg/blank.svg" class="save-slot-preview" alt="Save slot 1 preview"
+                            id="save-preview-1">
+                            {% endif %}
+                            <input type="radio" class="btn-check" name="drawing-save-slot" id="save-slot-1"
+                            autocomplete="off" value="1" checked>
+                            <label class="btn btn-brand-primary save-slot-button mt-2" for="save-slot-1">1</label>
+                        </div>
+                        <div class="col-4">
+                            {% if saved_drawings.1 %}
+                            <img src="{{ saved_drawings.1.image.url }}" class="save-slot-preview"
+                            alt="Save slot 2 preview" id="save-preview-2">
+                            {% else %}
+                            <img src="/media/svg/blank.svg" class="save-slot-preview" alt="Save slot 2 preview"
+                            id="save-preview-2">
+                            {% endif %}
+                            <input type="radio" class="btn-check" name="drawing-save-slot" id="save-slot-2"
+                            autocomplete="off" value="2">
+                            <label class="btn btn-brand-primary save-slot-button mt-2" for="save-slot-2">2</label>
+                        </div>
+                        <div class="col-4">
+                            {% if saved_drawings.2 %}
+                            <img src="{{ saved_drawings.2.image.url }}" class="save-slot-preview"
+                            alt="Save slot 3 preview" id="save-preview-3">
+                            {% else %}
+                            <img src="/media/svg/blank.svg" class="save-slot-preview" alt="Save slot 3 preview"
+                            id="save-preview-3">
+                            {% endif %}
+                            <input type="radio" class="btn-check" name="drawing-save-slot" id="save-slot-3"
+                            autocomplete="off" value="3">
+                            <label class="btn btn-brand-primary save-slot-button mt-2" for="save-slot-3">3</label>
+                        </div>
+                        <p class="small mt-2 text-center">Drawings already saved in the selected slot will be lost.</p>
+                    </fieldset>
                 </form>
-                <p id="save-drawing-result"></p>
+                <div id="save-drawing-result"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-brand-primary" id="save-drawing">Save Drawing</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-brand-primary" id="save-drawing">Save Drawing</button>
+                </div>
             </div>
-        </div>
     </div>
 </div>
 {% endif %}
 {% endblock %}
 
-    {% block page_js %}
-    <!-- load Atrament drawing plugin -->
-    <script src="{% static 'sketchbook/js/atrament.min.js' %}"></script>
-    <!-- load Coloris colour picker plugin -->
-    <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
-    <script src="{% static 'sketchbook/js/sketchbook.js' %}"></script>
-    {% endblock %}
+{% block page_js %}
+<!-- load Atrament drawing plugin -->
+<script src="{% static 'sketchbook/js/atrament.min.js' %}"></script>
+<!-- load Coloris colour picker plugin -->
+<script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
+<script src="{% static 'sketchbook/js/sketchbook.js' %}"></script>
+{% endblock %}

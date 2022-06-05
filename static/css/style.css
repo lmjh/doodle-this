@@ -94,12 +94,13 @@ a:focus-visible,
 
 .btn-brand-primary:focus {
     color: var(--text-dark);
-    background-color: var(--brand-primary-color);
-    border-color: var(--brand-primary-color);
     box-shadow: 0 0 0 .25rem rgba(130,138,145,.5);
 }
 
 .btn-brand-primary:focus-visible {
+    color: var(--text-dark);
+    background-color: var(--brand-primary-color);
+    border-color: var(--brand-primary-color);
     box-shadow: 0 0 0 .25rem rgba(130,138,145,.5)
 }
 
@@ -227,13 +228,6 @@ footer {
 }
 
 .save-slot-preview {
-    width: 100%;
-    background-color: #fff;
-    border: 1px solid var(--border-grey);
-    box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -7px rgba(0, 0, 0, 0.2);
-}
-
-.empty-save-slot {
     width: 100%;
     border: 1px solid var(--border-grey);
     box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -7px rgba(0, 0, 0, 0.2);

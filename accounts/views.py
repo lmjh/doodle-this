@@ -60,7 +60,11 @@ def save_drawing(request):
         # if the user already has a drawing with this save slot, set that
         # drawing object as the instance to be edited
         if drawing_instance:
-            form = DrawingForm(request.POST, request.FILES, instance=drawing_instance)
+            form = DrawingForm(
+                               request.POST,
+                               request.FILES,
+                               instance=drawing_instance
+                               )
         # otherwise, create a new object
         else:
             form = DrawingForm(request.POST, request.FILES)
@@ -74,5 +78,12 @@ def save_drawing(request):
             drawing.save_slot = drawing_save_slot
             drawing.image = request.FILES['image']
 
+            # save drawing
             drawing.save()
-            return JsonResponse({'message': 'Drawing successfully submitted.'})
+
+            # pass url of saved drawing back to javascript function
+            response_url = drawing.image.url
+            return JsonResponse(
+                {
+                    'url': response_url
+                })

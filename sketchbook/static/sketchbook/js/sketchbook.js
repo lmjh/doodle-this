@@ -264,13 +264,17 @@ function saveDrawing() {
             enctype: 'multipart/form-data',
             data: formData,
             success: function(response){
-                console.log('Success: ', response)
+                // display alert to notify user of successful save
                 $('#save-drawing-result').append(`
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                 Your drawing has been saved!
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 `)
+                // find the preview image corresponding to the selected save slot
+                let savePreview = $('#save-preview-' + saveSlot)
+                // update the preview image with the url returned in the JSON response
+                savePreview.attr('src', response['url'])
             },
             error: function(error){
                 console.log('Error: ', error)
