@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -5,9 +7,15 @@ from django.dispatch import receiver
 
 from django_countries.fields import CountryField
 
+
 # set upload directory for drawings model
 def upload_to(instance, filename):
-    return f"drawings/{filename}"
+    """
+    Constructs and returns a path for saved drawings to be uploaded to. Images
+    are timestamped and saved in a directory bearing the account name.
+    """
+    return (f"drawings/{instance.user_account}/"
+            f"{datetime.now().strftime('%y-%m-%d-%H-%M-%S-%f')}-{filename}")
 
 
 class UserAccount(models.Model):
@@ -15,6 +23,7 @@ class UserAccount(models.Model):
     A user account model for storing a user's address details, order history,
     and saved images.
     """
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     default_address_1 = models.CharField(max_length=80, null=True, blank=True)
     default_address_2 = models.CharField(max_length=80, null=True, blank=True)
@@ -31,8 +40,10 @@ class Drawing(models.Model):
     """
     A model for storing a user's drawings
     """
-    user_account = models.ForeignKey(UserAccount, on_delete=models.CASCADE,
-                                     related_name='drawings')
+
+    user_account = models.ForeignKey(
+        UserAccount, on_delete=models.CASCADE, related_name="drawings"
+    )
     image = models.ImageField(null=False, blank=False, upload_to=upload_to)
     title = models.CharField(max_length=254, null=True, blank=True)
     save_slot = models.IntegerField(null=False, blank=False)

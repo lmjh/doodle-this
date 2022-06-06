@@ -252,7 +252,7 @@ function saveDrawingToDb() {
         formData.append('csrfmiddlewaretoken', csrf[0].value)
         formData.append('save_slot', saveSlot);
         formData.append('title', title);
-        formData.append('image', blob, 'drawing.png');
+        formData.append('image', blob, 'drw.png');
 
         // find drawing form
         let drawingForm = document.getElementById('drawing-form');
