@@ -43,7 +43,7 @@
                         </button>
                         <button class="btn btn-brand-primary control-button" data-bs-toggle="modal"
                             data-bs-target="#saveModal" {% if not user.is_authenticated %}disabled{% endif %}>
-                            Save
+                            Save / Load
                         </button>
                         <button class="btn btn-brand-primary control-button"
                             {% if not user.is_authenticated %}disabled{% endif %}>
@@ -242,7 +242,7 @@
                 </button>
                 <button class="btn btn-brand-primary control-button" data-bs-toggle="modal" data-bs-target="#saveModal"
                     {% if not user.is_authenticated %}disabled{% endif %}>
-                    Save
+                    Save / Load
                 </button>
                 <button class="btn btn-brand-primary control-button"
                     {% if not user.is_authenticated %}disabled{% endif %}>
@@ -275,9 +275,16 @@
                 Are you sure you want to clear your sketchbook? Any unsaved doodles will be lost.
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="clear-sketchbook">Clear
-                    Sketchbook</button>
+                <div class="row w-100 g-2">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-brand-primary w-100"
+                            data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" class="btn btn-danger w-100" data-bs-dismiss="modal"
+                            id="clear-sketchbook">Clear Sketchbook</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -321,9 +328,6 @@
                         <label class="btn btn-brand-primary settings-button" for="off">Off</label>
                     </fieldset>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-brand-primary" data-bs-dismiss="modal">Close</button>
-                </div>
             </div>
         </div>
     </div>
@@ -335,7 +339,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="saveModalLabel">Save Drawing</h5>
+                <h5 class="modal-title" id="saveModalLabel">Save or Load Drawings</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
@@ -350,49 +354,85 @@
                         <div class="col-4">
                             {% if saved_drawings.0 %}
                             <img src="{{ saved_drawings.0.image.url }}" class="save-slot-preview"
-                            alt="Save slot 1 preview" id="save-preview-1">
+                                alt="Save slot 1 preview" id="save-preview-1">
                             {% else %}
                             <img src="/media/svg/blank.svg" class="save-slot-preview" alt="Save slot 1 preview"
-                            id="save-preview-1">
+                                id="save-preview-1">
                             {% endif %}
                             <input type="radio" class="btn-check" name="drawing-save-slot" id="save-slot-1"
-                            autocomplete="off" value="1" checked>
+                                autocomplete="off" value="1" checked>
                             <label class="btn btn-brand-primary save-slot-button mt-2" for="save-slot-1">1</label>
                         </div>
                         <div class="col-4">
                             {% if saved_drawings.1 %}
                             <img src="{{ saved_drawings.1.image.url }}" class="save-slot-preview"
-                            alt="Save slot 2 preview" id="save-preview-2">
+                                alt="Save slot 2 preview" id="save-preview-2">
                             {% else %}
                             <img src="/media/svg/blank.svg" class="save-slot-preview" alt="Save slot 2 preview"
-                            id="save-preview-2">
+                                id="save-preview-2">
                             {% endif %}
                             <input type="radio" class="btn-check" name="drawing-save-slot" id="save-slot-2"
-                            autocomplete="off" value="2">
+                                autocomplete="off" value="2">
                             <label class="btn btn-brand-primary save-slot-button mt-2" for="save-slot-2">2</label>
                         </div>
                         <div class="col-4">
                             {% if saved_drawings.2 %}
                             <img src="{{ saved_drawings.2.image.url }}" class="save-slot-preview"
-                            alt="Save slot 3 preview" id="save-preview-3">
+                                alt="Save slot 3 preview" id="save-preview-3">
                             {% else %}
                             <img src="/media/svg/blank.svg" class="save-slot-preview" alt="Save slot 3 preview"
-                            id="save-preview-3">
+                                id="save-preview-3">
                             {% endif %}
                             <input type="radio" class="btn-check" name="drawing-save-slot" id="save-slot-3"
-                            autocomplete="off" value="3">
+                                autocomplete="off" value="3">
                             <label class="btn btn-brand-primary save-slot-button mt-2" for="save-slot-3">3</label>
                         </div>
-                        <p class="small mt-2 text-center">Drawings already saved in the selected slot will be lost.</p>
                     </fieldset>
                 </form>
                 <div id="save-drawing-result"></div>
-            </div>
-            <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-brand-primary" id="save-drawing">Save Drawing</button>
+                <hr>
+                <div class="row g-2 w-100" id="save-load-buttons">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-brand-primary w-100" id="save-dialog-toggle"
+                            data-bs-toggle="collapse" data-bs-target="#save-confirm" aria-expanded="false"
+                            aria-controls="save-confirm">Save</button>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" class="btn btn-brand-primary w-100" id="load-dialog-toggle"
+                            data-bs-toggle="collapse" data-bs-target="#load-confirm" aria-expanded="false"
+                            aria-controls="load-confirm">Load</button>
+                    </div>
+                </div>
+                <div class="collapse" id="save-confirm">
+                    <hr class="mt-3">
+                    <div class="row g-2 w-100">
+                        <div class="mb-3">Are you sure you want to save in this save slot?</div>
+                        <div class="col-6">
+                            <button type="button" class="btn btn-brand-primary w-100 cancel-button" data-bs-toggle="collapse"
+                                data-bs-target="#save-confirm">Cancel</button>
+                        </div>
+                        <div class="col-6">
+                            <button type="button" class="btn btn-brand-primary w-100" id="save-drawing"
+                                data-bs-toggle="collapse" data-bs-target="#save-confirm">Save</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="collapse" id="load-confirm">
+                    <hr class="mt-3">
+                    <div class="row g-2 w-100">
+                        <div class="mb-3">Are you sure you want to load the drawing in this save slot?</div>
+                        <div class="col-6">
+                            <button type="button" class="btn btn-brand-primary w-100 cancel-button"
+                                data-bs-toggle="collapse" data-bs-target="#load-confirm">Cancel</button>
+                        </div>
+                        <div class="col-6">
+                            <button type="button" class="btn btn-brand-primary w-100" id="load-drawing"
+                                data-bs-toggle="collapse" data-bs-target="#load-confirm">Load</button>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
     </div>
 </div>
 {% endif %}

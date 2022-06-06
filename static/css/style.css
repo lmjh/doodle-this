@@ -124,6 +124,7 @@ a:focus-visible,
 }
 
 .btn-danger {
+    font-size: 1.2rem;
     color: #fff;
     background-color: var(--bs-danger-alt);
     border-color: var(--bs-danger-alt);
@@ -235,6 +236,10 @@ footer {
 
 .save-slot-button {
     width: 100%;
+}
+
+#id_title:disabled {
+    background: transparent;
 }
 
 /* SKETCHBOOK STYLES */

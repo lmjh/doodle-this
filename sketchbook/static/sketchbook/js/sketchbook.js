@@ -389,6 +389,19 @@ function loadDrawingFromLocal(key) {
     })
 };
 
+/**
+ * Toggles the disabled property on the fields and buttons in the save / load dialog
+ * Based on this SO answer: https://stackoverflow.com/a/57413384 
+ */
+function toggleSaveLoadButtons () {
+    $('#load-dialog-toggle').prop('disabled', function(index, val) { return !val; });
+    $('#save-dialog-toggle').prop('disabled', function(index, val) { return !val; });
+    $('#save-slot-1').prop('disabled', function(index, val) { return !val; });
+    $('#save-slot-2').prop('disabled', function(index, val) { return !val; });
+    $('#save-slot-3').prop('disabled', function(index, val) { return !val; });
+    $('#id_title').prop('disabled', function(index, val) { return !val; });
+}
+
 // ADD EVENT LISTENERS
 
 // add an event listener to set the Atrament canvas colour and cursor preview colour when a colour is selected with the 
@@ -464,8 +477,6 @@ document.getElementById('smoothing').addEventListener('change', function (e) {
     changeSmoothing(smoothing);
 });
 
-
-
 document.getElementById('paper-type').addEventListener('click', function (e) {
     if (e.target && e.target.matches(".btn-check")) {
         // pass the id of the triggering button to the changePaper function
@@ -487,5 +498,37 @@ document.getElementById("adaptive-stroke").addEventListener("click", function (e
     }
 });
 
-// add an event listener to the save-drawing button
-document.getElementById('save-drawing').addEventListener('click', saveDrawingToDb)
+
+// add an event listener to the element that holds the save and load buttons
+document.getElementById("save-load-buttons").addEventListener("click", function (e) {
+    if (e.target && e.target.matches(".btn")) {
+         // if the user activates either of the buttons, disable the form controls
+        toggleSaveLoadButtons();
+    }
+});
+
+// add an event listener to the save-confirm collapsible dialog
+document.getElementById("save-confirm").addEventListener("click", function (e) {
+    if (e.target && e.target.matches(".cancel-button")) {
+        // if the user activates the cancel button, re-activate the form controls
+        toggleSaveLoadButtons();
+    } else if (e.target && e.target.matches("#save-drawing")) {
+        // if the user activates the save-drawing button, re-activate the form controls
+        toggleSaveLoadButtons();
+        // and save the canvas to the database
+        saveDrawingToDb();
+    }
+});
+
+// add an event listener to the load-confirm collapsible dialog
+document.getElementById("load-confirm").addEventListener("click", function (e) {
+    if (e.target && e.target.matches(".cancel-button")) {
+        // if the user activates the cancel button, re-activate the form controls
+        toggleSaveLoadButtons();
+    } else if (e.target && e.target.matches("#load-drawing")) {
+        // if the user activates the load-drawing button, re-activate the form controls
+        toggleSaveLoadButtons();
+        // and load the selected drawing to the canvas
+        loadDrawingFromDb();
+    }
+});
