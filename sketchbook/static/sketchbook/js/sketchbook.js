@@ -236,9 +236,9 @@ function changePaper(paperType) {
 /**
  * Converts canvas drawing to blob, gathers form data and sends to server to save drawing in database
  */
-function saveDrawing() {
+function saveDrawingToDb() {
     // convert canvas drawing to blob
-    canvas.toBlob((blob) => {
+    canvas.toBlob(function (blob) {
         console.log('canvas converted to blob')
         // create a new FormData object
         let formData = new FormData();
@@ -251,11 +251,11 @@ function saveDrawing() {
         // append csrf token, save_slot, title and canvas blob to form
         formData.append('csrfmiddlewaretoken', csrf[0].value)
         formData.append('save_slot', saveSlot);
-        formData.append('title', title)
+        formData.append('title', title);
         formData.append('image', blob, 'drawing.png');
 
         // find drawing form
-        let drawingForm = document.getElementById('drawing-form')
+        let drawingForm = document.getElementById('drawing-form');
          
         // send form and image to server with jquery AJAX
         $.ajax({
@@ -293,6 +293,50 @@ function saveDrawing() {
         })
     })
 }
+
+/**
+ * Converts canvas drawing to blob and uses localForage to save it locally under the given key
+ */
+ function saveDrawingToLocal(key) {
+    // convert canvas drawing to blob
+    canvas.toBlob(function (blob) {
+        // save the blob locally with localForage
+        localforage.setItem(key, blob).catch(function(err) {
+            // catch any errors and print to console
+            console.log("Error: " + err);
+        })
+    })
+ }
+
+/**
+ * Uses localForage to load a blob from the given key and draws it on the canvas
+ */
+ function loadDrawingFromLocal(key) {
+    //  retreieve blob at given key from local storage using localForage
+    localforage.getItem(key).then(function(blob) {
+        // clear canvas
+        sketchbook.clear()
+        // get canvas context
+        canvasContext = canvas.getContext('2d');
+        
+        // instantiate a new Image object
+        drawing = new Image();
+
+        // update the canvas once the image has been loaded
+        drawing.onload = function (event) {
+            // revoke the no longer needed object url
+            URL.revokeObjectURL(event.target.src);
+            canvasContext.drawImage(event.target, 0, 0);
+        }
+
+        // create an object url for the blob and assign it as the src attribute of the image 
+        drawing.src = URL.createObjectURL(blob);
+    }
+    ).catch(function(err) {
+        // catch any errors and print to console
+        console.log("Error: " + err);
+    })
+ };
 
 // ADD EVENT LISTENERS
 
@@ -393,4 +437,4 @@ document.getElementById("adaptive-stroke").addEventListener("click", function(e)
 });
 
 // add an event listener to the save-drawing button
-document.getElementById('save-drawing').addEventListener('click', saveDrawing)
+document.getElementById('save-drawing').addEventListener('click', saveDrawingToDb)
