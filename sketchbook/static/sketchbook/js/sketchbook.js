@@ -13,6 +13,9 @@ const sketchbook = new Atrament(canvas, {
     weight: parseInt(document.getElementById('stroke-weight').value),
 });
 
+// parse the urls dictionary object passed from the view and assign to a variable
+const urls = JSON.parse(document.getElementById('urls').textContent);
+
 // initialise Coloris colour picker
 Coloris({
     el: '.coloris',
@@ -20,7 +23,7 @@ Coloris({
     themeMode: 'dark',
     alpha: false,
     format: 'rgb',
-    defaultColor: "#000000" ,
+    defaultColor: "#000000",
 });
 
 // set the cursor element's colour to the value of the Coloris picker
@@ -161,11 +164,11 @@ function changeCursorColor(color) {
  * and the correct colour will automatically found and passed to the Atrament canvas.
  */
 function findColor(clickedButton) {
-        // get the computed style of the received button element
-        let compStyle = window.getComputedStyle(clickedButton);
-        // assign the background colour to a variable and return it
-        let color = compStyle.getPropertyValue('background-color');
-        return color;
+    // get the computed style of the received button element
+    let compStyle = window.getComputedStyle(clickedButton);
+    // assign the background colour to a variable and return it
+    let color = compStyle.getPropertyValue('background-color');
+    return color;
 }
 
 /**
@@ -254,16 +257,13 @@ function saveDrawingToDb() {
         formData.append('title', title);
         formData.append('image', blob, 'drw.png');
 
-        // find drawing form
-        let drawingForm = document.getElementById('drawing-form');
-         
         // send form and image to server with jquery AJAX
         $.ajax({
-            type:'POST',
-            url: drawingForm.action,
+            type: 'POST',
+            url: urls.save_drawing,
             enctype: 'multipart/form-data',
             data: formData,
-            success: function(response){
+            success: function (response) {
                 // display alert to notify user of successful save
                 $('#save-drawing-result').append(`
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -276,7 +276,7 @@ function saveDrawingToDb() {
                 // update the preview image with the url returned in the JSON response
                 savePreview.attr('src', response['url'])
             },
-            error: function(error){
+            error: function (error) {
                 console.log('Error: ', error)
                 $('#save-drawing-result').append(`
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -295,32 +295,84 @@ function saveDrawingToDb() {
 }
 
 /**
+ * Sends a request to the server with the currently selected save slot and then loads the returned image onto the canvas
+ */
+function loadDrawingFromDb() {
+    // get the currently selected save_slot
+    let saveSlot = parseInt($('input[name=drawing-save-slot]:checked', '#drawing-form').val());
+    let data = {
+        'save_slot': saveSlot
+    };
+    // get the url for the get_drawing view
+    let url = urls.get_drawing;
+
+    // initiate a ajax request
+    $.ajax({
+        url: url,
+        type: "GET",
+        data: data,
+        // on success, load the image
+        success: function (response) {
+            // clear canvas
+            sketchbook.clear()
+            // get canvas context
+            let canvasContext = canvas.getContext('2d');
+
+            // instantiate a new Image object
+            let drawing = new Image();
+
+            // update the canvas once the image has been loaded
+            drawing.onload = function (event) {
+                canvasContext.drawImage(event.target, 0, 0);
+                $('#save-drawing-result').append(`
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                Your drawing has been loaded!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                `)
+            }
+
+            // set the src attribute of the new Image as the response url 
+            drawing.src = response.url;
+        },
+        error: function (response) {
+            $('#save-drawing-result').append(`
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Oops. Something seems to have gone wrong. Please try again.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            `)
+        }
+    });
+}
+
+/**
  * Converts canvas drawing to blob and uses localForage to save it locally under the given key
  */
- function saveDrawingToLocal(key) {
+function saveDrawingToLocal(key) {
     // convert canvas drawing to blob
     canvas.toBlob(function (blob) {
         // save the blob locally with localForage
-        localforage.setItem(key, blob).catch(function(err) {
+        localforage.setItem(key, blob).catch(function (err) {
             // catch any errors and print to console
             console.log("Error: " + err);
         })
     })
- }
+}
 
 /**
  * Uses localForage to load a blob from the given key and draws it on the canvas
  */
- function loadDrawingFromLocal(key) {
+function loadDrawingFromLocal(key) {
     //  retreieve blob at given key from local storage using localForage
-    localforage.getItem(key).then(function(blob) {
+    localforage.getItem(key).then(function (blob) {
         // clear canvas
         sketchbook.clear()
         // get canvas context
-        canvasContext = canvas.getContext('2d');
-        
+        let canvasContext = canvas.getContext('2d');
+
         // instantiate a new Image object
-        drawing = new Image();
+        let drawing = new Image();
 
         // update the canvas once the image has been loaded
         drawing.onload = function (event) {
@@ -331,12 +383,11 @@ function saveDrawingToDb() {
 
         // create an object url for the blob and assign it as the src attribute of the image 
         drawing.src = URL.createObjectURL(blob);
-    }
-    ).catch(function(err) {
+    }).catch(function (err) {
         // catch any errors and print to console
         console.log("Error: " + err);
     })
- };
+};
 
 // ADD EVENT LISTENERS
 
@@ -352,15 +403,15 @@ document.addEventListener('coloris:pick', event => {
 // to prevent multiple successive resize operations, add a short delay so that resize function is not called until the 
 // user has stopped resizing the window (based on this answer from SO: https://stackoverflow.com/a/15205745)
 let resizeTimer = null;
-window.addEventListener("resize", function() {
+window.addEventListener("resize", function () {
     if (resizeTimer != null) window.clearTimeout(resizeTimer);
-    resizeTimer = window.setTimeout(function() {
+    resizeTimer = window.setTimeout(function () {
         resizeCanvas();
     }, 200);
 });
 
 // add an event listener to the element that holds the preset colour buttons
-document.getElementById("preset-colour-holder").addEventListener("click", function(e) {
+document.getElementById("preset-colour-holder").addEventListener("click", function (e) {
     // if the user clicks on one of the colour buttons inside the holder element
     if (e.target && e.target.matches(".colour-button")) {
         // pass the button to the findColor function to get its background colour as an rgb() formatted string
@@ -373,28 +424,28 @@ document.getElementById("preset-colour-holder").addEventListener("click", functi
 });
 
 // add an event listener for the custom event 'colorpicked', triggered when the colour picker tool is used
-sketchbook.addEventListener('colorpicked', function(e) {
+sketchbook.addEventListener('colorpicked', function (e) {
     // use the colour returned by the colorpicked event to update the Coloris plugin and cursor preview 
     changeColorisColor(e.color);
     changeCursorColor(e.color);
 });
 
 // add an event listener to the element that holds the tool buttons
-document.getElementById("tool-holder").addEventListener("click", function(e) {
+document.getElementById("tool-holder").addEventListener("click", function (e) {
     // if the user presses enter with one of the tool buttons focused, the button will be the event target
     if (e.target && e.target.matches(".tool-button")) {
         // pass the value of the button to the changeTool function
         changeTool(e.target);
-        }
+    }
     // if the user clicks on one of the tool buttons, the svg image will be the event target
     else if (e.target && e.target.matches(".tool-icon")) {
         // pass the value of the image's parent button element to the changeTool function
         changeTool(e.target.parentElement);
-        }
+    }
 });
 
 // add event listener to change Atrament canvas stroke weight when slider is changed
-document.getElementById('stroke-weight').addEventListener('change', function(e) {
+document.getElementById('stroke-weight').addEventListener('change', function (e) {
     // convert the event taget's value to an int
     let weight = parseInt(e.target.value);
     // pass to the changeWeight function
@@ -402,12 +453,12 @@ document.getElementById('stroke-weight').addEventListener('change', function(e) 
 });
 
 // add event listener to clear Atrament canvas when clear confirmation button is clicked
-document.getElementById('clear-sketchbook').addEventListener('click', function() {
+document.getElementById('clear-sketchbook').addEventListener('click', function () {
     sketchbook.clear();
 });
 
 // add event listener to change Atrament canvas stroke smoothing factor when slider is changed
-document.getElementById('smoothing').addEventListener('change', function(e) {
+document.getElementById('smoothing').addEventListener('change', function (e) {
     // convert the value of the slider to a float and pass to the changeSmoothing function
     smoothing = parseFloat(e.target.value);
     changeSmoothing(smoothing);
@@ -415,7 +466,7 @@ document.getElementById('smoothing').addEventListener('change', function(e) {
 
 
 
-document.getElementById('paper-type').addEventListener('click', function(e) {
+document.getElementById('paper-type').addEventListener('click', function (e) {
     if (e.target && e.target.matches(".btn-check")) {
         // pass the id of the triggering button to the changePaper function
         changePaper(e.target.id);
@@ -423,14 +474,14 @@ document.getElementById('paper-type').addEventListener('click', function(e) {
 });
 
 // add an event listener to the element that holds the adaptive stroke radio buttons
-document.getElementById("adaptive-stroke").addEventListener("click", function(e) {
+document.getElementById("adaptive-stroke").addEventListener("click", function (e) {
     // if the user selects one of the radio buttons
     if (e.target && e.target.matches(".btn-check")) {
         let adaptiveStroke = e.target.id;
 
         // the expression adaptiveStroke == 'on' will evaluate to true if user selects the 'on' button.
         // otherwise it will evaluate to false.
-        sketchbook.adaptiveStroke = adaptiveStroke  == 'on';
+        sketchbook.adaptiveStroke = adaptiveStroke == 'on';
 
         localStorage.setItem('adaptiveStroke', adaptiveStroke);
     }

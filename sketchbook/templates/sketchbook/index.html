@@ -403,5 +403,8 @@
 <script src="{% static 'sketchbook/js/atrament.min.js' %}"></script>
 <!-- load Coloris colour picker plugin -->
 <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
+<!-- output urls dictionary as JSON for javascript functions -->
+{{ urls|json_script:"urls" }}
+<!-- load sketchbook javascript file -->
 <script src="{% static 'sketchbook/js/sketchbook.js' %}"></script>
 {% endblock %}

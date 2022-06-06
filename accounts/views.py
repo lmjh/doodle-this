@@ -49,7 +49,7 @@ def save_drawing(request):
         drawing_save_slot = request.POST['save_slot']
 
         # query database to find if current user has a drawing with the
-        # selected save_slot. 
+        # selected save_slot.
         # this query returns 'None' if no record is found:
         # (https://stackoverflow.com/a/29455777)
         drawing_instance = Drawing.objects.filter(
@@ -87,3 +87,36 @@ def save_drawing(request):
                 {
                     'url': response_url
                 })
+
+
+@login_required
+def get_drawing(request):
+    """
+    A view to retrieve a user's drawing from the database.
+    """
+    if request.is_ajax and request.method == "GET":
+        # find the user's account and the requested save slot
+        user_account = get_object_or_404(UserAccount, user=request.user)
+        save_slot = request.GET.get('save_slot', None)
+
+        # find the requested drawing or set to 'None'
+        drawing = Drawing.objects.filter(
+            user_account=user_account,
+            save_slot=save_slot
+            ).first()
+
+        # if the drawing is found, return its url in a JsonResponse
+        if drawing:
+            response_url = drawing.image.url
+            return JsonResponse(
+                {
+                    'url': response_url
+                }, status=200)
+
+        # if the drawing is not found, return a 404 error code
+        return JsonResponse(
+            {}, status=404)
+
+    # if request is not ajax and get, return 400 - Bad Request
+    return JsonResponse(
+        {}, status=400)
