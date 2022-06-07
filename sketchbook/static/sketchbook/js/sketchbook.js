@@ -342,6 +342,12 @@ function loadDrawingFromDb() {
             // get canvas context
             let canvasContext = canvas.getContext('2d');
 
+            // disable image smoothing
+            canvasContext.mozImageSmoothingEnabled = false;
+            canvasContext.webkitImageSmoothingEnabled = false;
+            canvasContext.msImageSmoothingEnabled = false;
+            canvasContext.imageSmoothingEnabled = false;
+
             // instantiate a new Image object
             let drawing = new Image();
 
@@ -394,6 +400,12 @@ function loadDrawingFromLocal(key) {
         sketchbook.clear()
         // get canvas context
         let canvasContext = canvas.getContext('2d');
+
+        // disable image smoothing
+        canvasContext.mozImageSmoothingEnabled = false;
+        canvasContext.webkitImageSmoothingEnabled = false;
+        canvasContext.msImageSmoothingEnabled = false;
+        canvasContext.imageSmoothingEnabled = false;
 
         // instantiate a new Image object
         let drawing = new Image();
