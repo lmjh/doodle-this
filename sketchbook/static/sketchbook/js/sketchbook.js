@@ -42,6 +42,9 @@ configureSketchbook()
 // call the updateTitleField function
 updateTitleField()
 
+// set the load button state for save slot one, which is selected on page load
+setLoadButtonState("1");
+
 // DECLARE FUNCTIONS
 
 /**
@@ -284,6 +287,8 @@ function saveDrawingToDb() {
                 savePreview.attr('src', response['url'])
                 // update the title dictionary with the submitted title
                 updateTitleDict(saveSlot, title)
+                // update the load button state
+                setLoadButtonState(saveSlot)
             },
             error: function (error) {
                 console.log('Error: ', error)
@@ -441,6 +446,19 @@ function updateTitleDict(saveSlot, newTitle) {
     titles[`title_${saveSlot}`] = newTitle;
 }
 
+/**
+ * Enables or disables the load drawing button when the user selects a save slot
+ */
+ function setLoadButtonState(saveSlot) {
+    // if the preview image for the selected save slot is the default blank image, disable the load button
+    if ($(`#save-preview-${saveSlot}`).attr('src') == '/media/svg/blank.svg') {
+        $('#load-dialog-toggle').prop('disabled', true);
+    } else {
+        // otherwise, enable the button
+        $('#load-dialog-toggle').prop('disabled', false);
+    }
+}
+
 // ADD EVENT LISTENERS
 
 // add an event listener to set the Atrament canvas colour and cursor preview colour when a colour is selected with the 
@@ -575,10 +593,13 @@ document.getElementById("load-confirm").addEventListener("click", function (e) {
 // add an event listener to the save slot modal to restore the it to its default state after closing.
 document.getElementById('saveModal').addEventListener('hidden.bs.modal', restoreSaveLoadState)
 
-// add an event listener to the save slot selection checkboxes to update the title when the user changes their selection
+// add an event listener to the save slot selection checkboxes
 document.getElementById('drawing-save-slot').addEventListener('click', function (e) {
     if (e.target && e.target.matches(".btn-check")) {
-        // pass the last character (the save_slot number) of the id of the triggering button to updateTitleField
-        updateTitleField(e.target.id.slice(-1));
+        // get the last character (the save_slot number) of the id of the triggering button
+        saveSlot = e.target.id.slice(-1)
+        // pass the save slot number to the functions to update the title field and enable/diable the load button
+        updateTitleField(saveSlot);
+        setLoadButtonState(saveSlot);
     }
 });
