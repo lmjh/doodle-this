@@ -32,23 +32,30 @@
                 </div>
                 <!-- sketchbook control buttons -->
                 <div class="col-12 d-none d-xl-block">
-                    <div class="my-2 flex-wrap-holder">
-                        <button class="btn btn-brand-primary control-button" data-bs-toggle="modal"
-                            data-bs-target="#clearModal">
-                            Clear
-                        </button>
-                        <button class="btn btn-brand-primary control-button" data-bs-toggle="modal"
-                            data-bs-target="#optionsModal">
-                            Options
-                        </button>
-                        <button class="btn btn-brand-primary control-button" data-bs-toggle="modal"
-                            data-bs-target="#saveModal" {% if not user.is_authenticated %}disabled{% endif %}>
-                            Save / Load
-                        </button>
-                        <button class="btn btn-brand-primary control-button"
-                            {% if not user.is_authenticated %}disabled{% endif %}>
-                            Gallery
-                        </button>
+                    <div class="my-2 row g-2">
+                        <div class="col-3 col-lg-6">
+                            <button class="btn btn-brand-primary w-100" data-bs-toggle="modal"
+                                data-bs-target="#clearModal">
+                                Clear
+                            </button>
+                        </div>
+                        <div class="col-3 col-lg-6">
+                            <button class="btn btn-brand-primary w-100" id="undo-side" disabled>
+                                Undo
+                            </button>
+                        </div>
+                        <div class="col-3 col-lg-12">
+                            <button class="btn btn-brand-primary w-100" data-bs-toggle="modal"
+                                data-bs-target="#saveModal" {% if not user.is_authenticated %}disabled{% endif %}>
+                                Save / Load
+                            </button>
+                        </div>
+                        <div class="col-3 col-lg-12">
+                            <button class="btn btn-brand-primary w-100" data-bs-toggle="modal"
+                                data-bs-target="#optionsModal">
+                                Options
+                            </button>
+                        </div>
                     </div>
                 </div>
                 {% if not user.is_authenticated %}
@@ -236,17 +243,16 @@
                     data-bs-target="#clearModal">
                     Clear
                 </button>
-                <button class="btn btn-brand-primary control-button" data-bs-toggle="modal"
-                    data-bs-target="#optionsModal">
-                    Options
+                <button class="btn btn-brand-primary control-button" id="undo-bottom" disabled>
+                    Undo
                 </button>
                 <button class="btn btn-brand-primary control-button" data-bs-toggle="modal" data-bs-target="#saveModal"
                     {% if not user.is_authenticated %}disabled{% endif %}>
                     Save / Load
                 </button>
-                <button class="btn btn-brand-primary control-button"
-                    {% if not user.is_authenticated %}disabled{% endif %}>
-                    Gallery
+                <button class="btn btn-brand-primary control-button" data-bs-toggle="modal"
+                    data-bs-target="#optionsModal">
+                    Options
                 </button>
             </div>
             {% if not user.is_authenticated %}
@@ -410,8 +416,8 @@
                     <div class="row g-2 w-100">
                         <div class="mb-3">Are you sure you want to save in this save slot?</div>
                         <div class="col-6">
-                            <button type="button" class="btn btn-brand-primary w-100 cancel-button" data-bs-toggle="collapse"
-                                data-bs-target="#save-confirm">Cancel</button>
+                            <button type="button" class="btn btn-brand-primary w-100 cancel-button"
+                                data-bs-toggle="collapse" data-bs-target="#save-confirm">Cancel</button>
                         </div>
                         <div class="col-6">
                             <button type="button" class="btn btn-brand-primary w-100" id="save-drawing"

@@ -535,6 +535,13 @@ document.getElementById('stroke-weight').addEventListener('change', function (e)
 // add event listener to clear Atrament canvas when clear confirmation button is clicked
 document.getElementById('clear-sketchbook').addEventListener('click', function () {
     sketchbook.clear();
+    // remove undoCache and disable undo button when clearing canvas
+    localforage.removeItem('undoCache').then( function () {
+        $('#undo-side').prop('disabled', true);
+        $('#undo-bottom').prop('disabled', true);
+    }).catch(function(error) {
+        console.log(error);
+    })
 });
 
 // add event listener to change Atrament canvas stroke smoothing factor when slider is changed
@@ -607,9 +614,55 @@ document.getElementById('saveModal').addEventListener('hidden.bs.modal', restore
 document.getElementById('drawing-save-slot').addEventListener('click', function (e) {
     if (e.target && e.target.matches(".btn-check")) {
         // get the value the triggering button
-        saveSlot = e.target.value
+        saveSlot = e.target.value;
         // pass the save slot to the functions to update the title field and enable/diable the load button
         updateTitleField(saveSlot);
         setLoadButtonState(saveSlot);
     }
 });
+
+// add event listener to the sketchbook to store the state before a stroke is drawn
+sketchbook.addEventListener('strokestart', function() {
+    // call the saveDrawingToLocal function to store the canvas state for undo
+    saveDrawingToLocal('undoCache');
+    // enable the undo buttons
+    $('#undo-side').prop('disabled', false);
+    $('#undo-bottom').prop('disabled', false);
+})
+
+// add event listener to the sketchbook to store the state before a fill is drawn
+sketchbook.addEventListener('fillstart', function() {
+    // call the saveDrawingToLocal function to store the canvas state for undo
+    saveDrawingToLocal('undoCache');
+    // enable the undo buttons
+    $('#undo-side').prop('disabled', false);
+    $('#undo-bottom').prop('disabled', false);
+})
+
+// add event listener to the side menu undo button
+document.getElementById('undo-side').addEventListener('click', function() {
+    // on click, load the undo cache onto the canvas
+    loadDrawingFromLocal('undoCache');
+    // remove the undo cache from memory
+    localforage.removeItem('undoCache').then( function () {
+        // disable undo buttons once cache is removed
+        $('#undo-side').prop('disabled', true);
+        $('#undo-bottom').prop('disabled', true);
+    }).catch(function(error) {
+        console.log(error);
+    })
+})
+
+// add event listener to the bottom menu undo button
+document.getElementById('undo-bottom').addEventListener('click', function() {
+    // on click, load the undo cache onto the canvas
+    loadDrawingFromLocal('undoCache');
+    // remove the undo cache from memory
+    localforage.removeItem('undoCache').then( function () {
+        // disable undo buttons once cache is removed
+        $('#undo-side').prop('disabled', true);
+        $('#undo-bottom').prop('disabled', true);
+    }).catch(function(error) {
+        console.log(error);
+    })
+})
