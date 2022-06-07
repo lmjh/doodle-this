@@ -404,27 +404,37 @@ function loadDrawingFromLocal(key) {
 };
 
 /**
- * Toggles the disabled property on the fields and buttons in the save / load dialog
- * Based on this SO answer: https://stackoverflow.com/a/57413384 
+ * Disable all controls in the save / load modal
  */
-function toggleSaveLoadButtons () {
-    $('#load-dialog-toggle').prop('disabled', function(index, val) { return !val; });
-    $('#save-dialog-toggle').prop('disabled', function(index, val) { return !val; });
-    $('#save-slot-1').prop('disabled', function(index, val) { return !val; });
-    $('#save-slot-2').prop('disabled', function(index, val) { return !val; });
-    $('#save-slot-3').prop('disabled', function(index, val) { return !val; });
-    $('#id_title').prop('disabled', function(index, val) { return !val; });
+function disableSaveLoadButtons () {
+    $('#save-dialog-toggle').prop('disabled', true);
+    $('#load-dialog-toggle').prop('disabled', true);
+    $('#save-slot-1').prop('disabled', true);
+    $('#save-slot-2').prop('disabled', true);
+    $('#save-slot-3').prop('disabled', true);
+    $('#id_title').prop('disabled', true);
+}
+
+/**
+ * Pass selected save slot to the setLoadButtonState function to enable load button if a drawing is saved there.
+ * Enable all other controls in the save / load modal.
+ */
+function enableSaveLoadButtons () {
+    let saveSlot = $("#drawing-save-slot input[type='radio']:checked").val();
+    setLoadButtonState(saveSlot);
+    $('#save-dialog-toggle').prop('disabled', false);
+    $('#save-slot-1').prop('disabled', false);
+    $('#save-slot-2').prop('disabled', false);
+    $('#save-slot-3').prop('disabled', false);
+    $('#id_title').prop('disabled', false);
 }
 
 /**
  * Restores the save/load modal to its default state.
  */
 function restoreSaveLoadState() {
-    // if the save-dialog-toggle button is currently disabled
-    if ($('#save-dialog-toggle').prop('disabled')) {
-        // call the function to re-enable the buttons
-        toggleSaveLoadButtons();
-    }
+    // re-enable the buttons
+    enableSaveLoadButtons();
     // remove the 'show' class from the two collapsible elements of the modal
     $('#save-confirm').removeClass('show');
     $('#load-confirm').removeClass('show');
@@ -560,7 +570,7 @@ document.getElementById("adaptive-stroke").addEventListener("click", function (e
 document.getElementById("save-load-buttons").addEventListener("click", function (e) {
     if (e.target && e.target.matches(".btn")) {
          // if the user activates either of the buttons, disable the form controls
-        toggleSaveLoadButtons();
+        disableSaveLoadButtons();
     }
 });
 
@@ -568,12 +578,12 @@ document.getElementById("save-load-buttons").addEventListener("click", function 
 document.getElementById("save-confirm").addEventListener("click", function (e) {
     if (e.target && e.target.matches(".cancel-button")) {
         // if the user activates the cancel button, re-activate the form controls
-        toggleSaveLoadButtons();
+        enableSaveLoadButtons();
     } else if (e.target && e.target.matches("#save-drawing")) {
-        // if the user activates the save-drawing button, re-activate the form controls
-        toggleSaveLoadButtons();
-        // and save the canvas to the database
+        // if the user activates the save-drawing button, save the canvas to the database
         saveDrawingToDb();
+        // and re-activate the form controls
+        enableSaveLoadButtons();
     }
 });
 
@@ -581,10 +591,10 @@ document.getElementById("save-confirm").addEventListener("click", function (e) {
 document.getElementById("load-confirm").addEventListener("click", function (e) {
     if (e.target && e.target.matches(".cancel-button")) {
         // if the user activates the cancel button, re-activate the form controls
-        toggleSaveLoadButtons();
+        enableSaveLoadButtons();
     } else if (e.target && e.target.matches("#load-drawing")) {
         // if the user activates the load-drawing button, re-activate the form controls
-        toggleSaveLoadButtons();
+        enableSaveLoadButtons();
         // and load the selected drawing to the canvas
         loadDrawingFromDb();
     }
@@ -596,9 +606,9 @@ document.getElementById('saveModal').addEventListener('hidden.bs.modal', restore
 // add an event listener to the save slot selection checkboxes
 document.getElementById('drawing-save-slot').addEventListener('click', function (e) {
     if (e.target && e.target.matches(".btn-check")) {
-        // get the last character (the save_slot number) of the id of the triggering button
-        saveSlot = e.target.id.slice(-1)
-        // pass the save slot number to the functions to update the title field and enable/diable the load button
+        // get the value the triggering button
+        saveSlot = e.target.value
+        // pass the save slot to the functions to update the title field and enable/diable the load button
         updateTitleField(saveSlot);
         setLoadButtonState(saveSlot);
     }
