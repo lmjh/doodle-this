@@ -16,6 +16,10 @@ const sketchbook = new Atrament(canvas, {
 // parse the urls dictionary object passed from the view and assign to a variable
 const urls = JSON.parse(document.getElementById('urls').textContent);
 
+// parse the titles dictionary object passed from the view and assign to a variable
+// declared as 'var' as it will be updated by the application
+var titles = JSON.parse(document.getElementById('titles').textContent);
+
 // initialise Coloris colour picker
 Coloris({
     el: '.coloris',
@@ -34,6 +38,9 @@ resizeCanvas();
 
 // call configureSketchbook function
 configureSketchbook()
+
+// call the updateTitleField function
+updateTitleField()
 
 // DECLARE FUNCTIONS
 
@@ -275,6 +282,8 @@ function saveDrawingToDb() {
                 let savePreview = $('#save-preview-' + saveSlot)
                 // update the preview image with the url returned in the JSON response
                 savePreview.attr('src', response['url'])
+                // update the title dictionary with the submitted title
+                updateTitleDict(saveSlot, title)
             },
             error: function (error) {
                 console.log('Error: ', error)
@@ -402,6 +411,36 @@ function toggleSaveLoadButtons () {
     $('#id_title').prop('disabled', function(index, val) { return !val; });
 }
 
+/**
+ * Restores the save/load modal to its default state.
+ */
+function restoreSaveLoadState() {
+    // if the save-dialog-toggle button is currently disabled
+    if ($('#save-dialog-toggle').prop('disabled')) {
+        // call the function to re-enable the buttons
+        toggleSaveLoadButtons();
+    }
+    // remove the 'show' class from the two collapsible elements of the modal
+    $('#save-confirm').removeClass('show');
+    $('#load-confirm').removeClass('show');
+}
+
+/**
+ * Updates the title input field with the value of the currently selected save slot
+ */
+function updateTitleField() {
+    let saveSlot = parseInt($('input[name=drawing-save-slot]:checked', '#drawing-form').val());
+    let title = titles[`title_${saveSlot}`];
+    $('#id_title').val(title);
+}
+
+/**
+ * Updates the title dictionary corresponding to the given save slot with the given string
+ */
+function updateTitleDict(saveSlot, newTitle) {
+    titles[`title_${saveSlot}`] = newTitle;
+}
+
 // ADD EVENT LISTENERS
 
 // add an event listener to set the Atrament canvas colour and cursor preview colour when a colour is selected with the 
@@ -477,6 +516,7 @@ document.getElementById('smoothing').addEventListener('change', function (e) {
     changeSmoothing(smoothing);
 });
 
+// add event listener to change the paper background when the selected checkbox changes
 document.getElementById('paper-type').addEventListener('click', function (e) {
     if (e.target && e.target.matches(".btn-check")) {
         // pass the id of the triggering button to the changePaper function
@@ -497,7 +537,6 @@ document.getElementById("adaptive-stroke").addEventListener("click", function (e
         localStorage.setItem('adaptiveStroke', adaptiveStroke);
     }
 });
-
 
 // add an event listener to the element that holds the save and load buttons
 document.getElementById("save-load-buttons").addEventListener("click", function (e) {
@@ -530,5 +569,16 @@ document.getElementById("load-confirm").addEventListener("click", function (e) {
         toggleSaveLoadButtons();
         // and load the selected drawing to the canvas
         loadDrawingFromDb();
+    }
+});
+
+// add an event listener to the save slot modal to restore the it to its default state after closing.
+document.getElementById('saveModal').addEventListener('hidden.bs.modal', restoreSaveLoadState)
+
+// add an event listener to the save slot selection checkboxes to update the title when the user changes their selection
+document.getElementById('drawing-save-slot').addEventListener('click', function (e) {
+    if (e.target && e.target.matches(".btn-check")) {
+        // pass the last character (the save_slot number) of the id of the triggering button to updateTitleField
+        updateTitleField(e.target.id.slice(-1));
     }
 });

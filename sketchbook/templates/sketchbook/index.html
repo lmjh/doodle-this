@@ -352,6 +352,7 @@
                         <!-- drawing save slot selection controls -->
                         <legend class="fs-6">Select Save Slot: </legend>
                         <div class="col-4">
+                            <!-- add preview image if user has an image in this save slot, otherwise show a default -->
                             {% if saved_drawings.0 %}
                             <img src="{{ saved_drawings.0.image.url }}" class="save-slot-preview"
                                 alt="Save slot 1 preview" id="save-preview-1">
@@ -404,6 +405,7 @@
                     </div>
                 </div>
                 <div class="collapse" id="save-confirm">
+                    <!-- collapsible section to confirm saving picture -->
                     <hr class="mt-3">
                     <div class="row g-2 w-100">
                         <div class="mb-3">Are you sure you want to save in this save slot?</div>
@@ -418,6 +420,7 @@
                     </div>
                 </div>
                 <div class="collapse" id="load-confirm">
+                    <!-- collapsible section to confirm loading picture -->
                     <hr class="mt-3">
                     <div class="row g-2 w-100">
                         <div class="mb-3">Are you sure you want to load the drawing in this save slot?</div>
@@ -443,8 +446,9 @@
 <script src="{% static 'sketchbook/js/atrament.min.js' %}"></script>
 <!-- load Coloris colour picker plugin -->
 <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
-<!-- output urls dictionary as JSON for javascript functions -->
+<!-- output urls and titles dictionaries as JSON for javascript functions -->
 {{ urls|json_script:"urls" }}
+{{ titles|json_script:"titles" }}
 <!-- load sketchbook javascript file -->
 <script src="{% static 'sketchbook/js/sketchbook.js' %}"></script>
 {% endblock %}

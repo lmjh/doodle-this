@@ -42,12 +42,26 @@ def index(request):
         'get_drawing': reverse('get_drawing'),
     }
 
+    # also create a dictionary to store drawing titles
+    titles = {}
+    # iterate through saved_drawings array
+    for count, drawing in enumerate(saved_drawings):
+        # set title to the title of the drawing if one is present, or an empty
+        # string if no drawing found or drawing doesn't have a title
+        if drawing:
+            title = drawing.title or ""
+        else:
+            title = ""
+        # save the titles to the titles dictionary
+        titles[f"title_{count + 1}"] = title
+
     template = 'sketchbook/index.html'
 
     context = {
         'form': form,
         'saved_drawings': saved_drawings,
-        'urls': urls
+        'urls': urls,
+        'titles': titles
     }
 
     return render(request, template, context)
