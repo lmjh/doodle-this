@@ -45,6 +45,16 @@ updateTitleField()
 // set the load button state for save slot one, which is selected on page load
 setLoadButtonState("1");
 
+// if an autosave state is present, load it
+localforage.keys().then(function(keys) {
+    if (keys.includes('autosave')) {
+        loadDrawingFromLocal('autosave');
+    }
+}).catch(function(err) {
+    // This code runs if there were any errors
+    console.log(err);
+});
+
 // DECLARE FUNCTIONS
 
 /**
@@ -542,6 +552,11 @@ document.getElementById('clear-sketchbook').addEventListener('click', function (
     }).catch(function(error) {
         console.log(error);
     })
+    // also remove autosave
+    localforage.removeItem('autosave').catch(function(error) {
+        console.log(error);
+    })
+
 });
 
 // add event listener to change Atrament canvas stroke smoothing factor when slider is changed
@@ -648,6 +663,8 @@ document.getElementById('undo-side').addEventListener('click', function() {
         // disable undo buttons once cache is removed
         $('#undo-side').prop('disabled', true);
         $('#undo-bottom').prop('disabled', true);
+        // update the autosave file
+        saveDrawingToLocal('autosave');
     }).catch(function(error) {
         console.log(error);
     })
@@ -662,7 +679,21 @@ document.getElementById('undo-bottom').addEventListener('click', function() {
         // disable undo buttons once cache is removed
         $('#undo-side').prop('disabled', true);
         $('#undo-bottom').prop('disabled', true);
+        // update the autosave file
+        saveDrawingToLocal('autosave');
     }).catch(function(error) {
         console.log(error);
     })
+})
+
+// add event listener to the sketchbook to store the state after a stroke is drawn
+sketchbook.addEventListener('strokeend', function() {
+    // call the saveDrawingToLocal function to store the canvas state for autosave
+    saveDrawingToLocal('autosave');
+})
+
+// add event listener to the sketchbook to store the state after a fill is drawn
+sketchbook.addEventListener('fillend', function() {
+    // call the saveDrawingToLocal function to store the canvas state for autosave
+    saveDrawingToLocal('autosave');
 })
