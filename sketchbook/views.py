@@ -5,7 +5,7 @@ from accounts.forms import DrawingForm
 from accounts.models import Drawing
 
 
-def index(request):
+def sketchbook(request):
     """ A view to display the sketchbook page """
 
     # create a dictionary to store urls for javascript functions
@@ -58,7 +58,7 @@ def index(request):
             # save the titles to the titles dictionary
             titles[f"title_{count + 1}"] = title
 
-    template = 'sketchbook/index.html'
+    template = 'sketchbook/sketchbook.html'
 
     context = {
         'form': form,
