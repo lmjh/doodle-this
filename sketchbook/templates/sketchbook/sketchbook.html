@@ -352,7 +352,7 @@
             <div class="modal-body">
                 <form method="post" action="{% url 'save_drawing' %}" id="drawing-form">
                     {% csrf_token %}
-                    {{form|crispy}}
+                    {{form.title|as_crispy_field}}
                     <hr>
                     <fieldset class="row g-2 mb-3 justify-content-center" id="drawing-save-slot">
                         <!-- drawing save slot selection controls -->
