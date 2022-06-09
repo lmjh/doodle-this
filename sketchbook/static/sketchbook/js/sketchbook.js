@@ -262,7 +262,6 @@ function changePaper(paperType) {
 function saveDrawingToDb() {
     // convert canvas drawing to blob
     canvas.toBlob(function (blob) {
-        console.log('canvas converted to blob')
         // create a new FormData object
         let formData = new FormData();
         // find csrf token elements and assign to variable
@@ -285,12 +284,7 @@ function saveDrawingToDb() {
             data: formData,
             success: function (response) {
                 // display alert to notify user of successful save
-                $('#save-drawing-result').append(`
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                Your drawing has been saved!
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                `)
+                displayToast('success', 'Your drawing has been saved!')
                 // find the preview image corresponding to the selected save slot
                 let savePreview = $('#save-preview-' + saveSlot)
                 // update the preview image with the url returned in the JSON response
@@ -301,13 +295,7 @@ function saveDrawingToDb() {
                 setLoadButtonState(saveSlot)
             },
             error: function (error) {
-                console.log('Error: ', error)
-                $('#save-drawing-result').append(`
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                Oops. Something seems to have gone wrong. Please try again.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                `)
+                displayToast('error', 'Something seems to have gone wrong. Please try again.')
             },
             cache: false,
             // set contentType and processData to false to allow passing files
@@ -354,24 +342,14 @@ function loadDrawingFromDb() {
             // update the canvas once the image has been loaded
             drawing.onload = function (event) {
                 canvasContext.drawImage(event.target, 0, 0);
-                $('#save-drawing-result').append(`
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                Your drawing has been loaded!
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                `)
+                displayToast('success', 'Your drawing has been loaded!')
             }
 
             // set the src attribute of the new Image as the response url 
             drawing.src = response.url;
         },
         error: function (response) {
-            $('#save-drawing-result').append(`
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            Oops. Something seems to have gone wrong. Please try again.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            `)
+            displayToast('error', 'Something seems to have gone wrong. Please try again.')
         }
     });
 }

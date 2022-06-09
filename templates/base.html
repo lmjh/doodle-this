@@ -49,21 +49,12 @@
         {% include 'includes/navbar.html' %}
     </header>
 
-    {% if messages %}
-    <div>
-      <strong>Messages:</strong>
-      <ul>
-        {% for message in messages %}
-        <li>{{message}}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
-
     <main>
         {% block content %}
         {% endblock %}
     </main>
+    
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toast-container"></div>
 
     {% include 'includes/footer.html' %}
 
@@ -86,10 +77,13 @@
     {% endblock %}
 
     {% block site_js %}
+    <!-- Load js to handle toast notifications -->
+    <script src="{% static 'notifications/js/notifications.js' %}"></script>
     {% endblock %}
 
     {% block page_js %}
     {% endblock %}
-</body>
 
+    <!--  -->
+    {{ message_array|json_script:"json_messages" }}
 </html>

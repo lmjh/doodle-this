@@ -31,6 +31,7 @@
     --grey-ink: #515151;
     --white-ink: #ffffff;
     /* override bootstrap colours */
+    --bs-success: #1387cd;
     --bs-danger: #D6281B;
     --bs-danger-alt: #a91e14;
     --bs-secondary: #515151;
@@ -245,26 +246,34 @@ footer {
 /* TOAST NOTIFICATION STYLES */
 
 #toast-container {
-    z-index: 9;
+    /* set z-index to appear above bootstrap modal background */
+    z-index: 1056;
 }
 
 .toast {
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: bold;
-    opacity: 0.9;
+    opacity: 0.95;
 }
 
 .toast-success,
-.toast-info {
-    background-color: var(--brand-primary-color);
-    color: var(--text-dark);
-}
-
+.toast-info,
 .toast-debug,
 .toast-error,
 .toast-warning {
-    background-color: var(--bs-danger-alt);
-    color: #fff;
+    background-color: var(--bg-grey);
+    color: var(--text-dark);
+}
+
+.toast-success > .toast-header,
+.toast-info > .toast-header {
+    background-color: var(--bs-success);
+}
+
+.toast-debug > .toast-header,
+.toast-error > .toast-header,
+.toast-warning > .toast-header {
+    background-color: var(--bs-danger);
 }
 
 /* SKETCHBOOK STYLES */
