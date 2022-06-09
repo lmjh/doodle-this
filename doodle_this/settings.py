@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     'sketchbook',
     'accounts',
+    'notifications',
 ]
 
 MIDDLEWARE = [
