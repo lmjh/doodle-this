@@ -242,6 +242,31 @@ footer {
     background: transparent;
 }
 
+/* TOAST NOTIFICATION STYLES */
+
+#toast-container {
+    z-index: 9;
+}
+
+.toast {
+    font-size: 0.95rem;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+.toast-success,
+.toast-info {
+    background-color: var(--brand-primary-color);
+    color: var(--text-dark);
+}
+
+.toast-debug,
+.toast-error,
+.toast-warning {
+    background-color: var(--bs-danger-alt);
+    color: #fff;
+}
+
 /* SKETCHBOOK STYLES */
 
 .control-panel {
