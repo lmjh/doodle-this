@@ -89,69 +89,101 @@ function resizeCanvas() {
     paper.css('transform', 'scale(' + (1 / scale) + ')');
 }
 
+/**
+ * Configures the state of the canvas and controls on pageload.
+ */
 function configureSketchbook() {
-    if (localStorage.hasOwnProperty('color')) {
-        // if color is saved in local storage, load color
-        let color = localStorage.color;
-        changeAtramentColor(color);
-        changeColorisColor(color);
-        changeCursorColor(color);
-    } else {
-        // if color is not saved in local storage, set to black and save
-        let color = "rgb(0, 0, 0, 255)";
-        changeAtramentColor(color);
-        changeColorisColor(color);
-        changeCursorColor(color);
-    }
+    
+    // get an array of the keys saved in localforage
+    localforage.keys().then(function(keys) {
+        if (keys.includes('color')) {
+            localforage.getItem('color').then(function(color) {
+                // if color is saved with localforage, load color
+                changeAtramentColor(color);
+                changeColorisColor(color);
+                changeCursorColor(color);
+            }).catch(function(err) {
+                console.log(err);
+            });
+        } else {
+            // if color is not saved with localforage, set to black and save
+            let color = "rgb(0, 0, 0, 255)";
+            changeAtramentColor(color);
+            changeColorisColor(color);
+            changeCursorColor(color);
+        }
 
-    if (localStorage.hasOwnProperty('weight')) {
-        // if weight is saved in local storage, load weight
-        let weight = parseInt(localStorage.weight);
-        changeWeight(weight);
-    } else {
-        // if weight is not saved in local storage, set to 20 and save
-        let weight = 20;
-        changeWeight(weight)
-    }
+        if (keys.includes('weight')) {
+            localforage.getItem('weight').then(function(weight) {
+                // if weight is saved with localforage, load weight
+                changeWeight(weight);
+                // change value of on-screen control to match
+                $('#stroke-weight').val(weight);
+            }).catch(function(err) {
+                console.log(err);
+            });
+        } else {
+            // if weight is not saved with localforage, set to 20 and save
+            let weight = 20;
+            changeWeight(weight);
+            // change value of on-screen control to match
+            $('#stroke-weight').val(weight);
+        }
 
-    if (localStorage.hasOwnProperty('paperType')) {
-        // if paperType is saved in local storage, load paperType
-        let paperType = localStorage.paperType;
-        changePaper(paperType);
-    } else {
-        // if paperType is not saved in local storage, set to 'watermarked' and save
-        let paperType = 'watermark';
-        changePaper(paperType)
-    }
+        if (keys.includes('paperType')) {
+            localforage.getItem('paperType').then(function(paperType) {
+                // if paperType is saved with localforage, load paperType
+                changePaper(paperType)
+                // change value of on-screen control to match
+                $(`#${paperType}`).prop('checked', true);
+            }).catch(function(err) {
+                console.log(err);
+            });
+        } else {
+            // if paperType is not saved in local storage, set to 'watermarked'
+            let paperType = 'watermark';
+            changePaper(paperType)
+            // change value of on-screen control to match
+            $(`#${paperType}`).prop('checked', true)
+        }
 
-    if (localStorage.hasOwnProperty('smoothing')) {
-        // if smoothing is saved in local storage, load smoothing
-        let smoothing = parseFloat(localStorage.smoothing);
-        changeSmoothing(smoothing);
-    } else {
-        // if smoothing is not saved in local storage, set to 0.65 and save
-        let smoothing = 0.65;
-        changeSmoothing(smoothing)
-    }
+        if (keys.includes('smoothing')) {
+            localforage.getItem('smoothing').then(function(smoothing) {
+                // if smoothing is saved with localforage, load smoothing
+                changeSmoothing(smoothing);
+                // change value of on-screen control to match
+                $('#smoothing').val(smoothing);
+            }).catch(function(err) {
+                console.log(err);
+            });
+        } else {
+            // if smoothing is not saved with localforage, set to 0.65
+            let smoothing = 0.65;
+            changeSmoothing(smoothing);
+            // change value of on-screen control to match
+            $('#smoothing').val(smoothing);
+        }
 
-    if (localStorage.hasOwnProperty('adaptiveStroke')) {
-        // if adaptiveStroke is saved in local storage, load adaptiveStroke
-        let adaptiveStroke = localStorage.adaptiveStroke;
-        // set adaptiveStroke to boolean true if the string matches 'on', false if it doesn't
-        sketchbook.adaptiveStroke = adaptiveStroke == 'on';
-    } else {
-        // if adaptiveStroke is not saved in local storage, set to 'off' and save
-        adaptiveStroke = 'off';
-        sketchbook.adaptiveStroke = false;
-    }
+        if (keys.includes('adaptiveStroke')) {
+            localforage.getItem('adaptiveStroke').then(function(adaptiveStroke) {
+                // if adaptiveStroke is saved with localforage, load adaptiveStroke
+                sketchbook.adaptiveStroke = adaptiveStroke;
+                // use ternary operator with adaptiveStroke boolean to select on or off checkbox
+                $(`#adaptive-stroke-${adaptiveStroke ? 'on' : 'off'}`).prop('checked', true);
+            }).catch(function(err) {
+                console.log(err);
+            });
+        } else {
+            // if adaptiveStroke is not saved with localforage, set to false
+            let adaptiveStroke = false;
+            sketchbook.adaptiveStroke = adaptiveStroke;
+            // use ternary operator to select on or off checkbox
+            $(`#adaptive-stroke-${adaptiveStroke ? 'on' : 'off'}`).prop('checked', true);
+        }
 
-    // set page controls to match saved settings
-    $('#stroke-weight').val(localStorage.weight)
-    $('#smoothing').val(localStorage.smoothing)
-    // check the checkboxes with an ids matching the saved values
-    $(`#${localStorage.paperType}`).prop('checked', true)
-    $(`#${localStorage.adaptiveStroke}`).prop('checked', true)
-}
+    }).catch(function(err) {
+        console.log(err);
+    })}
 
 /**
  * Takes a colour as a string and uses it to set the Atrament canvas' current colour. Saves the selected colour in
@@ -160,7 +192,7 @@ function configureSketchbook() {
 function changeAtramentColor(color) {
     sketchbook.color = color;
 
-    localStorage.setItem('color', color);
+    localforage.setItem('color', color);
 }
 
 /**
@@ -211,7 +243,7 @@ function changeWeight(weight) {
     // set cursor preview to same width and height as canvas tool
     $('#cursor').css('width', weight).css('height', weight);
 
-    localStorage.setItem('weight', weight);
+    localforage.setItem('weight', weight);
 }
 
 /**
@@ -222,7 +254,7 @@ function changeSmoothing(smoothing) {
     // pass float to Atrament canvas
     sketchbook.smoothing = smoothing;
 
-    localStorage.setItem('smoothing', smoothing);
+    localforage.setItem('smoothing', smoothing);
 }
 
 /**
@@ -234,7 +266,7 @@ function changePaper(paperType) {
     // remove all paper classes
     paper.removeClass('plain-paper watermarked-paper lined-paper squared-paper');
 
-    localStorage.setItem('paperType', paperType);
+    localforage.setItem('paperType', paperType);
 
     // use the received string to set the paper class
     switch (paperType) {
@@ -568,13 +600,13 @@ document.getElementById('paper-type').addEventListener('click', function (e) {
 document.getElementById("adaptive-stroke").addEventListener("click", function (e) {
     // if the user selects one of the radio buttons
     if (e.target && e.target.matches(".btn-check")) {
-        let adaptiveStroke = e.target.id;
-
-        // the expression adaptiveStroke == 'on' will evaluate to true if user selects the 'on' button.
+        // the expression e.target.id == 'adaptive-stroke-on' will evaluate to true if user selects the 'on' button.
         // otherwise it will evaluate to false.
-        sketchbook.adaptiveStroke = adaptiveStroke == 'on';
+        let adaptiveStroke = e.target.id == 'adaptive-stroke-on';
 
-        localStorage.setItem('adaptiveStroke', adaptiveStroke);
+        sketchbook.adaptiveStroke = adaptiveStroke;
+
+        localforage.setItem('adaptiveStroke', adaptiveStroke);
     }
 });
 
