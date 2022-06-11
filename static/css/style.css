@@ -598,6 +598,15 @@ input.coloris:hover {
     outline-color: var(--brand-primary-color);
 }
 
+/* PRINTS PAGES STYLES */
+
+.product-price {
+    color: var(--brand-primary-color);
+    font-weight: bold;
+    font-family: 'Baloo 2', Arial, Helvetica, sans-serif;
+    font-size: 3rem;
+}
+
 /* MEDIA QUERIES */
 
 @media (min-width: 576px) {
