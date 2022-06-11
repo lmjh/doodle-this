@@ -24,7 +24,7 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
 
     name = models.CharField(max_length=120)
-    disaply_name = models.CharField(max_length=120, null=False, blank=True)
+    display_name = models.CharField(max_length=120, null=False, blank=True)
 
     def __str__(self):
         return self.name
@@ -67,8 +67,13 @@ class ProductVariant(models.Model):
     A model to represent each individual product variant
     """
 
+    class Meta:
+        # no two variants of the same product should have the same name or
+        # display name
+        unique_together = (("product", "name"), ("product", "display_name"),)
+
     product = models.ForeignKey(
-        Product, null=False, blank=False, on_delete=models.SET_NULL
+        Product, null=True, blank=False, on_delete=models.SET_NULL
     )
     name = models.CharField(max_length=120, null=False, blank=False)
     display_name = models.CharField(max_length=120, null=False, blank=False)
@@ -80,4 +85,4 @@ class ProductVariant(models.Model):
     sku = models.CharField(max_length=120, null=True, blank=True, unique=True)
 
     def __str__(self):
-        return f"{self.product} Variant - {self.name}"
+        return f"{self.product.display_name} Variant - {self.display_name}"
