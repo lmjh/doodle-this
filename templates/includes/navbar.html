@@ -12,7 +12,7 @@
                     <a class="nav-link" href="{% url 'sketchbook' %}">Sketchbook</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Prints</a>
+                    <a class="nav-link" href="{% url 'show_all_prints' %}">Prints</a>
                 </li>
                 {% if not user.is_authenticated %}
                 <li class="nav-item">

@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('allauth.urls')),
     path('account/', include('accounts.urls')),
+    path('prints/', include('prints.urls')),
     path('', include('sketchbook.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
