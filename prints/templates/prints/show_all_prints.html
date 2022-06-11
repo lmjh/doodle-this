@@ -8,7 +8,9 @@
         {% for product in products %}
         <div class="col-12 col-md-6 col-lg-4 g-5 {% if forloop.last %}mb-5{% endif %}">
             <div class="card content-panel">
-                <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+                <a href="{% url 'product_details' product.name %}">
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="Preview image of {{ product.display_name }}">
+                </a>
                 <div class="card-body">
                     <h5 class="card-title display-6">{{ product.display_name }}</h5>
                     <div class="row">
@@ -16,7 +18,7 @@
                             <span class=display-6>from</span> <span class="product-price">£{{ min_prices|get_dict_item:product.name }}</span>
                         </div>
                         <div class="col-8 offset-2 my-3">
-                            <button class="btn btn-brand-primary w-100">View Options</button>
+                            <a href="{% url 'product_details' product.name %}"><button class="btn btn-brand-primary w-100">View Options</button></a>
                         </div>
                     </div>
                 </div>

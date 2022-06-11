@@ -27,3 +27,15 @@ def show_all_prints(request):
     }
 
     return render(request, template, context)
+
+
+def product_details(request, product_name):
+
+    product = Product.objects.get(name=product_name)
+
+    template = 'prints/product_details.html'
+    context = {
+        'product': product
+    }
+
+    return render(request, template, context)
