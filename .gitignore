@@ -17,3 +17,6 @@ htmlcov/
 
 # user generated drawings
 media/drawings/
+
+# product images
+media/products/

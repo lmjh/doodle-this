@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'sketchbook',
     'accounts',
     'notifications',
+    'prints',
 ]
 
 MIDDLEWARE = [
