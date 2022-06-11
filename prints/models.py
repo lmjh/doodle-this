@@ -81,7 +81,7 @@ class ProductVariant(models.Model):
         null=True, blank=True, upload_to=variant_upload_path
     )
     description = models.TextField(null=True, blank=True)
-    cost = models.DecimalField(max_digits=6, decimal_places=2)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
     sku = models.CharField(max_length=120, null=True, blank=True, unique=True)
 
     def __str__(self):
