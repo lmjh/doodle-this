@@ -81,7 +81,10 @@ TEMPLATES = [
             'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',
                 'crispy_forms.templatetags.crispy_forms_field',
-            ]
+            ],
+            'libraries': {
+                'custom_tags': 'prints.template_tags.custom_template_tags'
+            }
         },
     },
 ]

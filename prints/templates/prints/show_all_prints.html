@@ -1,16 +1,20 @@
 {% extends 'base.html' %}
+{% block page_title %}Buy Prints - Doodle This{% endblock %}
+
 {% block content %}
 <div class="container mt-5">
     <div class="row">
-        <h1 class="col-12 mb-2 text-center">Prints</h1>
+        <h1 class="col-12 mb-2 text-center">Buy Prints</h1>
         {% for product in products %}
-        <div class="col-12 col-md-6 col-lg-4 g-5">
-            <div class="card  content-panel">
+        <div class="col-12 col-md-6 col-lg-4 g-5 {% if forloop.last %}mb-5{% endif %}">
+            <div class="card content-panel">
                 <img src="{{ product.image.url }}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title display-6">{{ product.display_name }}</h5>
                     <div class="row">
-                        <div class="col-12 text-end"><span class=display-6>from</span> <span class="product-price">£19.99</span></div>
+                        <div class="col-12 text-end">
+                            <span class=display-6>from</span> <span class="product-price">£{{ min_prices|get_dict_item:product.name }}</span>
+                        </div>
                         <div class="col-8 offset-2 my-3">
                             <button class="btn btn-brand-primary w-100">View Options</button>
                         </div>
