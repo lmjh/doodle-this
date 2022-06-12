@@ -182,6 +182,7 @@ a:focus-visible,
 .form-select:focus {
     background-color: var(--bg-form);
     color: var(--text-light);
+    border-color: var(--border-grey);
 }
 
 .invalid-feedback{
@@ -605,6 +606,16 @@ input.coloris:hover {
     font-weight: bold;
     font-family: 'Baloo 2', Arial, Helvetica, sans-serif;
     font-size: 3rem;
+}
+
+.highlight {
+    color: var(--brand-primary-color);
+    font-weight: bold;
+    font-family: 'Baloo 2', Arial, Helvetica, sans-serif;
+}
+
+.input-group-text {
+    border-color: var(--border-grey);
 }
 
 /* MEDIA QUERIES */

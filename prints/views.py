@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Category, Product, ProductVariant
+from accounts.models import Drawing
 
 
 def show_all_prints(request):
@@ -32,10 +33,14 @@ def show_all_prints(request):
 def product_details(request, product_name):
 
     product = Product.objects.get(name=product_name)
+    variants = ProductVariant.objects.filter(product=product.pk)
+    saved_drawings = Drawing.objects.filter(user_account=request.user.pk)
 
     template = 'prints/product_details.html'
     context = {
-        'product': product
+        'product': product,
+        'variants': variants,
+        'saved_drawings': saved_drawings
     }
 
     return render(request, template, context)
