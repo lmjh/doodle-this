@@ -9,7 +9,7 @@
         <div class="col-12 col-md-6 col-lg-4 g-5 {% if forloop.last %}mb-5{% endif %}">
             <div class="card content-panel">
                 <a href="{% url 'product_details' product.name %}">
-                    <img src="{{ product.image.url }}" class="card-img-top" alt="Preview image of {{ product.display_name }}">
+                    <img src="{{ product.image.image.url }}" class="card-img-top" alt="Preview image of {{ product.display_name }}">
                 </a>
                 <div class="card-body">
                     <h5 class="card-title display-6">{{ product.display_name }}</h5>
