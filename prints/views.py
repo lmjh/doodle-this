@@ -40,8 +40,8 @@ def product_details(request, product_name):
 
     # create dict to store data to be passed to page javascript
     json_data = {}
-    # use dict comprehension to store urls of user's saved drawings and variant
-    # prices
+    # use dict comprehension to store urls of user's saved drawings, variant
+    # prices, and product image urls
     json_data["drawingUrls"] = {
         drawing.save_slot: drawing.image.url for drawing in saved_drawings
     }

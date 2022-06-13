@@ -11,8 +11,8 @@
                     <h1 class="col-12 mb-3 text-center">Buy Custom {{ product.display_name }}</h1>
                     <div class="col-12 col-md-6 mb-3">
                         <div class="position-relative">
-                            <img id="product-image" src="" class=" img-fluid">
-                            <img id="doodle-overlay" class="" src="">
+                            <img id="product-image" src="" class="img-fluid" alt="Product preview image">
+                            <img id="doodle-overlay" src="" alt="Doodle preview overlay">
                         </div>
                     </div>
                     <div class="col-12 col-md-6 d-flex align-items-center">
@@ -49,11 +49,11 @@
                             </div>
                             <div class="col-6 col-sm-3 d-flex align-items-center justify-content-center">Price:</div>
                             <div class="col-6 col-sm-3 highlight d-flex align-items-center justify-content-center">
-                                £{{ variants.0.price }}</div>
+                                £<span id="price">{{ variants.0.price }}</span></div>
                             <div class="col-12 col-sm-6 mt-3 mt-sm-0">
                                 <div class="input-group">
                                     <label for="quantity" class="input-group-text bg-dark text-light">Quantity:</label>
-                                    <input type="number" value=1 min="1" max="99" class="form-control" 
+                                    <input type="number" id="quantity" value=1 min="1" max="99" class="form-control" 
                                         aria-label="quantity" aria-describedby="quantity-text" autocomplete="off">
                                 </div>
                             </div>
