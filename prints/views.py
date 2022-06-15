@@ -33,6 +33,10 @@ def show_all_prints(request):
 
 
 def product_details(request, product_name):
+    """
+    A view to display details of a product and allow a user to select options
+    to purchase
+    """
 
     product = Product.objects.get(name=product_name)
     variants = ProductVariant.objects.filter(product=product.pk)
