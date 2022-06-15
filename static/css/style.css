@@ -647,6 +647,16 @@ input.coloris:hover {
     max-width: 100px;
 }
 
+.update-button {
+    background: none;
+    border: none;
+    color: var(--brand-primary-color);
+}
+
+.update-button:hover {
+    text-decoration: underline;
+}
+
 /* MEDIA QUERIES */
 
 @media (min-width: 576px) {

@@ -22,10 +22,20 @@
                             <td><img src="{{ item.image }}" class="img-fluid product-thumbnail mx-2"
                                     alt="Product preview image"></td>
                             <td>{{ item.name }}</td>
-                            <td><img src="{{ item.drawing_image }}" class="img-fluid drawing-thumbnail mx-2"
-                                    alt="Drawing preview image"></td>
-                            <td class="text-center"><input type='number' value={{ item.quantity }}
-                                    class="bg-dark text-light form-control cart-quantity"></td>
+                            <td class="text-center"><img src="{{ item.drawing_image }}"
+                                    class="img-fluid drawing-thumbnail mx-2" alt="Drawing preview image"></td>
+                            <td class="text-center">
+                                <form method="POST" action="{% url 'update_cart_item' %}"
+                                    class="text-center cart-quantity">
+                                    {% csrf_token %}
+                                    <label class="visually-hidden" for="quantity">Select quantity</label>
+                                    <input type='number' name="quantity" value={{ item.quantity }}  min="0" max="99"
+                                        class="bg-dark text-light form-control">
+                                    <input type="hidden" name="variant_id" value="{{ item.variant_id }}">
+                                    <input type="hidden" name="drawing" value="{{ item.drawing }}">
+                                    <button type="submit" class="update-button">Update</button>
+                                </form>
+                            </td>
                             <td class="text-center highlight">£{{ item.price }}</td>
                         </tr>
                         {% endfor %}

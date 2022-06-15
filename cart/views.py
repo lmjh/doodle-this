@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.contrib import messages
 
 from prints.models import ProductVariant
@@ -68,3 +68,30 @@ def add_to_cart(request):
         print(request.session["cart"])
 
         return redirect(redirect_url)
+
+
+def update_cart_item(request):
+    """
+    A view to update the quantity of an item in the shopping cart
+    """
+    if request.method == "POST":
+        variant_id = request.POST.get('variant_id')
+        drawing = request.POST.get('drawing')
+        quantity = int(request.POST.get('quantity'))
+
+        cart = request.session.get("cart", [])
+
+        # iterate over a copy of the cart, enumerate to access loop index
+        # (https://stackoverflow.com/a/10665631)
+        for index, item in enumerate(cart[:]):
+            # find the item matching the variant_id and selected drawing
+            if item['variant_id'] == variant_id and item['drawing'] == drawing:
+                # remove from the cart list if quantity is zero
+                if quantity is 0:
+                    cart.remove(item)
+                # update the cart item's quantity if greater than zero
+                else:
+                    cart[index]['quantity'] = quantity
+
+        request.session["cart"] = cart
+        return redirect(reverse('view_cart'))
