@@ -95,3 +95,21 @@ def update_cart_item(request):
 
         request.session["cart"] = cart
         return redirect(reverse('view_cart'))
+
+
+def remove_cart_item(request):
+    if request.method == 'POST':
+        variant_id = request.POST.get('variant_id')
+        drawing = request.POST.get('drawing')
+
+        cart = request.session.get("cart", [])
+
+        # iterate over a copy of the cart
+        for item in cart[:]:
+            # find the item matching the variant_id and selected drawing
+            if item['variant_id'] == variant_id and item['drawing'] == drawing:
+                # remove from the cart list
+                cart.remove(item)
+
+        request.session["cart"] = cart
+        return redirect(reverse('view_cart'))

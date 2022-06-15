@@ -647,13 +647,15 @@ input.coloris:hover {
     max-width: 100px;
 }
 
-.update-button {
+.update-button,
+.delete-button {
     background: none;
     border: none;
     color: var(--brand-primary-color);
 }
 
-.update-button:hover {
+.update-button:hover,
+.delete-button:hover {
     text-decoration: underline;
 }
 

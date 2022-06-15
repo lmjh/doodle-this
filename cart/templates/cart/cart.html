@@ -16,6 +16,7 @@
                             <th>Doodle</th>
                             <th>Quantity</th>
                             <th>Price</th>
+                            <th></th>
                         </tr>
                         {% for item in cart_contents %}
                         <tr>
@@ -37,6 +38,16 @@
                                 </form>
                             </td>
                             <td class="text-center highlight">£{{ item.price }}</td>
+                            <td class="text-center">
+                                <form method="POST" action="{% url 'remove_cart_item' %}"
+                                    class="text-center cart-quantity">
+                                    {% csrf_token %}
+                                    <label class="visually-hidden" for="quantity">Delete item</label>
+                                    <input type="hidden" name="variant_id" value="{{ item.variant_id }}">
+                                    <input type="hidden" name="drawing" value="{{ item.drawing }}">
+                                    <button type="submit" class="delete-button">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                         {% endfor %}
                     </table>
