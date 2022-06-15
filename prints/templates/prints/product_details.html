@@ -20,15 +20,16 @@
                         <p>{{ product.description }}</p>
                     </div>
                     <div class="col-12 mb-3">
-                        <form action="" class="row">
+                        <form action="" method="POST" class="row">
+                            {% csrf_token %}
                             <div class="col-12 col-lg-6">
                                 <div class="input-group mb-3 ">
                                     <!-- select product variant -->
-                                    <label class="input-group-text bg-dark text-light" for="select-variant">Select
+                                    <label class="input-group-text bg-dark text-light" for="variant">Select
                                         {{ product.get_variant_type_display }}</label>
-                                    <select class="form-select" id="select-variant" autocomplete="off">
+                                    <select class="form-select" id="variant" autocomplete="off">
                                         {% for variant in variants %}
-                                        <option value="{{ variant.name }}">{{ variant.display_name }}</option>
+                                        <option value="{{ variant.id }}">{{ variant.display_name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -36,9 +37,9 @@
                             <div class="col-12 col-lg-6">
                                 <!-- select doodle to print -->
                                 <div class="input-group mb-3 ">
-                                    <label class="input-group-text bg-dark text-light" for="select-doodle"
+                                    <label class="input-group-text bg-dark text-light" for="doodle"
                                         autocomplete="off">Select Doodle</label>
-                                    <select class="form-select" id="select-doodle">
+                                    <select class="form-select" id="doodle">
                                         <option value="autosave">Current Doodle</option>
                                         {% for drawing in saved_drawings %}
                                         <option value="{{ drawing.save_slot }}">Saved Doodle
@@ -50,18 +51,19 @@
                             <div class="col-6 col-sm-3 d-flex align-items-center justify-content-center">Price:</div>
                             <div class="col-6 col-sm-3 highlight d-flex align-items-center justify-content-center">
                                 £<span id="price">{{ variants.0.price }}</span></div>
-                            <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+                            <div class="col-12 col-sm-6 mt-3 mt-sm-0 mb-3">
                                 <div class="input-group">
                                     <label for="quantity" class="input-group-text bg-dark text-light">Quantity:</label>
                                     <input type="number" id="quantity" value=1 min="1" max="99" class="form-control" 
                                         aria-label="quantity" aria-describedby="quantity-text" autocomplete="off">
                                 </div>
                             </div>
+                            <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                            <div class="col-12 col-sm-6 col-lg-4 offset-sm-3 offset-lg-4 mb-3">
+                                <button class="btn btn-brand-primary w-100">Add to Cart</button>
+                            </div>
                         </form>
                     </div>
-                <div class="col-12 col-sm-6 col-lg-4 offset-sm-3 offset-lg-4 mb-3">
-                    <button class="btn btn-brand-primary w-100">Add to Cart</button>
-                </div>
             </div>
         </div>
     </div>

@@ -50,11 +50,11 @@ def product_details(request, product_name):
         drawing.save_slot: drawing.image.url for drawing in saved_drawings
     }
     json_data["variantPrices"] = {
-        variant.name: variant.price for variant in variants
+        variant.id: variant.price for variant in variants
     }
     # if a variant has an image attached, store its url
     json_data["variantUrls"] = {
-        variant.name: variant.image.image.url
+        variant.id: variant.image.image.url
         for variant in variants
         if variant.image
     }
@@ -63,7 +63,7 @@ def product_details(request, product_name):
     # if a variant has an image attached, add the overlay data for that image
     # to an array
     json_data["overlay"] = {
-        variant.name: [
+        variant.id: [
             variant.image.overlay_width,
             variant.image.overlay_x_offset,
             variant.image.overlay_y_offset,

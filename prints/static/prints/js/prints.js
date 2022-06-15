@@ -4,8 +4,8 @@
 const jsonData = JSON.parse(document.getElementById('jsonData').textContent);
 // get document elements
 const doodleOverlay = document.getElementById('doodle-overlay')
-const selectVariant = document.getElementById('select-variant')
-const selectDoodle = document.getElementById('select-doodle')
+const selectVariant = document.getElementById('variant')
+const selectDoodle = document.getElementById('doodle')
 const productImage = document.getElementById('product-image')
 const price = document.getElementById('price')
 
