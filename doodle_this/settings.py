@@ -78,6 +78,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'notifications.contexts.get_message_array',
+                'cart.contexts.cart_contents',
             ],
             'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',
@@ -177,3 +178,6 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # use redgreenunittest as TEST_RUNNER to colourise outputs
 TEST_RUNNER="redgreenunittest.django.runner.RedGreenDiscoverRunner"
+
+# set standard delivery fee for all orders
+STANDARD_DELIVERY_FEE = 3

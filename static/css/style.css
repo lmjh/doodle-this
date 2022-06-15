@@ -628,7 +628,11 @@ input.coloris:hover {
 
 .cart-icon {
     font-size: 1.5rem;
-    color: var(--brand-primary-color);
+    color: var(--text-light);
+}
+
+.cart-icon:hover {
+    color: var(--brand-primary-color)
 }
 
 /* MEDIA QUERIES */
