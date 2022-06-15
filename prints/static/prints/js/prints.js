@@ -3,9 +3,9 @@
 // retrieve user image URLs from JSON, if present
 const jsonData = JSON.parse(document.getElementById('jsonData').textContent);
 // get document elements
-const doodleOverlay = document.getElementById('doodle-overlay')
+const drawingOverlay = document.getElementById('drawing-overlay')
 const selectVariant = document.getElementById('variant')
-const selectDoodle = document.getElementById('doodle')
+const selectDrawing = document.getElementById('drawing')
 const productImage = document.getElementById('product-image')
 const price = document.getElementById('price')
 
@@ -24,7 +24,7 @@ $( document ).ready(function() {
         positionOverlay(jsonData.overlay['default'])
     }
 
-    // retrieve the autosave of the current doodle from localforage 
+    // retrieve the autosave of the current drawing from localforage 
     localforage.getItem('autosave').then(function (blob) {
         // and load into the overlay image
         let drawingURL = URL.createObjectURL(blob);
@@ -40,16 +40,16 @@ $( document ).ready(function() {
  *  preview overlay with data from the received array
  */
 function positionOverlay(overlayArray) {
-    doodleOverlay.style.width = overlayArray[0];
-    doodleOverlay.style.left = overlayArray[1];
-    doodleOverlay.style.top = overlayArray[2];
+    drawingOverlay.style.width = overlayArray[0];
+    drawingOverlay.style.left = overlayArray[1];
+    drawingOverlay.style.top = overlayArray[2];
 }
 
 /**
  * Sets the src attribute of the drawing preview overlay
  */
 function setOverlay(overlayUrl) {
-    doodleOverlay.src = overlayUrl;
+    drawingOverlay.src = overlayUrl;
 }
 
 /**
@@ -61,11 +61,11 @@ function setProductImage(variantUrl) {
 
 // ADD EVENT LISTENERS
 
-// add an event listener to update the drawing preview overlay when the select-doodle select element is changed
-selectDoodle.addEventListener('change', function (e) {
-    // if the current doodle is selected
+// add an event listener to update the drawing preview overlay when the select-drawing select element is changed
+selectDrawing.addEventListener('change', function (e) {
+    // if the current drawing is selected
     if (e.target.value == 'autosave') {
-        // retrieve the autosave of the current doodle from localforage 
+        // retrieve the autosave of the current drawing from localforage 
         localforage.getItem('autosave').then(function (blob) {
             // and load into the preview overlay
             let drawingURL = URL.createObjectURL(blob);
@@ -73,10 +73,10 @@ selectDoodle.addEventListener('change', function (e) {
             URL.revokeObjectURL(drawingURL);
         })
     } else {
-        // if a saved doodle is selected, load its url from the jsonData file
+        // if a saved drawing is selected, load its url from the jsonData file
         let drawingURL = jsonData['drawingUrls'][e.target.value]
         // then load that image into the preview overlay
-        doodleOverlay.src = drawingURL;
+        drawingOverlay.src = drawingURL;
     }
 })
 

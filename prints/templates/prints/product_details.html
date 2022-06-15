@@ -12,7 +12,7 @@
                     <div class="col-12 col-md-6 mb-3">
                         <div class="position-relative">
                             <img id="product-image" src="" class="img-fluid" alt="Product preview image">
-                            <img id="doodle-overlay" src="" alt="Doodle preview overlay">
+                            <img id="drawing-overlay" src="" alt="Drawing preview overlay">
                         </div>
                     </div>
                     <div class="col-12 col-md-6 d-flex align-items-center">
@@ -35,11 +35,11 @@
                                 </div>
                             </div>
                             <div class="col-12 col-lg-6">
-                                <!-- select doodle to print -->
+                                <!-- select drawing to print -->
                                 <div class="input-group mb-3 ">
-                                    <label class="input-group-text bg-dark text-light" for="doodle"
+                                    <label class="input-group-text bg-dark text-light" for="drawing"
                                         autocomplete="off">Select Doodle</label>
-                                    <select class="form-select" id="doodle">
+                                    <select class="form-select" id="drawing">
                                         <option value="autosave">Current Doodle</option>
                                         {% for drawing in saved_drawings %}
                                         <option value="{{ drawing.save_slot }}">Saved Doodle

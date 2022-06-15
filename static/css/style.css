@@ -618,7 +618,7 @@ input.coloris:hover {
     border-color: var(--border-grey);
 }
 
-#doodle-overlay {
+#drawing-overlay {
     position: absolute;
     width: 0%;
     height: auto;
