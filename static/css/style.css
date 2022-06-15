@@ -624,6 +624,13 @@ input.coloris:hover {
     height: auto;
 }
 
+/* SHOPPING CART STYLES */
+
+.cart-icon {
+    font-size: 1.5rem;
+    color: var(--brand-primary-color);
+}
+
 /* MEDIA QUERIES */
 
 @media (min-width: 576px) {
