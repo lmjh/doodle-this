@@ -31,34 +31,38 @@ def add_to_cart(request):
         else:
             drawing_name = f"Save Slot {drawing}"
 
-        # get cart from session or set to an empty dict if not found
-        cart = request.session.get("cart", {})
+        # get cart from session or set to an empty list if not found
+        cart = request.session.get("cart", [])
 
-        # if the selected variant is already in the cart
-        if variant_id in list(cart.keys()):
-            # if the selected variant printed with the selected drawing is in
-            # the cart
-            if drawing in cart[variant_id]["drawing"].keys():
-                # increase the quantity of the selected variant/drawing pair
-                cart[variant_id]["drawing"][drawing] += quantity
+        # declare a variable to record if the variant/drawing pair is already
+        # in the cart
+        in_cart = False
+        # iterate throught the cart list
+        for item in cart:
+            # if the list contains an object with the same variant id and
+            # drawing as the request
+            if item['variant_id'] == variant_id and item['drawing'] == drawing:
+                # increase that object's quantity and set in_cart to true
+                item['quantity'] += quantity
+                in_cart = True
                 messages.success(
                     request,
                     f"Added {quantity} x {variant.product.display_name} - {variant.display_name} printed with {drawing_name} to your cart",
                 )
-            else:
-                # otherwise, add the selected variant/drawing pair
-                cart[variant_id]["drawing"][drawing] = quantity
-                messages.success(
-                    request,
-                    f"Added {quantity} x {variant.product.display_name} - {variant.display_name} printed with {drawing_name} to your cart",
-                )
-        else:
-            # add the selected variant/drawing pair
-            cart[variant_id] = {"drawing": {drawing: quantity}}
+
+        # if no matching object was found
+        if in_cart is False:
+            # add an object to the cart using the submitted data
+            item = {
+                'variant_id': variant_id,
+                'drawing': drawing,
+                'quantity': quantity,
+            }
+            cart.append(item)
             messages.success(
-                request,
-                f"Added {quantity} x {variant.product.display_name} - {variant.display_name} printed with {drawing_name} to your cart",
-            )
+                    request,
+                    f"Added {quantity} x {variant.product.display_name} - {variant.display_name} printed with {drawing_name} to your cart",
+                )
 
         request.session["cart"] = cart
         print(request.session["cart"])
