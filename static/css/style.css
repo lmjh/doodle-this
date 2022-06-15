@@ -635,6 +635,18 @@ input.coloris:hover {
     color: var(--brand-primary-color)
 }
 
+.product-thumbnail {
+    max-width: 100px;
+}
+
+.drawing-thumbnail {
+    max-width: 150px;
+}
+
+.cart-quantity {
+    max-width: 100px;
+}
+
 /* MEDIA QUERIES */
 
 @media (min-width: 576px) {
