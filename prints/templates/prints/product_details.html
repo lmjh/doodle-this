@@ -20,14 +20,14 @@
                         <p>{{ product.description }}</p>
                     </div>
                     <div class="col-12 mb-3">
-                        <form action="" method="POST" class="row">
+                        <form action="{% url 'add_to_cart' %}" method="POST" class="row">
                             {% csrf_token %}
                             <div class="col-12 col-lg-6">
                                 <div class="input-group mb-3 ">
                                     <!-- select product variant -->
                                     <label class="input-group-text bg-dark text-light" for="variant">Select
                                         {{ product.get_variant_type_display }}</label>
-                                    <select class="form-select" id="variant" autocomplete="off">
+                                    <select class="form-select" id="variant" name="variant" autocomplete="off">
                                         {% for variant in variants %}
                                         <option value="{{ variant.id }}">{{ variant.display_name }}</option>
                                         {% endfor %}
@@ -39,7 +39,7 @@
                                 <div class="input-group mb-3 ">
                                     <label class="input-group-text bg-dark text-light" for="drawing"
                                         autocomplete="off">Select Doodle</label>
-                                    <select class="form-select" id="drawing">
+                                    <select class="form-select" id="drawing" name="drawing">
                                         <option value="autosave">Current Doodle</option>
                                         {% for drawing in saved_drawings %}
                                         <option value="{{ drawing.save_slot }}">Saved Doodle
@@ -54,7 +54,7 @@
                             <div class="col-12 col-sm-6 mt-3 mt-sm-0 mb-3">
                                 <div class="input-group">
                                     <label for="quantity" class="input-group-text bg-dark text-light">Quantity:</label>
-                                    <input type="number" id="quantity" value=1 min="1" max="99" class="form-control" 
+                                    <input type="number" id="quantity" name="quantity" value=1 min="1" max="99" class="form-control" 
                                         aria-label="quantity" aria-describedby="quantity-text" autocomplete="off">
                                 </div>
                             </div>
