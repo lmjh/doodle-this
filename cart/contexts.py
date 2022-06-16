@@ -43,7 +43,8 @@ def cart_contents(request):
         # use product image if no variant image available
         else:
             item["image"] = variant.product.image.image.url
-        item["price"] = variant.price * item["quantity"]
+        item_price = variant.price * item["quantity"]
+        item["price"] = f'{item_price}'
 
     delivery = settings.STANDARD_DELIVERY_FEE
 
@@ -52,10 +53,10 @@ def cart_contents(request):
     # pass variables to context
     context = {
         "cart_contents": cart_contents,
-        "items_total": items_total,
+        "items_total": f'{items_total}',
         "cart_count": cart_count,
-        "delivery": delivery,
-        "grand_total": grand_total,
+        "delivery": f'{delivery}',
+        "grand_total": f'{grand_total}',
     }
 
     return context
