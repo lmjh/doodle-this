@@ -456,6 +456,8 @@
 <!-- output urls and titles dictionaries as JSON for javascript functions -->
 {{ urls|json_script:"urls" }}
 {{ titles|json_script:"titles" }}
+<!-- output json script to represent user's login status -->
+{{ user.is_authenticated|json_script:"auth" }}
 <!-- load sketchbook javascript file -->
 <script src="{% static 'sketchbook/js/sketchbook.js' %}"></script>
 {% endblock %}

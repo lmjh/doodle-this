@@ -16,9 +16,12 @@ const sketchbook = new Atrament(canvas, {
 // parse the urls dictionary object passed from the view and assign to a variable
 const urls = JSON.parse(document.getElementById('urls').textContent);
 
+// parse the auth dictionary object to determine user's login status
+const auth = JSON.parse(document.getElementById('auth').textContent);
+
 // parse the titles dictionary object passed from the view and assign to a variable
-// declared as 'var' as it will be updated by the application
-var titles = JSON.parse(document.getElementById('titles').textContent);
+// declared with 'let' as it will be updated by the application
+let titles = JSON.parse(document.getElementById('titles').textContent);
 
 // initialise Coloris colour picker
 Coloris({
@@ -610,53 +613,64 @@ document.getElementById("adaptive-stroke").addEventListener("click", function (e
     }
 });
 
-// add an event listener to the element that holds the save and load buttons
-document.getElementById("save-load-buttons").addEventListener("click", function (e) {
-    if (e.target && e.target.matches(".btn")) {
-         // if the user activates either of the buttons, disable the form controls
-        disableSaveLoadButtons();
-    }
-});
+// add the following event listeners only if user is logged in
+if (auth) {
+    // add an event listener to the element that holds the save and load buttons
+    document.getElementById("save-load-buttons").addEventListener("click", function (e) {
+        if (e.target && e.target.matches(".btn")) {
+            // if the user activates either of the buttons, disable the form controls
+            disableSaveLoadButtons();
+        }
+    });
 
-// add an event listener to the save-confirm collapsible dialog
-document.getElementById("save-confirm").addEventListener("click", function (e) {
-    if (e.target && e.target.matches(".cancel-button")) {
-        // if the user activates the cancel button, re-activate the form controls
-        enableSaveLoadButtons();
-    } else if (e.target && e.target.matches("#save-drawing")) {
-        // if the user activates the save-drawing button, save the canvas to the database
-        saveDrawingToDb();
-        // and re-activate the form controls
-        enableSaveLoadButtons();
-    }
-});
+    // add an event listener to the element that holds the save and load buttons
+    document.getElementById("save-load-buttons").addEventListener("click", function (e) {
+        if (e.target && e.target.matches(".btn")) {
+             // if the user activates either of the buttons, disable the form controls
+            disableSaveLoadButtons();
+        }
+    });
 
-// add an event listener to the load-confirm collapsible dialog
-document.getElementById("load-confirm").addEventListener("click", function (e) {
-    if (e.target && e.target.matches(".cancel-button")) {
-        // if the user activates the cancel button, re-activate the form controls
-        enableSaveLoadButtons();
-    } else if (e.target && e.target.matches("#load-drawing")) {
-        // if the user activates the load-drawing button, re-activate the form controls
-        enableSaveLoadButtons();
-        // and load the selected drawing to the canvas
-        loadDrawingFromDb();
-    }
-});
+    // add an event listener to the save-confirm collapsible dialog
+    document.getElementById("save-confirm").addEventListener("click", function (e) {
+        if (e.target && e.target.matches(".cancel-button")) {
+            // if the user activates the cancel button, re-activate the form controls
+            enableSaveLoadButtons();
+        } else if (e.target && e.target.matches("#save-drawing")) {
+            // if the user activates the save-drawing button, save the canvas to the database
+            saveDrawingToDb();
+            // and re-activate the form controls
+            enableSaveLoadButtons();
+        }
+    });
 
-// add an event listener to the save slot modal to restore the it to its default state after closing.
-document.getElementById('saveModal').addEventListener('hidden.bs.modal', restoreSaveLoadState)
+    // add an event listener to the load-confirm collapsible dialog
+    document.getElementById("load-confirm").addEventListener("click", function (e) {
+        if (e.target && e.target.matches(".cancel-button")) {
+            // if the user activates the cancel button, re-activate the form controls
+            enableSaveLoadButtons();
+        } else if (e.target && e.target.matches("#load-drawing")) {
+            // if the user activates the load-drawing button, re-activate the form controls
+            enableSaveLoadButtons();
+            // and load the selected drawing to the canvas
+            loadDrawingFromDb();
+        }
+    });
 
-// add an event listener to the save slot selection checkboxes
-document.getElementById('drawing-save-slot').addEventListener('click', function (e) {
-    if (e.target && e.target.matches(".btn-check")) {
-        // get the value the triggering button
-        saveSlot = e.target.value;
-        // pass the save slot to the functions to update the title field and enable/diable the load button
-        updateTitleField(saveSlot);
-        setLoadButtonState(saveSlot);
-    }
-});
+    // add an event listener to the save slot modal to restore the it to its default state after closing.
+    document.getElementById('saveModal').addEventListener('hidden.bs.modal', restoreSaveLoadState)
+
+    // add an event listener to the save slot selection checkboxes
+    document.getElementById('drawing-save-slot').addEventListener('click', function (e) {
+        if (e.target && e.target.matches(".btn-check")) {
+            // get the value the triggering button
+            saveSlot = e.target.value;
+            // pass the save slot to the functions to update the title field and enable/diable the load button
+            updateTitleField(saveSlot);
+            setLoadButtonState(saveSlot);
+        }
+    });
+}
 
 // add event listener to the sketchbook to store the state before a stroke is drawn
 sketchbook.addEventListener('strokestart', function() {
