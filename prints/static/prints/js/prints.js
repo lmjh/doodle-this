@@ -30,7 +30,11 @@ $( document ).ready(function() {
         let drawingURL = URL.createObjectURL(blob);
         setOverlay(drawingURL);
         URL.revokeObjectURL(drawingURL);
-    })
+    }).catch(function() {
+        // if there were any errors, use a placeholder image
+        let drawingURL = '/media/svg/placeholder.svg';
+        setOverlay(drawingURL);
+    });
 })
 
 // DECLARE FUNCTIONS
@@ -71,6 +75,10 @@ selectDrawing.addEventListener('change', function (e) {
             let drawingURL = URL.createObjectURL(blob);
             setOverlay(drawingURL);
             URL.revokeObjectURL(drawingURL);
+        }).catch(function() {
+            // if there were any errors, use a placeholder image
+            let drawingURL = '/media/svg/placeholder.svg';
+            setOverlay(drawingURL);
         })
     } else {
         // if a saved drawing is selected, load its url from the jsonData file
