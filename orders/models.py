@@ -16,7 +16,7 @@ def upload_to(instance, filename):
     Constructs and returns a path for order drawings to be uploaded to.
     """
     return (
-        f"order-drawings/{instance.order.order_number}/"
+        f"order-drawings/{str(instance.order.order_number)}/"
         f"{instance.save_slot}.png"
     )
 
@@ -75,7 +75,7 @@ class Order(models.Model):
         self.save()
 
     def __str__(self):
-        return self.order_number
+        return str(self.order_number)
 
 
 class OrderDrawing(models.Model):
@@ -95,7 +95,7 @@ class OrderDrawing(models.Model):
     save_slot = models.IntegerField(null=False, blank=False)
 
     def __str__(self):
-        return f"Order {self.order.order_number} - Drawing {self.save_slot}"
+        return f"Order {str(self.order.order_number)} - Drawing {self.save_slot}"
 
 
 class OrderItem(models.Model):
@@ -131,4 +131,4 @@ class OrderItem(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"Order {self.order.order_number} - SKU {self.product_variant.sku} - Drawing {self.order_drawing.save_slot}"
+        return f"Order {str(self.order.order_number)} - SKU {self.product_variant.sku} - Drawing {self.order_drawing.save_slot}"
