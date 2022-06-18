@@ -3,13 +3,19 @@
         <a class="navbar-brand" href="{% url 'sketchbook' %}"><img class="navbar-logo-text"
                 src="/media/svg/doodle-this-logo-text.svg" alt="Doodle This logo"></a>
         <div class="d-flex">
-            <a href="{% url 'view_cart' %}" class="mx-4 cart-icon d-lg-none"><i class="fa-solid fa-cart-shopping"></i></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <a href="{% url 'view_cart' %}" class="mx-4 cart-icon d-lg-none position-relative d-flex align-items-center">
+                <span class="visually-hidden">Shoping Cart</span>
+                <i class="fa-solid fa-cart-shopping"></i>
+                {% if cart_count %}
+                    <div class="cart-counter">{{ cart_count }}</div>
+                {% endif %}
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#responsive-navbar"
+            aria-controls="responsive-navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </div>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="responsive-navbar">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'sketchbook' %}">Sketchbook</a>
@@ -42,7 +48,13 @@
                 </li>
                 {% endif %}
             </ul>
-            <a href="{% url 'view_cart' %}" class="mx-4 cart-icon d-none d-lg-block"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a href="{% url 'view_cart' %}" class="mx-4 cart-icon d-none d-lg-block position-relative">
+                <span class="visually-hidden">Shoping Cart</span>
+                <i class="fa-solid fa-cart-shopping"></i>
+                {% if cart_count %}
+                    <div class="cart-counter">{{ cart_count }}</div>
+                {% endif %}
+            </a>
             <a class="navbar-brand" href="{% url 'sketchbook' %}"><img class="navbar-logo-text"
                     src="/media/svg/doodle-this-logo-icon.svg" alt="Doodle This logo"></a>
         </div>

@@ -11,7 +11,7 @@ def cart_contents(request):
 
     # get cart contents
     cart_contents = request.session.get("cart", [])
-    cart_count = len(cart_contents)
+    cart_count = 0
 
     # instantiate variable for total costs
     items_total = 0
@@ -45,6 +45,8 @@ def cart_contents(request):
             item["image"] = variant.product.image.image.url
         item_price = variant.price * item["quantity"]
         item["price"] = f'{item_price}'
+
+        cart_count += item["quantity"]
 
     delivery = settings.STANDARD_DELIVERY_FEE
 
