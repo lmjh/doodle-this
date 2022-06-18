@@ -95,29 +95,29 @@ a:focus-visible,
 
 .btn-brand-primary:focus {
     color: var(--text-dark);
-    box-shadow: 0 0 0 .25rem rgba(130,138,145,.5);
+    box-shadow: 0 0 0 .25rem rgba(130, 138, 145, .5);
 }
 
 .btn-brand-primary:focus-visible {
     color: var(--text-dark);
     background-color: var(--brand-primary-color);
     border-color: var(--brand-primary-color);
-    box-shadow: 0 0 0 .25rem rgba(130,138,145,.5)
+    box-shadow: 0 0 0 .25rem rgba(130, 138, 145, .5)
 }
 
-.btn-check:active + .btn-brand-primary,
-.btn-check:checked + .btn-brand-primary,
+.btn-check:active+.btn-brand-primary,
+.btn-check:checked+.btn-brand-primary,
 .btn-brand-primary.active,
 .btn-brand-primary:active,
-.show > .btn-brand-primary.dropdown-toggle {
+.show>.btn-brand-primary.dropdown-toggle {
     color: var(--text-dark);
     background-color: var(--brand-primary-color);
     border-color: var(--brand-primary-color);
 }
 
-.btn-check:focus + .btn-brand-primary,
-.btn-check:active + .btn-brand-primary:focus-visible {
-    box-shadow: 0 0 0 .25rem rgba(130,138,145,.5)
+.btn-check:focus+.btn-brand-primary,
+.btn-check:active+.btn-brand-primary:focus-visible {
+    box-shadow: 0 0 0 .25rem rgba(130, 138, 145, .5)
 }
 
 .btn {
@@ -133,13 +133,13 @@ a:focus-visible,
 }
 
 .btn-danger:hover {
-    box-shadow: 0 3px 3px 0 rgba(0,0,0,0.14),0 1px 7px 0 rgba(0,0,0,0.12),0 3px 1px -1px rgba(0,0,0,0.2);
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -1px rgba(0, 0, 0, 0.2);
     background-color: var(--bs-danger);
     border-color: var(--bs-danger);
 }
 
 .btn-danger:focus {
-    box-shadow: 0 0 0 .25rem rgba(130,138,145,.5);
+    box-shadow: 0 0 0 .25rem rgba(130, 138, 145, .5);
     background-color: var(--bs-danger);
     border-color: var(--bs-danger);
 }
@@ -152,13 +152,13 @@ a:focus-visible,
 }
 
 .btn-secondary:hover {
-    box-shadow: 0 3px 3px 0 rgba(0,0,0,0.14),0 1px 7px 0 rgba(0,0,0,0.12),0 3px 1px -1px rgba(0,0,0,0.2);
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -1px rgba(0, 0, 0, 0.2);
     background-color: var(--bs-secondary);
     border-color: var(--bs-secondary);
 }
 
 .btn-secondary:focus {
-    box-shadow: 0 0 0 .25rem rgba(130,138,145,.5);
+    box-shadow: 0 0 0 .25rem rgba(130, 138, 145, .5);
     background-color: var(--bs-secondary);
     border-color: var(--bs-secondary);
 }
@@ -177,26 +177,34 @@ a:focus-visible,
 /* FORM STYLES */
 
 .form-control,
-.form-control:focus,
 .form-select,
-.form-select:focus {
+.form-check-input {
     background-color: var(--bg-form);
     color: var(--text-light);
     border-color: var(--border-grey);
 }
 
-.invalid-feedback{
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 2px 1px var(--brand-primary-color);
+    background-color: var(--bg-form);
+    color: var(--text-light);
+    border-color: var(--brand-primary-color);
+}
+
+.form-check-input:checked {
+    background-color: var(--bg-form);
+    border-color: var(--border-grey);
+}
+
+.invalid-feedback {
     color: var(--text-light);
     background-color: var(--bs-danger-alt);
     border-radius: 5px;
     padding: 5px;
     border: 1px solid var(--bs-danger);
 }
-
-.form-check-input:checked {
-    background-color: #303030;
-    border-color: #ffad27;
-  }
 
 /* NAVBAR STYLES */
 
@@ -298,14 +306,14 @@ footer {
     color: var(--text-dark);
 }
 
-.toast-success > .toast-header,
-.toast-info > .toast-header {
+.toast-success>.toast-header,
+.toast-info>.toast-header {
     background-color: var(--bs-success);
 }
 
-.toast-debug > .toast-header,
-.toast-error > .toast-header,
-.toast-warning > .toast-header {
+.toast-debug>.toast-header,
+.toast-error>.toast-header,
+.toast-warning>.toast-header {
     background-color: var(--bs-danger);
 }
 
@@ -349,7 +357,7 @@ footer {
 /* drawing canvas */
 
 #sketchbook-scaler {
-    transform-origin: 0px 0px!important;
+    transform-origin: 0px 0px !important;
 }
 
 #sketchbook-background {
@@ -370,7 +378,7 @@ footer {
     position: absolute;
     top: 110px;
     left: 30px;
-    transform-origin: 0px 0px!important;
+    transform-origin: 0px 0px !important;
 }
 
 .plain-paper {
@@ -384,7 +392,7 @@ footer {
 /* Information on generating paper backgrounds with CSS gradients found in this thread:
  https://stackoverflow.com/questions/3540194/how-to-make-a-grid-like-graph-paper-grid-with-just-css */
 
- .lined-paper {
+.lined-paper {
     background-size: 20px 30px;
     background-image:
         linear-gradient(to bottom, rgb(147, 163, 255) 1px, transparent 2px);
@@ -419,7 +427,7 @@ footer {
 input[type=range]::-webkit-slider-thumb {
     background: var(--brand-primary-color);
 }
-  
+
 input[type=range]::-moz-range-thumb {
     background: var(--brand-primary-color);
 }
@@ -468,7 +476,7 @@ input[type=range]:focus::-moz-range-track {
 .colour-button:focus-visible {
     outline: 1px solid;
     outline-color: #fff;
-    box-shadow: 0 0 0 .25rem rgba(130,138,145,.5);
+    box-shadow: 0 0 0 .25rem rgba(130, 138, 145, .5);
 }
 
 .red-ink {
@@ -599,12 +607,12 @@ input[type=range]:focus::-moz-range-track {
 }
 
 .coloris-background .clr-field button:focus-visible {
-    outline: var(--bg-light) solid 1px ;
+    outline: var(--bg-light) solid 1px;
 }
 
 input.coloris {
-	width: 100%;
-	height: 24px;
+    width: 100%;
+    height: 24px;
 }
 
 input.coloris:hover {
@@ -612,19 +620,19 @@ input.coloris:hover {
 }
 
 .clr-dark {
-    background-color: var(--bg-dark)!important;
+    background-color: var(--bg-dark) !important;
     border: 2px solid var(--border-grey);
     border-radius: 5px;
 }
 
 .clr-dark input.clr-color {
-	color: var(--text-light)!important;
-	border-color: var(--border-grey)!important;
-	background-color: var(--bg-dark)!important;
+    color: var(--text-light) !important;
+    border-color: var(--border-grey) !important;
+    background-color: var(--bg-dark) !important;
 }
 
 .clr-dark input.clr-color:focus {
-    border-color: var(--brand-primary-color)!important;
+    border-color: var(--brand-primary-color) !important;
 }
 
 #clr-color-value:focus-visible {
@@ -701,13 +709,13 @@ input.coloris:hover {
         border-radius: 5px;
         border: 5px solid var(--bg-grey);
     }
-    
+
     .clr-field,
     .coloris-background .clr-field button {
         width: 100%;
         height: 30px;
     }
-    
+
     .coloris-background .clr-field button:focus {
         box-shadow: 0 0 0 .2rem var(--bg-light);
     }
