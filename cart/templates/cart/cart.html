@@ -65,7 +65,7 @@
                     <a href="{% url 'show_all_prints' %}" class="btn btn-brand-primary w-100">Return to Shop</a>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
-                    <button class="btn btn-brand-primary w-100">Checkout Now</button>
+                    <a href="{% url 'checkout' %}" class="btn btn-brand-primary w-100">Checkout Now</a>
                 </div>
                 {% else %}
                 <div class="col-12">
@@ -84,6 +84,6 @@
 {% endblock %}
 
 {% block page_js %}
-<!-- load prints javascript file -->
+<!-- load cart javascript file -->
 <script src="{% static 'cart/js/cart.js' %}"></script>
 {% endblock %}

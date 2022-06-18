@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_title %}Checkout - Doodle This{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row g-2">
+        <div class="col-12 col-lg-6">
+            <div class="content-panel p-3 mb-5">
+                <h1>Checkout</h1>
+                <p>Please enter your delivery and payment details to complete your order.</p>
+                <hr>
+                <form class="row">
+                    {% csrf_token %}
+                        {% crispy order_form %}
+                </form>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="content-panel p-3 mb-5">
+                <div class="row">
+
+                    <div class="h2 text-center mb-3">Your Order</div>
+                    {% for item in cart_contents %}
+                    <div class="row align-items-center mb-3">
+                        <div class="col-3">
+                            <img src="{{ item.image }}" class="w-100 mb-2" alt="Product preview image">
+
+                            <img src="{{ item.drawing_image }}" class="w-100" alt="Drawing preview image">
+                        </div>
+                        <div class="col-7">
+                            {{ item.quantity }} x {{ item.name }}
+                        </div>
+                        <div class="text-end highlight col-2">£{{ item.price }}</div>
+                    </div>
+                    <hr class="mb-3">
+                    {% endfor %}
+                <div class="col-3 col-sm-6 col-md-8 col-lg-9 mb-3"></div>
+                <div class="col-9 col-sm-6 col-md-4 col-lg-3 text-end mb-3">
+                    <hr>
+                    <p><span class=highlight>£{{ items_total }}</span> total</p>
+                    <p>+ <span class=highlight>£{{ delivery }}</span> delivery</p>
+                    <hr>
+                    <p>Grand Total: <span class=highlight>£{{ grand_total }}</span></p>
+                    <hr>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block page_js %}
+<!-- load cart javascript file -->
+<script src="{% static 'cart/js/cart.js' %}"></script>
+{% endblock %}

@@ -1,6 +1,9 @@
 from django import forms
 from .models import Order
 
+# import objects from Crispy Forms to customise form layouts
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Div, Field
 
 class OrderForm(forms.ModelForm):
     """
@@ -19,4 +22,27 @@ class OrderForm(forms.ModelForm):
             'country',
             'email_address',
             'phone_number',
+        )
+
+    def __init__(self, *args, **kwargs):
+        """
+        Configure form layout
+        """
+        super().__init__(*args, **kwargs)
+
+        # create layout helper
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.disable_csrf = True
+        self.helper.layout = Layout(
+            Div(Field("first_name"), css_class="col-12 col-sm-6"),
+            Div(Field("last_name"), css_class="col-12 col-sm-6"),
+            Field("address_1", css_class="col-12"),
+            Field("address_2", css_class="col-12"),
+            Div(Field("town"), css_class="col-12 col-sm-6"),
+            Div(Field("county"), css_class="col-12 col-sm-6"),
+            Div(Field("postcode"), css_class="col-12 col-sm-6"),
+            Div(Field("country"), css_class="col-12 col-sm-6"),
+            Div(Field("email_address"), css_class="col-12 col-sm-6"),
+            Div(Field("phone_number"), css_class="col-12 col-sm-6"),
         )
