@@ -14,10 +14,13 @@ from prints.models import ProductVariant
 def upload_to(instance, filename):
     """
     Constructs and returns a path for order drawings to be uploaded to.
+    Drawings are uploaded to a folder named with the unique order number and
+    prefixed with the order primary key. As the primary key will increase
+    over time, new order folders are easy to find.
     """
     return (
-        f"order-drawings/{str(instance.order.order_number)}/"
-        f"{instance.save_slot}.png"
+        f"order-drawings/{instance.order.pk}"
+        f"-{str(instance.order.order_number)}/{instance.save_slot}.png"
     )
 
 
@@ -84,6 +87,10 @@ class OrderDrawing(models.Model):
     a product
     """
 
+    class Meta:
+        # no two drawings in the same order should have the same save_slot
+        unique_together = (("order", "save_slot"),)
+
     order = models.ForeignKey(
         Order,
         null=False,
@@ -95,7 +102,9 @@ class OrderDrawing(models.Model):
     save_slot = models.IntegerField(null=False, blank=False)
 
     def __str__(self):
-        return f"Order {str(self.order.order_number)} - Drawing {self.save_slot}"
+        return (
+            f"Order {str(self.order.order_number)} - Drawing {self.save_slot}"
+        )
 
 
 class OrderItem(models.Model):
@@ -131,4 +140,8 @@ class OrderItem(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"Order {str(self.order.order_number)} - SKU {self.product_variant.sku} - Drawing {self.order_drawing.save_slot}"
+        return (
+            f"Order {str(self.order.order_number)} - "
+            f"SKU {self.product_variant.sku} - "
+            f"Drawing {self.order_drawing.save_slot}"
+        )
