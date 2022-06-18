@@ -70,11 +70,13 @@ class Order(models.Model):
         order_total plus delivery cost
         """
         self.order_cost = (
-            self.lineitems.aggregate(Sum("order_items"))["order_items__sum"]
+            self.order_items.aggregate(Sum("order_item_total"))[
+                "order_item_total__sum"
+            ]
             or 0
         )
         self.delivery_cost = settings.STANDARD_DELIVERY_FEE
-        self.grand_total = self.order_total + self.delivery_cost
+        self.grand_total = self.order_cost + self.delivery_cost
         self.save()
 
     def __str__(self):
