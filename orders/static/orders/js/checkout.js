@@ -28,3 +28,21 @@ const style = {
 // instantiate card with style variable and mount to checkout page element
 const card = elements.create('card', {style: style});
 card.mount('#card-element');
+
+// add event listener to check for card errors and display them
+card.addEventListener('change', function (event) {
+    let errorDiv = document.getElementById('card-errors');
+    if (event.error) {
+        var html = `
+        <div class='card-errors'>
+            <span class="icon" role="alert">
+                <i class="fas fa-times"></i>
+            </span>
+            <span>${event.error.message}</span>
+        </div>
+        `;
+        $(errorDiv).html(html);
+    } else {
+        errorDiv.textContent = '';
+    }
+});

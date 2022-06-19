@@ -721,6 +721,15 @@ input.coloris:hover {
     border: 1px solid var(--border-grey);
 }
 
+.card-errors {
+    color: var(--text-light);
+    background-color: var(--bs-danger-alt);
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid var(--bs-danger);
+    margin-top: 10px;
+}
+
 /* MEDIA QUERIES */
 
 @media (min-width: 576px) {
