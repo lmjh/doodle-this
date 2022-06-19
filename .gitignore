@@ -8,6 +8,9 @@ node_modules/
 .github/
 cloudinary_python.txt
 
+# environment variables
+.env
+
 # sqlite development database
 *.sqlite3
 
