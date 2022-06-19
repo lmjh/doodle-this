@@ -691,6 +691,36 @@ input.coloris:hover {
     text-decoration: underline;
 }
 
+/* STRIPE ELEMENTS STYLES */
+
+.StripeElement {
+    background-color: var(--bg-form);
+    color: var(--text-light);
+    border: 1px solid var(--border-grey);
+    box-sizing: border-box;
+    height: 40px;
+    padding: 10px 12px;
+    border-radius: .25rem;
+
+}
+
+.StripeElement--focus {
+    box-shadow: 0 0 2px 1px var(--brand-primary-color);
+    border: 1px solid var(--brand-primary-color);
+}
+
+.StripeElement--webkit-autofill {
+    background-color: var(--bg-form) !important;
+    color: var(--text-light);
+}
+
+#payment-form .form-control,
+#card-element {
+    background-color: var(--bg-form);
+    color: var(--text-light);
+    border: 1px solid var(--border-grey);
+}
+
 /* MEDIA QUERIES */
 
 @media (min-width: 576px) {
