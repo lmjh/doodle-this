@@ -10,7 +10,7 @@
                 <h1>Checkout</h1>
                 <p>Please enter your delivery and payment details to complete your order.</p>
                 <hr>
-                <form class="row">
+                <form class="row" id="payment-form" method="POST">
                     {% csrf_token %}
                     {% crispy order_form %}
                     <div class="col-12 ">
