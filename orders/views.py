@@ -4,6 +4,7 @@ import stripe
 from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
 from django.conf import settings
+from django.core.files import File
 
 from .forms import OrderForm
 from .models import Order, OrderDrawing, OrderItem
@@ -63,12 +64,16 @@ def checkout(request):
                             user_account=account,
                             save_slot=item["drawing"],
                         ).first()
-                        # create OrderDrawing with selected drawing
+
+                        # create an OrderDrawing
                         order_drawing = OrderDrawing(
                             order=order,
                             save_slot=int(item["drawing"]),
-                            image=drawing.image,
                         )
+
+                        # set the order drawing's image field to a copy of the
+                        # image in the selected save_slot 
+                        order_drawing.image = File(drawing.image)
                         order_drawing.save()
 
                         # add order drawing to order_drawings dict
