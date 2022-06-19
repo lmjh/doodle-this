@@ -56,7 +56,7 @@ def cart_contents(request):
     context = {
         "cart_contents": cart_contents,
         "items_total": f'{items_total}',
-        "cart_count": cart_count,
+        "cart_count": cart_count if cart_count < 100 else "99+",
         "delivery": f'{delivery}',
         "grand_total": f'{grand_total}',
     }

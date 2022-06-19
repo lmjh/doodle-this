@@ -233,19 +233,20 @@ a:focus-visible,
 
 .cart-counter {
     background-color: var(--brand-primary-color);
-    width: 20px;
+    min-width: 20px;
     height: 20px;
     position: absolute;
-    border-radius: 50%;
-    left: 15px;
+    border-radius: 10px;
+    left: 14px;
     bottom: -5px;
     font-size: 15px;
     font-weight: bold;
     text-align: center;
-    line-height: 20px;
+    line-height: 12px;
     color: var(--text-dark);
     font-family: 'Baloo 2', Arial, Helvetica, sans-serif;
     box-shadow: 0 0 0 3px var(--text-dark);
+    padding: 4px;
 }
 
 /* FOOTER STYLES */
