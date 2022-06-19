@@ -1,7 +1,7 @@
 from decimal import Decimal
 import stripe
 
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
 from django.core.files import File
@@ -9,11 +9,15 @@ from django.core.files import File
 from .forms import OrderForm
 from .models import Order, OrderDrawing, OrderItem
 from prints.models import ProductVariant
-from accounts.models import Drawing
+from accounts.models import Drawing, UserAccount
+from accounts.forms import NameUpdateForm, DefaultAddressForm
 from cart.contexts import cart_contents
 
 
 def checkout(request):
+    """
+    A view to display the order form and handle order submissions and payments
+    """
     # get stripe public and secret keys from environment
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
@@ -72,7 +76,7 @@ def checkout(request):
                         )
 
                         # set the order drawing's image field to a copy of the
-                        # image in the selected save_slot 
+                        # image in the selected save_slot
                         order_drawing.image = File(drawing.image)
                         order_drawing.save()
 
@@ -112,8 +116,15 @@ def checkout(request):
             request.session["save_details"] = "save-details" in request.POST
 
             # send success message and redirect user
-            messages.success(request, "Order added!")
-            return redirect(reverse("sketchbook"))
+            messages.success(
+                request,
+                (
+                    "Thank you! Your order has been placed."
+                ),
+            )
+            return redirect(
+                reverse("order_confirmed", args=[order.order_number])
+            )
         else:
             # send error message if form is invalid
             messages.error(
@@ -158,6 +169,60 @@ def checkout(request):
         "order_form": order_form,
         "stripe_public_key": stripe_public_key,
         "client_secret": intent.client_secret,
+    }
+
+    return render(request, template, context)
+
+
+def order_confirmed(request, order_number):
+    """
+    A view to display order confirmation and details to user
+    """
+    save_details = request.session.get("save_details")
+    order = get_object_or_404(Order, order_number=order_number)
+
+    # if the user is logged in
+    if request.user.is_authenticated:
+        # find the logged in user's account and attach it to the order
+        account = UserAccount.objects.get(user=request.user)
+        order.user_account = account
+        order.save()
+
+        # if the user selected to save their details
+        if save_details:
+            # save their address with the DefaultAddressForm
+            address_data = {
+                "default_address_1": order.address_1,
+                "default_address_2": order.address_2,
+                "default_town": order.town,
+                "default_county": order.county,
+                "default_postcode": order.postcode,
+                "default_country": order.country,
+            }
+            user_address_form = DefaultAddressForm(
+                address_data, instance=account
+            )
+
+            if user_address_form.is_valid():
+                user_address_form.save()
+
+            # and save their name with the NameUpdateForm
+            name_data = {
+                "first_name": order.first_name,
+                "last_name": order.last_name,
+            }
+            user_name_form = NameUpdateForm(name_data, instance=account)
+
+            if user_name_form.is_valid():
+                user_name_form.save()
+
+    # if the user's session contains a shopping cart, delete it
+    if "cart" in request.session:
+        del request.session["cart"]
+
+    template = "orders/order_confirmed.html"
+    context = {
+        "order": order,
     }
 
     return render(request, template, context)
