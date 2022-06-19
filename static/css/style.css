@@ -178,7 +178,8 @@ a:focus-visible,
 
 .form-control,
 .form-select,
-.form-check-input {
+.form-check-input,
+.list-group-item {
     background-color: var(--bg-form);
     color: var(--text-light);
     border-color: var(--border-grey);
