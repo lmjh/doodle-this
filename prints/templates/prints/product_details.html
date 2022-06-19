@@ -40,7 +40,7 @@
                                     <label class="input-group-text bg-dark text-light" for="drawing"
                                         autocomplete="off">Select Doodle</label>
                                     <select class="form-select" id="drawing" name="drawing">
-                                        <option value="autosave">Current Doodle</option>
+                                        <option value="0">Current Doodle</option>
                                         {% for drawing in saved_drawings %}
                                         <option value="{{ drawing.save_slot }}">Saved Doodle
                                             {{ drawing.save_slot }}</option>

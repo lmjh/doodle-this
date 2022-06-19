@@ -22,7 +22,7 @@ def cart_contents(request):
         variant = get_object_or_404(ProductVariant, pk=item["variant_id"])
         # set drawing_image to the url of the saved drawing or a default blank
         # image if the current sketchbook drawing was selected
-        if item["drawing"] == "autosave":
+        if item["drawing"] == "0":
             item["drawing_image"] = "/media/svg/blank.svg"
         else:
             drawing = get_object_or_404(

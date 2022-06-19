@@ -68,7 +68,7 @@ function setProductImage(variantUrl) {
 // add an event listener to update the drawing preview overlay when the select-drawing select element is changed
 selectDrawing.addEventListener('change', function (e) {
     // if the current drawing is selected
-    if (e.target.value == 'autosave') {
+    if (e.target.value == '0') {
         // retrieve the autosave of the current drawing from localforage 
         localforage.getItem('autosave').then(function (blob) {
             // and load into the preview overlay

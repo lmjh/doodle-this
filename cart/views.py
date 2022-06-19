@@ -26,7 +26,7 @@ def add_to_cart(request):
         redirect_url = request.POST.get("redirect_url")
 
         # set the drawing name to be displayed in messages
-        if drawing == "autosave":
+        if drawing == "0":
             drawing_name = "Current Doodle"
         else:
             drawing_name = f"Save Slot {drawing}"
