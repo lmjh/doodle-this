@@ -20,19 +20,19 @@ def checkout(request):
     # get the user's cart from the session
     cart = request.session.get("cart", [])
 
-    if request.method == 'POST':
+    if request.method == "POST":
         # gather form data from request
         form_data = {
-            'first_name': request.POST['first_name'],
-            'last_name': request.POST['last_name'],
-            'address_1': request.POST['address_1'],
-            'address_2': request.POST['address_2'],
-            'town': request.POST['town'],
-            'county': request.POST['county'],
-            'postcode': request.POST['postcode'],
-            'country': request.POST['country'],
-            'email_address': request.POST['email_address'],
-            'phone_number': request.POST['phone_number'],
+            "first_name": request.POST["first_name"],
+            "last_name": request.POST["last_name"],
+            "address_1": request.POST["address_1"],
+            "address_2": request.POST["address_2"],
+            "town": request.POST["town"],
+            "county": request.POST["county"],
+            "postcode": request.POST["postcode"],
+            "country": request.POST["country"],
+            "email_address": request.POST["email_address"],
+            "phone_number": request.POST["phone_number"],
         }
 
         # fill OrderForm with submitted form data
@@ -45,71 +45,91 @@ def checkout(request):
             # find the current user's account
             account = request.user.useraccount
 
-            # find the user's saved drawing
-            saved_drawing_1 = Drawing.objects.filter(
-                user_account=account,
-                save_slot=1,
-                ).first()
+            # declare a dict to store the order drawings
+            order_drawings = {}
 
-            # create an order drawing with the saved drawing
-            order_save_slot_1 = OrderDrawing(
-                order=order,
-                save_slot=1,
-                image=saved_drawing_1.image
-            )
+            # iterate through cart items to construct order_drawings dict
+            for item in cart:
+                # if the current item's drawing is not already in the
+                # order_drawings dict, add it
+                if item["drawing"] not in order_drawings.keys():
+                    # if autosave is selected
+                    if item["drawing"] == "0":
+                        # add placeholder
+                        order_drawings[item["drawing"]] = "drawing_0"
+                    else:
+                        # get user's saved drawing for selected save_slot
+                        drawing = Drawing.objects.filter(
+                            user_account=account,
+                            save_slot=item["drawing"],
+                        ).first()
+                        # create OrderDrawing with selected drawing
+                        order_drawing = OrderDrawing(
+                            order=order,
+                            save_slot=int(item["drawing"]),
+                            image=drawing.image,
+                        )
+                        order_drawing.save()
 
-            # save the order drawing
-            order_save_slot_1.save()
+                        # add order drawing to order_drawings dict
+                        order_drawings[item["drawing"]] = order_drawing
 
             # iterate through items in user's cart
             for item in cart:
                 try:
                     # for each item in the cart, add an OrderItem to the Order
-                    product_variant = ProductVariant.objects.get(id=item['variant_id'])
+                    product_variant = ProductVariant.objects.get(
+                        id=item["variant_id"]
+                    )
                     order_item = OrderItem(
                         order=order,
                         product_variant=product_variant,
-                        order_drawing=order_save_slot_1,
-                        quantity=item['quantity']
+                        # use order_drawings dict to enter selected drawing
+                        order_drawing=order_drawings[item["drawing"]],
+                        quantity=item["quantity"],
                     )
                     order_item.save()
                 except ProductVariant.DoesNotExist:
                     # return an error if the submitted ProductVariant id is
                     # invalid
-                    messages.error(request, (
-                        "Product not found. Please try again or contact us for"
-                        " assistance."
-                        )
+                    messages.error(
+                        request,
+                        (
+                            "Product not found. Please try again or contact us"
+                            " for assistance."
+                        ),
                     )
                     # delete the order and return the user to the cart view
                     order.delete()
-                    return redirect(reverse('view_cart'))
+                    return redirect(reverse("view_cart"))
 
             # get the status of the save_details checkbox and save in session
-            request.session['save_details'] = 'save-details' in request.POST
+            request.session["save_details"] = "save-details" in request.POST
 
             # send success message and redirect user
             messages.success(request, "Order added!")
-            return redirect(reverse('sketchbook'))
+            return redirect(reverse("sketchbook"))
         else:
             # send error message if form is invalid
-            messages.error(request, (
-                "There was a problem with your form. Please check your details"
-                " and try again."
-                )
+            messages.error(
+                request,
+                (
+                    "There was a problem with your form. Please check your "
+                    "details and try again."
+                ),
             )
 
     else:
         # if cart is empty, redirect user to the prints page
         if not cart:
             messages.error(request, "Your cart is empty.")
-            return redirect(reverse('show_all_prints'))
+            return redirect(reverse("show_all_prints"))
 
         # get the current shopping cart contents
         current_cart = cart_contents(request)
 
-        # get the grand_total from the current cart and convert from str to decimal
-        total = Decimal(current_cart['grand_total'])
+        # get grand_total from current cart and convert from str to decimal
+        total = Decimal(current_cart["grand_total"])
 
         # set stripe payment total and secret key
         stripe_total = round(total * 100)
@@ -125,16 +145,14 @@ def checkout(request):
 
     # show error message if stripe public key missing
     if not stripe_public_key:
-        messages.error(request, 'Stripe Public Key missing.')
+        messages.error(request, "Stripe Public Key missing.")
 
-    template = 'orders/checkout.html'
-
-    print(cart)
+    template = "orders/checkout.html"
 
     context = {
-        'order_form': order_form,
-        'stripe_public_key': stripe_public_key,
-        'client_secret': intent.client_secret,
+        "order_form": order_form,
+        "stripe_public_key": stripe_public_key,
+        "client_secret": intent.client_secret,
     }
 
     return render(request, template, context)
