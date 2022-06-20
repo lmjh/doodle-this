@@ -181,7 +181,7 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # use redgreenunittest as TEST_RUNNER to colourise outputs
-TEST_RUNNER="redgreenunittest.django.runner.RedGreenDiscoverRunner"
+TEST_RUNNER = "redgreenunittest.django.runner.RedGreenDiscoverRunner"
 
 # set standard delivery fee for all orders
 STANDARD_DELIVERY_FEE = 3
@@ -190,3 +190,4 @@ STANDARD_DELIVERY_FEE = 3
 STRIPE_CURRENCY = 'gbp'
 STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
+STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET', '')
