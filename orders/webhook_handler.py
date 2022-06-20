@@ -75,6 +75,8 @@ class StripeWebhookHandler:
                     address_2__iexact=shipping_details.address.line2,
                     county__iexact=shipping_details.address.state,
                     grand_total=grand_total,
+                    shopping_cart=cart,
+                    stripe_pid=pid,
                 )
                 # if order is found, set order_exists to true and break
                 order_exists = True

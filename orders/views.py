@@ -48,8 +48,18 @@ def checkout(request):
         order_form = OrderForm(form_data)
 
         if order_form.is_valid():
-            # save the order form to create an order
-            order = order_form.save()
+            # create an order with the order_form
+            # set commit=False to edit the order before saving
+            order = order_form.save(commit=False)
+
+            # get payment intent id by splitting client_secret
+            pid = request.POST.get('client_secret').split('_secret')[0]
+
+            # add the pid and a json dump of the shopping cart to the order
+            order.stripe_pid = pid
+            order.shopping_cart = json.dumps(cart)
+
+            order.save()
 
             # find the current user's account
             account = request.user.useraccount
