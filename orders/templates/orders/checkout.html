@@ -12,6 +12,7 @@
                 <hr>
                 <!-- order form -->
                 <form class="row" id="payment-form" method="POST">
+                    <p class="small text-center"><em>Fields marked with a * are required.</em></p>
                     {% csrf_token %}
                     <!-- delivery details form -->
                     {% crispy order_form %}
