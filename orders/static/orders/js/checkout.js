@@ -26,7 +26,9 @@ const style = {
 };
 
 // instantiate card with style variable and mount to checkout page element
-const card = elements.create('card', {style: style});
+const card = elements.create('card', {
+    style: style
+});
 card.mount('#card-element');
 
 // add event listener to check for card errors and display them
@@ -51,10 +53,12 @@ card.addEventListener('change', function (event) {
 const form = document.getElementById('payment-form')
 
 // add an event listener to the payment form to submit payments
-form.addEventListener('submit', function(ev) {
+form.addEventListener('submit', function (ev) {
     // prevent submit button default actions and disable form and button
     ev.preventDefault();
-    card.update({ 'disabled': true});
+    card.update({
+        'disabled': true
+    });
     $('#submit-order').attr('disabled', true);
     // show the loading overlay
     $('#loading-overlay').fadeToggle(100);
@@ -63,8 +67,23 @@ form.addEventListener('submit', function(ev) {
     stripe.confirmCardPayment(clientSecret, {
         payment_method: {
             card: card,
+            // fill billing details with form data
+            billing_details: {
+                // concatenate first and last names
+                name: $.trim(form.first_name.value) + " " + $.trim(form.last_name.value),
+                phone: $.trim(form.phone_number.value),
+                email: $.trim(form.email_address.value),
+                address: {
+                    line1: $.trim(form.address_1.value),
+                    line2: $.trim(form.address_2.value),
+                    city: $.trim(form.town.value),
+                    state: $.trim(form.county.value),
+                    country: $.trim(form.country.value),
+                    postalCode: $.trim(form.postcode.value)
+                }
+            }
         }
-    }).then(function(result) {
+    }).then(function (result) {
         // if error returned, display it
         if (result.error) {
             let errorDiv = document.getElementById('card-errors');
@@ -78,7 +97,9 @@ form.addEventListener('submit', function(ev) {
             `;
             $(errorDiv).html(errorHtml);
             // re-enable card and submit elements to allow user to fix error
-            card.update({ 'disabled': false});
+            card.update({
+                'disabled': false
+            });
             $('#submit-order').attr('disabled', false);
             //  hide loading overlay
             $('#loading-overlay').fadeToggle(100);
