@@ -3,6 +3,7 @@ import stripe
 
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.files import File
 
@@ -206,12 +207,14 @@ def order_confirmed(request, order_number):
             if user_address_form.is_valid():
                 user_address_form.save()
 
+            # find the user's User object
+            user = get_object_or_404(User, username=request.user)
             # and save their name with the NameUpdateForm
             name_data = {
                 "first_name": order.first_name,
                 "last_name": order.last_name,
             }
-            user_name_form = NameUpdateForm(name_data, instance=account)
+            user_name_form = NameUpdateForm(name_data, instance=user)
 
             if user_name_form.is_valid():
                 user_name_form.save()
