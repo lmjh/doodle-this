@@ -43,6 +43,8 @@ def cart_contents(request):
         # use product image if no variant image available
         else:
             item["image"] = variant.product.image.image.url
+
+        item["price_each"] = f'{variant.price}'
         item_price = variant.price * item["quantity"]
         item["price"] = f'{item_price}'
 

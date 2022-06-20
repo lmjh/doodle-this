@@ -6,15 +6,18 @@
 <div class="container mt-5">
     <div class="row g-2">
         <div class="col-12 col-lg-6">
-            <div class="content-panel p-3 mb-5">
+            <section class="content-panel p-3 mb-5">
                 <h1>Checkout</h1>
                 <p>Please enter your delivery and payment details to complete your order.</p>
                 <hr>
+                <!-- order form -->
                 <form class="row" id="payment-form" method="POST">
                     {% csrf_token %}
+                    <!-- delivery details form -->
                     {% crispy order_form %}
                     <div class="col-12 ">
                         {% if user.is_authenticated %}
+                        <!-- if user is authenticated, ask to save details -->
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="save-details"
                                 name="save-details">
@@ -31,6 +34,7 @@
                         <hr>
                     </div>
                     <div class="col-12 my-2">
+                        <!-- card payment form -->
                         <label for="card-element" class="mb-2">Payment</label>
                         <div id="card-element"></div>
                         <div id="card-errors" role="alert"></div>
@@ -45,36 +49,72 @@
                         * Your card will be charged £{{ grand_total }}
                     </div>
                 </form>
-            </div>
+            </section>
         </div>
         <div class="col-12 col-lg-6">
-            <div class="content-panel p-3 mb-5">
+            <section class="content-panel p-3 mb-5">
                 <div class="row">
+                    <!-- order summary -->
                     <div class="h2 text-center mb-3">Your Order</div>
-                    {% for item in cart_contents %}
-                    <div class="row align-items-center mb-3">
-                        <div class="col-3">
-                            <img src="{{ item.image }}" class="w-100 mb-2" alt="Product preview image">
-                            <img src="{{ item.drawing_image }}" class="w-100" alt="Drawing preview image">
+                    <div class="container-fluid">
+                        <!-- order items -->
+                        {% for item in cart_contents %}
+                        <div class="row align-items-center mb-3">
+                            <div class="col-12 col-md-6 mb-2 mb-md-0">
+                                <div class="d-flex">
+                                    <div class="product-image-flex pe-1">
+                                        <img src="{{ item.image }}" class="w-100" alt="Product preview image">
+                                    </div>
+                                    <div class="drawing-image-flex ps-1">
+                                        <img src="{{ item.drawing_image }}" class="w-100" alt="Drawing preview image">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <ul class="list-group w-100">
+                                    <li class="list-group-item">
+                                        <strong>Product: </strong><span class="float-end">{{ item.name }}</span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <strong>Doodle: </strong> <span class="float-end">{% if item.drawing == 0 %}
+                                            Current Sketchbook Doodle {% else %} Saved Doodle
+                                            {{ item.drawing }} {% endif %}
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <strong>Quantity/Cost: </strong><span class="float-end">{{ item.quantity }} @
+                                            £{{ item.price_each }} {% if item.quantity > 1 %}each{% endif %}</span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <strong>Subtotal: </strong><span
+                                            class="highlight float-end">£{{ item.price }}</span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="col-7">
-                            {{ item.quantity }} x {{ item.name }}
-                        </div>
-                        <div class="text-end highlight col-2">£{{ item.price }}</div>
+                        <hr class="mb-3">
+                        {% endfor %}
                     </div>
-                    <hr class="mb-3">
-                    {% endfor %}
-                    <div class="col-3 col-sm-6 col-md-8 col-lg-9 mb-3"></div>
-                    <div class="col-9 col-sm-6 col-md-4 col-lg-3 text-end mb-3">
+                    <!-- order totals -->
+                    <div class="col-9 col-sm-6 offset-3 offset-sm-6 text-end mb-3">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <span class=highlight>£{{ items_total }}</span> total
+                            </li>
+                            <li class="list-group-item">
+                                + <span class=highlight>£{{ delivery }}</span> delivery
+                            </li>
+                        </ul>
                         <hr>
-                        <p><span class=highlight>£{{ items_total }}</span> total</p>
-                        <p>+ <span class=highlight>£{{ delivery }}</span> delivery</p>
-                        <hr>
-                        <p>Grand Total: <span class=highlight>£{{ grand_total }}</span></p>
-                        <hr>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                Grand Total: <span class=highlight>£{{ grand_total }}</span>
+                            </li>
+                        </ul>
+
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
     </div>
 </div>
