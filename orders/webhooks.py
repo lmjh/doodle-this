@@ -20,13 +20,11 @@ def webhook(request):
 
     # get webhook data and verify signature
     payload = request.body
-    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+    sig_header = request.META["HTTP_STRIPE_SIGNATURE"]
     event = None
 
     try:
-        event = stripe.Webhook.construct_event(
-        payload, sig_header, wh_secret
-        )
+        event = stripe.Webhook.construct_event(payload, sig_header, wh_secret)
     except ValueError as e:
         # handle invalid payload error
         return HttpResponse(status=400)
@@ -37,7 +35,25 @@ def webhook(request):
         # handle other errors
         return HttpResponse(content=e, status=400)
 
-    # handle the event
-    print(f'Handled event type {event["type"]}')
+    # create an instance of the StripeWebhookHandler class
+    handler = StripeWebhookHandler(request)
 
-    return HttpResponse(status=200)
+    # create a dict to map event types against event handler functions
+    handled_events = {
+        "payment_intent.succeeded": handler.payment_intent_succeeded_handler,
+        "payment_intent.payment_failed": handler.payment_intent_failed_handler,
+    }
+
+    # get the type of the received webhook event
+    event_type = event["type"]
+
+    # if the webhook event matches one of the keys in the handled_events dict
+    if event_type in handled_events.keys():
+        # set the event_handler to the matching function
+        event_handler = event_handler = event_map[event_type]
+    else:
+        # otherwise, use the generic event handler
+        event_handler = handler.generic_event_handler
+
+    response = event_handler(event)
+    return response
