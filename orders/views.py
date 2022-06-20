@@ -1,3 +1,5 @@
+import json
+
 from decimal import Decimal
 import stripe
 
@@ -6,6 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.files import File
+from django.http import HttpResponse
 
 from .forms import OrderForm
 from .models import Order, OrderDrawing, OrderItem
@@ -119,9 +122,7 @@ def checkout(request):
             # send success message and redirect user
             messages.success(
                 request,
-                (
-                    "Thank you! Your order has been placed."
-                ),
+                ("Thank you! Your order has been placed."),
             )
             return redirect(
                 reverse("order_confirmed", args=[order.order_number])
@@ -229,3 +230,35 @@ def order_confirmed(request, order_number):
     }
 
     return render(request, template, context)
+
+
+def cache_order_data(request):
+    """
+    A view to cache order data and add metadata to stripe payment intent
+    """
+    try:
+        # get stripe payment id by spliting client secret
+        pid = request.POST.get("client_secret").split("_secret")[0]
+        # get stripe secret key from settings
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        # add current shopping cart contents, save_details boolean and username
+        # to payment intent metadata
+        stripe.PaymentIntent.modify(
+            pid,
+            metadata={
+                "cart": json.dumps(request.session.get("cart", {})),
+                "save_details": request.POST.get("save_details"),
+                "username": request.user,
+            },
+        )
+        return HttpResponse(status=200)
+    except Exception as e:
+        # display error message
+        messages.error(
+            request,
+            (
+                "Sorry, there was a problem with your payment. Please try "
+                "again later."
+            ),
+        )
+        return HttpResponse(content=e, status=400)

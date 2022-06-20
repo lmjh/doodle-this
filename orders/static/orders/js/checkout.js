@@ -60,54 +60,75 @@ form.addEventListener('submit', function (ev) {
         'disabled': true
     });
     $('#submit-order').attr('disabled', true);
-    // show the loading overlay
+    // hide the payment form and show the loading overlay
+    $('#payment-form').fadeToggle(100);
     $('#loading-overlay').fadeToggle(100);
 
-    // execute stripe confirm card payment functions
-    stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-            card: card,
-            // fill billing details with form data
-            billing_details: {
-                // concatenate first and last names
-                name: $.trim(form.first_name.value) + " " + $.trim(form.last_name.value),
-                phone: $.trim(form.phone_number.value),
-                email: $.trim(form.email_address.value),
-                address: {
-                    line1: $.trim(form.address_1.value),
-                    line2: $.trim(form.address_2.value),
-                    city: $.trim(form.town.value),
-                    state: $.trim(form.county.value),
-                    country: $.trim(form.country.value),
-                    postalCode: $.trim(form.postcode.value)
+    // set saveDetails to true if user clicked save details checkbox, false otherwise
+    let saveDetails = Boolean(document.getElementById("save-details").checked);
+
+    // get the csrf token from the form
+    const csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+
+    // bundle data to be submitted in an object
+    let postData = {
+        'csrfmiddlewaretoken': csrfToken,
+        'client_secret': clientSecret,
+        'save_details': saveDetails,
+    };
+    let cacheUrl = '/orders/cache_order_data/';
+
+    // post the data to the cache_checkout_data view.
+    // if response code is 200, then execute stripe confirm card payment functions
+    $.post(cacheUrl, postData).done(function () {
+        stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: card,
+                // fill billing details with form data
+                billing_details: {
+                    // concatenate first and last names
+                    name: $.trim(form.first_name.value) + " " + $.trim(form.last_name.value),
+                    phone: $.trim(form.phone_number.value),
+                    email: $.trim(form.email_address.value),
+                    address: {
+                        line1: $.trim(form.address_1.value),
+                        line2: $.trim(form.address_2.value),
+                        city: $.trim(form.town.value),
+                        state: $.trim(form.county.value),
+                        country: $.trim(form.country.value),
+                    }
                 }
             }
-        }
-    }).then(function (result) {
-        // if error returned, display it
-        if (result.error) {
-            let errorDiv = document.getElementById('card-errors');
-            let errorHtml = `
-            <div class='card-errors'>
-                <span class="icon" role="alert">
-                <i class="fas fa-times"></i>
-                </span>
-                <span>${result.error.message}</span>
-            </div>
-            `;
-            $(errorDiv).html(errorHtml);
-            // re-enable card and submit elements to allow user to fix error
-            card.update({
-                'disabled': false
-            });
-            $('#submit-order').attr('disabled', false);
-            //  hide loading overlay
-            $('#loading-overlay').fadeToggle(100);
-        } else {
-            // if payment succeeds, submit the form
-            if (result.paymentIntent.status === 'succeeded') {
-                form.submit();
+        }).then(function (result) {
+            // if error returned, display it
+            if (result.error) {
+                let errorDiv = document.getElementById('card-errors');
+                let errorHtml = `
+                <div class='card-errors'>
+                    <span class="icon" role="alert">
+                    <i class="fas fa-times"></i>
+                    </span>
+                    <span>${result.error.message}</span>
+                </div>
+                `;
+                $(errorDiv).html(errorHtml);
+                // re-enable card and submit elements to allow user to fix error
+                card.update({
+                    'disabled': false
+                });
+                $('#submit-order').attr('disabled', false);
+                // show the payment form and hide loading overlay
+                $('#payment-form').fadeToggle(100);
+                $('#loading-overlay').fadeToggle(100);
+            } else {
+                // if payment succeeds, submit the form
+                if (result.paymentIntent.status === 'succeeded') {
+                    form.submit();
+                }
             }
-        }
-    });
+        });
+    }).fail(function () {
+        // reload page if post function fails
+        location.reload();
+    })
 });
