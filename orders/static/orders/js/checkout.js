@@ -98,7 +98,20 @@ form.addEventListener('submit', function (ev) {
                         country: $.trim(form.country.value),
                     }
                 }
-            }
+            },
+            shipping: {
+                // concatenate first and last names
+                name: $.trim(form.first_name.value) + " " + $.trim(form.last_name.value),
+                phone: $.trim(form.phone_number.value),
+                address: {
+                    line1: $.trim(form.address_1.value),
+                    line2: $.trim(form.address_2.value),
+                    city: $.trim(form.town.value),
+                    state: $.trim(form.county.value),
+                    country: $.trim(form.country.value),
+                    postal_code: $.trim(form.postcode.value),
+                }
+            },
         }).then(function (result) {
             // if error returned, display it
             if (result.error) {
