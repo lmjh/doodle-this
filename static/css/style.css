@@ -692,6 +692,14 @@ input.coloris:hover {
     text-decoration: underline;
 }
 
+.product-image-flex {
+    flex: calc(1000/750);
+}
+
+.drawing-image-flex {
+    flex: calc(1280/720);
+}
+
 /* STRIPE ELEMENTS STYLES */
 
 .StripeElement {
