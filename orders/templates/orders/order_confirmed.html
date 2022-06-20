@@ -43,13 +43,23 @@
                         <strong>Address 1: </strong> <span class="float-end">{{ order.address_1 }}</span>
                     </li>
                     <li class="list-group-item">
-                        <strong>Address 2: </strong> <span class="float-end">{{ order.address_2 }} </span>
+                        <strong>Address 2: </strong> <span class="float-end">
+                            {% if order.address_2 %}
+                            {{ order.address_2 }}
+                            {% else %}
+                            N/A
+                            {% endif %}</span>
                     </li>
                     <li class="list-group-item">
                         <strong>Town: </strong> <span class="float-end">{{ order.town }} </span>
                     </li>
                     <li class="list-group-item">
-                        <strong>County: </strong> <span class="float-end">{{ order.county }} </span>
+                        <strong>County: </strong> <span class="float-end">
+                            {% if order.county %}
+                            {{ order.county }}
+                            {% else %}
+                            N/A
+                            {% endif %}</span>
                     </li>
                     <li class="list-group-item">
                         <strong>Postcode: </strong> <span class="float-end">{{ order.postcode }} </span>
