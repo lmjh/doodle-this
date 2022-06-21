@@ -61,7 +61,6 @@ function deactivateElements() {
  * re-enables the card and form elements and hides the loading overlay 
  */
 function activateElements() {
-    $(errorDiv).html(errorHtml);
     // re-enable card and submit elements to allow user to fix error
     card.update({
         'disabled': false
@@ -134,6 +133,7 @@ function confirmStripePayment() {
                 <span>${result.error.message}</span>
             </div>
             `;
+                $(errorDiv).html(errorHtml);
                 activateElements()
             } else {
                 // if payment succeeds, submit the form
