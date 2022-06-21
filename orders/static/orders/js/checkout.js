@@ -1,3 +1,5 @@
+// INITIALISE ELEMENTS AND STYLES
+
 // retrieve Stripe public key and client secret from page
 const stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
 const clientSecret = $('#id_client_secret').text().slice(1, -1);
@@ -36,6 +38,11 @@ const card = elements.create('card', {
     style: style
 });
 card.mount('#card-element');
+
+// assign payment form to a const
+const form = document.getElementById('payment-form')
+
+// DECLARE FUNCTIONS
 
 /**
  * disables the card and form elements and shows the loading overlay 
@@ -141,6 +148,7 @@ function confirmStripePayment() {
     })
 }
 
+// ADD EVENT LISTENERS
 
 // add event listener to check for card errors and display them
 card.addEventListener('change', function (event) {
@@ -159,9 +167,6 @@ card.addEventListener('change', function (event) {
         errorDiv.textContent = '';
     }
 });
-
-// assign payment form to a const
-const form = document.getElementById('payment-form')
 
 // add an event listener to the payment form to submit payments
 form.addEventListener('submit', function (ev) {
