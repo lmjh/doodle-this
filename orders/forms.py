@@ -1,5 +1,5 @@
 from django import forms
-from .models import Order
+from .models import Order, OrderDrawingCache
 
 # import objects from Crispy Forms to customise form layouts
 from crispy_forms.helper import FormHelper
@@ -46,3 +46,13 @@ class OrderForm(forms.ModelForm):
             Div(Field("email_address"), css_class="col-12 col-sm-6"),
             Div(Field("phone_number"), css_class="col-12 col-sm-6"),
         )
+
+
+class OrderDrawingCacheForm(forms.ModelForm):
+    """
+    A form to save the store the user's current drawing in the database while
+    processing payment
+    """
+    class Meta:
+        model = OrderDrawingCache
+        fields = ('image', 'stripe_pid')

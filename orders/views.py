@@ -10,7 +10,7 @@ from django.conf import settings
 from django.core.files import File
 from django.http import HttpResponse
 
-from .forms import OrderForm
+from .forms import OrderForm, OrderDrawingCacheForm
 from .models import Order, OrderDrawing, OrderItem
 from prints.models import ProductVariant
 from accounts.models import Drawing, UserAccount
@@ -175,12 +175,18 @@ def checkout(request):
     if not stripe_public_key:
         messages.error(request, "Stripe Public Key missing.")
 
+    # pass a true or false value to the checkout template, based on if the user
+    # has their current drawing in their shopping cart (i.e. the drawing on
+    # their sketchbook that's not saved in their account)
+    current_drawing_in_cart = any(item['drawing'] == '0' for item in cart)
+
     template = "orders/checkout.html"
 
     context = {
         "order_form": order_form,
         "stripe_public_key": stripe_public_key,
         "client_secret": intent.client_secret,
+        "current_drawing_in_cart": current_drawing_in_cart,
     }
 
     return render(request, template, context)
@@ -272,3 +278,21 @@ def cache_order_data(request):
             ),
         )
         return HttpResponse(content=e, status=400)
+
+
+def cache_order_drawing(request):
+    """
+    A view to cache a user's current drawing while payment is confirmed
+    """
+    if request.is_ajax and request.method == "POST":
+        # fill the order drawing cache form with data from the request
+        form = OrderDrawingCacheForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            # if the form is valid, save it and return code 200
+            form.save()
+            return HttpResponse(status=200)
+
+        else:
+            # return code 400 if the form is not valid
+            return HttpResponse(status=400)
