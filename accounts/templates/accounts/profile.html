@@ -38,6 +38,56 @@
             </section>
         </div>
     </div>
+    <div class="row">
+        <div class="col-10 col-md-8 offset-1 offset-md-2">
+            <!-- order history section -->
+            <section class="content-panel p-3 mb-5 row">
+                <h2 id="order-history" class="mb-3">Order History</h2>
+                {% if orders %}
+                <!-- iterate through orders and add details -->
+                {% for order in orders %}
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <strong>Order Number: </strong>
+                        <span class="float-end">
+                            <a href="{% url 'order_confirmed' order_number=order.order_number %}">
+                                {{ order.order_number }}
+                            </a>
+                        </span>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Date: </strong> <span class="float-end">{{ order.date }}</span>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Summary: </strong>
+                        <span class="float-end">
+                            <!-- iterate through order items and add to summary -->
+                            {% for item in order.order_items.all %}
+                            {{ item.quantity }} x {{ item.product_variant.product.display_name }},
+                            {{ item.product_variant.display_name }}
+                            {% if forloop.revcounter0 > 0 %}<span class=text-muted>|</span>{% endif %}
+                            {% endfor %}
+                        </span>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Grand Total: </strong> <span class="float-end highlight">£{{ order.grand_total }}</span>
+                    </li>
+                </ul>
+                <hr class="my-3">
+                {% endfor %}
+                {% else %}
+                <div class="col-12">
+                    <p class="text-center">
+                        You haven't made any print orders yet.
+                    </p>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4 offset-sm-3 offset-lg-4 mb-3">
+                    <a href="{% url 'show_all_prints' %}" class="btn btn-brand-primary w-100">View Prints</a>
+                </div>
+                {% endif %}
+            </section>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

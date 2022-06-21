@@ -30,11 +30,15 @@ def profile(request):
 
     default_address_form = DefaultAddressForm(instance=account)
     name_update_form = NameUpdateForm(instance=user)
+
+    orders = account.orders.all()
+
     context = {
         "default_address_form": default_address_form,
         "name_update_form": name_update_form,
         "test_account": account,
         "test_user": user,
+        "orders": orders,
     }
     return render(request, template, context)
 
