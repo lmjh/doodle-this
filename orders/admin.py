@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Order, OrderDrawing, OrderItem
+from .models import Order, OrderDrawing, OrderItem, OrderDrawingCache
 
 
 class OrderItemAdminInline(admin.TabularInline):
@@ -58,4 +58,16 @@ class OrderAdmin(admin.ModelAdmin):
     ordering = ("-date",)
 
 
+class OrderDrawingCacheAdmin(admin.ModelAdmin):
+    fields = (
+        "image",
+        "stripe_pid",
+    )
+    list_display = (
+        "image",
+        "stripe_pid",
+    )
+
+
 admin.site.register(Order, OrderAdmin)
+admin.site.register(OrderDrawingCache, OrderDrawingCacheAdmin)

@@ -24,6 +24,17 @@ def upload_to(instance, filename):
     )
 
 
+# set upload directory for order drawings cache
+def upload_to_cache(instance, filename):
+    """
+    Constructs and returns a path for cached order drawings to be uploaded to.
+    Drawings are uploaded to a folder named with the stripe payment intent id.
+    """
+    return (
+        f"order-drawings/cache/{instance.stripe_pid}/0.png"
+    )
+
+
 class Order(models.Model):
     """
     A model to represent customer orders
@@ -146,4 +157,23 @@ class OrderItem(models.Model):
             f"Order {str(self.order.order_number)} - "
             f"SKU {self.product_variant.sku} - "
             f"Drawing {self.order_drawing.save_slot}"
+        )
+
+
+class OrderDrawingCache(models.Model):
+    """
+    A model to store a user's current sketchbook drawing while payment is
+    processed
+    """
+
+    image = models.ImageField(
+        null=False, blank=False, upload_to=upload_to_cache
+    )
+    stripe_pid = models.CharField(
+        max_length=254, null=False, blank=False, default=""
+    )
+
+    def __str__(self):
+        return (
+            f"PID {self.stripe_pid}"
         )
