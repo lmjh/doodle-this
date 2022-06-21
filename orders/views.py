@@ -11,7 +11,7 @@ from django.core.files import File
 from django.http import HttpResponse
 
 from .forms import OrderForm, OrderDrawingCacheForm
-from .models import Order, OrderDrawing, OrderItem
+from .models import Order, OrderDrawing, OrderItem, OrderDrawingCache
 from prints.models import ProductVariant
 from accounts.models import Drawing, UserAccount
 from accounts.forms import NameUpdateForm, DefaultAddressForm
@@ -72,10 +72,26 @@ def checkout(request):
                 # if the current item's drawing is not already in the
                 # order_drawings dict, add it
                 if item["drawing"] not in order_drawings.keys():
-                    # if autosave is selected
+                    # if the user's current sketchbook drawing is selected
                     if item["drawing"] == "0":
-                        # add placeholder
-                        order_drawings[item["drawing"]] = "drawing_0"
+                        # get the cached drawing
+                        drawing = OrderDrawingCache.objects.filter(
+                            stripe_pid=pid
+                            ).first()
+                        
+                        # create an OrderDrawing
+                        order_drawing = OrderDrawing(
+                            order=order,
+                            save_slot=0,
+                        )
+
+                        # set the order drawing's image field to a copy of
+                        # the cached image
+                        order_drawing.image = File(drawing.image)
+                        order_drawing.save()
+
+                        # add order drawing to order_drawings dict
+                        order_drawings['0'] = order_drawing
                     else:
                         # get user's saved drawing for selected save_slot
                         drawing = Drawing.objects.filter(
@@ -254,7 +270,7 @@ def cache_order_data(request):
     """
     try:
         # get stripe payment id by spliting client secret
-        pid = request.POST.get("stripe_pid")
+        pid = request.POST.get("client_secret").split("_secret")[0]
         # get stripe secret key from settings
         stripe.api_key = settings.STRIPE_SECRET_KEY
         # add current shopping cart contents, save_details boolean and username
