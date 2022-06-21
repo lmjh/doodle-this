@@ -4,7 +4,7 @@ import json
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.core.files import File
-from orders.models import Order, OrderDrawing, OrderItem
+from orders.models import Order, OrderDrawing, OrderItem, OrderDrawingCache
 from prints.models import ProductVariant
 from accounts.models import UserAccount, Drawing
 
@@ -129,10 +129,26 @@ class StripeWebhookHandler:
                     # if the current item's drawing is not already in the
                     # order_drawings dict, add it
                     if item["drawing"] not in order_drawings.keys():
-                        # if autosave is selected
+                        # if the user's current sketchbook drawing is selected
                         if item["drawing"] == "0":
-                            # add placeholder
-                            order_drawings[item["drawing"]] = "drawing_0"
+                            # get the cached drawing
+                            drawing = OrderDrawingCache.objects.filter(
+                                stripe_pid=pid
+                                ).first()
+
+                            # create an OrderDrawing
+                            order_drawing = OrderDrawing(
+                                order=order,
+                                save_slot=0,
+                            )
+
+                            # set the order drawing's image field to a copy of
+                            # the cached image
+                            order_drawing.image = File(drawing.image)
+                            order_drawing.save()
+
+                            # add order drawing to order_drawings dict
+                            order_drawings['0'] = order_drawing
                         else:
                             # get user's saved drawing for selected save_slot
                             drawing = Drawing.objects.filter(
@@ -176,7 +192,7 @@ class StripeWebhookHandler:
                 return HttpResponse(
                     content=(
                         f'Webhook received: {event["type"]}. '
-                        "An error was encountered: {e}"
+                        f"An error was encountered: {e}"
                     ),
                     status=500,
                 )
