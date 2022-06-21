@@ -79,7 +79,7 @@
                                         <strong>Product: </strong><span class="float-end">{{ item.name }}</span>
                                     </li>
                                     <li class="list-group-item">
-                                        <strong>Doodle: </strong> <span class="float-end">{% if item.drawing == 0 %}
+                                        <strong>Doodle: </strong> <span class="float-end">{% if item.drawing == "0" %}
                                             Current Sketchbook Doodle {% else %} Saved Doodle
                                             {{ item.drawing }} {% endif %}
                                         </span>
@@ -128,6 +128,7 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
 
 {% block page_js %}
@@ -136,6 +137,8 @@
 <!-- render stripe variables -->
 {{ stripe_public_key|json_script:"id_stripe_public_key" }}
 {{ client_secret|json_script:"id_client_secret" }}
+<!-- render shopping cart as json -->
+{{ current_drawing_in_cart|json_script:"current_drawing_in_cart"}}
 <!-- load checkout javascript file -->
 <script src="{% static 'orders/js/checkout.js' %}"></script>
 {% endblock %}

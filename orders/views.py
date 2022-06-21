@@ -254,7 +254,7 @@ def cache_order_data(request):
     """
     try:
         # get stripe payment id by spliting client secret
-        pid = request.POST.get("client_secret").split("_secret")[0]
+        pid = request.POST.get("stripe_pid")
         # get stripe secret key from settings
         stripe.api_key = settings.STRIPE_SECRET_KEY
         # add current shopping cart contents, save_details boolean and username
