@@ -3,6 +3,7 @@ from django.urls import reverse
 
 from accounts.forms import DrawingForm
 from accounts.models import Drawing
+from prompts.prompts import generate_prompt
 
 
 def sketchbook(request):
@@ -59,13 +60,23 @@ def sketchbook(request):
             # save the titles to the titles dictionary
             titles[f"title_{count + 1}"] = title
 
+    # generate a drawing prompt to display on page load
+    prompt = generate_prompt()
+    if prompt:
+        # if a prompt is successfully generated, build a string with it
+        prompt = "Draw " + prompt + "!"
+    else:
+        # if a prompt could not be generated, pass an empty string to template
+        prompt = ""
+
     template = 'sketchbook/sketchbook.html'
 
     context = {
         'form': form,
         'saved_drawings': saved_drawings,
         'urls': urls,
-        'titles': titles
+        'titles': titles,
+        'prompt': prompt
     }
 
     return render(request, template, context)
