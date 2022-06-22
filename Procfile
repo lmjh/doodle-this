@@ -1,1 +1,1 @@
-web: gunicorn doodle-this.wsgi:application
+web: gunicorn doodle_this.wsgi:application
