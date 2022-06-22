@@ -173,7 +173,7 @@ def creature_location():
         return False
 
 
-def get_prompt():
+def generate_prompt():
     """
     Randomly selects a prompt pattern then generates and returns a prompt
     """
