@@ -20,7 +20,7 @@
                         <p>{{ product.description }}</p>
                     </div>
                     <div class="col-12 mb-3">
-                        <form action="{% url 'add_to_cart' %}" method="POST" class="row">
+                        <form action="{% url 'add_to_cart' %}" method="POST" class="row" id="add-to-cart">
                             {% csrf_token %}
                             <div class="col-12 col-lg-6">
                                 <div class="input-group mb-3 ">
