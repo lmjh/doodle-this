@@ -23,7 +23,7 @@ def cart_contents(request):
         # set drawing_image to the url of the saved drawing or a default blank
         # image if the current sketchbook drawing was selected
         if item["drawing"] == "0":
-            item["drawing_image"] = "/media/svg/blank.svg"
+            item["drawing_image"] = settings.MEDIA_URL + "svg/blank.svg"
         else:
             drawing = get_object_or_404(
                 Drawing,

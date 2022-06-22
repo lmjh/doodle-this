@@ -35,12 +35,12 @@ $( document ).ready(function() {
             URL.revokeObjectURL(drawingURL);
         } else {
             // if the returned object is null, use a placeholder
-            let drawingURL = '/media/svg/placeholder.svg';
+            let drawingURL = jsonData.placeholder;
             setOverlay(drawingURL);
         }
     }).catch(function() {
         // if there were any errors, use a placeholder image
-        let drawingURL = '/media/svg/placeholder.svg';
+        let drawingURL = jsonData.placeholder ;
         setOverlay(drawingURL);
     });
 });
@@ -86,12 +86,12 @@ selectDrawing.addEventListener('change', function (e) {
                 URL.revokeObjectURL(drawingURL);
             } else {
                 // if the returned object is null, use a placeholder
-                let drawingURL = '/media/svg/placeholder.svg';
+                let drawingURL = jsonData.placeholder;
                 setOverlay(drawingURL);
             }
         }).catch(function() {
             // if there were any errors, use a placeholder image
-            let drawingURL = '/media/svg/placeholder.svg';
+            let drawingURL = jsonData.placeholder;
             setOverlay(drawingURL);
         });
     } else {

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
     <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'sketchbook' %}"><img class="navbar-logo-text"
-                src="/media/svg/doodle-this-logo-text.svg" alt="Doodle This logo"></a>
+                src="{{ MEDIA_URL }}svg/doodle-this-logo-text.svg" alt="Doodle This logo"></a>
         <div class="d-flex">
             <a href="{% url 'view_cart' %}" class="mx-4 cart-icon d-lg-none position-relative d-flex align-items-center">
                 <span class="visually-hidden">Shoping Cart</span>
@@ -56,7 +56,7 @@
                 {% endif %}
             </a>
             <a class="navbar-brand" href="{% url 'sketchbook' %}"><img class="navbar-logo-text"
-                    src="/media/svg/doodle-this-logo-icon.svg" alt="Doodle This logo"></a>
+                    src="{{ MEDIA_URL }}svg/doodle-this-logo-icon.svg" alt="Doodle This logo"></a>
         </div>
         
     </div>

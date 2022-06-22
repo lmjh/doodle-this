@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import render
 from .models import Category, Product, ProductVariant
 from accounts.models import Drawing
@@ -77,6 +78,8 @@ def product_details(request, product_name):
         product.image.overlay_x_offset,
         product.image.overlay_y_offset,
     ]
+    # add the url for the paceholder image
+    json_data["placeholder"] = settings.MEDIA_URL + "svg/placeholder.svg"
 
     template = "prints/product_details.html"
     context = {
