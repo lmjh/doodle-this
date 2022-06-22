@@ -14,6 +14,7 @@ def sketchbook(request):
     urls = {
         'save_drawing': reverse('save_drawing'),
         'get_drawing': reverse('get_drawing'),
+        'get_prompt': reverse('get_prompt'),
     }
 
     # also create a dictionary to store drawing titles

@@ -13,11 +13,15 @@ const sketchbook = new Atrament(canvas, {
     weight: parseInt(document.getElementById('stroke-weight').value),
 });
 
+// get the drawing prompt container element
+const drawingPrompt = document.getElementById('drawing-prompt')
+
 // parse the urls dictionary object passed from the view and assign to a variable
 const urls = JSON.parse(document.getElementById('urls').textContent);
 
 // parse the auth dictionary object to determine user's login status
 const auth = JSON.parse(document.getElementById('auth').textContent);
+
 
 // parse the titles dictionary object passed from the view and assign to a variable
 // declared with 'let' as it will be updated by the application
@@ -504,6 +508,29 @@ function updateTitleDict(saveSlot, newTitle) {
     }
 }
 
+
+/**
+ * Sends a request to the server for a new random drawing prompt
+ */
+ function getPrompt() {
+
+    // get the url for the get_prompt view
+    let url = urls.get_prompt;
+
+    // initiate an ajax request
+    $.ajax({
+        url: url,
+        type: "GET",
+        // on success, load the new prompt
+        success: function (response) {
+            drawingPrompt.textContent = response.prompt
+        },
+        error: function (response) {
+            displayToast('error', 'Something seems to have gone wrong. Please try again.')
+        }
+    });
+}
+
 // ADD EVENT LISTENERS
 
 // add an event listener to set the Atrament canvas colour and cursor preview colour when a colour is selected with the 
@@ -733,3 +760,6 @@ sketchbook.addEventListener('fillend', function() {
     // call the saveDrawingToLocal function to store the canvas state for autosave
     saveDrawingToLocal('autosave');
 })
+
+// add event listener to call getPrompt function when get new prompt button is clicked 
+document.getElementById('get-prompt-button').addEventListener('click', getPrompt)
