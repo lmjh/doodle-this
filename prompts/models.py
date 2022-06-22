@@ -22,6 +22,9 @@ class Activity(models.Model):
     """
     A model to store activities
     """
+    class Meta:
+        verbose_name_plural = "Activities"
+
     activity = models.CharField(max_length=120, null=False, blank=False)
 
 
