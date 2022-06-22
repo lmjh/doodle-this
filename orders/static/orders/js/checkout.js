@@ -8,7 +8,7 @@ const clientSecret = $('#id_client_secret').text().slice(1, -1);
 const csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
 
 // initialise stripe with key and instantiate stripe elements
-const stripe = Stripe(stripePublicKey)
+const stripe = Stripe(stripePublicKey);
 const elements = stripe.elements();
 
 // retrieve variable representing if user has current drawing in cart
@@ -40,7 +40,7 @@ const card = elements.create('card', {
 card.mount('#card-element');
 
 // assign payment form to a const
-const form = document.getElementById('payment-form')
+const form = document.getElementById('payment-form');
 
 // DECLARE FUNCTIONS
 
@@ -134,7 +134,7 @@ function confirmStripePayment() {
             </div>
             `;
                 $(errorDiv).html(errorHtml);
-                activateElements()
+                activateElements();
             } else {
                 // if payment succeeds, submit the form
                 if (result.paymentIntent.status === 'succeeded') {
@@ -145,7 +145,7 @@ function confirmStripePayment() {
     }).fail(function () {
         // reload page if post function fails
         location.reload();
-    })
+    });
 }
 
 // ADD EVENT LISTENERS
@@ -180,7 +180,7 @@ form.addEventListener('submit', function (ev) {
         localforage.getItem('autosave').then(function (blob) {
             // create a FormData object and append the csrf token, stripe intent id and image 
             let cacheForm = new FormData();
-            cacheForm.append('csrfmiddlewaretoken', csrfToken)
+            cacheForm.append('csrfmiddlewaretoken', csrfToken);
             cacheForm.append('stripe_pid', clientSecret.split('_secret')[0]);
             cacheForm.append('image', blob, 'drw.png');
             // submit to the cache_order_drawing view
@@ -200,9 +200,9 @@ form.addEventListener('submit', function (ev) {
                 .done(confirmStripePayment)
                 .fail(function (error) {
                     // display an error if ajax post fails
-                    displayToast('error', 'Something seems to have gone wring. Please try again.')
+                    displayToast('error', 'Something seems to have gone wrong. Please try again.');
                     activateElements();
-                })
+                });
         }).catch(function (err) {
             // if the drawing is not found, show an error message
             displayToast('error', 'No current sketchbook doodle found. Please try again or print from an account save slot.');
