@@ -171,3 +171,32 @@ def creature_location():
     else:
         # if a get_word failed, return false
         return False
+
+
+def get_prompt():
+    """
+    Randomly selects a prompt pattern then generates and returns a prompt
+    """
+
+    # build a dict containing all of the pattern functions
+    patterns = {
+            1: adjective_creature_activity_location,
+            2: adjective_creature_activity,
+            3: adjective_creature,
+            4: creature_activity_location,
+            5: creature_activity,
+            6: adjective_creature_location,
+            7: creature_location,
+    }
+
+    # randomly select a key from patterns
+    pattern = random.choice(list(patterns))
+    # get the function corresponding to the selected key
+    prompt_function = patterns[pattern]
+
+    # generate the prompt
+    prompt = prompt_function()
+
+    # return the prompt
+    # n.b. this will be False if the generation function failed
+    return prompt
