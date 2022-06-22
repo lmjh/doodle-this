@@ -62,6 +62,9 @@ localforage.keys().then(function(keys) {
     console.log(err);
 });
 
+// remove invisible class from scaler holder once sketchbook elements are rendered 
+$('#scaler-holder').removeClass('invisible')
+
 // DECLARE FUNCTIONS
 
 /**
