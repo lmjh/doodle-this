@@ -334,6 +334,13 @@ footer {
     color: var(--text-dark);
 }
 
+#drawing-prompt {
+    min-height: 3rem;
+    font-family: 'Baloo 2', Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
 /* flex grids for buttons */
 
 .flex-wrap-holder {
