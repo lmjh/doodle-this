@@ -4,9 +4,9 @@ $(document).ready(function () {
         // create an objectURL for the saved drawing 
         let autosaveURL = blob ? URL.createObjectURL(blob) : false;
         // iterate through images on page
-        $('img').each(function () {
+        $('.drawing-thumbnail').each(function () {
             // if the image's src is the default blank image
-            if ($(this).attr('src') == '/media/svg/blank.svg' && autosaveURL) {
+            if ($(this).attr('src').slice(-9) == 'blank.svg' && autosaveURL) {
                 // replace it with the autosave image
                 $(this).attr('src', autosaveURL);
             }

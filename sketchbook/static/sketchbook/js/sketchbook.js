@@ -503,7 +503,7 @@ function updateTitleDict(saveSlot, newTitle) {
  */
  function setLoadButtonState(saveSlot) {
     // if the preview image for the selected save slot is the default blank image, disable the load button
-    if ($(`#save-preview-${saveSlot}`).attr('src') == '/media/svg/blank.svg') {
+    if ($(`#save-preview-${saveSlot}`).attr('src').slice(-9) == 'blank.svg') {
         $('#load-dialog-toggle').prop('disabled', true);
     } else {
         // otherwise, enable the button
