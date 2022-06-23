@@ -322,6 +322,7 @@ footer {
     width: 100%;
     border: 1px solid var(--border-grey);
     box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -7px rgba(0, 0, 0, 0.2);
+    transition: 0.3s ease-in-out;
 }
 
 .save-slot-button {
@@ -692,6 +693,18 @@ input.coloris:hover {
 
 #clr-color-value:focus-visible {
     outline-color: var(--brand-primary-color);
+}
+
+/* PROFILE PAGE STYLES */
+
+a .save-slot-preview:hover {
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -1px rgba(0, 0, 0, 0.2);
+}
+
+.drawing-full-view {
+    object-fit: contain;
+    width:100%;
+    height:100%;
 }
 
 /* PRINTS PAGES STYLES */

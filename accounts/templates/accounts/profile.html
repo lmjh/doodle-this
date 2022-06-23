@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% block page_title %}My Account - Doodle This{% endblock %}
+
 {% block content %}
 
 <div class="container mt-5">
@@ -7,9 +9,9 @@
         <div class="col-10 col-md-8 offset-1 offset-md-2">
             <!-- account details section -->
             <section class="content-panel p-3 mb-5 row">
-                <h1>{{ request.user.username }}'s Profile</h1>
+                <h1>{{ request.user.username }}'s Account</h1>
                 <h2 class="my-3">Account Details</h2>
-                <div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2 mb-5">
+                <div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2 mb-3">
                     <ul class="list-group">
                         <li class="list-group-item">
                             <strong>Username: </strong> <span class="float-end">{{ request.user.username }}</span>
@@ -20,10 +22,11 @@
                     </ul>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 offset-lg-2">
-                    <a class="btn btn-brand-primary w-100" href="{% url 'account_email' %}">Update Email</a>
+                    <a class="btn btn-brand-primary w-100 my-2" href="{% url 'account_email' %}">Update Email</a>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4">
-                    <a class="btn btn-brand-primary w-100" href="{% url 'account_change_password' %}">Update Password</a>
+                    <a class="btn btn-brand-primary w-100 my-2" href="{% url 'account_change_password' %}">Update
+                        Password</a>
                 </div>
                 <!-- delivery details update form -->
                 <h2 class="mt-5 mb-3">Delivery Details</h2>
@@ -35,6 +38,48 @@
                         <button class="btn btn-brand-primary col-12 col-md-4 offset-md-4 mb-3">Update</button>
                     </div>
                 </form>
+            </section>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10 col-md-8 offset-1 offset-md-2">
+            <!-- gallery section -->
+            <section class="content-panel p-3 mb-5 row">
+                <h2 id="gallery" class="mb-3">Gallery</h2>
+                {% for drawing in saved_drawings %}
+                <div class="col-12 col-lg-4 my-2">
+                    {% if drawing.image %}
+                    <!-- add preview image if user has an image in this save slot -->
+                    <a href="#view{{ drawing.save_slot }}" data-bs-toggle="modal">
+                        <img src="{{ drawing.image.url }}" class="save-slot-preview"
+                            alt="Save slot {{ drawing.save_slot }} preview" id="save-preview-1">
+                    </a>
+                    <!-- add view and delete buttons if user has an image in this save slot -->
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <button class="btn btn-brand-primary save-slot-button mt-2" data-bs-toggle="modal"
+                                data-bs-target="#view{{ drawing.save_slot }}">View</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-brand-primary save-slot-button mt-2">Delete</button>
+                        </div>
+                    </div>
+                    {% else %}
+                    <!-- show default blank image if no drawing in this save slot -->
+                    <img src="{{ MEDIA_URL }}svg/blank.svg" class="save-slot-preview"
+                        alt="Save slot {{ drawing.save_slot }} preview" id="save-preview-1">
+                    <!-- buttons disabled if no drawing in this save slot -->
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <button class="btn btn-brand-primary save-slot-button mt-2" disabled>View</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-brand-primary save-slot-button mt-2" disabled>Delete</button>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
             </section>
         </div>
     </div>
@@ -90,4 +135,38 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block page_modals %}
+<!-- iterate through saved drawings and add view modals -->
+{% for drawing in saved_drawings %}
+<div class="modal fade" id="view{{ drawing.save_slot }}" tabindex="-1"
+    aria-labelledby="view{{ drawing.save_slot }}Label" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- show title if available, else show save slot -->
+                <h5 class="modal-title" id="view{{ drawing.save_slot }}Label">
+                    {% if drawing.title %}
+                    Title: {{ drawing.title }}
+                    {% else %}
+                    Doodle {{ drawing.save_slot }}
+                    {% endif %}
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body gallery-modal">
+                <img src="{{ drawing.image.url }}" alt="Drawing {{ drawing.save_slot }}" class="img-fluid">
+            </div>
+            <div class="modal-footer">
+                <div class="col-12 col-sm-6 col-lg-4 offset-sm-6 offset-md-8">
+                    <button type="button" class="btn btn-brand-primary w-100" data-bs-dismiss="modal">
+                        Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
 {% endblock %}

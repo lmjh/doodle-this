@@ -13,10 +13,12 @@ from .forms import DefaultAddressForm, NameUpdateForm, DrawingForm
 def profile(request):
     """A view to display a user's profile page"""
 
+    # find user's UserAccount and User entries 
     account = get_object_or_404(UserAccount, user=request.user)
     user = get_object_or_404(User, username=request.user)
 
     if request.method == "POST":
+        # update the user's default address and names if valid forms are posted
         default_address_form = DefaultAddressForm(
             request.POST, instance=account
         )
@@ -28,10 +30,36 @@ def profile(request):
 
     template = "accounts/profile.html"
 
+    # instantiate address and name update forms
     default_address_form = DefaultAddressForm(instance=account)
     name_update_form = NameUpdateForm(instance=user)
 
+    # gather all of the user's orders
     orders = account.orders.all()
+
+    # create an array to store user's saved drawings
+    saved_drawings = []
+    # and a dict to store drawing titles
+    titles = {}
+
+    # search the database for saved drawings and add to array
+    for save_slot in range(1, 4):
+        # this query resolves to 'None' if no matching record is found
+        drawing = Drawing.objects.filter(
+            user_account=account, save_slot=save_slot
+        ).first()
+        saved_drawings.append(drawing)
+
+    # iterate through saved_drawings array
+    for count, drawing in enumerate(saved_drawings):
+        # set title to the title of the drawing if one is present, or an
+        # empty string if no drawing found or drawing doesn't have a title
+        if drawing:
+            title = drawing.title or ""
+        else:
+            title = ""
+        # save the titles to the titles dictionary
+        titles[f"title_{count + 1}"] = title
 
     context = {
         "default_address_form": default_address_form,
@@ -39,6 +67,8 @@ def profile(request):
         "test_account": account,
         "test_user": user,
         "orders": orders,
+        "saved_drawings": saved_drawings,
+        "titles": titles,
     }
     return render(request, template, context)
 
