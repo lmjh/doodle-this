@@ -92,6 +92,7 @@ a:focus-visible,
     background-color: var(--brand-primary-color);
     border-color: var(--brand-primary-color);
     box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -1px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
 }
 
 .btn-brand-primary:focus {
@@ -221,12 +222,20 @@ a:focus-visible,
     height: 50px;
 }
 
-.navbar-dark .navbar-nav .nav-link {
+.nav-link {
     color: var(--muted-text-light);
 }
 
-.navbar-dark .navbar-nav .nav-link:hover {
-    color: var(--text-light);
+.navbar-dark .nav-link:hover,
+.navbar-dark .nav-link:focus,
+.navbar-dark .nav-link:focus-visible {
+    color: var(--brand-primary-color);
+    text-decoration: none;
+}
+
+.bar-gradient {
+    background: rgb(44, 44, 44);
+    background: linear-gradient(0deg, rgba(44, 44, 44, 1) 0%, rgba(51, 51, 51, 1) 100%);
 }
 
 .cart-icon {
@@ -255,6 +264,36 @@ a:focus-visible,
     font-family: 'Baloo 2', Arial, Helvetica, sans-serif;
     box-shadow: 0 0 0 3px var(--text-dark);
     padding: 4px;
+}
+
+.btn-buy-prints {
+    font-family: 'Baloo 2', Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: var(--text-dark);
+    background-color: var(--bg-grey);
+    border: none;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14),0 1px 10px 0 rgba(0,0,0,0.12),0 2px 4px -1px rgba(0,0,0,0.3);
+}
+
+.btn-buy-prints:hover {
+    color: var(--text-dark);
+    background-color: var(--brand-primary-color);
+    border-color: var(--brand-primary-color);
+    box-shadow: none;
+    text-decoration: none;
+}
+
+.btn-buy-prints:focus {
+    color: var(--text-dark);
+    box-shadow: 0 0 0 .25rem rgba(130, 138, 145, .5);
+}
+
+.btn-buy-prints:focus-visible {
+    color: var(--text-dark);
+    background-color: var(--brand-primary-color);
+    border-color: var(--brand-primary-color);
+    box-shadow: 0 0 0 .25rem rgba(130, 138, 145, .5)
 }
 
 /* FOOTER STYLES */
