@@ -503,14 +503,16 @@ function updateTitleDict(saveSlot, newTitle) {
  */
  function setLoadButtonState(saveSlot) {
     // if the preview image for the selected save slot is the default blank image, disable the load button
-    if ($(`#save-preview-${saveSlot}`).attr('src').slice(-9) == 'blank.svg') {
-        $('#load-dialog-toggle').prop('disabled', true);
-    } else {
-        // otherwise, enable the button
-        $('#load-dialog-toggle').prop('disabled', false);
+    let savePreviewSrc = $(`#save-preview-${saveSlot}`).attr('src')
+    if (savePreviewSrc) {
+        if (savePreviewSrc.slice(-9) == 'blank.svg') {
+            $('#load-dialog-toggle').prop('disabled', true);
+        } else {
+            // otherwise, enable the button
+            $('#load-dialog-toggle').prop('disabled', false);
+        }
     }
 }
-
 
 /**
  * Sends a request to the server for a new random drawing prompt
