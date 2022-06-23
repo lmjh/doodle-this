@@ -61,7 +61,8 @@
                                 data-bs-target="#view{{ drawing.save_slot }}">View</button>
                         </div>
                         <div class="col-6">
-                            <button class="btn btn-brand-primary save-slot-button mt-2">Delete</button>
+                            <button class="btn btn-brand-primary save-slot-button mt-2" data-bs-toggle="modal"
+                                data-bs-target="#delete{{ drawing.save_slot }}">Delete</button>
                         </div>
                     </div>
                     {% else %}
@@ -138,26 +139,27 @@
 {% endblock %}
 
 {% block page_modals %}
-<!-- iterate through saved drawings and add view modals -->
+<!-- iterate through saved drawings and add view and delete modals if an image is saved in the save slot -->
 {% for drawing in saved_drawings %}
+{% if drawing.image %}
 <div class="modal fade" id="view{{ drawing.save_slot }}" tabindex="-1"
     aria-labelledby="view{{ drawing.save_slot }}Label" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header text-center">
                 <!-- show title if available, else show save slot -->
-                <h5 class="modal-title" id="view{{ drawing.save_slot }}Label">
+                <h3 class="modal-title highlight w-100 display-6" id="view{{ drawing.save_slot }}Label">
                     {% if drawing.title %}
-                    Title: {{ drawing.title }}
+                    {{ drawing.title }}
                     {% else %}
                     Doodle {{ drawing.save_slot }}
                     {% endif %}
-                </h5>
+                </h3>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
-            <div class="modal-body gallery-modal">
-                <img src="{{ drawing.image.url }}" alt="Drawing {{ drawing.save_slot }}" class="img-fluid">
+            <div class="modal-body gallery-modal d-flex align-items-center justify-content-center">
+                <img src="{{ drawing.image.url }}" alt="Drawing {{ drawing.save_slot }}" class="drawing-full-view">
             </div>
             <div class="modal-footer">
                 <div class="col-12 col-sm-6 col-lg-4 offset-sm-6 offset-md-8">
@@ -168,5 +170,43 @@
         </div>
     </div>
 </div>
+<!-- delete drawing confirmation modal -->
+<div class="modal fade" id="delete{{ drawing.save_slot }}" tabindex="-1"
+    aria-labelledby="delete{{ drawing.save_slot }}Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="delete{{ drawing.save_slot }}Label">Delete Doodle {{ drawing.save_slot }}
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Are you sure you want to delete this doodle? The doodle will be permanently deleted and any items
+                    featuring this doodle will be removed from your shopping cart.
+                </p>
+                <p>
+                    Order pictures are saved separately, so if you've already placed an order with this doodle you'll
+                    still get your order.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <!-- delete confirm or cancel buttons -->
+                <div class="row w-100 g-2">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-brand-primary w-100"
+                            data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                    <div class="col-6">
+                        <a class="btn btn-danger w-100" href="{% url 'delete_drawing' drawing.id %}">Delete
+                            Doodle</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 {% endfor %}
 {% endblock %}
