@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -13,7 +13,7 @@ from .forms import DefaultAddressForm, NameUpdateForm, DrawingForm
 def profile(request):
     """A view to display a user's profile page"""
 
-    # find user's UserAccount and User entries 
+    # find user's UserAccount and User entries
     account = get_object_or_404(UserAccount, user=request.user)
     user = get_object_or_404(User, username=request.user)
 
@@ -76,7 +76,9 @@ def profile(request):
 @login_required
 def save_drawing(request):
     """
-    A view to save a user's drawing to the database
+    A view to save a user's drawing to the database. Either creates a new
+    drawing or updates an existing one, if the user already has a drawing in
+    the requested save slot.
     """
     if request.is_ajax and request.method == "POST":
         form = DrawingForm(request.POST, request.FILES)
@@ -137,3 +139,41 @@ def get_drawing(request):
 
         # if the drawing is not found, return a 404 error code
         return JsonResponse({}, status=404)
+
+
+@login_required
+def delete_drawing(request, drawing_id):
+    """
+    Deletes a user's drawing from the database and removes items from the cart
+    that use the deleted drawing.
+    """
+    # get the current user's account and the drawing to be deleted
+    user_account = get_object_or_404(UserAccount, user=request.user)
+    drawing = get_object_or_404(Drawing, pk=drawing_id)
+
+    # check the current user is the drawing's owner
+    if drawing.user_account == user_account:
+        # get cart from session or set to an empty list if not found
+        cart = request.session.get("cart", [])
+
+        # convert drawing save slot to string to use in list comprehension
+        save_slot = str(drawing.save_slot)
+
+        # create a new cart without any items that use the deleted drawings
+        # list comprehension method based on method 2 found here:
+        # https://www.geeksforgeeks.org/python-removing-dictionary-from-list-of-dictionaries/
+        new_cart = [item for item in cart if save_slot not in item["drawing"]]
+
+        # replace the session cart with the new cart
+        request.session["cart"] = new_cart
+
+        # delete the drawing and redirect back to profile page
+        drawing.delete()
+        messages.success(request, "Drawing deleted.")
+        return redirect(reverse("profile"))
+    else:
+        # show error and redirect to profile page if user isn't drawing's owner
+        messages.error(
+            request, "You don't have permission to delete that drawing."
+        )
+        return redirect(reverse("profile"))
