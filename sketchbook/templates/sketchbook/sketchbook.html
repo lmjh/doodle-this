@@ -2,7 +2,13 @@
 {% load static %}
 
 {% block page_css %}
+<!-- coloris colour picker css -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css" />
+<!-- intro.js css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/5.1.0/introjs.min.css"
+    integrity="sha512-iaYE9B9u4GU8+KkRTOdRdZuzKdYw1X0hOAa4GwDV/uwdXgoX/ffT3ph1+HG1m4LPZD/HV+dkuHvWFLZtPviylQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="{% static '/sketchbook/css/tour.css' %}">
 {% endblock %}
 
 {% block page_title %}Sketchbook - Doodle This{% endblock %}
@@ -15,17 +21,20 @@
         <div class="col-12 col-xl-2 mb-2">
             <div class="row control-panel py-2">
                 <div class="col-12 mt-2 d-none d-xl-block">
-                    <img class="control-panel-logo" src="{{ MEDIA_URL }}svg/doodle-this-logo.svg" alt="Doodle This logo">
+                    <img class="control-panel-logo" src="{{ MEDIA_URL }}svg/doodle-this-logo.svg"
+                        alt="Doodle This logo">
                 </div>
                 <!-- drawing prompt box -->
-                <div class="col-12 col-sm-8 col-lg-6 col-xl-12 my-2 d-flex flex-column justify-content-center" id="prompt-hodler">
+                <div class="col-12 col-sm-8 col-lg-6 col-xl-12 my-2 d-flex flex-column justify-content-center"
+                    id="prompt-hodler">
                     <div class="drawing-prompt-box p-2" id="drawing-prompt">{{ prompt }}</div>
                 </div>
                 <!-- prompt control buttons -->
                 <div class="col-12 col-sm-4 col-lg-6 col-xl-12 d-flex flex-column justify-content-center">
                     <div class="flex-wrap-holder">
-                        <button class="btn btn-brand-primary prompt-button" type="button" id="get-prompt-button">New Prompt</button>
-                        <button class="btn btn-brand-primary prompt-button" type="button">Hide Prompt</button>
+                        <button class="btn btn-brand-primary prompt-button" type="button" id="get-prompt-button">New
+                            Prompt</button>
+                        <button class="btn btn-brand-primary prompt-button" type="button" onclick="introJs().setOptions(tour).start()">Help</button>
                     </div>
                 </div>
                 <!-- sketchbook control buttons -->
@@ -217,7 +226,8 @@
                             <span class="visually-hidden">Pencil tool</span>
                         </button>
                         <button class="tool-button" value="fill">
-                            <img src="{{ MEDIA_URL }}svg/fill.svg" alt="Fill tool icon" aria-hidden="true" class="tool-icon">
+                            <img src="{{ MEDIA_URL }}svg/fill.svg" alt="Fill tool icon" aria-hidden="true"
+                                class="tool-icon">
                             <span class="visually-hidden">Fill tool</span>
                         </button>
                         <button class="tool-button" value="erase">
@@ -325,10 +335,10 @@
                 <div class="mb-3">
                     <fieldset class="flex-wrap-holder justify-content-end mb-3" id="adaptive-stroke">
                         <legend class="fs-6">Adaptive stroke: </legend>
-                        <input type="radio" class="btn-check" name="adaptive-stroke" id="adaptive-stroke-on" 
+                        <input type="radio" class="btn-check" name="adaptive-stroke" id="adaptive-stroke-on"
                             autocomplete="off">
                         <label class="btn btn-brand-primary settings-button" for="adaptive-stroke-on">On</label>
-                        <input type="radio" class="btn-check" name="adaptive-stroke" id="adaptive-stroke-off" 
+                        <input type="radio" class="btn-check" name="adaptive-stroke" id="adaptive-stroke-off"
                             autocomplete="off" checked>
                         <label class="btn btn-brand-primary settings-button" for="adaptive-stroke-off">Off</label>
                     </fieldset>
@@ -458,4 +468,9 @@
 {{ user.is_authenticated|json_script:"auth" }}
 <!-- load sketchbook javascript file -->
 <script src="{% static 'sketchbook/js/sketchbook.js' %}"></script>
+<!-- load intro.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/5.1.0/intro.min.js"
+    integrity="sha512-B0B1bdTGi9XHtoCINbtR6z9Vi8IYvvtImIE8KWMtqWAVUt2Wn2k69GxM7ya/3rQcz/Pgm/o1WcDU347/5k202A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{% static 'sketchbook/js/tour.js' %}"></script>
 {% endblock %}
