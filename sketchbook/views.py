@@ -7,15 +7,15 @@ from prompts.prompts import generate_prompt
 
 
 def sketchbook(request):
-    """ A view to display the sketchbook page """
+    """A view to display the sketchbook page"""
 
     # create a dictionary to store urls for javascript functions
     # this dictionary will be output to the template as JSON using the
     # json_script filter, then accessed in javascript with JSON.parse()
     urls = {
-        'save_drawing': reverse('save_drawing'),
-        'get_drawing': reverse('get_drawing'),
-        'get_prompt': reverse('get_prompt'),
+        "save_drawing": reverse("save_drawing"),
+        "get_drawing": reverse("get_drawing"),
+        "get_prompt": reverse("get_prompt"),
     }
 
     # also create a dictionary to store drawing titles
@@ -30,24 +30,16 @@ def sketchbook(request):
         form = DrawingForm()
         account = request.user.useraccount
 
-        # search the database for saved drawings
-        # these queries resolve to 'None' if no matching record is found
-        saved_drawing_1 = Drawing.objects.filter(
-            user_account=account,
-            save_slot=1
-            ).first()
-        saved_drawing_2 = Drawing.objects.filter(
-            user_account=account,
-            save_slot=2
-            ).first()
-        saved_drawing_3 = Drawing.objects.filter(
-            user_account=account,
-            save_slot=3
-            ).first()
+        # create an array to store user's saved drawings
+        saved_drawings = []
 
-        saved_drawings = [
-            saved_drawing_1, saved_drawing_2, saved_drawing_3
-        ]
+        # search the database for saved drawings and add to array
+        for save_slot in range(1, 4):
+            # this query resolves to 'None' if no matching record is found
+            drawing = Drawing.objects.filter(
+                user_account=account, save_slot=save_slot
+            ).first()
+            saved_drawings.append(drawing)
 
         # iterate through saved_drawings array
         for count, drawing in enumerate(saved_drawings):
@@ -69,14 +61,14 @@ def sketchbook(request):
         # if a prompt could not be generated, pass an empty string to template
         prompt = ""
 
-    template = 'sketchbook/sketchbook.html'
+    template = "sketchbook/sketchbook.html"
 
     context = {
-        'form': form,
-        'saved_drawings': saved_drawings,
-        'urls': urls,
-        'titles': titles,
-        'prompt': prompt
+        "form": form,
+        "saved_drawings": saved_drawings,
+        "urls": urls,
+        "titles": titles,
+        "prompt": prompt,
     }
 
     return render(request, template, context)
