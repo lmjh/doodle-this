@@ -40,6 +40,7 @@
     --bs-danger-alt: #a91e14;
     --bs-secondary: #515151;
     --bs-seconadry-alt: #404040;
+    /* line-height for prompt box calc */
 }
 
 body {
@@ -377,17 +378,21 @@ footer {
 }
 
 .drawing-prompt-box {
+    min-height: 4.6rem;
     background-color: var(--bg-light);
-    border: 2px solid var(--border-grey);
     border-radius: 5px;
     color: var(--text-dark);
+    display: flex;
+    align-items: center;
 }
 
 #drawing-prompt {
-    min-height: 3rem;
+    text-align: center;
+    line-height: 1.8rem;
     font-family: 'Baloo 2', Arial, Helvetica, sans-serif;
     font-weight: bold;
     font-size: 1.2rem;
+    width: 100%;
 }
 
 /* flex grids for buttons */
@@ -877,5 +882,14 @@ a .save-slot-preview:hover {
     .control-panel {
         border: 2px solid var(--border-grey);
         border-radius: 5px;
+    }
+
+    .drawing-prompt-box {
+        min-height: 5.8rem;
+    }
+
+    #drawing-prompt {
+        line-height: 1.4rem;
+        font-size: 1.1rem;
     }
 }
