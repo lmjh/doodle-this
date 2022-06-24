@@ -34,7 +34,7 @@
                     <div class="flex-wrap-holder">
                         <button class="btn btn-brand-primary prompt-button" type="button" id="get-prompt-button">New
                             Prompt</button>
-                        <button class="btn btn-brand-primary prompt-button" type="button" onclick="introJs().setOptions(tour).start()">Help</button>
+                        <button class="btn btn-brand-primary prompt-button" type="button" id="help-button">Help</button>
                     </div>
                 </div>
                 <!-- sketchbook control buttons -->
@@ -42,7 +42,7 @@
                     <div class="my-2 row g-2">
                         <div class="col-3 col-lg-6">
                             <button class="btn btn-brand-primary w-100" data-bs-toggle="modal"
-                                data-bs-target="#clearModal">
+                                data-bs-target="#clearModal" id="clear-side">
                                 Clear
                             </button>
                         </div>
@@ -52,13 +52,13 @@
                             </button>
                         </div>
                         <div class="col-3 col-lg-12">
-                            <button class="btn btn-brand-primary w-100" data-bs-toggle="modal"
+                            <button class="btn btn-brand-primary w-100" data-bs-toggle="modal" id="save-load-side"
                                 data-bs-target="#saveModal" {% if not user.is_authenticated %}disabled{% endif %}>
                                 Save / Load
                             </button>
                         </div>
                         <div class="col-3 col-lg-12">
-                            <button class="btn btn-brand-primary w-100" data-bs-toggle="modal"
+                            <button class="btn btn-brand-primary w-100" data-bs-toggle="modal" id="options-side"
                                 data-bs-target="#optionsModal">
                                 Options
                             </button>
@@ -92,20 +92,23 @@
         <div class="col-12 col-md-3 col-xl-2 mb-2">
             <div class="row control-panel py-2">
                 <div class="col-6 col-md-12 order-1 d-flex flex-column justify-content-center d-md-block">
-                    <!-- drawing cursor preview -->
-                    <div class="col-12 d-flex justify-content-center my-2">
-                        <div class="cursor-holder d-flex justify-content-center align-items-center">
-                            <div id="cursor"></div>
+                    <span id="cursor-stroke-width">
+                        <!-- drawing cursor preview -->
+                        <div class="col-12 d-flex justify-content-center my-2">
+                            <div class="cursor-holder d-flex justify-content-center align-items-center">
+                                <div id="cursor"></div>
+                            </div>
                         </div>
-                    </div>
-                    <!-- stroke width control -->
-                    <div class="col-12 mb-2">
-                        <label for="stroke-weight" class="form-label visually-hidden">Stroke Weight</label>
-                        <input type="range" class="form-range" id="stroke-weight" min="2" max="40" value="20" step="2">
-                    </div>
+                        <!-- stroke width control -->
+                        <div class="col-12 mb-2">
+                            <label for="stroke-weight" class="form-label visually-hidden">Stroke Weight</label>
+                            <input type="range" class="form-range" id="stroke-weight" min="2" max="40" value="20"
+                                step="2">
+                        </div>
+                    </span>
                 </div>
                 <!-- colour picker -->
-                <div class="col-12 mb-2 order-3 order-md-2">
+                <div class="col-12 mb-2 order-3 order-md-2" id="coloris-tour">
                     <div class="coloris-background">
                         <input type="text" id="coloris-picker" class="coloris" value="#000000" aria-hidden="true"
                             tabindex="-1" data-coloris>
@@ -220,22 +223,22 @@
                 <!-- tool selection controls -->
                 <div class="col-6 col-md-12 mb-2 order-2 order-md-4">
                     <div class="flex-wrap-holder h-100 mt-2 mb-3 mt-md-0 mb-md-0" id="tool-holder">
-                        <button class="tool-button active-tool" value="draw">
+                        <button class="tool-button active-tool" value="draw" id="pencil-tool">
                             <img src="{{ MEDIA_URL }}svg/pencil.svg" alt="Pencil tool icon" aria-hidden="true"
                                 class="tool-icon">
                             <span class="visually-hidden">Pencil tool</span>
                         </button>
-                        <button class="tool-button" value="fill">
+                        <button class="tool-button" value="fill" id="fill-tool">
                             <img src="{{ MEDIA_URL }}svg/fill.svg" alt="Fill tool icon" aria-hidden="true"
                                 class="tool-icon">
                             <span class="visually-hidden">Fill tool</span>
                         </button>
-                        <button class="tool-button" value="erase">
+                        <button class="tool-button" value="erase" id="erase-tool">
                             <img src="{{ MEDIA_URL }}svg/eraser.svg" alt="Eraser tool icon" aria-hidden="true"
                                 class="tool-icon">
                             <span class="visually-hidden">Eraser tool</span>
                         </button>
-                        <button class="tool-button" value="picker">
+                        <button class="tool-button" value="picker" id="picker-tool">
                             <img src="{{ MEDIA_URL }}svg/picker.svg" alt="Picker tool icon" aria-hidden="true"
                                 class="tool-icon">
                             <span class="visually-hidden">Picker tool</span>
@@ -247,7 +250,7 @@
         <!-- sketchbook control buttons at bottom on screens up to 1199px -->
         <div class="col-12 d-xl-none control-panel mt-2 mb-5">
             <div class="my-2 flex-wrap-holder">
-                <button class="btn btn-brand-primary control-button" data-bs-toggle="modal"
+                <button class="btn btn-brand-primary control-button" data-bs-toggle="modal" id="clear-bottom"
                     data-bs-target="#clearModal">
                     Clear
                 </button>
@@ -255,10 +258,10 @@
                     Undo
                 </button>
                 <button class="btn btn-brand-primary control-button" data-bs-toggle="modal" data-bs-target="#saveModal"
-                    {% if not user.is_authenticated %}disabled{% endif %}>
+                    id="save-load-bottom" {% if not user.is_authenticated %}disabled{% endif %}>
                     Save / Load
                 </button>
-                <button class="btn btn-brand-primary control-button" data-bs-toggle="modal"
+                <button class="btn btn-brand-primary control-button" data-bs-toggle="modal" id="options-bottom"
                     data-bs-target="#optionsModal">
                     Options
                 </button>
@@ -472,5 +475,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/5.1.0/intro.min.js"
     integrity="sha512-B0B1bdTGi9XHtoCINbtR6z9Vi8IYvvtImIE8KWMtqWAVUt2Wn2k69GxM7ya/3rQcz/Pgm/o1WcDU347/5k202A=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- load intro.js tour settings and steps  -->
 <script src="{% static 'sketchbook/js/tour.js' %}"></script>
 {% endblock %}

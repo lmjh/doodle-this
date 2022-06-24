@@ -768,3 +768,13 @@ sketchbook.addEventListener('fillend', function() {
 
 // add event listener to call getPrompt function when get new prompt button is clicked 
 document.getElementById('get-prompt-button').addEventListener('click', getPrompt)
+
+// add event listener to help button to trigger the appropriate intro.js tour based on current screen width
+// the tourMobile and tourDesktop variables contain the tour settings and steps and are defined in /sketchbook/js/tour.js
+document.getElementById('help-button').addEventListener('click', function() {
+    if ($(window).width() < 1200) {
+        introJs().setOptions(tourMobile).start()
+    } else {
+        introJs().setOptions(tourDesktop).start()
+    }
+})
