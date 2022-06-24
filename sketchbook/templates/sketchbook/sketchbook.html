@@ -18,8 +18,8 @@
 <div class="container-fluid overflow-hidden">
     <div class="row mt-xl-3 mx-xl-0">
         <!-- controls at top on small screens and on left on large screens -->
-        <div class="col-12 col-xl-2 mb-2">
-            <div class="row control-panel py-2">
+        <section class="col-12 col-xl-2 mb-2" aria-label="Control panel">
+            <div class="row control-panel py-2 align-items-center">
                 <div class="col-12 mt-2 d-none d-xl-block">
                     <img class="control-panel-logo" src="{{ MEDIA_URL }}svg/doodle-this-logo.svg"
                         alt="Doodle This logo">
@@ -29,52 +29,53 @@
                     id="prompt-hodler">
                     <div class="drawing-prompt-box p-2" id="drawing-prompt">{{ prompt }}</div>
                 </div>
-                <!-- prompt control buttons -->
-                <div class="col-12 col-sm-4 col-lg-6 col-xl-12 d-flex flex-column justify-content-center">
-                    <div class="flex-wrap-holder">
-                        <button class="btn btn-brand-primary prompt-button" type="button" id="get-prompt-button">New
-                            Prompt</button>
-                        <button class="btn btn-brand-primary prompt-button" type="button" id="help-button">Help</button>
-                    </div>
-                </div>
-                <!-- sketchbook control buttons -->
-                <div class="col-12 d-none d-xl-block">
-                    <div class="my-2 row g-2">
-                        <div class="col-3 col-lg-6">
+                <div class="col-12 col-sm-4 col-lg-6 col-xl-12 ">
+                    <div class="row g-2">
+                        <!-- prompt control buttons -->
+                        <div class="col-6 col-sm-12 col-lg-6 col-xl-12">
+                            <button class="btn btn-brand-primary w-100" type="button" id="get-prompt-button">New
+                                Prompt</button>
+                        </div>
+                        <div class="col-6 col-sm-12 col-lg-6 col-xl-12">
+                            <button class="btn btn-brand-primary w-100" type="button" id="help-button">Help</button>
+                        </div>
+                        <!-- sketchbook control buttons -->
+                        <div class="col-6 d-none d-xl-block">
                             <button class="btn btn-brand-primary w-100" data-bs-toggle="modal"
                                 data-bs-target="#clearModal" id="clear-side">
                                 Clear
                             </button>
                         </div>
-                        <div class="col-3 col-lg-6">
+                        <div class="col-6 d-none d-xl-block">
                             <button class="btn btn-brand-primary w-100" id="undo-side" disabled>
                                 Undo
                             </button>
                         </div>
-                        <div class="col-3 col-lg-12">
+                        <div class="col-12 d-none d-xl-block">
                             <button class="btn btn-brand-primary w-100" data-bs-toggle="modal" id="save-load-side"
                                 data-bs-target="#saveModal" {% if not user.is_authenticated %}disabled{% endif %}>
                                 Save / Load
                             </button>
                         </div>
-                        <div class="col-3 col-lg-12">
+                        <div class="col-12 d-none d-xl-block">
                             <button class="btn btn-brand-primary w-100" data-bs-toggle="modal" id="options-side"
                                 data-bs-target="#optionsModal">
                                 Options
                             </button>
                         </div>
+                        {% if not user.is_authenticated %}
+                        <div class="col-12 text-center d-none d-xl-block">
+                            <p class="small"><a href="{% url 'account_login' %}">Sign in</a> or <a
+                                    href="{% url 'account_signup' %}">register</a> to save your doodles.</p>
+                        </div>
+                        {% endif %}
                     </div>
+
                 </div>
-                {% if not user.is_authenticated %}
-                <div class="col-12 text-center d-none d-xl-block">
-                    <p class="small"><a href="{% url 'account_login' %}">Sign in</a> or <a
-                            href="{% url 'account_signup' %}">register</a> to save your doodles.</p>
-                </div>
-                {% endif %}
             </div>
-        </div>
+        </section>
         <!-- sketchbook canvas section -->
-        <div class="col-12 col-md-9 col-xl-8 mb-2">
+        <section class="col-12 col-md-9 col-xl-8 mb-2" aria-label="Sketchbook">
             <!-- div to hold the scaling div and provide width for scale ratio calculation -->
             <div id="scaler-holder" class="invisible">
                 <!-- div to scale the canvas and its background image up and down by screensize -->
@@ -87,9 +88,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
         <!-- controls at bottom on small screens and on right on large screens -->
-        <div class="col-12 col-md-3 col-xl-2 mb-2">
+        <section class="col-12 col-md-3 col-xl-2 mb-2" aria-label="Tool selection panel">
             <div class="row control-panel py-2">
                 <div class="col-6 col-md-12 order-1 d-flex flex-column justify-content-center d-md-block">
                     <span id="cursor-stroke-width">
@@ -246,25 +247,33 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
         <!-- sketchbook control buttons at bottom on screens up to 1199px -->
-        <div class="col-12 d-xl-none control-panel mt-2 mb-5">
-            <div class="my-2 flex-wrap-holder">
-                <button class="btn btn-brand-primary control-button" data-bs-toggle="modal" id="clear-bottom"
-                    data-bs-target="#clearModal">
-                    Clear
-                </button>
-                <button class="btn btn-brand-primary control-button" id="undo-bottom" disabled>
-                    Undo
-                </button>
-                <button class="btn btn-brand-primary control-button" data-bs-toggle="modal" data-bs-target="#saveModal"
-                    id="save-load-bottom" {% if not user.is_authenticated %}disabled{% endif %}>
-                    Save / Load
-                </button>
-                <button class="btn btn-brand-primary control-button" data-bs-toggle="modal" id="options-bottom"
-                    data-bs-target="#optionsModal">
-                    Options
-                </button>
+        <section class="col-12 d-xl-none control-panel mt-2 mb-5" aria-label="Control panel">
+            <div class="row g-2 mt-2 mb-3">
+                <div class="col-6 col-md-3">
+                    <button class="btn btn-brand-primary w-100" data-bs-toggle="modal" id="clear-bottom"
+                        data-bs-target="#clearModal">
+                        Clear
+                    </button>
+                </div>
+                <div class="col-6 col-md-3">
+                    <button class="btn btn-brand-primary w-100" id="undo-bottom" disabled>
+                        Undo
+                    </button>
+                </div>
+                <div class="col-6 col-md-3">
+                    <button class="btn btn-brand-primary w-100" data-bs-toggle="modal" data-bs-target="#saveModal"
+                        id="save-load-bottom" {% if not user.is_authenticated %}disabled{% endif %}>
+                        Save / Load
+                    </button>
+                </div>
+                <div class="col-6 col-md-3">
+                    <button class="btn btn-brand-primary w-100" data-bs-toggle="modal" id="options-bottom"
+                        data-bs-target="#optionsModal">
+                        Options
+                    </button>
+                </div>
             </div>
             {% if not user.is_authenticated %}
             <div class="col-12 text-center">
@@ -272,7 +281,7 @@
                         href="{% url 'account_signup' %}">register</a> to save your doodles.</p>
             </div>
             {% endif %}
-        </div>
+        </section>
     </div>
 </div>
 
@@ -317,33 +326,46 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- canvas background selection controls -->
-                <fieldset class="flex-wrap-holder mb-3" id="paper-type">
+                <fieldset class="row g-2 mb-3" id="paper-type">
+                    <!-- canvas background selection controls -->
                     <legend class="fs-6">Paper background: </legend>
-                    <input type="radio" class="btn-check " name="paper-type" id="none" autocomplete="off">
-                    <label class="btn btn-brand-primary settings-button" for="none">None</label>
-                    <input type="radio" class="btn-check" name="paper-type" id="watermark" autocomplete="off" checked>
-                    <label class="btn btn-brand-primary settings-button" for="watermark">Watermark</label>
-                    <input type="radio" class="btn-check" name="paper-type" id="lined" autocomplete="off">
-                    <label class="btn btn-brand-primary settings-button" for="lined">Lined</label>
-                    <input type="radio" class="btn-check" name="paper-type" id="squared" autocomplete="off">
-                    <label class="btn btn-brand-primary settings-button" for="squared">Squared</label>
+                    <div class="col-6 col-sm-3">
+                        <input type="radio" class="btn-check " name="paper-type" id="none" autocomplete="off">
+                        <label class="btn btn-brand-primary w-100 fs-6" for="none">None</label>
+                    </div>
+                    <div class="col-6 col-sm-3">
+                        <input type="radio" class="btn-check" name="paper-type" id="watermark" autocomplete="off"
+                            checked>
+                        <label class="btn btn-brand-primary w-100 fs-6" for="watermark">Watermark</label>
+                    </div>
+                    <div class="col-6 col-sm-3">
+                        <input type="radio" class="btn-check" name="paper-type" id="lined" autocomplete="off">
+                        <label class="btn btn-brand-primary w-100 fs-6" for="lined">Lined</label>
+                    </div>
+                    <div class="col-6 col-sm-3">
+                        <input type="radio" class="btn-check" name="paper-type" id="squared" autocomplete="off">
+                        <label class="btn btn-brand-primary w-100 fs-6" for="squared">Squared</label>
+                    </div>
                 </fieldset>
-                <!-- stroke smoothing control slider -->
                 <div class="mb-2">
+                    <!-- stroke smoothing control slider -->
                     <label for="smoothing" class="form-label">Stroke smoothing:</label>
                     <input class="form-range" id="smoothing" type="range" min="0.1" max="2" value="0.65" step="0.05">
                 </div>
-                <!-- adaptive stroke on/off controls -->
                 <div class="mb-3">
-                    <fieldset class="flex-wrap-holder justify-content-end mb-3" id="adaptive-stroke">
+                    <fieldset class="row g-2 mb-3" id="adaptive-stroke">
+                        <!-- adaptive stroke on/off controls -->
                         <legend class="fs-6">Adaptive stroke: </legend>
-                        <input type="radio" class="btn-check" name="adaptive-stroke" id="adaptive-stroke-on"
-                            autocomplete="off">
-                        <label class="btn btn-brand-primary settings-button" for="adaptive-stroke-on">On</label>
-                        <input type="radio" class="btn-check" name="adaptive-stroke" id="adaptive-stroke-off"
-                            autocomplete="off" checked>
-                        <label class="btn btn-brand-primary settings-button" for="adaptive-stroke-off">Off</label>
+                        <div class="col-6 col-sm-3 offset-sm-6">
+                            <input type="radio" class="btn-check" name="adaptive-stroke" id="adaptive-stroke-on"
+                                autocomplete="off">
+                            <label class="btn btn-brand-primary w-100 fs-6" for="adaptive-stroke-on">On</label>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <input type="radio" class="btn-check" name="adaptive-stroke" id="adaptive-stroke-off"
+                                autocomplete="off" checked>
+                            <label class="btn btn-brand-primary w-100 fs-6" for="adaptive-stroke-off">Off</label>
+                        </div>
                     </fieldset>
                 </div>
             </div>
