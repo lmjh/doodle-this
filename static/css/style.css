@@ -726,16 +726,17 @@ a .save-slot-preview:hover {
 
 /* SHOPPING CART STYLES */
 
-.product-thumbnail {
-    max-width: 100px;
-}
-
 .drawing-thumbnail {
-    max-width: 150px;
+    width: 100%;
 }
 
-.cart-quantity {
-    max-width: 100px;
+.form-control.cart-quantity {
+    width: 75px;
+    display: inline-block;
+    border: 1px solid var(--border-grey);
+    border-radius: 0;
+    padding: 0px 5px;
+    text-align: center;
 }
 
 .update-button,
@@ -748,6 +749,13 @@ a .save-slot-preview:hover {
 .update-button:hover,
 .delete-button:hover {
     text-decoration: underline;
+}
+
+.update-button:focus,
+.delete-button:focus,
+.update-button:focus-visible,
+.delete-button:focus-visible {
+    outline: 1px solid var(--brand-primary-color);
 }
 
 .product-image-flex {
