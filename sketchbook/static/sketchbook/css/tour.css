@@ -166,6 +166,18 @@
     border-color: transparent transparent transparent var(--bg-modal);
 }
 
+.tour-icon {
+    background-color: #ebebeb;
+    color: var(--text-dark);
+    border-radius: 50%;
+    height: 18px;
+    width: 18px;
+    display: inline-block;
+    text-align: center;
+    line-height: 20px;
+    font-weight: bold;
+}
+
 @media (min-width: 576px) {
 
     .introjs-tooltip,

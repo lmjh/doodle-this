@@ -66,7 +66,7 @@ const tourMobile = {
         },
         {
             element: document.querySelector('#options-bottom'),
-            intro: "Finally, you can tweak your sketchbook's options here. After the tour, open up the menu and click the ? icons to find out what the different settings do.",
+            intro: "Finally, you can tweak your sketchbook's options here. After the tour, open up the menu and click the <span class='tour-icon'>?</span> icons to find out what the different settings do.",
             disableInteraction: true
         },
         {
@@ -160,7 +160,7 @@ const tourDesktop = {
             {
                 element: document.querySelector('#options-side'),
                 position: "right",
-                intro: "Finally, you can tweak your sketchbook's options here. After the tour, open up the menu and click the ? icons to find out what the different settings do.",
+                intro: "Finally, you can tweak your sketchbook's options here. After the tour, open up the menu and click the <span class='tour-icon'>?</span> icons to find out what the different settings do.",
                 disableInteraction: true
             },
             {
