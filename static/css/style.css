@@ -337,6 +337,31 @@ footer {
     background: transparent;
 }
 
+.help-button:hover,
+a[aria-expanded="false"] .fa-circle-question:hover,
+a[aria-expanded="true"] .fa-circle-minus:hover {
+    text-decoration: none;
+    color: var(--brand-primary-color);
+}
+
+a[aria-expanded="true"] .fa-circle-question {
+    display: none;
+}
+
+a[aria-expanded="false"] .fa-circle-question {
+    display: block;
+    color: var(--text-light);
+}
+
+a[aria-expanded="false"] .fa-circle-minus {
+    display: none;
+}
+
+a[aria-expanded="true"] .fa-circle-minus {
+    display: block;
+    color: var(--text-light);
+}
+
 /* TOAST NOTIFICATION STYLES */
 
 #toast-container {
