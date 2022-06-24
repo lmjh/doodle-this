@@ -92,7 +92,7 @@ def update_cart_item(request):
             # find the item matching the variant_id and selected drawing
             if item["variant_id"] == variant_id and item["drawing"] == drawing:
                 # remove from the cart list if quantity is zero
-                if quantity is 0:
+                if quantity == 0:
                     cart.remove(item)
                     messages.success(
                         request,
