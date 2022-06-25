@@ -381,6 +381,9 @@ function loadDrawingFromDb() {
             // instantiate a new Image object
             let drawing = new Image();
 
+            // set cross origin attribute of image to "Anonymous" to prevent tainted canvas issue
+            drawing.crossOrigin = "Anonymous";
+            
             // update the canvas once the image has been loaded
             drawing.onload = function (event) {
                 canvasContext.drawImage(event.target, 0, 0);
