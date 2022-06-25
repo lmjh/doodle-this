@@ -77,7 +77,7 @@ function activateElements() {
  */
 function confirmStripePayment() {
     // set saveDetails to true if user clicked save details checkbox, false otherwise
-    let saveDetails = Boolean(document.getElementById("save-details").checked);
+    let saveDetails = Boolean($('#save-details').attr('checked'));
 
     // bundle data to be submitted in an object
     let postData = {

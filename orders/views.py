@@ -61,8 +61,12 @@ def checkout(request):
 
             order.save()
 
-            # find the current user's account
-            account = request.user.useraccount
+            # if the user is logged in
+            if request.user.is_authenticated:
+                # find the current user's account
+                account = request.user.useraccount
+            else:
+                account = None
 
             # declare a dict to store the order drawings
             order_drawings = {}
@@ -78,7 +82,7 @@ def checkout(request):
                         drawing = OrderDrawingCache.objects.filter(
                             stripe_pid=pid
                             ).first()
-                        
+
                         # create an OrderDrawing
                         order_drawing = OrderDrawing(
                             order=order,
