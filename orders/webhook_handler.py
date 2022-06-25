@@ -4,6 +4,10 @@ import json
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.core.files import File
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
+from django.conf import settings
+
 from orders.models import Order, OrderDrawing, OrderItem, OrderDrawingCache
 from prints.models import ProductVariant
 from accounts.models import UserAccount, Drawing
@@ -16,6 +20,30 @@ class StripeWebhookHandler:
 
     def __init__(self, request):
         self.request = request
+
+    def _send_confirmation_email(self, order):
+        """
+        Sends a confirmation email when a user makes an order.
+        """
+        # get email destination from order
+        email_to = order.email_address
+        # render subject line and body from templates
+        subject = render_to_string(
+            'orders/emails/confirmation_email_subject.txt',
+            {"order": order}
+        )
+        body = render_to_string(
+            'orders/emails/confirmation_email_body.txt',
+            {"order": order, "contact_email": settings.DEFAULT_FROM_EMAIL}
+        )
+
+        # send confirmation email
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [email_to]
+            )
 
     def generic_event_handler(self, event):
         """
@@ -89,7 +117,9 @@ class StripeWebhookHandler:
                 time.sleep(1)
 
         if order_exists:
-            # if the order is found, return an http response
+            # if the order is found, send a confirmation email
+            self._send_confirmation_email(order)
+            # then return an http response
             return HttpResponse(
                 content=(
                     f'Webhook received: {event["type"]}. '
@@ -197,7 +227,9 @@ class StripeWebhookHandler:
                     status=500,
                 )
 
-        # return success http response if order created
+        # if order created, send a confirmation email
+        self._send_confirmation_email(order)
+        # and return success http response
         return HttpResponse(
             content=(
                 f'Webhook received: {event["type"]}. '
