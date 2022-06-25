@@ -134,7 +134,8 @@ def get_drawing(request):
 
         # if the drawing is found, return its url in a JsonResponse
         if drawing:
-            response_url = drawing.image.url
+            # append query string to url to prevent chromium browser CORS bug
+            response_url = drawing.image.url + '?no-cache'
             return JsonResponse({"url": response_url}, status=200)
 
         # if the drawing is not found, return a 404 error code
