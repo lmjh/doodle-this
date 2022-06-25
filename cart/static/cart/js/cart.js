@@ -11,6 +11,7 @@ $(document).ready(function () {
                 $(this).attr('src', autosaveURL);
             }
         });
-        URL.revokeObjectURL(autosaveURL);
+        // revoke object url after a short delay to allow time for image to load
+        setTimeout(function() {URL.revokeObjectURL(autosaveURL)}, 200);
     });
 });

@@ -32,7 +32,8 @@ $( document ).ready(function() {
             // load into the preview overlay
             let drawingURL = URL.createObjectURL(blob);
             setOverlay(drawingURL);
-            URL.revokeObjectURL(drawingURL);
+            // revoke object url after a short delay to allow time for image to load
+            setTimeout(function() {URL.revokeObjectURL(drawingURL)}, 200);
         } else {
             // if the returned object is null, use a placeholder
             let drawingURL = jsonData.placeholder;
@@ -83,7 +84,8 @@ selectDrawing.addEventListener('change', function (e) {
                 // and load into the preview overlay
                 let drawingURL = URL.createObjectURL(blob);
                 setOverlay(drawingURL);
-                URL.revokeObjectURL(drawingURL);
+                // revoke object url after a short delay to allow time for image to load
+                setTimeout(function() {URL.revokeObjectURL(drawingURL)}, 200);
             } else {
                 // if the returned object is null, use a placeholder
                 let drawingURL = jsonData.placeholder;
