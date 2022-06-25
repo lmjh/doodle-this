@@ -189,7 +189,27 @@ def checkout(request):
             currency=settings.STRIPE_CURRENCY,
         )
 
-        order_form = OrderForm()
+        # if the user is logged in
+        if request.user.is_authenticated:
+            # try to find the user's saved details to prepopulate the form
+            try:
+                account = UserAccount.objects.get(user=request.user)
+                order_form = OrderForm(initial={
+                    "first_name": request.user.first_name,
+                    "last_name": request.user.last_name,
+                    "address_1": account.default_address_1,
+                    "address_2": account.default_address_2,
+                    "town": account.default_town,
+                    "county": account.default_county,
+                    "postcode": account.default_postcode,
+                    "country": account.default_country,
+                    "email_address": account.user.email,
+                })
+            except UserAccount.DoesNotExist:
+                order_form = OrderForm()
+        else:
+            # otherwise, just create an empty form
+            order_form = OrderForm()
 
     # show error message if stripe public key missing
     if not stripe_public_key:
