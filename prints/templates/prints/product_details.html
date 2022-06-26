@@ -69,15 +69,16 @@
                             <button class="btn btn-brand-primary w-100">Add to Cart</button>
                         </div>
                     </form>
-                    {% if not user.is_authenticated %}
                     <div class="col-12 mt-4">
+                        {% if not user.is_authenticated %}
                         <p class="small">
                             You can only print your current sketchbook's contents as you're not signed in.
                             <a href="{% url 'account_login' %}">Sign in</a> or <a href="{% url 'account_signup' %}">
                                 register</a> to save your doodles and add more to your order.
                         </p>
+                        {% endif %}
+                        <p class="text-end"><a href="{% url 'show_all_prints' %}">Return to prints</a></p>
                     </div>
-                    {% endif %}
                 </div>
             </div>
         </div>
