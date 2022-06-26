@@ -160,6 +160,7 @@ class StripeWebhookHandler:
             order = None
             try:
                 order = Order.objects.create(
+                    user_account=account,
                     first_name=split_name[0],
                     last_name=split_name[1],
                     email_address=billing_details.email,
