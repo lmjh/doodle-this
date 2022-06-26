@@ -80,6 +80,34 @@ class StripeWebhookHandler:
             if value == "":
                 shipping_details.address[field] = None
 
+        user = None
+        account = None
+        # if the user who placed the order was logged in
+        if username != "AnonymousUser":
+            # find the user's account
+            user = User.objects.get(username=username)
+            account = UserAccount.objects.get(user=user)
+            # if the user chose to save their details
+            if save_details:
+                # get full name from shipping details
+                full_name = shipping_details.name
+                # split the name on the space
+                split_name = full_name.split(" ")
+
+                # assign first and last name to user and save
+                user.first_name = split_name[0]
+                user.last_name = split_name[1]
+                user.save()
+
+                # assign address details to account and save
+                account.default_address_1 = shipping_details.address.line1
+                account.default_address_2 = shipping_details.address.line2
+                account.default_town = shipping_details.address.city
+                account.default_county = shipping_details.address.state
+                account.default_postcode = shipping_details.address.postal_code
+                account.default_country = shipping_details.address.country
+                account.save()
+
         # create variable to record if order is present in the database
         order_exists = False
         # create variable to track attempts to find the order
@@ -146,10 +174,6 @@ class StripeWebhookHandler:
                     shopping_cart=cart,
                     stripe_pid=pid,
                 )
-
-                # find the current user's account
-                user = User.objects.get(username=username)
-                account = UserAccount.objects.get(user=user)
 
                 # declare a dict to store the order drawings
                 order_drawings = {}
