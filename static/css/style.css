@@ -6,12 +6,12 @@
     --muted-text-light: #bcbcbc;
     --text-dark: #303030;
     --bg-dark: #303030;
-    --bg-panel: #30303085;
+    --bg-panel: rgba(48, 48, 48, 0.522);
     --bg-light: #ebebeb;
     --bg-grey: #A3A3A3;
     --bg-form: #202020;
-    --bg-dark-overlay: #202020de;
-    --bg-modal: #242424ef;
+    --bg-dark-overlay: rgba(32, 32, 32, 0.871);
+    --bg-modal: rgba(36, 36, 36, 0.937);
     --border-grey: #606060;
     --border-modal: #383838;
     --red-ink: #D6281B;
@@ -496,7 +496,6 @@ a[aria-expanded="true"] .fa-circle-minus {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: #FEB450;
 }
 
 /* slider styling */
