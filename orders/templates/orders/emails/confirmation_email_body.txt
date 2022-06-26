@@ -7,11 +7,9 @@ Your order details are:
 Order Number: {{ order.order_number }}
 Date: {{ order.date }}
 
-Order Cost: £{{ order.order_cost }}
-Deliver Cost: £{{ order.delivery_cost }}
-Grand Total: £{{ order.grand_total }}
-
-
+Order Cost: £{{ order.order_cost|floatformat:2 }}
+Delivery Cost: £{{ order.delivery_cost|floatformat:2 }}
+Grand Total: £{{ order.grand_total|floatformat:2 }}
 
 Full Name: {{ order.first_name }} {{ order.last_name }}
 Address 1: {{ order.address_1 }}
