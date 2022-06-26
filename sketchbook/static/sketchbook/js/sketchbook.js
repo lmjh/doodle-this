@@ -352,6 +352,10 @@ function saveDrawingToDb() {
  * Sends a request to the server with the currently selected save slot and then loads the returned image onto the canvas
  */
 function loadDrawingFromDb() {
+    // update undo cache and enable the undo buttons
+    saveDrawingToLocal('undoCache');
+    $('#undo-side').prop('disabled', false);
+    $('#undo-bottom').prop('disabled', false);
     // get the currently selected save_slot
     let saveSlot = parseInt($('input[name=drawing-save-slot]:checked', '#drawing-form').val());
     let data = {
@@ -388,6 +392,8 @@ function loadDrawingFromDb() {
             drawing.onload = function (event) {
                 canvasContext.drawImage(event.target, 0, 0);
                 displayToast('success', 'Your drawing has been loaded!')
+                // update the autosave
+                saveDrawingToLocal('autosave');
             }
 
             // set the src attribute of the new Image as the response url 
