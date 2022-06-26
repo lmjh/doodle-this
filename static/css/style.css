@@ -74,6 +74,10 @@ a:hover {
     background-color: var(--bg-dark) !important;
 }
 
+.bg-primary {
+    background-color: var(--brand-primary-color) !important;
+}
+
 a:focus-visible,
 .tool-button:focus-visible {
     outline: 1px solid;

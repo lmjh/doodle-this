@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.contrib import messages
+from django.contrib.humanize.templatetags.humanize import apnumber
 
 from prints.models import ProductVariant
 
@@ -45,11 +46,22 @@ def add_to_cart(request):
                 # increase that object's quantity and set in_cart to true
                 item["quantity"] += quantity
                 in_cart = True
+                # get view cart url
+                checkout_url = reverse("view_cart")
+                # Convert number to word if < 10 and pluralise if > 1
+                quantity_string = (
+                    apnumber(quantity).capitalize()
+                    + " product"
+                    + ("s" if quantity > 1 else "")
+                )
+
+                # send success message
                 messages.success(
                     request,
-                    f"Product: {quantity} x {variant.product.display_name} - "
-                    f"{variant.display_name} <br>Doodle: {drawing_name}<br>"
-                    "Added to shopping cart.",
+                    f"{quantity_string} added to shopping cart. "
+                    f"<div class='text-center'><a href='{checkout_url}' class="
+                    f"'btn btn-brand-primary bg-primary mt-3 w-75'>Checkout "
+                    f"Now</a></div>",
                 )
 
         # if no matching object was found
@@ -61,11 +73,21 @@ def add_to_cart(request):
                 "quantity": quantity,
             }
             cart.append(item)
+            # get view cart url
+            checkout_url = reverse("view_cart")
+            # Convert number to word if < 10 and pluralise if > 1
+            quantity_string = (
+                apnumber(quantity).capitalize()
+                + " product"
+                + ("s" if quantity > 1 else "")
+            )
+
+            # send success message
             messages.success(
                 request,
-                f"Product: {quantity} x {variant.product.display_name} - "
-                f"{variant.display_name} <br>Doodle: {drawing_name}<br>"
-                "Added to shopping cart.",
+                f"{quantity_string} added to shopping cart. <div class='"
+                f"text-center'><a href='{checkout_url}' class= 'btn btn-brand-"
+                f"primary bg-primary mt-3 w-75'>Checkout Now</a></div>",
             )
 
         request.session["cart"] = cart
