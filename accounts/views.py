@@ -35,7 +35,7 @@ def profile(request):
     name_update_form = NameUpdateForm(instance=user)
 
     # gather all of the user's orders
-    orders = account.orders.all()
+    orders = account.orders.all().order_by('-date')
 
     # create an array to store user's saved drawings
     saved_drawings = []
