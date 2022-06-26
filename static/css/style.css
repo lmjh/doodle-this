@@ -4,7 +4,7 @@
     --brand-primary-color: #ffad27;
     --text-light: #ebebeb;
     --muted-text-light: #bcbcbc;
-    --text-dark: #303030;
+    --text-dark: #202020;
     --bg-dark: #303030;
     --bg-panel: rgba(48, 48, 48, 0.522);
     --bg-light: #ebebeb;
@@ -268,9 +268,9 @@ a:focus-visible,
     font-weight: bold;
     text-align: center;
     line-height: 12px;
-    color: var(--text-dark);
+    color: var(--bg-dark);
     font-family: 'Baloo 2', Arial, Helvetica, sans-serif;
-    box-shadow: 0 0 0 3px var(--text-dark);
+    box-shadow: 0 0 0 3px var(--bg-dark);
     padding: 4px;
 }
 
