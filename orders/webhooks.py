@@ -50,7 +50,7 @@ def webhook(request):
     # if the webhook event matches one of the keys in the handled_events dict
     if event_type in handled_events.keys():
         # set the event_handler to the matching function
-        event_handler = event_handler = handled_events[event_type]
+        event_handler = handled_events[event_type]
     else:
         # otherwise, use the generic event handler
         event_handler = handler.generic_event_handler
