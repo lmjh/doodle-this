@@ -16,8 +16,11 @@
                         </div>
                     </div>
                     <div class="col-12 col-md-6 d-flex align-items-center">
-                        <!-- product description -->
-                        <p>{{ product.description }}</p>
+                        <div>
+                            <!-- product description -->
+                            <p>{{ product.description }}</p>
+                            <p id="variant-description">{{ variants.0.description }}</p>
+                        </div>
                     </div>
                     <div class="col-12 mb-3">
                         <form action="{% url 'add_to_cart' %}" method="POST" class="row" id="add-to-cart">
@@ -48,6 +51,7 @@
                                     </select>
                                 </div>
                             </div>
+                            <!-- variant price -->
                             <div class="col-6 col-sm-3 d-flex align-items-center justify-content-center">Price:</div>
                             <div class="col-6 col-sm-3 highlight d-flex align-items-center justify-content-center">
                                 £<span id="price">{{ variants.0.price }}</span></div>
@@ -59,6 +63,7 @@
                                 </div>
                             </div>
                             <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                            <!-- add to cart button -->
                             <div class="col-12 col-sm-6 col-lg-4 offset-sm-3 offset-lg-4 mb-3">
                                 <button class="btn btn-brand-primary w-100">Add to Cart</button>
                             </div>
@@ -71,7 +76,7 @@
 {% endblock %}
 
 {% block page_js %}
-<!-- output drawing urls as JSON for javascript functions -->
+<!-- output JSON data for javascript functions -->
 {{ json_data|json_script:"jsonData" }}
 <!-- load prints javascript file -->
 <script src="{% static 'prints/js/prints.js' %}"></script>

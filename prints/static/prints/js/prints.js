@@ -9,6 +9,7 @@ const selectDrawing = document.getElementById('drawing');
 const productImage = document.getElementById('product-image');
 const price = document.getElementById('price');
 const addToCart = document.getElementById('add-to-cart');
+const variantDescription = document.getElementById('variant-description');
 
 $( document ).ready(function() {
     // if currently selected variant has an image
@@ -104,9 +105,12 @@ selectDrawing.addEventListener('change', function (e) {
     }
 });
 
+// add an event listener to update the price, drawing preview and variant description when the select variant element
+// is changed
 selectVariant.addEventListener('change', function (e) {
     // update the price to display the price of selected variant
     price.innerText = jsonData.variantPrices[e.target.value];
+    variantDescription.innerText = jsonData.variantDescriptions[e.target.value];
 
     // if the selected variant has an image
     if (jsonData.variantUrls[e.target.value]) {
