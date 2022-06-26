@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Category, ProductImage, Product, ProductVariant
+from .forms import ProductImageForm
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -18,6 +19,14 @@ class ProductImageAdmin(admin.ModelAdmin):
         "overlay_x_offset",
         "overlay_y_offset",
     )
+
+    # use custom ProductImageForm
+    form = ProductImageForm
+
+    class Media:
+        # include js and css files for product image form
+        js = ("admin/js/productImage.js",)
+        css = {"all": ("admin/css/product-image.css",)}
 
 
 class ProductAdmin(admin.ModelAdmin):
