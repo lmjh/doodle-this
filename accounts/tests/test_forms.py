@@ -1,5 +1,4 @@
 from django.contrib.auth.models import User
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 
 from accounts.forms import DefaultAddressForm, DrawingForm, NameUpdateForm
@@ -35,6 +34,7 @@ class TestDefaultAddressForm(TestCase):
                 "default_county",
                 "default_postcode",
                 "default_country",
+                "default_phone_number",
             ),
         )
 
@@ -76,51 +76,11 @@ class TestDrawingForm(TestCase):
         form = DrawingForm()
         self.assertEqual(form.Meta.fields, ("title", "image", "save_slot"))
 
-    def test_title_field_is_not_required(self):
-        # build a dict for the form data
-        data = {
-            "title": "",
-            "save_slot": 1,
-            "user_account": self.test_user.useraccount.pk,
-        }
-        # build a dict for the form image file
-        # note: the link points to a real file in media folder
-        # using a mock file results in the form failing to validate
-        image = {
-            "image": SimpleUploadedFile(
-                name="test_image.png",
-                content=open("./media/testing/test_image.png", "rb").read(),
-            )
-        }
-        form = DrawingForm(data, image)
-        self.assertTrue(form.is_valid())
-
-    def test_save_slot_field_is_required(self):
-        data = {
-            "title": "Test Title",
-            "user_account": self.test_user.useraccount.pk,
-        }
-        image = {
-            "image": SimpleUploadedFile(
-                name="test_image.png",
-                content=open("./media/testing/test_image.png", "rb").read(),
-            )
-        }
-        form = DrawingForm(data, image)
-        self.assertFalse(form.is_valid())
-        self.assertIn("save_slot", form.errors.keys())
-        self.assertEqual(
-            form.errors["save_slot"][0], "This field is required."
-        )
-
-    def test_image_is_required(self):
-        data = {
-            "title": "",
-            "save_slot": 1,
-            "user_account": self.test_user.useraccount.pk,
-        }
-        image = {"image": ""}
-        form = DrawingForm(data, image)
+    def test_correst_fields_are_required(self):
+        data = {}
+        file_data = {}
+        form = DrawingForm(data, file_data)
         self.assertFalse(form.is_valid())
         self.assertIn("image", form.errors.keys())
-        self.assertEqual(form.errors["image"][0], "This field is required.")
+        self.assertIn("save_slot", form.errors.keys())
+        self.assertNotIn("title", form.errors.keys())
