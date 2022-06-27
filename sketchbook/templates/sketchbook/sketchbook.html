@@ -479,7 +479,6 @@
                         </div>
                     </fieldset>
                 </form>
-                <div id="save-drawing-result"></div>
                 <hr>
                 <div class="row g-2 w-100" id="save-load-buttons">
                     <div class="col-6">
@@ -528,6 +527,48 @@
     </div>
 </div>
 {% endif %}
+<!-- Welcome modal -->
+<div class="modal fade" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title highlight text-center" id="welcomeModalLabel">Doodle This</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Welcome to Doodle This, a site where you can draw fun doodles in your own online sketchbook.</p>
+
+                <p>Click the Take Tour button below to learn about the sketchbook's features, or just jump right in and get drawing!</p>
+
+                <p>There's a Help button on your sketchbook page you can push if you'd like to take the tour later.</p>
+                <!-- Hide welcome modal checkbox -->
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="hide-welcome" name="hide-welcome">
+                    <label class="form-check-label" for="hide-welcome">
+                        Don't show this message again
+                    </label>
+                </div>
+                <hr>
+                <div class="row g-2 w-100">
+                    <!-- close modal button -->
+                    <div class="col-6">
+                        <button type="button" class="btn btn-brand-primary w-100" class="btn-close btn-close-white" 
+                        data-bs-dismiss="modal" aria-label="Close">
+                        Close
+                    </button>
+                    </div>
+                    <!-- start tour button -->
+                    <div class="col-6">
+                        <button type="button" class="btn btn-brand-primary w-100" id="welcome-help-button">
+                            Take Tour
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block page_js %}

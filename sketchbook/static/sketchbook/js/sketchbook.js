@@ -52,13 +52,32 @@ updateTitleField()
 // set the load button state for save slot one, which is selected on page load
 setLoadButtonState("1");
 
-// if an autosave state is present, load it
+// create a bootstrap model object with the welcome modal
+const welcomeModal = new bootstrap.Modal(document.getElementById('welcomeModal'));
+
+// retrieve the keys of the values stored by localforage
 localforage.keys().then(function(keys) {
+    // if an autosave state is present, load it
     if (keys.includes('autosave')) {
         loadDrawingFromLocal('autosave');
     }
+
+    // if a hide tutorial key is present
+    if (keys.includes('hideTutorial')) {
+        // get the hideTutorial value
+        localforage.getItem('hideTutorial').then(function(hideTutorial){
+            // if the hideTutorial value is false
+            if (!hideTutorial) {
+                // show the welcome modal
+                welcomeModal.show();
+            }
+        })
+    } else {
+        // if the hideTutorial value is not found, show welcome modal
+        welcomeModal.show();
+    }
 }).catch(function(err) {
-    // This code runs if there were any errors
+    // log errors to console
     console.log(err);
 });
 
@@ -786,4 +805,22 @@ document.getElementById('help-button').addEventListener('click', function() {
     } else {
         introJs().setOptions(tourDesktop).start()
     }
+})
+
+// add event listener to launch appropriate intro.js tour when user clicks welcome modal help button
+document.getElementById('welcome-help-button').addEventListener('click', function() {
+    // hide welcome modal
+    welcomeModal.hide();
+    // then launch intri.js tour
+    if ($(window).width() < 1200) {
+        introJs().setOptions(tourMobile).start();
+    } else {
+        introJs().setOptions(tourDesktop).start();
+    }
+})
+
+// add event listener to update hideTutorial settings when user toggles checkbox
+document.getElementById('hide-welcome').addEventListener('change', function() {
+    // set localforage hideTutorial value to match 'checked' property of checkbox
+    localforage.setItem('hideTutorial', $('#hide-welcome').prop('checked'));
 })
