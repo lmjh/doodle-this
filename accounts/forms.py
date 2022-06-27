@@ -13,9 +13,10 @@ class NameUpdateForm(forms.ModelForm):
     A form to update the first_name and last_name in the current user's User
     model.
     """
+
     class Meta:
         model = User
-        fields = ('first_name', 'last_name')
+        fields = ("first_name", "last_name")
 
     def __init__(self, *args, **kwargs):
         """
@@ -37,11 +38,18 @@ class DefaultAddressForm(forms.ModelForm):
     """
     A form to update the current user's default delivery address details
     """
+
     class Meta:
         model = UserAccount
-        fields = ('default_address_1', 'default_address_2',
-                  'default_town', 'default_county', 'default_postcode',
-                  'default_country')
+        fields = (
+            "default_address_1",
+            "default_address_2",
+            "default_town",
+            "default_county",
+            "default_postcode",
+            "default_country",
+            "default_phone_number",
+        )
 
     def __init__(self, *args, **kwargs):
         """
@@ -56,6 +64,7 @@ class DefaultAddressForm(forms.ModelForm):
             "default_county": "County",
             "default_postcode": "Postcode",
             "default_country": "Country",
+            "default_phone_number": "Phone Number",
         }
 
         # create layout helper
@@ -69,6 +78,10 @@ class DefaultAddressForm(forms.ModelForm):
             Div(Field("default_county"), css_class="col-12 col-sm-6"),
             Div(Field("default_postcode"), css_class="col-12 col-sm-6"),
             Div(Field("default_country"), css_class="col-12 col-sm-6"),
+            Div(
+                Field("default_phone_number"),
+                css_class="col-12 col-sm-6 offset-sm-6",
+            ),
         )
 
         # apply custom field labels
@@ -80,6 +93,7 @@ class DrawingForm(forms.ModelForm):
     """
     A form to save the current user's drawing canvas into the database.
     """
+
     class Meta:
         model = Drawing
-        fields = ('title', 'image', 'save_slot')
+        fields = ("title", "image", "save_slot")

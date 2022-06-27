@@ -14,8 +14,10 @@ def upload_to(instance, filename):
     Constructs and returns a path for saved drawings to be uploaded to. Images
     are timestamped and saved in a directory bearing the account name.
     """
-    return (f"drawings/{instance.user_account}/"
-            f"{datetime.now().strftime('%y-%m-%d-%H-%M-%S-%f')}-{filename}")
+    return (
+        f"drawings/{instance.user_account}/"
+        f"{datetime.now().strftime('%y-%m-%d-%H-%M-%S-%f')}-{filename}"
+    )
 
 
 class UserAccount(models.Model):
@@ -31,6 +33,9 @@ class UserAccount(models.Model):
     default_county = models.CharField(max_length=40, null=True, blank=True)
     default_postcode = models.CharField(max_length=20, null=True, blank=True)
     default_country = CountryField(null=True, blank=True)
+    default_phone_number = models.CharField(
+        max_length=20, null=True, blank=True
+    )
 
     def __str__(self):
         return self.user.username
