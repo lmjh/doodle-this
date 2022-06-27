@@ -106,6 +106,7 @@ class StripeWebhookHandler:
                 account.default_county = shipping_details.address.state
                 account.default_postcode = shipping_details.address.postal_code
                 account.default_country = shipping_details.address.country
+                account.default_phone_number = shipping_details.phone
                 account.save()
 
         # create variable to record if order is present in the database

@@ -204,6 +204,7 @@ def checkout(request):
                     "postcode": account.default_postcode,
                     "country": account.default_country,
                     "email_address": account.user.email,
+                    "phone_number": account.default_phone_number,
                 })
             except UserAccount.DoesNotExist:
                 order_form = OrderForm()
@@ -256,6 +257,7 @@ def order_confirmed(request, order_number):
                 "default_county": order.county,
                 "default_postcode": order.postcode,
                 "default_country": order.country,
+                "default_phone_number": order.phone_number,
             }
             user_address_form = DefaultAddressForm(
                 address_data, instance=account
