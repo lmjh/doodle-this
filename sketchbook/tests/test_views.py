@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from accounts.models import Drawing
+from prompts.models import Adjective, Creature, Activity, Location
 
 
 class TestSketchbookView(TestCase):
@@ -37,6 +38,23 @@ class TestSketchbookView(TestCase):
                 name="test_image.png",
                 content=open("./media/testing/test_image.png", "rb").read(),
             ),
+        )
+
+        # create some words for the prompt generation functions
+        Adjective.objects.create(
+            adjective="adjective",
+            determiner="an",
+        )
+        Activity.objects.create(
+            activity="activity",
+        )
+        Creature.objects.create(
+            creature="creature",
+            determiner="a",
+            plural="creatures",
+        )
+        Location.objects.create(
+            location="location",
         )
 
     def test_get_sketchbook_page(self):
