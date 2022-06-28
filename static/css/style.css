@@ -304,6 +304,21 @@ a:focus-visible,
     box-shadow: 0 0 0 .25rem rgba(130, 138, 145, .5)
 }
 
+.navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover {
+	color: var(--brand-primary-color);
+}
+
+.dropdown-menu-dark .dropdown-item:focus, .dropdown-menu-dark .dropdown-item:hover {
+	color: var(--brand-primary-color);
+	background-color: var(--bg-dark);
+    text-decoration: none;
+}
+
+.dropdown-menu-dark .dropdown-item.active, .dropdown-menu-dark .dropdown-item:active {
+    color: var(--brand-primary-color);
+	background-color: var(--bg-dark);
+}
+
 /* FOOTER STYLES */
 
 footer {
