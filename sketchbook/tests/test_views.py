@@ -1,3 +1,6 @@
+import tempfile
+from PIL import Image
+
 from django.test import TestCase
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -19,26 +22,36 @@ class TestSketchbookView(TestCase):
         )
 
         # create a test drawing object with a title
-        Drawing.objects.create(
-            title="Saved Test Drawing",
-            save_slot=1,
-            user_account=self.test_user.useraccount,
-            image=SimpleUploadedFile(
-                name="test_image.png",
-                content=open("./media/testing/test_image.png", "rb").read(),
-            ),
-        )
+        with tempfile.NamedTemporaryFile(suffix=".jpg") as temp_file:
+            temp_image = Image.new("RGB", (10, 10))
+            temp_image.save(temp_file, format="JPEG")
+            temp_file.seek(0)
+
+            Drawing.objects.create(
+                title="Saved Test Drawing",
+                save_slot=1,
+                user_account=self.test_user.useraccount,
+                image=SimpleUploadedFile(
+                    name="test_image.png",
+                    content=temp_file.read(),
+                ),
+            )
 
         # create a test drawing object without a title
-        Drawing.objects.create(
-            title="",
-            save_slot=1,
-            user_account=self.test_user.useraccount,
-            image=SimpleUploadedFile(
-                name="test_image.png",
-                content=open("./media/testing/test_image.png", "rb").read(),
-            ),
-        )
+        with tempfile.NamedTemporaryFile(suffix=".jpg") as temp_file:
+            temp_image = Image.new("RGB", (10, 10))
+            temp_image.save(temp_file, format="JPEG")
+            temp_file.seek(0)
+
+            Drawing.objects.create(
+                title="",
+                save_slot=2,
+                user_account=self.test_user.useraccount,
+                image=SimpleUploadedFile(
+                    name="test_image.png",
+                    content=temp_file.read(),
+                ),
+            )
 
         # create some words for the prompt generation functions
         Adjective.objects.create(
@@ -56,6 +69,12 @@ class TestSketchbookView(TestCase):
         Location.objects.create(
             location="location",
         )
+
+    def tearDown(self):
+        # delete all images from filesystem after running tests
+        drawings = Drawing.objects.all()
+        for drawing in drawings:
+            drawing.image.delete()
 
     def test_get_sketchbook_page(self):
         response = self.client.get(reverse("sketchbook"))
