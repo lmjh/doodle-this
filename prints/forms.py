@@ -1,6 +1,6 @@
 from django import forms
 from .widgets import ProductImageInput
-from .models import ProductImage, Product
+from .models import ProductImage, Product, ProductVariant
 
 
 class ProductImageForm(forms.ModelForm):
@@ -25,4 +25,13 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
+        fields = "__all__"
+
+class ProductVariantForm(forms.ModelForm):
+    """
+    A form to create product variants
+    """
+
+    class Meta:
+        model = ProductVariant
         fields = "__all__"
