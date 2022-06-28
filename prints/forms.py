@@ -27,6 +27,7 @@ class ProductForm(forms.ModelForm):
         model = Product
         fields = "__all__"
 
+
 class ProductVariantForm(forms.ModelForm):
     """
     A form to create product variants

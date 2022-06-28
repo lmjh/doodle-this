@@ -151,6 +151,42 @@ def add_product(request):
 
 
 @staff_member_required
+def edit_product(request, product_id):
+    """
+    A view to edit products.
+    @staff_member_required decorator restricts this view to staff members
+    """
+
+    # get product or 404 if not found
+    product = get_object_or_404(Product, pk=product_id)
+
+    # if request is POST
+    if request.method == "POST":
+        # set form instance to product and fill from POST data
+        form = ProductForm(request.POST, instance=product)
+        # if form is valid
+        if form.is_valid():
+            # save and redirect
+            form.save()
+            messages.success(
+                request,
+                'The product has been successfully updated.'
+                )
+            return redirect(reverse('product_management'))
+        else:
+            messages.error(request, 'Form invalid. Please check and try again')
+    else:
+        form = ProductForm(instance=product)
+
+    template = "prints/edit_product.html"
+    context = {
+        "form": form,
+        "product": product
+    }
+    return render(request, template, context)
+
+
+@staff_member_required
 def add_product_image(request):
     """
     A view to add product images to the database.
