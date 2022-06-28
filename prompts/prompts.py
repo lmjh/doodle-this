@@ -10,6 +10,7 @@ from .models import Activity, Adjective, Creature, Location
 # random objects from a django model:
 # https://books.agiliq.com/projects/django-orm-cookbook/en/latest/random.html
 
+
 def get_word(model_name):
     """
     Retrieves a randomly selected prompt word from the requested model
@@ -19,21 +20,23 @@ def get_word(model_name):
     # set max_id as the highest assigned id in the model
     max_id = word_model.objects.all().aggregate(max_id=Max("id"))["max_id"]
 
-    # in case there are deletions (i.e. empty ids) in the database, use a while
-    # loop to attempt 10 times to retrieve a random entry
-    attempts = 0
-    while attempts < 10:
-        # set primary key equal to a random integer between 1 and the max id
-        pk = random.randint(1, max_id)
-        # find the corresponding database entry
-        word = word_model.objects.filter(pk=pk).first()
+    # check that at least one entry was found
+    if max_id is not None:
+        # in case there are deletions (i.e. empty ids) in the database, use a
+        # while loop to attempt 10 times to retrieve a random entry
+        attempts = 0
+        while attempts < 10:
+            # set primary key equal to a random integer between 1 and max id
+            pk = random.randint(1, max_id)
+            # find the corresponding database entry
+            word = word_model.objects.filter(pk=pk).first()
 
-        if word:
-            # if an entry is found, return the entry
-            return word
-        else:
-            # if an entry is not found, iterate the attempts counter
-            attempts += 1
+            if word:
+                # if an entry is found, return the entry
+                return word
+            else:
+                # if an entry is not found, iterate the attempts counter
+                attempts += 1
 
     # if no entry was found in 10 attempts, return false
     return False
@@ -180,13 +183,13 @@ def generate_prompt():
 
     # build a dict containing all of the pattern functions
     patterns = {
-            1: adjective_creature_activity_location,
-            2: adjective_creature_activity,
-            3: adjective_creature,
-            4: creature_activity_location,
-            5: creature_activity,
-            6: adjective_creature_location,
-            7: creature_location,
+        1: adjective_creature_activity_location,
+        2: adjective_creature_activity,
+        3: adjective_creature,
+        4: creature_activity_location,
+        5: creature_activity,
+        6: adjective_creature_location,
+        7: creature_location,
     }
 
     # randomly select a key from patterns
