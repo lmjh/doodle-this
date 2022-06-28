@@ -1,9 +1,11 @@
 from django.conf import settings
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 
 from .models import Category, Product, ProductVariant
 from accounts.models import Drawing
+from prints.forms import ProductForm
 
 
 def show_all_prints(request):
@@ -107,8 +109,27 @@ def product_details(request, product_name):
 @staff_member_required
 def add_product(request):
     """
-    A view to add products to the database
+    A view to add products to the database.
+    @staff_member_required decorator restricts this view to staff members
     """
+
+    # if request is POST
+    if request.method == "POST":
+        # fill form from POST data
+        form = ProductForm(request.POST)
+        # if form is valid
+        if form.is_valid():
+            # save and redirect
+            form.save()
+            messages.success(request, 'Product added to database.')
+            return redirect(reverse('show_all_prints'))
+        else:
+            messages.error(request, 'Form invalid. Please check and try again')
+    else:
+        form = ProductForm()
+
     template = "prints/add_product.html"
-    context = {}
+    context = {
+        "form": form
+    }
     return render(request, template, context)

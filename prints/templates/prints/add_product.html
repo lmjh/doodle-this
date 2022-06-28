@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block page_title %}Add Product - Doodle This{% endblock %}
 
 {% block content %}
@@ -8,7 +9,13 @@
         <div class="col-12 col-md-10 offset-md-1">
             <div class="content-panel p-3 mb-5 row">
                 <h1 class="col-12 mb-3 text-center">Add Product</h1>
-                
+                <form method="POST" action="{% url 'add_product' %}">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        {{ field | as_crispy_field }}
+                    {% endfor %}
+                    <button type="submit" class="btn btn-brand-primary col-12 col-md-4 offset-md-4">Add Product</button>
+                </form>
             </div>
         </div>
     </div>
