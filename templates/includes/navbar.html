@@ -16,8 +16,8 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#responsive-navbar"
                 aria-controls="responsive-navbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
+            </button>
         </div>
-        </button>
         <div class="collapse navbar-collapse text-end text-md-start justify-content-between" id="responsive-navbar">
             <!-- nav links -->
             <div class="d-flex flex-column flex-md-row">
@@ -29,25 +29,18 @@
                 {% if user.is_authenticated %}
                 {% if user.is_staff %}
                 <!-- add admin dropdown if user is staff -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminDropdown"
-                    aria-controls="adminDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="adminDropdown">
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="adminDropdownMenuLink" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Admin
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="adminDropdownMenuLink">
-                                <li><a class="dropdown-item" href="{% url 'profile' %}">My Account</a></li>
-                                <li><a class="dropdown-item" href="{% url 'product_management' %}">Product
-                                        Management</a></li>
-                            </ul>
-                        </li>
+                <div class="nav-item dropdown d-none d-md-block">
+                    <a class="nav-link dropdown-toggle" href="#" id="adminDropdownMenuLink" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Admin
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="adminDropdownMenuLink">
+                        <li><a class="dropdown-item" href="{% url 'profile' %}">My Account</a></li>
+                        <li><a class="dropdown-item" href="{% url 'product_management' %}">Product Management</a></li>
                     </ul>
                 </div>
+                <a class="nav-link d-block d-md-none" href="{% url 'profile' %}">My Account</a>
+                <a class="nav-link d-block d-md-none" href="{% url 'product_management' %}">Product Management</a>
                 {% else %}
                 <a class="nav-link" href="{% url 'profile' %}">My Account</a>
                 {% endif %}
