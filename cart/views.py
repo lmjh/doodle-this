@@ -26,12 +26,6 @@ def add_to_cart(request):
         drawing = request.POST.get("drawing")
         redirect_url = request.POST.get("redirect_url")
 
-        # set the drawing name to be displayed in messages
-        if drawing == "0":
-            drawing_name = "Current Doodle"
-        else:
-            drawing_name = f"Save Slot {drawing}"
-
         # get cart from session or set to an empty list if not found
         cart = request.session.get("cart", [])
 
