@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 
@@ -107,6 +107,17 @@ def product_details(request, product_name):
 
 
 @staff_member_required
+def product_management(request):
+    """
+    A view to house links to other product management tools
+    @staff_member_required decorator restricts this view to staff members
+    """
+    template = 'prints/product_management.html'
+
+    return render(request, template)
+
+
+@staff_member_required
 def add_product(request):
     """
     A view to add products to the database.
@@ -121,8 +132,12 @@ def add_product(request):
         if form.is_valid():
             # save and redirect
             form.save()
-            messages.success(request, 'Product added to database.')
-            return redirect(reverse('show_all_prints'))
+            messages.success(
+                request,
+                'Product added to database. Note: The product will not appear '
+                'on the Prints page until a variant is added to it.'
+                )
+            return redirect(reverse('product_management'))
         else:
             messages.error(request, 'Form invalid. Please check and try again')
     else:
