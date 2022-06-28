@@ -1,5 +1,7 @@
 from django.conf import settings
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.contrib.admin.views.decorators import staff_member_required
+
 from .models import Category, Product, ProductVariant
 from accounts.models import Drawing
 
@@ -10,23 +12,30 @@ def show_all_prints(request):
     """
 
     # get all products
-    products = Product.objects.all()
+    all_products = Product.objects.all()
 
     # create a dict to hold minimum prices
     min_prices = {}
 
+    # create list to hold products with variants
+    products_with_variants = []
+
     # iterate through products
-    for product in products:
+    for product in all_products:
         # find variants for each product and order by price
         variants = ProductVariant.objects.filter(product=product.pk).order_by(
             "price"
         )
-        # add min_price for each product to the min_prices dict
-        min_prices[product.name] = variants[0].price
+        if variants:
+            # if a variant is found, add the product to the
+            # products_with_variants list
+            products_with_variants.append(product)
+            # add min_price for each product to the min_prices dict
+            min_prices[product.name] = variants[0].price
 
     template = "prints/show_all_prints.html"
     context = {
-        "products": products,
+        "products": products_with_variants,
         "min_prices": min_prices,
     }
 
@@ -39,7 +48,7 @@ def product_details(request, product_name):
     to purchase
     """
 
-    product = Product.objects.get(name=product_name)
+    product = get_object_or_404(Product, name=product_name)
     variants = ProductVariant.objects.filter(product=product.pk)
     saved_drawings = Drawing.objects.filter(user_account=request.user.pk)
 
@@ -92,4 +101,14 @@ def product_details(request, product_name):
         "json_data": json_data,
     }
 
+    return render(request, template, context)
+
+
+@staff_member_required
+def add_product(request):
+    """
+    A view to add products to the database
+    """
+    template = "prints/add_product.html"
+    context = {}
     return render(request, template, context)
