@@ -5,7 +5,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 from .models import Category, Product, ProductVariant
 from accounts.models import Drawing
-from prints.forms import ProductForm
+from prints.forms import ProductForm, ProductImageForm
 
 
 def show_all_prints(request):
@@ -144,6 +144,40 @@ def add_product(request):
         form = ProductForm()
 
     template = "prints/add_product.html"
+    context = {
+        "form": form
+    }
+    return render(request, template, context)
+
+
+@staff_member_required
+def add_product_image(request):
+    """
+    A view to add product images to the database.
+    @staff_member_required decorator restricts this view to staff members
+    """
+
+    # if request is POST
+    if request.method == "POST":
+        # fill form from POST data
+        form = ProductImageForm(request.POST, request.FILES)
+        print(request.POST, request.FILES)
+        # if form is valid
+        if form.is_valid():
+            # save and redirect
+            form.save()
+            messages.success(
+                request,
+                'Product Image successfully added to database.'
+                )
+            return redirect(reverse('product_management'))
+        else:
+            print(form.errors)
+            messages.error(request, 'Form invalid. Please check and try again')
+    else:
+        form = ProductImageForm()
+
+    template = "prints/add_product_image.html"
     context = {
         "form": form
     }

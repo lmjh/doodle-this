@@ -1,14 +1,21 @@
 {% extends 'base.html' %}
-{% block page_title %}Add Product - Doodle This{% endblock %}
+{% block page_title %}Product Management - Doodle This{% endblock %}
 
 {% block content %}
-
 <div class="container mt-5">
     <div class="row">
         <div class="col-12 col-md-10 offset-md-1">
-            <div class="content-panel p-3 mb-5 row">
-                <h1 class="col-12 mb-3 text-center">Add Product</h1>
-                <a href="{% url 'add_product' %}" class="btn btn-brand-primary col-12 col-md-6 mb-3">Add Product</a>
+            <div class="content-panel p-3 mb-5 row g-2">
+                <h1 class="col-12 mb-3 text-center">Product Management</h1>
+                <div class="col-12 col-md-6 mb-3">    
+                    <a href="{% url 'add_product' %}" class="btn btn-brand-primary w-100">Add Product</a>
+                </div>
+                <div class="col-12 col-md-6 mb-3">
+                    <a href="{% url 'add_product_image' %}" class="btn btn-brand-primary w-100">Add Product Variant</a>
+                </div>
+                <div class="col-12 col-md-6 mb-3">
+                    <a href="{% url 'add_product_image' %}" class="btn btn-brand-primary w-100">Add Product Image</a>
+                </div>
             </div>
         </div>
     </div>
