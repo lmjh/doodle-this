@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django.test.utils import tag
 
 from prompts.models import Adjective, Activity, Creature, Location
 from prompts.prompts import (

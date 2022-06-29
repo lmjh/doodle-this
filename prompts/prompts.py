@@ -3,8 +3,6 @@ import random
 from django.db.models import Max
 from django.apps import apps
 
-from .models import Activity, Adjective, Creature, Location
-
 
 # random selection function is based on this method for efficiently selecting
 # random objects from a django model:
