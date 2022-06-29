@@ -1,6 +1,7 @@
 #image-holder {
     position: relative;
     width: 50%;
+    overflow: hidden;
 }
 
 .col-12 #image-holder {
