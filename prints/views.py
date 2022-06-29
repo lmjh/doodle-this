@@ -232,6 +232,42 @@ def add_product_image(request):
 
 
 @staff_member_required
+def edit_product_image(request, product_image_id):
+    """
+    A view to edit product images in the database.
+    @staff_member_required decorator restricts this view to staff members
+    """
+    product_image = get_object_or_404(ProductImage, pk=product_image_id)
+
+    # if request is POST
+    if request.method == "POST":
+        # fill form from POST data
+        form = ProductImageForm(request.POST, request.FILES, instance=product_image)
+        print(request.POST, request.FILES)
+        # if form is valid
+        if form.is_valid():
+            # save and redirect
+            form.save()
+            messages.success(
+                request,
+                'Product Image successfully updated.'
+                )
+            return redirect(reverse('product_management'))
+        else:
+            print(form.errors)
+            messages.error(request, 'Form invalid. Please check and try again')
+    else:
+        form = ProductImageForm(instance=product_image)
+
+    template = "prints/edit_product_image.html"
+    context = {
+        "form": form,
+        "product_image": product_image
+    }
+    return render(request, template, context)
+
+
+@staff_member_required
 def add_product_variant(request):
     """
     A view to add product variants to the database.

@@ -13,6 +13,9 @@ urlpatterns = [
         "add_product_image/", views.add_product_image, name="add_product_image"
     ),
     path(
+        "edit_product_image/<int:product_image_id>/", views.edit_product_image, name="edit_product_image"
+    ),
+    path(
         "add_product_variant/",
         views.add_product_variant,
         name="add_product_variant",
