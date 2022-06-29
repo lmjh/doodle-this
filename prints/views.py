@@ -241,7 +241,7 @@ def add_product_image(request):
     if request.method == "POST":
         # fill form from POST data
         form = ProductImageForm(request.POST, request.FILES)
-        print(request.POST, request.FILES)
+
         # if form is valid
         if form.is_valid():
             # save and redirect
@@ -251,7 +251,6 @@ def add_product_image(request):
             )
             return redirect(reverse("product_management"))
         else:
-            print(form.errors)
             messages.error(request, "Form invalid. Please check and try again")
     else:
         form = ProductImageForm()
@@ -275,7 +274,7 @@ def edit_product_image(request, product_image_id):
         form = ProductImageForm(
             request.POST, request.FILES, instance=product_image
         )
-        print(request.POST, request.FILES)
+
         # if form is valid
         if form.is_valid():
             # save and redirect
@@ -283,7 +282,6 @@ def edit_product_image(request, product_image_id):
             messages.success(request, "Product Image successfully updated.")
             return redirect(reverse("product_management"))
         else:
-            print(form.errors)
             messages.error(request, "Form invalid. Please check and try again")
     else:
         form = ProductImageForm(instance=product_image)
