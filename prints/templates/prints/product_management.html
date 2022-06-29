@@ -16,6 +16,11 @@
                     <li>
                         Products will not be displayed on the Prints page until a Product Variant has also been added.
                     </li>
+                    <li>
+                        To preserve database integrity, Products cannot be deleted if they have a Product Variant
+                        assigned to them. The Product Variants must be either deleted or assigned to a different
+                        Product before a Product can be deleted.
+                    </li>
                 </ul>
                 <div class="table-responsive">
                     <table class="table table-dark align-middle table-bordered text-center">

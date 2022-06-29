@@ -111,7 +111,7 @@ class ProductVariant(models.Model):
         )
 
     product = models.ForeignKey(
-        Product, null=True, blank=False, on_delete=models.SET_NULL
+        Product, null=False, blank=False, on_delete=models.RESTRICT
     )
     name = models.CharField(max_length=120, null=False, blank=False)
     display_name = models.CharField(max_length=120, null=False, blank=False)
