@@ -201,9 +201,31 @@ def delete_product(request, product_id):
 
     # get product or 404 if not found
     product = get_object_or_404(Product, pk=product_id)
-    # delete product
-    product.delete()
+    # try to delete product
+    try:
+        product.delete()
+    except RestrictedError as error:
+        # a RestrictedError will be returned if the product has one or more
+        # ProductVariants pointing to it
+        error_string = ""
+        # iterate through restricted objects in error and add to list
+        for restricted_object in error.restricted_objects:
+            sku = restricted_object.sku
+            error_string += f"<li>Variant SKU: {sku}</li>"
 
+        # return list of objects preventing deletion of image
+        messages.error(
+            request,
+            f"Unable to delete this product as it is in use by the following "
+            f"variant(s):<ul>{error_string}</ul>",
+        )
+        return redirect(reverse("product_management"))
+
+    # if the user's session contains a shopping cart, delete it
+    if "cart" in request.session:
+        del request.session["cart"]
+
+    # add success message and redirect to product management page
     messages.success(request, "The product has been deleted.")
     return redirect(reverse("product_management"))
 
@@ -307,6 +329,11 @@ def delete_product_image(request, product_image_id):
         )
         return redirect(reverse("product_management"))
 
+    # if the user's session contains a shopping cart, delete it
+    if "cart" in request.session:
+        del request.session["cart"]
+
+    # add success message and redirect to product management page
     messages.success(request, "The product image has been deleted.")
     return redirect(reverse("product_management"))
 
@@ -378,7 +405,13 @@ def delete_product_variant(request, product_variant_id):
     # find variant or return 404
     product_variant = get_object_or_404(ProductVariant, pk=product_variant_id)
 
-    # delete variant and redirect to product management
+    # delete variant
     product_variant.delete()
+
+    # if the user's session contains a shopping cart, delete it
+    if "cart" in request.session:
+        del request.session["cart"]
+
+    # add success message and redirect to product management page
     messages.success(request, "The product variant has been deleted.")
     return redirect(reverse("product_management"))
