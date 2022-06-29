@@ -90,7 +90,8 @@
                                     £{{ variant.price }}
                                 </td>
                                 <td><a href="{% url 'edit_product_variant' variant.id %}">Edit</a></td>
-                                <td><a href="">Delete</a></td>
+                                <td><a href="#deleteProductVariant{{ variant.id }}" data-bs-toggle="modal"
+                                        role="button">Delete</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -102,7 +103,7 @@
                 </div>
             </section>
             <!-- product image management section -->
-            <section class="content-panel p-3 p-lg-5 row g-2">
+            <section class="content-panel p-3 p-lg-5 row g-2 mb-5">
                 <h2 class="mb-3">Product Images</h2>
                 <ul>
                     <li>
@@ -111,6 +112,11 @@
                     <li>
                         You must specify overlay width, x-offset and y-offset for each Product Image. This defines how
                         the user's drawings will be positioned on top of the image on the product pages.
+                    </li>
+                    <li>
+                        Product Images cannot be deleted if they are currently in use by a Product or Product Variant.
+                        If you want to delete an image that's in use, you must first either change the image of the
+                        Product / Variant, or delete the Product / Variant.
                     </li>
                 </ul>
                 <div class="table-responsive">
@@ -129,7 +135,8 @@
                                 <td><img class="table-image" src="{{ image.image.url }}"
                                         alt="{{ image.name_slug }} preview"></td>
                                 <td><a href="{% url 'edit_product_image' image.id %}">Edit</a></td>
-                                <td><a href="">Delete</a></td>
+                                <td><a href="#deleteProductImage{{ image.id }}" data-bs-toggle="modal"
+                                        role="button">Delete</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -175,6 +182,85 @@
                     <div class="col-6">
                         <a class="btn btn-danger w-100" href="{% url 'delete_product' product.id %}">Delete
                             Product</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% for variant in product_variants %}
+<!-- delete product variant confirmation modal -->
+<div class="modal fade" id="deleteProductVariant{{ variant.id }}" tabindex="-1"
+    aria-labelledby="deleteProductVariant{{ variant.id }}Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteProductVariant{{ variant.id }}Label">Delete {{ variant.display_name }}
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Variant: "{{ variant.display_name }}"
+                </p>
+                <p>
+                    Parent Product: "{{ variant.product.display_name }}"
+                </p>
+                <p>
+                    This product variant will be deleted from the database. Are you sure you want to delete this product
+                    variant?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <!-- delete confirm or cancel buttons -->
+                <div class="row w-100 g-2">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-brand-primary w-100"
+                            data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                    <div class="col-6">
+                        <a class="btn btn-danger w-100" href="{% url 'delete_product_variant' variant.id %}">Delete
+                            Variant</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% for image in product_images %}
+<!-- delete product image confirmation modal -->
+<div class="modal fade" id="deleteProductImage{{ image.id }}" tabindex="-1"
+    aria-labelledby="deleteProductImage{{ image.id }}Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteProductImage{{ image.id }}Label">Delete {{ image.name_slug }}
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Image: "{{ image.name_slug }}{{ image.image_type }}"
+                </p>
+                <p>
+                    This product image will be deleted from the database. Are you sure you want to delete this product
+                    image?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <!-- delete confirm or cancel buttons -->
+                <div class="row w-100 g-2">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-brand-primary w-100"
+                            data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                    <div class="col-6">
+                        <a class="btn btn-danger w-100" href="{% url 'delete_product_image' image.id %}">Delete
+                            Image</a>
                     </div>
                 </div>
             </div>

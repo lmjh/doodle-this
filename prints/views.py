@@ -2,6 +2,7 @@ from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
+from django.db.models import RestrictedError
 
 from .models import Category, Product, ProductVariant, ProductImage
 from accounts.models import Drawing
@@ -117,12 +118,12 @@ def product_management(request):
     product_variants = ProductVariant.objects.all()
     product_images = ProductImage.objects.all()
 
-    template = 'prints/product_management.html'
+    template = "prints/product_management.html"
 
     context = {
-        'products': products,
-        'product_variants': product_variants,
-        'product_images': product_images
+        "products": products,
+        "product_variants": product_variants,
+        "product_images": product_images,
     }
 
     return render(request, template, context)
@@ -145,19 +146,17 @@ def add_product(request):
             form.save()
             messages.success(
                 request,
-                'Product added to database. Note: The product will not appear '
-                'on the Prints page until a variant is added to it.'
-                )
-            return redirect(reverse('product_management'))
+                "Product added to database. Note: The product will not appear "
+                "on the Prints page until a variant is added to it.",
+            )
+            return redirect(reverse("product_management"))
         else:
-            messages.error(request, 'Form invalid. Please check and try again')
+            messages.error(request, "Form invalid. Please check and try again")
     else:
         form = ProductForm()
 
     template = "prints/add_product.html"
-    context = {
-        "form": form
-    }
+    context = {"form": form}
     return render(request, template, context)
 
 
@@ -180,20 +179,16 @@ def edit_product(request, product_id):
             # save and redirect
             form.save()
             messages.success(
-                request,
-                'The product has been successfully updated.'
-                )
-            return redirect(reverse('product_management'))
+                request, "The product has been successfully updated."
+            )
+            return redirect(reverse("product_management"))
         else:
-            messages.error(request, 'Form invalid. Please check and try again')
+            messages.error(request, "Form invalid. Please check and try again")
     else:
         form = ProductForm(instance=product)
 
     template = "prints/edit_product.html"
-    context = {
-        "form": form,
-        "product": product
-    }
+    context = {"form": form, "product": product}
     return render(request, template, context)
 
 
@@ -209,11 +204,8 @@ def delete_product(request, product_id):
     # delete product
     product.delete()
 
-    messages.success(
-        request,
-        'The product has been deleted.'
-        )
-    return redirect(reverse('product_management'))
+    messages.success(request, "The product has been deleted.")
+    return redirect(reverse("product_management"))
 
 
 @staff_member_required
@@ -233,20 +225,17 @@ def add_product_image(request):
             # save and redirect
             form.save()
             messages.success(
-                request,
-                'Product Image successfully added to database.'
-                )
-            return redirect(reverse('product_management'))
+                request, "Product Image successfully added to database."
+            )
+            return redirect(reverse("product_management"))
         else:
             print(form.errors)
-            messages.error(request, 'Form invalid. Please check and try again')
+            messages.error(request, "Form invalid. Please check and try again")
     else:
         form = ProductImageForm()
 
     template = "prints/add_product_image.html"
-    context = {
-        "form": form
-    }
+    context = {"form": form}
     return render(request, template, context)
 
 
@@ -261,29 +250,65 @@ def edit_product_image(request, product_image_id):
     # if request is POST
     if request.method == "POST":
         # fill form from POST data
-        form = ProductImageForm(request.POST, request.FILES, instance=product_image)
+        form = ProductImageForm(
+            request.POST, request.FILES, instance=product_image
+        )
         print(request.POST, request.FILES)
         # if form is valid
         if form.is_valid():
             # save and redirect
             form.save()
-            messages.success(
-                request,
-                'Product Image successfully updated.'
-                )
-            return redirect(reverse('product_management'))
+            messages.success(request, "Product Image successfully updated.")
+            return redirect(reverse("product_management"))
         else:
             print(form.errors)
-            messages.error(request, 'Form invalid. Please check and try again')
+            messages.error(request, "Form invalid. Please check and try again")
     else:
         form = ProductImageForm(instance=product_image)
 
     template = "prints/edit_product_image.html"
-    context = {
-        "form": form,
-        "product_image": product_image
-    }
+    context = {"form": form, "product_image": product_image}
     return render(request, template, context)
+
+
+@staff_member_required
+def delete_product_image(request, product_image_id):
+    """
+    A view to delete product images.
+    @staff_member_required decorator restricts this view to staff members
+    """
+
+    # get product image or 404 if not found
+    product_image = get_object_or_404(ProductImage, pk=product_image_id)
+    # try to delete product image
+    try:
+        product_image.delete()
+    except RestrictedError as error:
+        # a RestrictedError will be returned if the image is in use by one or
+        # more Products or ProductVariants
+        error_string = ""
+        # iterate through restricted objects in error and add to list
+        for restricted_object in error.restricted_objects:
+            if isinstance(restricted_object, Product):
+                product = restricted_object.display_name
+                error_string += (
+                    f"<li>Product: {product}</li>"
+                )
+            else:
+                sku = restricted_object.sku
+                variant = restricted_object.display_name
+                error_string += f"<li>Variant SKU: {sku}</li>"
+
+        # return list of objects preventing deletion of image
+        messages.error(
+            request,
+            f"Unable to delete this image as it is in use by the following "
+            f"object(s):<ul>{error_string}</ul>",
+        )
+        return redirect(reverse("product_management"))
+
+    messages.success(request, "The product image has been deleted.")
+    return redirect(reverse("product_management"))
 
 
 @staff_member_required
@@ -302,19 +327,16 @@ def add_product_variant(request):
             # save and redirect
             form.save()
             messages.success(
-                request,
-                'Product variant successfully added to database.'
-                )
-            return redirect(reverse('product_management'))
+                request, "Product variant successfully added to database."
+            )
+            return redirect(reverse("product_management"))
         else:
-            messages.error(request, 'Form invalid. Please check and try again')
+            messages.error(request, "Form invalid. Please check and try again")
     else:
         form = ProductVariantForm()
 
     template = "prints/add_product_variant.html"
-    context = {
-        "form": form
-    }
+    context = {"form": form}
     return render(request, template, context)
 
 
@@ -334,19 +356,29 @@ def edit_product_variant(request, product_variant_id):
         if form.is_valid():
             # save and redirect
             form.save()
-            messages.success(
-                request,
-                'Product variant successfully updated.'
-                )
-            return redirect(reverse('product_management'))
+            messages.success(request, "Product variant successfully updated.")
+            return redirect(reverse("product_management"))
         else:
-            messages.error(request, 'Form invalid. Please check and try again')
+            messages.error(request, "Form invalid. Please check and try again")
     else:
         form = ProductVariantForm(instance=product_variant)
 
     template = "prints/edit_product_variant.html"
-    context = {
-        "form": form,
-        'product_variant': product_variant
-    }
+    context = {"form": form, "product_variant": product_variant}
     return render(request, template, context)
+
+
+@staff_member_required
+def delete_product_variant(request, product_variant_id):
+    """
+    A view to delete product variants from the database.
+    @staff_member_required decorator restricts this view to staff members
+    """
+
+    # find variant or return 404
+    product_variant = get_object_or_404(ProductVariant, pk=product_variant_id)
+
+    # delete variant and redirect to product management
+    product_variant.delete()
+    messages.success(request, "The product variant has been deleted.")
+    return redirect(reverse("product_management"))

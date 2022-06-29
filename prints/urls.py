@@ -18,7 +18,14 @@ urlpatterns = [
         "add_product_image/", views.add_product_image, name="add_product_image"
     ),
     path(
-        "edit_product_image/<int:product_image_id>/", views.edit_product_image, name="edit_product_image"
+        "edit_product_image/<int:product_image_id>/",
+        views.edit_product_image,
+        name="edit_product_image",
+    ),
+    path(
+        "delete_product_image/<int:product_image_id>/",
+        views.delete_product_image,
+        name="delete_product_image",
     ),
     path(
         "add_product_variant/",
@@ -29,6 +36,11 @@ urlpatterns = [
         "edit_product_variant/<int:product_variant_id>/",
         views.edit_product_variant,
         name="edit_product_variant",
+    ),
+    path(
+        "delete_product_variant/<int:product_variant_id>/",
+        views.delete_product_variant,
+        name="delete_product_variant",
     ),
     path(
         "product_management/",
