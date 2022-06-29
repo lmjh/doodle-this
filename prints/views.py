@@ -198,6 +198,25 @@ def edit_product(request, product_id):
 
 
 @staff_member_required
+def delete_product(request, product_id):
+    """
+    A view to delete products.
+    @staff_member_required decorator restricts this view to staff members
+    """
+
+    # get product or 404 if not found
+    product = get_object_or_404(Product, pk=product_id)
+    # delete product
+    product.delete()
+
+    messages.success(
+        request,
+        'The product has been deleted.'
+        )
+    return redirect(reverse('product_management'))
+
+
+@staff_member_required
 def add_product_image(request):
     """
     A view to add product images to the database.

@@ -10,6 +10,11 @@ urlpatterns = [
         name="edit_product",
     ),
     path(
+        "delete_product/<int:product_id>/",
+        views.delete_product,
+        name="delete_product",
+    ),
+    path(
         "add_product_image/", views.add_product_image, name="add_product_image"
     ),
     path(

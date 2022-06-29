@@ -37,7 +37,8 @@
                                         alt="{{ product.display_name }} image">
                                 </td>
                                 <td><a href="{% url 'edit_product' product.id %}">Edit</a></td>
-                                <td><a href="{% url 'edit_product' product.id %}">Delete</a></td>
+                                <td><a href="#deleteProduct{{ product.id }}" data-bs-toggle="modal"
+                                        role="button">Delete</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -55,7 +56,7 @@
                         Product images are optional for product variants.
                     </li>
                     <li>
-                        You must select a Product parent for each Product Variant. Products won't appear on the Prints 
+                        You must select a Product parent for each Product Variant. Products won't appear on the Prints
                         list unless they have at least one Variant.
                     </li>
                 </ul>
@@ -89,7 +90,7 @@
                                     £{{ variant.price }}
                                 </td>
                                 <td><a href="{% url 'edit_product_variant' variant.id %}">Edit</a></td>
-                                <td><a href="{% url 'edit_product_variant' variant.id %}">Delete</a></td>
+                                <td><a href="">Delete</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -108,7 +109,7 @@
                         Product Images should be in 4:3 ratio. Ideally, 1000px x 750px.
                     </li>
                     <li>
-                        You must specify overlay width, x-offset and y-offset for each Product Image. This defines how 
+                        You must specify overlay width, x-offset and y-offset for each Product Image. This defines how
                         the user's drawings will be positioned on top of the image on the product pages.
                     </li>
                 </ul>
@@ -126,8 +127,8 @@
                             <tr>
                                 <td>{{ image.name_slug }}</td>
                                 <td><img class="table-image" src="{{ image.image.url }}"
-                                    alt="{{ image.name_slug }} preview"></td>
-                                <td><a href="">Edit</a></td>
+                                        alt="{{ image.name_slug }} preview"></td>
+                                <td><a href="{% url 'edit_product_image' image.id %}">Edit</a></td>
                                 <td><a href="">Delete</a></td>
                             </tr>
                             {% endfor %}
@@ -141,4 +142,44 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block page_modals %}
+{% for product in products %}
+<!-- delete product confirmation modal -->
+<div class="modal fade" id="deleteProduct{{ product.id }}" tabindex="-1"
+    aria-labelledby="deleteProduct{{ product.id }}Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteProduct{{ product.id }}Label">Delete {{ product.display_name }}
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Product: "{{ product.display_name }}"
+                </p>
+                <p>
+                    This product will be deleted from the database. Are you sure you want to delete this product?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <!-- delete confirm or cancel buttons -->
+                <div class="row w-100 g-2">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-brand-primary w-100"
+                            data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                    <div class="col-6">
+                        <a class="btn btn-danger w-100" href="{% url 'delete_product' product.id %}">Delete
+                            Product</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
 {% endblock %}
