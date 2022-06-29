@@ -75,6 +75,7 @@ class TestCartContentsContext(TestCase):
             display_name="Test Variant",
             name="test_variant",
             price=Decimal(1.99),
+            sku="TEST-1",
         )
 
         ProductVariant.objects.create(
@@ -82,6 +83,7 @@ class TestCartContentsContext(TestCase):
             display_name="Test Variant 2",
             name="test_variant_2",
             price=Decimal(2.99),
+            sku="TEST-2",
         )
 
     def tearDown(self):

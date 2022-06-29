@@ -1,3 +1,5 @@
+import tempfile
+from PIL import Image
 from decimal import Decimal
 
 from django.test import TestCase
@@ -6,7 +8,7 @@ from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from accounts.models import Drawing
-from prints.models import ProductVariant
+from prints.models import ProductVariant, Product, ProductImage
 
 
 class TestViewCartView(TestCase):
@@ -30,12 +32,48 @@ class TestAddToCartView(TestCase):
         self.test_user = User.objects.create_user(
             username="testuser", password="123456"
         )
+
+        # create a ProductImage with a temporary file
+        with tempfile.NamedTemporaryFile(suffix=".jpg") as temp_file:
+            temp_image = Image.new("RGB", (10, 10))
+            temp_image.save(temp_file, format="JPEG")
+            temp_file.seek(0)
+
+            product_image = ProductImage.objects.create(
+                name_slug="test_image",
+                image_type=".jpg",
+                overlay_width="50%",
+                overlay_x_offset="10%",
+                overlay_y_offset="10%",
+                image=SimpleUploadedFile(
+                    name="temp_file.jpg",
+                    content=temp_file.read(),
+                ),
+            )
+
+        # create a Product
+        product = Product.objects.create(
+            image=product_image,
+            name="test_product",
+            display_name="Test Product",
+            description="A product for testing",
+            variant_type="CL",
+        )
+
+        # create a ProductVariant
         ProductVariant.objects.create(
-            product=None,
+            product=product,
             display_name="Test Variant",
             name="test_variant",
             price=Decimal(1.99),
+            sku="TEST-1",
         )
+
+    def tearDown(self):
+        # delete all images from filesystem after running tests
+        images = ProductImage.objects.all()
+        for image in images:
+            image.image.delete()
 
     def test_can_add_new_item_to_cart(self):
         variant = ProductVariant.objects.get(pk=1)
@@ -84,12 +122,46 @@ class TestUpdateCartItemView(TestCase):
         self.test_user = User.objects.create_user(
             username="testuser", password="123456"
         )
+        # create a ProductImage with a temporary file
+        with tempfile.NamedTemporaryFile(suffix=".jpg") as temp_file:
+            temp_image = Image.new("RGB", (10, 10))
+            temp_image.save(temp_file, format="JPEG")
+            temp_file.seek(0)
+
+            product_image = ProductImage.objects.create(
+                name_slug="test_image",
+                image_type=".jpg",
+                overlay_width="50%",
+                overlay_x_offset="10%",
+                overlay_y_offset="10%",
+                image=SimpleUploadedFile(
+                    name="temp_file.jpg",
+                    content=temp_file.read(),
+                ),
+            )
+
+        # create a Product
+        product = Product.objects.create(
+            image=product_image,
+            name="test_product",
+            display_name="Test Product",
+            description="A product for testing",
+            variant_type="CL",
+        )
+
         ProductVariant.objects.create(
-            product=None,
+            product=product,
             display_name="Test Variant",
             name="test_variant",
             price=Decimal(1.99),
+            sku="TEST-1",
         )
+
+    def tearDown(self):
+        # delete all images from filesystem after running tests
+        images = ProductImage.objects.all()
+        for image in images:
+            image.image.delete()
 
     def test_can_update_item_quantity_in_cart(self):
         # add item to session cart with quantity 10
@@ -139,12 +211,47 @@ class TestRemoveCartItemView(TestCase):
         self.test_user = User.objects.create_user(
             username="testuser", password="123456"
         )
+
+        # create a ProductImage with a temporary file
+        with tempfile.NamedTemporaryFile(suffix=".jpg") as temp_file:
+            temp_image = Image.new("RGB", (10, 10))
+            temp_image.save(temp_file, format="JPEG")
+            temp_file.seek(0)
+
+            product_image = ProductImage.objects.create(
+                name_slug="test_image",
+                image_type=".jpg",
+                overlay_width="50%",
+                overlay_x_offset="10%",
+                overlay_y_offset="10%",
+                image=SimpleUploadedFile(
+                    name="temp_file.jpg",
+                    content=temp_file.read(),
+                ),
+            )
+
+        # create a Product
+        product = Product.objects.create(
+            image=product_image,
+            name="test_product",
+            display_name="Test Product",
+            description="A product for testing",
+            variant_type="CL",
+        )
+
         ProductVariant.objects.create(
-            product=None,
+            product=product,
             display_name="Test Variant",
             name="test_variant",
             price=Decimal(1.99),
+            sku="TEST-1",
         )
+
+    def tearDown(self):
+        # delete all images from filesystem after running tests
+        images = ProductImage.objects.all()
+        for image in images:
+            image.image.delete()
 
     def test_can_remove_item_from_cart(self):
         session = self.client.session
