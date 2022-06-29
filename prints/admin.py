@@ -41,12 +41,12 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 class ProductVariantAdmin(admin.ModelAdmin):
-    list_display: (
+    list_display = (
         "display_name",
         "name",
         "product",
         "sku",
-        "cost",
+        "price",
         "description",
         "image",
     )
