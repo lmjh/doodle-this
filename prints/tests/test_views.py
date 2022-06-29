@@ -69,7 +69,7 @@ class TestShowAllPrintsView(TestCase):
     def test_view_returns_correct_contexts(self):
         response = self.client.get(reverse("show_all_prints"))
 
-        self.assertIsInstance(response.context["products"], QuerySet)
+        self.assertIsInstance(response.context["products"], list)
         self.assertEqual(
             response.context["min_prices"], {"test_product": Decimal("9.99")}
         )
