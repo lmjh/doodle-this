@@ -21,7 +21,7 @@ def add_to_cart(request):
     if request.method == "POST":
         # gather data from POST request
         variant_id = request.POST.get("variant")
-        variant = get_object_or_404(ProductVariant, pk=variant_id)
+        get_object_or_404(ProductVariant, pk=variant_id)
         quantity = int(request.POST.get("quantity"))
         drawing = request.POST.get("drawing")
         redirect_url = request.POST.get("redirect_url")

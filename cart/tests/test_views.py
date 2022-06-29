@@ -7,7 +7,6 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from accounts.models import Drawing
 from prints.models import ProductVariant, Product, ProductImage
 
 
@@ -77,7 +76,7 @@ class TestAddToCartView(TestCase):
 
     def test_can_add_new_item_to_cart(self):
         variant = ProductVariant.objects.get(pk=1)
-        response = self.client.post(
+        self.client.post(
             reverse("add_to_cart"),
             {
                 "variant": variant.id,
@@ -97,7 +96,7 @@ class TestAddToCartView(TestCase):
         session["cart"] = [{"variant_id": "1", "drawing": "0", "quantity": 1}]
         session.save()
         variant = ProductVariant.objects.get(pk=1)
-        response = self.client.post(
+        self.client.post(
             reverse("add_to_cart"),
             {
                 "variant": variant.id,
@@ -170,7 +169,7 @@ class TestUpdateCartItemView(TestCase):
         session.save()
         variant = ProductVariant.objects.get(pk=1)
         # update quantity to 5
-        response = self.client.post(
+        self.client.post(
             reverse("update_cart_item"),
             {
                 "variant_id": variant.id,
@@ -190,7 +189,7 @@ class TestUpdateCartItemView(TestCase):
         session.save()
         variant = ProductVariant.objects.get(pk=1)
         # update quantity to 0
-        response = self.client.post(
+        self.client.post(
             reverse("update_cart_item"),
             {
                 "variant_id": variant.id,
@@ -258,7 +257,7 @@ class TestRemoveCartItemView(TestCase):
         session["cart"] = [{"variant_id": "1", "drawing": "0", "quantity": 5}]
         session.save()
         variant = ProductVariant.objects.get(pk=1)
-        response = self.client.post(
+        self.client.post(
             reverse("remove_cart_item"),
             {
                 "variant_id": variant.id,
@@ -277,7 +276,7 @@ class TestRemoveCartItemView(TestCase):
         ]
         session.save()
         variant = ProductVariant.objects.get(pk=1)
-        response = self.client.post(
+        self.client.post(
             reverse("remove_cart_item"),
             {
                 "variant_id": variant.id,

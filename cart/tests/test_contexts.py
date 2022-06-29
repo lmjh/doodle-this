@@ -4,11 +4,9 @@ from decimal import Decimal
 
 from django.test import TestCase
 from django.shortcuts import reverse
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from cart.contexts import cart_contents
 from prints.models import ProductVariant, ProductImage, Product
 from accounts.models import Drawing
 
