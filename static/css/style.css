@@ -876,6 +876,20 @@ a .save-slot-preview:hover {
     box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -7px rgba(0, 0, 0, 0.2);
 }
 
+/* PRODUCT MANAGEMENT STYLES */
+
+.table-image {
+    max-width: 100px;
+}
+
+.table > :not(caption) > * > * {
+    background-color: var(--bg-form);
+}
+
+.table > :not(:first-child) {
+	border-top: 2px solid var(--border-grey);
+}
+
 /* MEDIA QUERIES */
 
 @media (min-width: 576px) {

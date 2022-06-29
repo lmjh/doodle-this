@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 
-from .models import Category, Product, ProductVariant
+from .models import Category, Product, ProductVariant, ProductImage
 from accounts.models import Drawing
 from prints.forms import ProductForm, ProductImageForm, ProductVariantForm
 
@@ -112,9 +112,20 @@ def product_management(request):
     A view to house links to other product management tools
     @staff_member_required decorator restricts this view to staff members
     """
+
+    products = Product.objects.all()
+    product_variants = ProductVariant.objects.all()
+    product_images = ProductImage.objects.all()
+
     template = 'prints/product_management.html'
 
-    return render(request, template)
+    context = {
+        'products': products,
+        'product_variants': product_variants,
+        'product_images': product_images
+    }
+
+    return render(request, template, context)
 
 
 @staff_member_required
