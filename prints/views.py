@@ -250,3 +250,37 @@ def add_product_variant(request):
         "form": form
     }
     return render(request, template, context)
+
+
+@staff_member_required
+def edit_product_variant(request, product_variant_id):
+    """
+    A view to edit product variants in the database.
+    @staff_member_required decorator restricts this view to staff members
+    """
+
+    product_variant = get_object_or_404(ProductVariant, pk=product_variant_id)
+    # if request is POST
+    if request.method == "POST":
+        # set form instance to product variant and fill from POST data
+        form = ProductVariantForm(request.POST, instance=product_variant)
+        # if form is valid
+        if form.is_valid():
+            # save and redirect
+            form.save()
+            messages.success(
+                request,
+                'Product variant successfully updated.'
+                )
+            return redirect(reverse('product_management'))
+        else:
+            messages.error(request, 'Form invalid. Please check and try again')
+    else:
+        form = ProductVariantForm(instance=product_variant)
+
+    template = "prints/edit_product_variant.html"
+    context = {
+        "form": form,
+        'product_variant': product_variant
+    }
+    return render(request, template, context)

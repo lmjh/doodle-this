@@ -18,6 +18,11 @@ urlpatterns = [
         name="add_product_variant",
     ),
     path(
+        "edit_product_variant/<int:product_variant_id>/",
+        views.edit_product_variant,
+        name="edit_product_variant",
+    ),
+    path(
         "product_management/",
         views.product_management,
         name="product_management",
