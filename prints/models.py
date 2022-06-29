@@ -120,7 +120,7 @@ class ProductVariant(models.Model):
     )
     description = models.TextField(null=True, blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    sku = models.CharField(max_length=120, null=True, blank=True, unique=True)
+    sku = models.CharField(max_length=120, null=False, blank=False, unique=True)
 
     def __str__(self):
-        return f"{self.product.display_name} Variant - {self.display_name}"
+        return f"{self.sku} - {self.display_name}"
