@@ -47,7 +47,7 @@ class TestShowAllPrintsView(TestCase):
         )
 
         # create a ProductVariant
-        product_variant = ProductVariant.objects.create(
+        ProductVariant.objects.create(
             product=product,
             name="test_variant",
             display_name="Test Variant",
@@ -130,7 +130,7 @@ class TestProductDetailsView(TestCase):
         )
 
         # create a ProductVariant
-        product_variant = ProductVariant.objects.create(
+        ProductVariant.objects.create(
             product=product,
             name="test_variant",
             display_name="Test Variant",

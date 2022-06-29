@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import RestrictedError
 
-from .models import Category, Product, ProductVariant, ProductImage
+from .models import Product, ProductVariant, ProductImage
 from accounts.models import Drawing
 from prints.forms import ProductForm, ProductImageForm, ProductVariantForm
 
@@ -318,7 +318,6 @@ def delete_product_image(request, product_image_id):
                 )
             else:
                 sku = restricted_object.sku
-                variant = restricted_object.display_name
                 error_string += f"<li>Variant SKU: {sku}</li>"
 
         # return list of objects preventing deletion of image
