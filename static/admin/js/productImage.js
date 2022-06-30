@@ -1,3 +1,4 @@
+/* jshint esversion: 11, jquery: true */
 // add event listener to wait for DOM to load
 document.addEventListener("DOMContentLoaded", function () {
     // find overlay and input elements
@@ -15,13 +16,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // add event listeners to update overlay width and offsets as user changes the input fields
     overlayWidth.addEventListener('input', function () {
         overlay.style.width = overlayWidth.value;
-    })
+    });
     overlayX.addEventListener('input', function () {
         overlay.style.left = overlayX.value;
-    })
+    });
     overlayY.addEventListener('input', function () {
         overlay.style.top = overlayY.value;
-    })
+    });
 
     // add event listener to change preview image when a new file is selected
     imageUpload.addEventListener('change', function () {
@@ -31,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
             preview.onload = function () {
                 // revoke object URL after image is loaded
                 URL.revokeObjectURL(preview.src);
-            }
+            };
             // create object URL from selected file and assign as src of preview image
             preview.src = URL.createObjectURL(imageUpload.files[0]);
         } else {
@@ -45,9 +46,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("image-holder").appendChild(preview);
                 // make overlay visible
                 overlay.style.visibility = "visible";
-            }
+            };
             // create object URL from selected file and assign as src of preview image
             preview.src = URL.createObjectURL(imageUpload.files[0]);
         }
-    })
-})
+    });
+});

@@ -27,7 +27,7 @@ const auth = JSON.parse(document.getElementById('auth').textContent);
 // declared with 'let' as it will be updated by the application
 let titles = JSON.parse(document.getElementById('titles').textContent);
 
-// initialise Coloris colour picker
+// call Coloris colour picker and pass configuration options to it
 Coloris({
     el: '.coloris',
     theme: 'polaroid',
@@ -105,11 +105,11 @@ function resizeCanvas() {
     $('#scaler-holder').height(scaler.getBoundingClientRect().height);
 
     // find paper background element
-    paper = $('#paper');
+    let paper = $('#paper');
 
     // set background to same height and width as canvas by multiplying canvas dimensions by scaling ratio
-    $('#paper').height(720 * scale);
-    $('#paper').width(1280 * scale);
+    paper.height(720 * scale);
+    paper.width(1280 * scale);
 
     // transform paper by inverse of scaling ratio to cancel out transform and fix visual distortions
     paper.css('transform', 'scale(' + (1 / scale) + ')');
@@ -276,7 +276,7 @@ function changeSmoothing(smoothing) {
  */
 function changePaper(paperType) {
     // find the paper background element
-    paper = $('#paper');
+    let paper = $('#paper');
     // remove all paper classes
     paper.removeClass('plain-paper watermarked-paper lined-paper squared-paper');
 
@@ -622,7 +622,7 @@ document.getElementById('clear-sketchbook').addEventListener('click', function (
 // add event listener to change Atrament canvas stroke smoothing factor when slider is changed
 document.getElementById('smoothing').addEventListener('change', function (e) {
     // convert the value of the slider to a float and pass to the changeSmoothing function
-    smoothing = parseFloat(e.target.value);
+    let smoothing = parseFloat(e.target.value);
     changeSmoothing(smoothing);
 });
 
@@ -699,7 +699,7 @@ if (auth) {
     document.getElementById('drawing-save-slot').addEventListener('click', function (e) {
         if (e.target && e.target.matches(".btn-check")) {
             // get the value the triggering button
-            saveSlot = e.target.value;
+            let saveSlot = e.target.value;
             // pass the save slot to the functions to update the title field and enable/diable the load button
             updateTitleField(saveSlot);
             setLoadButtonState(saveSlot);

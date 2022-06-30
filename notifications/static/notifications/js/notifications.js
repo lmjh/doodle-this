@@ -3,13 +3,13 @@ let toastCount = 0;
 
 $( document ).ready(function() {
     // find and parse the json_messages element rendered by the template
-    messages = JSON.parse(document.getElementById('json_messages').textContent);
+    let messages = JSON.parse(document.getElementById('json_messages').textContent);
     // if the array contains messages
     if (messages) {
         // call the displayToast function for each message
         messages.forEach(function (message) {
-            displayToast(message.tag, message.message)
-        })
+            displayToast(message.tag, message.message);
+        });
     }
 });
 
@@ -26,40 +26,40 @@ function generateToast(tag, message, toastCount) {
     // assign role, aria-live region type, class and timeout based on tag
     switch (tag) {
         case "debug":
-            role = "alert"
-            aria = "assertive"
-            cssClass = "toast-debug"
-            timeout = "data-bs-autohide='false'" // do not timeout debug messages
+            role = "alert";
+            aria = "assertive";
+            cssClass = "toast-debug";
+            timeout = "data-bs-autohide='false'"; // do not timeout debug messages
             break;
         case "info":
-            role = "status"
-            aria = "polite"
-            cssClass = "toast-info"
-            timeout = "data-bs-delay='10000'" // 10 second delay
+            role = "status";
+            aria = "polite";
+            cssClass = "toast-info";
+            timeout = "data-bs-delay='10000'"; // 10 second delay
             break;
         case "success":
-            role = "status"
-            aria = "polite"
-            cssClass = "toast-success"
-            timeout = "data-bs-delay='10000'"
+            role = "status";
+            aria = "polite";
+            cssClass = "toast-success";
+            timeout = "data-bs-delay='10000'";
             break;
         case "warning":
-            role = "alert"
-            aria = "assertive"
-            cssClass = "toast-warning"
-            timeout = "data-bs-delay='10000'"
+            role = "alert";
+            aria = "assertive";
+            cssClass = "toast-warning";
+            timeout = "data-bs-delay='10000'";
             break;
         case "error":
-            role = "alert"
-            aria = "assertive"
-            cssClass = "toast-error"
-            timeout = "data-bs-delay='10000'"
+            role = "alert";
+            aria = "assertive";
+            cssClass = "toast-error";
+            timeout = "data-bs-delay='10000'";
             break;
         default:
-            role = "status"
-            aria = "polite"
-            cssClass = "toast-info"
-            timeout = "data-bs-delay='10000'"
+            role = "status";
+            aria = "polite";
+            cssClass = "toast-info";
+            timeout = "data-bs-delay='10000'";
     }
 
     // generate and return toast template
@@ -73,8 +73,8 @@ function generateToast(tag, message, toastCount) {
             </div>
             <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
-    </div>`
-    return toastTemplate
+    </div>`;
+    return toastTemplate;
 }
 
 /**
@@ -90,16 +90,16 @@ function displayToast(tag, message) {
     $('#toast-container').append(newToastTemplate);
 
     // find the new toast using its id
-    let newToastElement = document.getElementById(`toast-${toastCount}`)
+    let newToastElement = document.getElementById(`toast-${toastCount}`);
 
     // create a bootstrap Toast object with the toast and show it
-    let newToast = new bootstrap.Toast(newToastElement)
+    let newToast = new bootstrap.Toast(newToastElement);
     newToast.show();
 
     // add an event listener to destroy the toast after its display timer runs out
     newToastElement.addEventListener('hidden.bs.toast', function(event) {
-        event.target.remove()
-    })
+        event.target.remove();
+    });
 
     // increment the toast counter
     toastCount += 1;

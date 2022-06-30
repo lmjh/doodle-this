@@ -11,14 +11,14 @@ const price = document.getElementById('price');
 const addToCart = document.getElementById('add-to-cart');
 const variantDescription = document.getElementById('variant-description');
 
-$( document ).ready(function() {
+$(document).ready(function () {
     // if currently selected variant has an image
     if (jsonData.variantUrls[selectVariant.value]) {
         // set that image as the displayed product image
         setProductImage(jsonData.variantUrls[selectVariant.value]);
         // and load that image's overlay position data
         positionOverlay(jsonData.overlay[selectVariant.value]);
-        
+
     } else {
         // if currently selected variant doesn't have an image,
         // load the default product image and overlay position data
@@ -34,15 +34,17 @@ $( document ).ready(function() {
             let drawingURL = URL.createObjectURL(blob);
             setOverlay(drawingURL);
             // revoke object url after a short delay to allow time for image to load
-            setTimeout(function() {URL.revokeObjectURL(drawingURL)}, 200);
+            setTimeout(function () {
+                URL.revokeObjectURL(drawingURL);
+            }, 200);
         } else {
             // if the returned object is null, use a placeholder
             let drawingURL = jsonData.placeholder;
             setOverlay(drawingURL);
         }
-    }).catch(function() {
+    }).catch(function () {
         // if there were any errors, use a placeholder image
-        let drawingURL = jsonData.placeholder ;
+        let drawingURL = jsonData.placeholder;
         setOverlay(drawingURL);
     });
 });
@@ -86,13 +88,15 @@ selectDrawing.addEventListener('change', function (e) {
                 let drawingURL = URL.createObjectURL(blob);
                 setOverlay(drawingURL);
                 // revoke object url after a short delay to allow time for image to load
-                setTimeout(function() {URL.revokeObjectURL(drawingURL)}, 200);
+                setTimeout(function () {
+                    URL.revokeObjectURL(drawingURL);
+                }, 200);
             } else {
                 // if the returned object is null, use a placeholder
                 let drawingURL = jsonData.placeholder;
                 setOverlay(drawingURL);
             }
-        }).catch(function() {
+        }).catch(function () {
             // if there were any errors, use a placeholder image
             let drawingURL = jsonData.placeholder;
             setOverlay(drawingURL);
@@ -117,7 +121,7 @@ selectVariant.addEventListener('change', function (e) {
         // set that image as the displayed product image
         setProductImage(jsonData.variantUrls[e.target.value]);
         // and load that image's overlay position data
-        positionOverlay(jsonData.overlay[e.target.value]);   
+        positionOverlay(jsonData.overlay[e.target.value]);
     } else {
         // if selected variant doesn't have an image, load the default product 
         // image and overlay position data
@@ -134,14 +138,14 @@ addToCart.addEventListener('submit', function (e) {
     if (selectDrawing.value == '0') {
         // retrieve the autosave of the current drawing from localforage 
         localforage.getItem('autosave').then(function (blob) {
-            if (blob != null){
+            if (blob != null) {
                 // if the returned object is not null, submit the form
                 addToCart.submit();
             } else {
                 // if returned object is null, display an error and don't submit the form
                 displayToast('error', 'No current sketchbook doodle found. Draw something cool on your sketchbook to print!');
             }
-        }).catch(function() {
+        }).catch(function () {
             // if there were any errors, display an error and don't submit the form
             displayToast('error', 'No current sketchbook doodle found. Draw something cool on your sketchbook to print!');
         });

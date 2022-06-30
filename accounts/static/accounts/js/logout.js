@@ -11,9 +11,9 @@ document.getElementById('logout-button').addEventListener('click', function (ev)
             .then(
                 // logout
                 $('#logout').submit()
-            )
+            );
     } else {
         // otherwise, just logout
-        $('#logout').submit()
+        $('#logout').submit();
     }
-})
+});
