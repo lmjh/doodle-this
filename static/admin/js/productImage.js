@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // if preview is not found, create preview image and set id to 'preview'
             preview = document.createElement('img');
             preview.id = "preview";
+            preview.alt= "Product image preview";
             preview.onload = function () {
                 // revoke object URL after image is loaded
                 URL.revokeObjectURL(preview.src);
