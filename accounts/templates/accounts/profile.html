@@ -52,7 +52,7 @@
                     <!-- add preview image if user has an image in this save slot -->
                     <a href="#view{{ drawing.save_slot }}" data-bs-toggle="modal">
                         <img src="{{ drawing.image.url }}" class="save-slot-preview"
-                            alt="Save slot {{ drawing.save_slot }} preview" id="save-preview-1">
+                            alt="Save slot {{ drawing.save_slot }} preview" id="save-preview-{{ drawing.save_slot }}">
                     </a>
                     <!-- add view and delete buttons if user has an image in this save slot -->
                     <div class="row g-2">
@@ -68,7 +68,7 @@
                     {% else %}
                     <!-- show default blank image if no drawing in this save slot -->
                     <img src="{{ MEDIA_URL }}svg/blank.svg" class="save-slot-preview"
-                        alt="Save slot {{ drawing.save_slot }} preview" id="save-preview-1">
+                        alt="Save slot {{ drawing.save_slot }} preview" id="save-preview-{{ drawing.save_slot }}">
                     <!-- buttons disabled if no drawing in this save slot -->
                     <div class="row g-2">
                         <div class="col-6">
