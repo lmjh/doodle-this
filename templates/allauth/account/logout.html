@@ -9,7 +9,7 @@
 {% block inner_content %}
 <h1>{% trans "Log Out" %}</h1>
 
-<p class="my-5">{% trans 'Click the button below to log out.' %}</p>
+<p class="my-5 text-center">{% trans 'Click the button below to log out.' %}</p>
 
 <form method="post" action="{% url 'account_logout' %}" id="logout">
   {% csrf_token %}
@@ -17,14 +17,14 @@
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}
   <!-- ask if user wants to delete sketchbook contents on logout -->
-  <fieldset class="row g-2 mb-5" id="clear-sketchbook">
+  <fieldset class="row g-2 mb-5 text-center" id="clear-sketchbook">
     <legend class="fs-6">Clear sketchbook contents on logout?</legend>
-    <div class="col-6 col-sm-3 offset-sm-6">
-      <input type="radio" class="btn-check" name="clear-sketchbook" id="clear-sketchbook-yes" autocomplete="off">
+    <div class="col-6 col-sm-3 offset-sm-3">
+      <input type="radio" class="btn-check" name="clear-sketchbook" id="clear-sketchbook-yes">
       <label class="btn btn-brand-primary w-100 fs-6" for="clear-sketchbook-yes">Yes</label>
     </div>
     <div class="col-6 col-sm-3">
-      <input type="radio" class="btn-check" name="clear-sketchbook" id="clear-sketchbook-no" autocomplete="off" checked>
+      <input type="radio" class="btn-check" name="clear-sketchbook" id="clear-sketchbook-no" checked>
       <label class="btn btn-brand-primary w-100 fs-6" for="clear-sketchbook-no">No</label>
     </div>
   </fieldset>

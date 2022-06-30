@@ -41,7 +41,7 @@
                                 </li>
                                 <li class="list-group-item">
                                     <strong>Quantity: </strong>
-                                    <span class="float-end">
+                                    <div class="float-end">
                                         <!-- quantity update form -->
                                         <form method="POST" action="{% url 'update_cart_item' %}"
                                             class="d-inline-block">
@@ -60,12 +60,11 @@
                                         <form method="POST" action="{% url 'remove_cart_item' %}"
                                             class="d-inline-block">
                                             {% csrf_token %}
-                                            <label class="visually-hidden" for="quantity">Remove from cart</label>
                                             <input type="hidden" name="variant_id" value="{{ item.variant_id }}">
                                             <input type="hidden" name="drawing" value="{{ item.drawing }}">
                                             <button type="submit" class="delete-button">Remove</button>
                                         </form>
-                                    </span>
+                                    </div>
                                 </li>
                                 <!-- item subtotal -->
                                 <li class="list-group-item">

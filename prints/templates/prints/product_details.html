@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block page_title %}Print - Doodle This{% endblock %}
+{% block page_title %}Print Details - Doodle This{% endblock %}
 
 {% block content %}
 
@@ -11,8 +11,8 @@
                 <h1 class="col-12 mb-3 text-center">Buy Custom {{ product.display_name }}</h1>
                 <div class="col-12 col-md-6 mb-3">
                     <div class="position-relative">
-                        <img id="product-image" src="" class="img-fluid" alt="Product preview image">
-                        <img id="drawing-overlay" src="" alt="Drawing preview overlay">
+                        <img id="product-image" src="{{ MEDIA_URL }}svg/placeholder-4-3.svg" class="img-fluid" alt="Product preview image">
+                        <img id="drawing-overlay" src="{{ MEDIA_URL }}svg/placeholder-16-9.svg" alt="Drawing preview overlay">
                     </div>
                 </div>
                 <div class="col-12 col-md-6 d-flex align-items-center">
@@ -40,8 +40,7 @@
                         <div class="col-12 col-lg-6">
                             <!-- select drawing to print -->
                             <div class="input-group mb-3 ">
-                                <label class="input-group-text bg-dark text-light" for="drawing"
-                                    autocomplete="off">Select Doodle</label>
+                                <label class="input-group-text bg-dark text-light" for="drawing">Select Doodle</label>
                                 <select class="form-select" id="drawing" name="drawing">
                                     <option value="0">Current Doodle</option>
                                     {% for drawing in saved_drawings %}
@@ -59,8 +58,7 @@
                             <div class="input-group">
                                 <label for="quantity" class="input-group-text bg-dark text-light">Quantity:</label>
                                 <input type="number" id="quantity" name="quantity" value=1 min="1" max="99"
-                                    class="form-control" aria-label="quantity" aria-describedby="quantity-text"
-                                    autocomplete="off">
+                                    class="form-control" autocomplete="off">
                             </div>
                         </div>
                         <input type="hidden" name="redirect_url" value="{{ request.path }}">
