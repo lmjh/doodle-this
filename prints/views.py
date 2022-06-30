@@ -221,10 +221,6 @@ def delete_product(request, product_id):
         )
         return redirect(reverse("product_management"))
 
-    # if the user's session contains a shopping cart, delete it
-    if "cart" in request.session:
-        del request.session["cart"]
-
     # add success message and redirect to product management page
     messages.success(request, "The product has been deleted.")
     return redirect(reverse("product_management"))
@@ -326,10 +322,6 @@ def delete_product_image(request, product_image_id):
         )
         return redirect(reverse("product_management"))
 
-    # if the user's session contains a shopping cart, delete it
-    if "cart" in request.session:
-        del request.session["cart"]
-
     # add success message and redirect to product management page
     messages.success(request, "The product image has been deleted.")
     return redirect(reverse("product_management"))
@@ -404,10 +396,6 @@ def delete_product_variant(request, product_variant_id):
 
     # delete variant
     product_variant.delete()
-
-    # if the user's session contains a shopping cart, delete it
-    if "cart" in request.session:
-        del request.session["cart"]
 
     # add success message and redirect to product management page
     messages.success(request, "The product variant has been deleted.")
