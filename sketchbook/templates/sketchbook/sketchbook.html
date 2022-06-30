@@ -88,7 +88,7 @@
                     <div id="sketchbook-background">
                         <!-- atrament canvas  -->
                         <div id="paper" class="watermarked-paper"></div>
-                        <canvas id="sketchbook"></canvas>
+                        <canvas id="sketchbook" aria-label="Interactive sketchbook canvas"></canvas>
                     </div>
                 </div>
             </div>
@@ -97,7 +97,7 @@
         <section class="col-12 col-md-3 col-xl-2 mb-2 mt-xl-4" aria-label="Tool selection panel">
             <div class="row control-panel py-2">
                 <div class="col-6 col-md-12 order-1 d-flex flex-column justify-content-center d-md-block">
-                    <span id="cursor-stroke-width">
+                    <div id="cursor-stroke-width">
                         <!-- drawing cursor preview -->
                         <div class="col-12 d-flex justify-content-center my-2">
                             <div class="cursor-holder d-flex justify-content-center align-items-center">
@@ -110,7 +110,7 @@
                             <input type="range" class="form-range" id="stroke-weight" min="2" max="40" value="20"
                                 step="2">
                         </div>
-                    </span>
+                    </div>
                 </div>
                 <!-- colour picker -->
                 <div class="col-12 mb-2 order-3 order-md-2" id="coloris-tour">
@@ -331,9 +331,10 @@
             </div>
             <div class="modal-body">
                 <fieldset class="row g-2 mb-3" id="paper-type" aria-labelledby="paper-label">
+                    <legend class="visually-hidden" id="paper-label">Paper background</legend>
                     <!-- canvas background selection controls -->
                     <div class="d-flex align-items-center">
-                        <legend class="fs-6" id="paper-label">Paper background: </legend>
+                        <div class="fs-6 w-100">Paper background: </div>
                         <span class="float-end">
                             <a data-bs-toggle="collapse" href="#paper-help" role="button" aria-expanded="false"
                                 aria-controls="paper-help" class="help-button"
@@ -349,20 +350,19 @@
                             won't be saved or printed with your drawings.</small>
                     </div>
                     <div class="col-6 col-sm-3">
-                        <input type="radio" class="btn-check " name="paper-type" id="none" autocomplete="off">
+                        <input type="radio" class="btn-check " name="paper-type" id="none">
                         <label class="btn btn-brand-primary w-100 fs-6" for="none">None</label>
                     </div>
                     <div class="col-6 col-sm-3">
-                        <input type="radio" class="btn-check" name="paper-type" id="watermark" autocomplete="off"
-                        checked>
+                        <input type="radio" class="btn-check" name="paper-type" id="watermark" checked>
                         <label class="btn btn-brand-primary w-100 fs-6" for="watermark">Watermark</label>
                     </div>
                     <div class="col-6 col-sm-3">
-                        <input type="radio" class="btn-check" name="paper-type" id="lined" autocomplete="off">
+                        <input type="radio" class="btn-check" name="paper-type" id="lined">
                         <label class="btn btn-brand-primary w-100 fs-6" for="lined">Lined</label>
                     </div>
                     <div class="col-6 col-sm-3">
-                        <input type="radio" class="btn-check" name="paper-type" id="squared" autocomplete="off">
+                        <input type="radio" class="btn-check" name="paper-type" id="squared">
                         <label class="btn btn-brand-primary w-100 fs-6" for="squared">Squared</label>
                     </div>
                 </fieldset>
@@ -388,9 +388,10 @@
                 </div>
                 <div class="mb-3">
                     <fieldset class="row g-2 mb-3" id="adaptive-stroke">
+                        <legend class="visually-hidden">Adaptive stroke</legend>
                         <!-- adaptive stroke on/off controls -->
                         <div class="d-flex align-items-center">
-                            <legend class="fs-6">Adaptive stroke: </legend>
+                            <div class="fs-6 w-100">Adaptive stroke: </div>
                             <span class="float-end">
                                 <a data-bs-toggle="collapse" href="#adaptive-help" role="button" aria-expanded="false"
                                 aria-controls="adaptive-help" class="help-button"
@@ -406,13 +407,12 @@
                                 quickly.</small>
                             </div>
                         <div class="col-6 col-sm-3 offset-sm-3">
-                            <input type="radio" class="btn-check" name="adaptive-stroke" id="adaptive-stroke-on"
-                                autocomplete="off">
+                            <input type="radio" class="btn-check" name="adaptive-stroke" id="adaptive-stroke-on">
                             <label class="btn btn-brand-primary w-100 fs-6" for="adaptive-stroke-on">On</label>
                         </div>
                         <div class="col-6 col-sm-3">
                             <input type="radio" class="btn-check" name="adaptive-stroke" id="adaptive-stroke-off"
-                                autocomplete="off" checked>
+                                checked>
                             <label class="btn btn-brand-primary w-100 fs-6" for="adaptive-stroke-off">Off</label>
                         </div>
                     </fieldset>
@@ -449,8 +449,8 @@
                             <img src="{{ MEDIA_URL }}svg/blank.svg" class="save-slot-preview" alt="Save slot 1 preview"
                                 id="save-preview-1">
                             {% endif %}
-                            <input type="radio" class="btn-check" name="drawing-save-slot" id="save-slot-1"
-                                autocomplete="off" value="1" checked>
+                            <input type="radio" class="btn-check" name="drawing-save-slot" id="save-slot-1" value="1"
+                                checked>
                             <label class="btn btn-brand-primary save-slot-button mt-2" for="save-slot-1">1</label>
                         </div>
                         <div class="col-4">
@@ -461,8 +461,7 @@
                             <img src="{{ MEDIA_URL }}svg/blank.svg" class="save-slot-preview" alt="Save slot 2 preview"
                                 id="save-preview-2">
                             {% endif %}
-                            <input type="radio" class="btn-check" name="drawing-save-slot" id="save-slot-2"
-                                autocomplete="off" value="2">
+                            <input type="radio" class="btn-check" name="drawing-save-slot" id="save-slot-2" value="2">
                             <label class="btn btn-brand-primary save-slot-button mt-2" for="save-slot-2">2</label>
                         </div>
                         <div class="col-4">
@@ -473,8 +472,7 @@
                             <img src="{{ MEDIA_URL }}svg/blank.svg" class="save-slot-preview" alt="Save slot 3 preview"
                                 id="save-preview-3">
                             {% endif %}
-                            <input type="radio" class="btn-check" name="drawing-save-slot" id="save-slot-3"
-                                autocomplete="off" value="3">
+                            <input type="radio" class="btn-check" name="drawing-save-slot" id="save-slot-3" value="3">
                             <label class="btn btn-brand-primary save-slot-button mt-2" for="save-slot-3">3</label>
                         </div>
                     </fieldset>
@@ -553,8 +551,8 @@
                 <div class="row g-2 w-100">
                     <!-- close modal button -->
                     <div class="col-6">
-                        <button type="button" class="btn btn-brand-primary w-100" class="btn-close btn-close-white" 
-                        data-bs-dismiss="modal" aria-label="Close">
+                        <button type="button" class="btn btn-brand-primary w-100" data-bs-dismiss="modal" 
+                            aria-label="Close">
                         Close
                     </button>
                     </div>
