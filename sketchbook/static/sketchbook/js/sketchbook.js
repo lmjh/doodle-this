@@ -14,7 +14,7 @@ const sketchbook = new Atrament(canvas, {
 });
 
 // get the drawing prompt container element
-const drawingPrompt = document.getElementById('drawing-prompt')
+const drawingPrompt = document.getElementById('drawing-prompt');
 
 // parse the urls dictionary object passed from the view and assign to a variable
 const urls = JSON.parse(document.getElementById('urls').textContent);
@@ -44,10 +44,10 @@ $('#cursor').css('background-color', document.getElementById('coloris-picker').v
 resizeCanvas();
 
 // call configureSketchbook function
-configureSketchbook()
+configureSketchbook();
 
 // call the updateTitleField function
-updateTitleField()
+updateTitleField();
 
 // set the load button state for save slot one, which is selected on page load
 setLoadButtonState("1");
@@ -71,18 +71,15 @@ localforage.keys().then(function(keys) {
                 // show the welcome modal
                 welcomeModal.show();
             }
-        })
+        });
     } else {
         // if the hideTutorial value is not found, show welcome modal
         welcomeModal.show();
     }
-}).catch(function(err) {
-    // log errors to console
-    console.log(err);
 });
 
 // remove invisible class from scaler holder once sketchbook elements are rendered 
-$('#scaler-holder').removeClass('invisible')
+$('#scaler-holder').removeClass('invisible');
 
 // DECLARE FUNCTIONS
 
@@ -108,11 +105,11 @@ function resizeCanvas() {
     $('#scaler-holder').height(scaler.getBoundingClientRect().height);
 
     // find paper background element
-    paper = $('#paper')
+    paper = $('#paper');
 
     // set background to same height and width as canvas by multiplying canvas dimensions by scaling ratio
-    $('#paper').height(720 * scale)
-    $('#paper').width(1280 * scale)
+    $('#paper').height(720 * scale);
+    $('#paper').width(1280 * scale);
 
     // transform paper by inverse of scaling ratio to cancel out transform and fix visual distortions
     paper.css('transform', 'scale(' + (1 / scale) + ')');
@@ -131,8 +128,6 @@ function configureSketchbook() {
                 changeAtramentColor(color);
                 changeColorisColor(color);
                 changeCursorColor(color);
-            }).catch(function(err) {
-                console.log(err);
             });
         } else {
             // if color is not saved with localforage, set to black and save
@@ -148,8 +143,6 @@ function configureSketchbook() {
                 changeWeight(weight);
                 // change value of on-screen control to match
                 $('#stroke-weight').val(weight);
-            }).catch(function(err) {
-                console.log(err);
             });
         } else {
             // if weight is not saved with localforage, set to 20 and save
@@ -162,18 +155,16 @@ function configureSketchbook() {
         if (keys.includes('paperType')) {
             localforage.getItem('paperType').then(function(paperType) {
                 // if paperType is saved with localforage, load paperType
-                changePaper(paperType)
+                changePaper(paperType);
                 // change value of on-screen control to match
                 $(`#${paperType}`).prop('checked', true);
-            }).catch(function(err) {
-                console.log(err);
             });
         } else {
             // if paperType is not saved in local storage, set to 'watermarked'
             let paperType = 'watermark';
-            changePaper(paperType)
+            changePaper(paperType);
             // change value of on-screen control to match
-            $(`#${paperType}`).prop('checked', true)
+            $(`#${paperType}`).prop('checked', true);
         }
 
         if (keys.includes('smoothing')) {
@@ -182,8 +173,6 @@ function configureSketchbook() {
                 changeSmoothing(smoothing);
                 // change value of on-screen control to match
                 $('#smoothing').val(smoothing);
-            }).catch(function(err) {
-                console.log(err);
             });
         } else {
             // if smoothing is not saved with localforage, set to 0.65
@@ -199,8 +188,6 @@ function configureSketchbook() {
                 sketchbook.adaptiveStroke = adaptiveStroke;
                 // use ternary operator with adaptiveStroke boolean to select on or off checkbox
                 $(`#adaptive-stroke-${adaptiveStroke ? 'on' : 'off'}`).prop('checked', true);
-            }).catch(function(err) {
-                console.log(err);
             });
         } else {
             // if adaptiveStroke is not saved with localforage, set to false
@@ -210,9 +197,7 @@ function configureSketchbook() {
             $(`#adaptive-stroke-${adaptiveStroke ? 'on' : 'off'}`).prop('checked', true);
         }
 
-    }).catch(function(err) {
-        console.log(err);
-    })}
+    });}
 
 /**
  * Takes a colour as a string and uses it to set the Atrament canvas' current colour. Saves the selected colour in
@@ -332,7 +317,7 @@ function saveDrawingToDb() {
         // get value of title field
         let title = $('#id_title').val();
         // append csrf token, save_slot, title and canvas blob to form
-        formData.append('csrfmiddlewaretoken', csrf[0].value)
+        formData.append('csrfmiddlewaretoken', csrf[0].value);
         formData.append('save_slot', saveSlot);
         formData.append('title', title);
         formData.append('image', blob, 'drw.png');
@@ -345,26 +330,26 @@ function saveDrawingToDb() {
             data: formData,
             success: function (response) {
                 // display alert to notify user of successful save
-                displayToast('success', 'Your drawing has been saved!')
+                displayToast('success', 'Your drawing has been saved!');
                 // find the preview image corresponding to the selected save slot
-                let savePreview = $('#save-preview-' + saveSlot)
+                let savePreview = $('#save-preview-' + saveSlot);
                 // update the preview image with the url returned in the JSON response
-                savePreview.attr('src', response['url'])
+                savePreview.attr('src', response.url);
                 // update the title dictionary with the submitted title
-                updateTitleDict(saveSlot, title)
+                updateTitleDict(saveSlot, title);
                 // update the load button state
-                setLoadButtonState(saveSlot)
+                setLoadButtonState(saveSlot);
             },
             error: function (error) {
-                displayToast('error', 'Something seems to have gone wrong. Please try again.')
+                displayToast('error', 'Something seems to have gone wrong. Please try again.');
             },
             cache: false,
             // set contentType and processData to false to allow passing files
             // to the server
             contentType: false,
             processData: false,
-        })
-    })
+        });
+    });
 }
 
 /**
@@ -391,7 +376,7 @@ function loadDrawingFromDb() {
         // on success, load the image
         success: function (response) {
             // clear canvas
-            sketchbook.clear()
+            sketchbook.clear();
             // get canvas context
             let canvasContext = canvas.getContext('2d');
 
@@ -410,16 +395,16 @@ function loadDrawingFromDb() {
             // update the canvas once the image has been loaded
             drawing.onload = function (event) {
                 canvasContext.drawImage(event.target, 0, 0);
-                displayToast('success', 'Your drawing has been loaded!')
+                displayToast('success', 'Your drawing has been loaded!');
                 // update the autosave
                 saveDrawingToLocal('autosave');
-            }
+            };
 
             // set the src attribute of the new Image as the response url 
             drawing.src = response.url;
         },
         error: function (response) {
-            displayToast('error', 'Something seems to have gone wrong. Please try again.')
+            displayToast('error', 'Something seems to have gone wrong. Please try again.');
         }
     });
 }
@@ -431,11 +416,8 @@ function saveDrawingToLocal(key) {
     // convert canvas drawing to blob
     canvas.toBlob(function (blob) {
         // save the blob locally with localForage
-        localforage.setItem(key, blob).catch(function (err) {
-            // catch any errors and print to console
-            console.log("Error: " + err);
-        })
-    })
+        localforage.setItem(key, blob);
+    });
 }
 
 /**
@@ -445,7 +427,7 @@ function loadDrawingFromLocal(key) {
     //  retreieve blob at given key from local storage using localForage
     localforage.getItem(key).then(function (blob) {
         // clear canvas
-        sketchbook.clear()
+        sketchbook.clear();
         // get canvas context
         let canvasContext = canvas.getContext('2d');
 
@@ -463,15 +445,12 @@ function loadDrawingFromLocal(key) {
             // revoke the no longer needed object url
             URL.revokeObjectURL(event.target.src);
             canvasContext.drawImage(event.target, 0, 0);
-        }
+        };
 
         // create an object url for the blob and assign it as the src attribute of the image 
         drawing.src = URL.createObjectURL(blob);
-    }).catch(function (err) {
-        // catch any errors and print to console
-        console.log("Error: " + err);
-    })
-};
+    });
+}
 
 /**
  * Disable all controls in the save / load modal
@@ -531,7 +510,7 @@ function updateTitleDict(saveSlot, newTitle) {
  */
  function setLoadButtonState(saveSlot) {
     // if the preview image for the selected save slot is the default blank image, disable the load button
-    let savePreviewSrc = $(`#save-preview-${saveSlot}`).attr('src')
+    let savePreviewSrc = $(`#save-preview-${saveSlot}`).attr('src');
     if (savePreviewSrc) {
         if (savePreviewSrc.slice(-9) == 'blank.svg') {
             $('#load-dialog-toggle').prop('disabled', true);
@@ -556,10 +535,10 @@ function updateTitleDict(saveSlot, newTitle) {
         type: "GET",
         // on success, load the new prompt
         success: function (response) {
-            drawingPrompt.textContent = response.prompt
+            drawingPrompt.textContent = response.prompt;
         },
         error: function (response) {
-            displayToast('error', 'Something seems to have gone wrong. Please try again.')
+            displayToast('error', 'Something seems to have gone wrong. Please try again.');
         }
     });
 }
@@ -634,13 +613,9 @@ document.getElementById('clear-sketchbook').addEventListener('click', function (
     localforage.removeItem('undoCache').then( function () {
         $('#undo-side').prop('disabled', true);
         $('#undo-bottom').prop('disabled', true);
-    }).catch(function(error) {
-        console.log(error);
-    })
+    });
     // also remove autosave
-    localforage.removeItem('autosave').catch(function(error) {
-        console.log(error);
-    })
+    localforage.removeItem('autosave');
 
 });
 
@@ -718,7 +693,7 @@ if (auth) {
     });
 
     // add an event listener to the save slot modal to restore the it to its default state after closing.
-    document.getElementById('saveModal').addEventListener('hidden.bs.modal', restoreSaveLoadState)
+    document.getElementById('saveModal').addEventListener('hidden.bs.modal', restoreSaveLoadState);
 
     // add an event listener to the save slot selection checkboxes
     document.getElementById('drawing-save-slot').addEventListener('click', function (e) {
@@ -739,7 +714,7 @@ sketchbook.addEventListener('strokestart', function() {
     // enable the undo buttons
     $('#undo-side').prop('disabled', false);
     $('#undo-bottom').prop('disabled', false);
-})
+});
 
 // add event listener to the sketchbook to store the state before a fill is drawn
 sketchbook.addEventListener('fillstart', function() {
@@ -748,7 +723,7 @@ sketchbook.addEventListener('fillstart', function() {
     // enable the undo buttons
     $('#undo-side').prop('disabled', false);
     $('#undo-bottom').prop('disabled', false);
-})
+});
 
 // add event listener to the side menu undo button
 document.getElementById('undo-side').addEventListener('click', function() {
@@ -761,10 +736,8 @@ document.getElementById('undo-side').addEventListener('click', function() {
         $('#undo-bottom').prop('disabled', true);
         // update the autosave file
         saveDrawingToLocal('autosave');
-    }).catch(function(error) {
-        console.log(error);
-    })
-})
+    });
+});
 
 // add event listener to the bottom menu undo button
 document.getElementById('undo-bottom').addEventListener('click', function() {
@@ -777,35 +750,33 @@ document.getElementById('undo-bottom').addEventListener('click', function() {
         $('#undo-bottom').prop('disabled', true);
         // update the autosave file
         saveDrawingToLocal('autosave');
-    }).catch(function(error) {
-        console.log(error);
-    })
-})
+    });
+});
 
 // add event listener to the sketchbook to store the state after a stroke is drawn
 sketchbook.addEventListener('strokeend', function() {
     // call the saveDrawingToLocal function to store the canvas state for autosave
     saveDrawingToLocal('autosave');
-})
+});
 
 // add event listener to the sketchbook to store the state after a fill is drawn
 sketchbook.addEventListener('fillend', function() {
     // call the saveDrawingToLocal function to store the canvas state for autosave
     saveDrawingToLocal('autosave');
-})
+});
 
 // add event listener to call getPrompt function when get new prompt button is clicked 
-document.getElementById('get-prompt-button').addEventListener('click', getPrompt)
+document.getElementById('get-prompt-button').addEventListener('click', getPrompt);
 
 // add event listener to help button to trigger the appropriate intro.js tour based on current screen width
 // the tourMobile and tourDesktop variables contain the tour settings and steps and are defined in /sketchbook/js/tour.js
 document.getElementById('help-button').addEventListener('click', function() {
     if ($(window).width() < 1200) {
-        introJs().setOptions(tourMobile).start()
+        introJs().setOptions(tourMobile).start();
     } else {
-        introJs().setOptions(tourDesktop).start()
+        introJs().setOptions(tourDesktop).start();
     }
-})
+});
 
 // add event listener to launch appropriate intro.js tour when user clicks welcome modal help button
 document.getElementById('welcome-help-button').addEventListener('click', function() {
@@ -817,10 +788,10 @@ document.getElementById('welcome-help-button').addEventListener('click', functio
     } else {
         introJs().setOptions(tourDesktop).start();
     }
-})
+});
 
 // add event listener to update hideTutorial settings when user toggles checkbox
 document.getElementById('hide-welcome').addEventListener('change', function() {
     // set localforage hideTutorial value to match 'checked' property of checkbox
     localforage.setItem('hideTutorial', $('#hide-welcome').prop('checked'));
-})
+});
