@@ -75,8 +75,9 @@ const tourMobile = {
         },
     ],
     tooltipClass: 'customIntroJs',
-    exitOnOverlayClick: false
-}
+    exitOnOverlayClick: false,
+    overlayOpacity: 0.7
+};
 
 // intro.js tour for screens 1200px wide and above 
 const tourDesktop = {
@@ -170,5 +171,6 @@ const tourDesktop = {
             },
         ],
         tooltipClass: 'customIntroJs',
-        exitOnOverlayClick: false
-    }
+        exitOnOverlayClick: false,
+        overlayOpacity: 0.7
+    };
