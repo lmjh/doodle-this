@@ -96,7 +96,7 @@
                     <li class="list-group-item">
                         <strong>Order Number: </strong>
                         <span class="float-end">
-                            <a href="{% url 'order_confirmed' order_number=order.order_number %}">
+                            <a href="{% url 'order_details' order_number=order.order_number %}">
                                 {{ order.order_number }}
                             </a>
                         </span>

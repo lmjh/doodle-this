@@ -338,3 +338,16 @@ def cache_order_drawing(request):
         else:
             # return code 400 if the form is not valid
             return HttpResponse(status=400)
+
+
+def order_details(request, order_number):
+    """
+    A view to show the details of a past order
+    """
+    # find the order or return a 404 error
+    order = get_object_or_404(Order, order_number=order_number)
+    template = "orders/order_details.html"
+    context = {
+        "order": order,
+    }
+    return render(request, template, context)

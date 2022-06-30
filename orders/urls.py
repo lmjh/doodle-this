@@ -16,4 +16,9 @@ urlpatterns = [
         views.order_confirmed,
         name="order_confirmed",
     ),
+    path(
+        "order_details/<order_number>",
+        views.order_details,
+        name="order_details",
+    ),
 ]
