@@ -14,6 +14,7 @@
         <div class="col-12 col-md-10 offset-md-1">
             <div class="content-panel p-3 mb-5 row">
                 <h1 class="col-12 mb-3 text-center">Add Product Image</h1>
+                <!-- add product image form -->
                 <form method="POST" action="{% url 'add_product_image' %}" class="row" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="col-12 col-md-6">
@@ -30,6 +31,8 @@
                         {{form.overlay_x_offset | as_crispy_field}}
                         {{form.overlay_y_offset | as_crispy_field}}
                     </div>
+                    <p class="small text-center"><em>Fields marked with a * are required.</em></p>
+                    <!-- submit button -->
                     <button class="btn btn-brand-primary col-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4 my-3"
                         type="submit">Add Product Image</button>
                 </form>
@@ -40,5 +43,6 @@
 {% endblock %}
 
 {% block page_js %}
+<!-- load javascript to position overlay preview over product image -->
 <script src="{% static 'admin/js/productImage.js' %}"></script>
 {% endblock %}
