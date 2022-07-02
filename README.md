@@ -164,6 +164,73 @@ Users with accounts can view their order history on their Account page and also 
 
 ## Database Design
 
+Doodle This uses an SQL relational database. An SQLite database was used in the development environment and the deployed site uses a PostgreSQL database. The full schema of models is below.
+
+![](documentation/readme_images/database/full_schema.svg)
+
+### Accounts App Models
+
+Two models have been defined for the Accounts app. 
+
+![](documentation/readme_images/database/accounts_app_models.svg)
+
+The UserAccount model has a one-to-one relationship with the User model from Django’s authentication system. An instance of the UserAccount model is created automatically when a User instance is created. The UserAccount model stores a user’s delivery information.
+
+The Drawing model is responsible for storing a user’s saved drawings. It has a many-to-one relationship with the UserAccount model, reflecting that a single user can have multiple saved drawings. The Drawing model stores the drawing’s title, its save-slot, and the image itself.
+
+### Prints App Models
+
+Four models have been defined for the Prints app.
+
+![](documentation/readme_images/database/prints_app_models.svg)
+
+The Category model is a model for categorising products. It contains a name (which must be unique) and a display_name for storing a more human-readable name. The Category isn’t currently used in the front-end of the site, but is included as it helps to keep Products organised and will be used for filtering when the shop's inventory grows.
+
+The Product model has a many-to-one relationship with Category and represents a specific type of product. For example, the ‘T-Shirts’ Product belongs to the ‘Clothing’ category. The Product model stores a description of the product and its name. 
+
+The Product model also stores the product’s ‘variant type’, which refers to the kind of variants the product has (see below). The two variant types currently defined are ‘Colours’ and ‘Sizes’, though more could be added if needed. For example, a product might have ‘Weight’ or ‘Length’ variants, etc.
+
+The ProductVariant model has a many-to-one relationship with Product and represents each individual variant of a Product. For example, the ‘Mugs’ product has the variant_type of ‘Colours’ and two variants, ‘black’ and ‘white’. The ProductVariant model stores the variant’s name, its SKU (which must be unique), its price and also the Product to which it belongs. It can also optionally have an additional description and an image. 
+
+Different variants of the same product can have different prices and images. In the deployed site, this functionality can be seen on the Framed Prints page, where larger prints have higher prices, and the Mugs page, where a preview image of both white and black mugs is available.
+
+The ProductVariant’s name and display_name fields do not have to be unique, because it is likely to be necessary for there to be duplicate names (e.g. a T-Shirt and a Hoodie might both have a ‘Large’ variant). However, a Product shouldn’t have two ProductVariants with the same name. The ProductVariant model therefore uses the ‘unique_together’ option to disallow duplicate names for the same Product ForeignKey.
+
+The ProductImage model represents the images of products shown to customers on the prints pages. It has a one-to-many relationship with both Products and ProductVariants. ProductImages store an image and the information required to overlay the user’s drawings over the image on the print details pages.
+
+### Orders App Models
+
+Four models have been defined for the Orders app.
+
+![](documentation/readme_images/database/orders_app_models.svg)
+
+The Order model represents an order that the customer has placed. Instances of this model are created after payment has been confirmed by Stripe, either by submission of a form to the checkout view or by a function triggered by a Stripe webhook, if the form submission fails.
+
+The Order model contains the main details of the order, including delivery and contact details, a unique order number, costs, and the stripe payment id. If the order was placed by a logged-in user, the user’s account is linked as a ForeignKey (many-to-one relationship).
+
+The OrderDrawing model represents a user’s drawing that they wish to have printed on a product. The model stores the image itself and the ‘save slot’ it comes from (save slot 0 is used for unsaved drawings from the user’s sketchbook). Each OrderDrawing is linked to  a single Order with a ForeignKey field (many-to-one) but can be linked to several OrderItems (one-to-many).
+
+The OrderItem model represents each item in an order. Each OrderItem is linked to a single Order, a single OrderDrawing and a single ProductVariant by ForeignKey (many-to-one).
+
+Each OrderItem represents a unique pairing of ProductVariant and OrderDrawing for a particular order (e.g. a ‘black mug’ printed with save slot 1 is a separate OrderItem from a black mug printed with save slot 2). OrderItems store the quantity and price of the particular variant/drawing pairing they represent.
+
+The OrderDrawingCache model is used to store unsaved drawings (i.e. drawings directly from the user’s sketchbook, not from a save slot) while orders are processed. This is necessary as otherwise it wouldn’t be possible to create orders with unsaved drawings by webhook, as it is not possible to pass an image to Stripe to be returned with the payment data.
+
+When a user places an order with an unsaved drawing, the javascript first uses AJAX to post the unsaved drawing and the Stripe payment intent id to the server, where they are stored in an OrderDrawingCache instance. Once payment is processed, the drawing is retrieved using the unique payment intent id by whichever process is creating the order (the checkout view if the order form was submitted successfully, or the webhook if it wasn’t).
+
+### Prompts App Models
+
+Four simple models were defined for the Prompts app, each consisting of a list of words for use in the random drawing prompt generation functions that I wrote.
+
+![](documentation/readme_images/database/prompts_app_models.svg)
+
+Prompt generation works by first randomly selecting a pattern function from seven predefined patterns, then randomly selecting words from the Prompts app models to fill out the pattern. For example, if the adjective_creature() pattern function is selected, the function will randomly select a word from the Adjective table and a word from the Creature table, then combine them into a string and return it.
+
+The Activity and Location models each only have one field, which can be a single word or a sentence fragment (e.g. activity: “running” or location: “in a forest”).
+
+The Adjective and Creature models additionally have a ‘determiner’ field which stores the word’s determiner (‘a’ or ‘an’) and is used conditionally by the prompt functions depending on the position of the word in the pattern. For example, the creature_location function would use the creature’s determiner (‘a dog in a forest’), while the adjective_creature_location function would use the adjective’s determiner (‘a good dog in a forest’).
+
+The Creature model also has a plural field which stores the plural word for that creature. This isn’t used yet by any of the patterns, but is included as it will be used in planned additional pattern functions in the future.
 
 
 ***
