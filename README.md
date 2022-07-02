@@ -237,6 +237,61 @@ The Creature model also has a plural field which stores the plural word for that
 
 ## Future Features
 
+### 1. Improved Product Overlay Preview
+
+I have built a custom image upload widget which shows a preview of the image to be uploaded and sets an overlay over it using the user's input. This works well, but it's a little fiddly to have to guess at the width and offset numbers and get to the right values through trial and error. A better system would allow users to position and scale the overlay with the mouse and then have the offset and width values automatically generated.
+
+### 2. Better Image/File Management. 
+
+By default, Django doesn't delete files (such as the images in image fields) when they're replaced; it simply adds a new file and updates the pointer. This is good for maintaining database integrity when multiple models could reference the same files, but in my case it means the number of images stored could grow exponentially as users update their saved drawings.
+
+This issue could be managed by some functions to regularly scan for images that are stored but not referenced by any models and delete them. Similarly, images from orders that have been completed could be removed. 
+
+Packages like [django-cleanup](https://github.com/un1t/django-cleanup) and [django-unused-media](https://github.com/akolpakov/django-unused-media) are available, which may assist with implementing this.
+
+### 3. More Varied Drawing Prompts
+
+The current drawing prompt system is adequate and provides enough variety to be a good proof of concept, but it could be improved. Simply expanding the words lists would be an improvement, and it would also be quite simple to add more patterns.
+
+Another improvement I'd like to make with more development time would be to add some configurable settings to the prompt generation. A complexity option would be useful, so users could request simple prompts or more challenging prompts. It could also be possible to add categories to some of the word lists and allow users to select categories that interest them (e.g. animals, people, certain activities, etc.).
+
+### 4. Replace Functions With AJAX Views
+
+Some of the site's view functions trigger unnecessary redirects, when AJAX functions could perform the same actions without forcing a page change or reload. For example, the shopping cart redirects the user back to itself when updating cart items. This could be achieved by making an AJAX request and then pushing resulting notifications with the Javascript notifications app I built.
+    
+### 5. Improved Colour Mixer Labelling
+
+I don't think it's very clear at the moment that users can click the Coloris colour mixer button to mix their own colours. This is pointed out in the introductory tour, but not all users will go through that. A label or symbol of some kind could be added to make this feature more obvious.
+
+### 6. Portrait Mode
+
+As well as simply providing users with more options, adding a portrait mode to the drawing canvas would likely improve the experience for smartphone users.
+
+The sketchbook page layout is responsive and I've tried to make the best use of the available screen space on a range of devices. However, a profile drawing mode would likely be a better experience for smartphone users.
+
+Adding another canvas shape option would add another order of complexity to virtually every other site function, so I ruled it out for this time-limited project. I would like to revisit this in the future, though.
+    
+### 7. Canvas Zoom
+
+Another option for improving the site experience for smartphone users would be an option to zoom and pan the canvas. The site already uses CSS scale transforms to resize the canvas to respond to viewport dimensions. The same technology could be used to allow users to zoom.
+    
+### 8. Subscription Service for More Save Slots
+
+Users are limited to three save slots. This was a design decision based on keeping things simple and avoiding the issue of exponential storage requirement growth that could result from offering unlimited drawing storage. However, it could be possible to offer users more drawing save slots for a small subscription fee, which would offset the storage costs.
+    
+### 9. Improved Product Management
+
+The product management sections of the site are functional but aren’t the most aesthetically pleasing parts of the site. I decided not to spend too much time on the look of these pages, as they are only intended to be viewed by staff and the functionality is more important. A little more time spent here could improve the UX for staff, though.
+
+Additionally, the product management main page uses responsive Bootstrap tables to display information about the shop items. These do the job, but the way Bootstrap tables are made responsive is by allowing horizontal scrolling on small screens. This means that all of the information and tools are accessible, but the user experience isn’t great on small screens. 
+
+I decided this wasn’t a huge concern as, again, these pages are only for staff and the functionality is the important part, but with more development time I’d like to replace the tables with better responsive data layout, like those found on the Cart, Checkout and Account pages.
+
+### 10. Social Media Integration
+
+Another nice feature to have would be some forms of social media integration. Simply allowing users to share their drawings to social media sites could be a nice feature. 
+
+It might also be possible to facilitate users sending something like a drawing challenge to contacts on social media. This could be a randomly generated or user-written drawing prompt that a user sends to one or more friends, who attempt to draw it and send back their results.
 
 
 ***
