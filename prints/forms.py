@@ -1,4 +1,7 @@
+from decimal import Decimal
+
 from django import forms
+
 from .widgets import ProductImageInput
 from .models import ProductImage, Product, ProductVariant
 
@@ -36,3 +39,5 @@ class ProductVariantForm(forms.ModelForm):
     class Meta:
         model = ProductVariant
         fields = "__all__"
+
+    price = forms.DecimalField(min_value=Decimal("0.01"))
