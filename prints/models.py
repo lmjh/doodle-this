@@ -20,7 +20,7 @@ class Category(models.Model):
     display_name = models.CharField(max_length=120, null=False, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.display_name
 
 
 class ProductImage(models.Model):
@@ -94,7 +94,7 @@ class Product(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return self.display_name
 
 
 class ProductVariant(models.Model):
