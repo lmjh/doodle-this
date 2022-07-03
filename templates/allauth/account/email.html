@@ -15,7 +15,8 @@
 
     {% for emailaddress in user.emailaddress_set.all %}
     <div class="ctrlHolder form-check my-3">
-      <label for="email_radio_{{forloop.counter}}" class="{% if emailaddress.primary %}primary_email{%endif%} form-check-label">
+      <label for="email_radio_{{forloop.counter}}"
+        class="{% if emailaddress.primary %}primary_email{%endif%} form-check-label">
 
         <input id="email_radio_{{forloop.counter}}" type="radio" name="email" class="form-check-input"
           {% if emailaddress.primary or user.emailaddress_set.count == 1 %}checked="checked" {%endif %}
@@ -32,13 +33,19 @@
     </div>
     {% endfor %}
 
-    <div class="buttonHolder text-center my-5">
-      <button class="secondaryAction btn btn-brand-primary" type="submit"
-        name="action_primary">{% trans 'Make Primary' %}</button>
-      <button class="secondaryAction btn btn-brand-primary" type="submit"
-        name="action_send">{% trans 'Re-send Verification' %}</button>
-      <button class="primaryAction btn btn-brand-primary" type="submit"
-        name="action_remove">{% trans 'Remove' %}</button>
+    <div class="buttonHolder text-center my-5 row g-2">
+      <div class="col-12 col-lg-6">
+        <button class="secondaryAction btn btn-brand-primary w-100" type="submit"
+          name="action_primary">{% trans 'Make Primary' %}</button>
+      </div>
+      <div class="col-12 col-lg-6">
+        <button class="secondaryAction btn btn-brand-primary w-100" type="submit"
+          name="action_send">{% trans 'Re-send Verification' %}</button>
+      </div>
+      <div class="col-12 col-lg-6">
+        <button class="primaryAction btn btn-brand-primary w-100" type="submit"
+          name="action_remove">{% trans 'Remove' %}</button>
+      </div>
     </div>
 
   </fieldset>
@@ -57,8 +64,11 @@
 <form method="post" action="{% url 'account_email' %}" class="add_email">
   {% csrf_token %}
   {{ form|crispy }}
-  <div class="text-center">
-    <button name="action_add" type="submit" class="secondaryAction btn btn-brand-primary">{% trans "Add E-mail" %}</button>
+  <div class="row">
+    <div class="col-12 col-md-6 offset-md-3">
+      <button name="action_add" type="submit"
+        class="secondaryAction btn btn-brand-primary w-100">{% trans "Add E-mail" %}</button>
+    </div>
   </div>
 </form>
 {% endif %}
