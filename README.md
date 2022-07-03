@@ -8,58 +8,76 @@ Doodle This is a drawing web app that gives users randomly generated drawing pro
 
 ### User Stories
 
-#### New User Stories
+#### 1. New User Stories
 
-* As a new user I want to be able to quickly understand the purpose of the site so that I can decide if it provides value to me
-* As a new user I want to be able to quickly understand how to use the application so that I can start using it to create art
-* As a new user I want to be able to know where to look for help so that I can find answers to my questions
-* As a new user I want to be able to easily sign up for an account so that I can store my details and save my artwork
+* 1.1. As a new user I want to be able to quickly understand the purpose of the site so that I can decide if it provides value to me
+* 1.2. As a new user I want to be able to quickly understand how to use the application so that I can start using it to create art
+* 1.3. As a new user I want to be able to know where to look for help so that I can find answers to my questions
+* 1.4. As a new user I want to be able to easily sign up for an account so that I can store my details and save my artwork
 
-#### Registered User Stories
+#### 2. Registered User Stories
 
-* As a registered user I want to be able to easily log in to or out of my account so that I can access the data I've stored
-* As a registered user I want to be able to save my drawings so that I can access them later
-* As a registered user I want to be able to edit my saved drawings so that I can make changes to them after they're saved
-* As a registered user I want to be able to delete my saved drawings so that I can get rid of old drawings and make space for new ones
-* As a registered user I want to be able to save my shipping details so that I can checkout more quickly in future
+* 2.1. As a registered user I want to be able to easily log in to or out of my account so that I can access the data I've stored
+* 2.2. As a registered user I want to be able to save my drawings so that I can access them later
+* 2.3. As a registered user I want to be able to edit my saved drawings so that I can make changes to them after they're saved
+* 2.4. As a registered user I want to be able to delete my saved drawings so that I can get rid of old drawings and make space for new ones
+* 2.5. As a registered user I want to be able to save my shipping details so that I can checkout more quickly in future
 
-#### Drawing App User Stories
+#### 3. Drawing App User Stories
 
-* As a drawing app user I want to be able to use a selection of basic drawing tools so that I can create drawings
-* As a drawing app user I want to be able to select from a number of preset colours so that I can quickly create art with a balanced palette
-* As a drawing app user I want to be able to use custom colours so that I can draw with any colour I want
-* As a drawing app user I want to be able to generate random drawing prompts so that I can quickly get ideas about what to draw
+* 3.1. As a drawing app user I want to be able to use a selection of basic drawing tools so that I can create drawings
+* 3.2. As a drawing app user I want to be able to select from a number of preset colours so that I can quickly create art with a balanced palette
+* 3.3. As a drawing app user I want to be able to use custom colours so that I can draw with any colour I want
+* 3.4. As a drawing app user I want to be able to generate random drawing prompts so that I can quickly get ideas about what to draw
   
-#### Shopper User Stories
+#### 4. Shopper User Stories
 
-* As a shopper I want to be able to purchase products printed with my drawing so that I can own or gift a physical copy of my drawing
-* As a shopper I want to be able to view the products available to purchase so that I can decide if there are any I'd like to buy
-* As a shopper I want to be able to view product details so that I can find out more about the product and any variants available
-* As a shopper I want to be able to view a preview of my drawing on a product so that I can get an idea of how my artwork would look when printed
-* As a shopper I want to be able to easily manage my shopping cart so that I can select the products I want and see the costs
-* As a shopper I want to be able to easily checkout and pay for my order so that I can purchase the products I want
+* 4.1. As a shopper I want to be able to purchase products printed with my drawing so that I can own or gift a physical copy of my drawing
+* 4.2. As a shopper I want to be able to view the products available to purchase so that I can decide if there are any I'd like to buy
+* 4.3. As a shopper I want to be able to view product details so that I can find out more about the product and any variants available
+* 4.4. As a shopper I want to be able to view a preview of my drawing on a product so that I can get an idea of how my artwork would look when printed
+* 4.5. As a shopper I want to be able to easily manage my shopping cart so that I can select the products I want and see the costs
+* 4.6. As a shopper I want to be able to easily checkout and pay for my order so that I can purchase the products I want
 
-#### Admin User Stories
+#### 5. Admin User Stories
 
-* As a site administrator I want to be able to add new products and product variants so that I can sell new products in the store.
-* As a site administrator I want to be able to update the products and product variants in the store so that I can change their details, prices and images.
-* As a site administrator I want to be able to delete products and variants from the store so that I can remove products that are no longer sold.
+* 5.1. As a site administrator I want to be able to add new products and product variants so that I can sell new products in the store.
+* 5.2. As a site administrator I want to be able to update the products and product variants in the store so that I can change their details, prices and images.
+* 5.3. As a site administrator I want to be able to delete products and variants from the store so that I can remove products that are no longer sold.
 
 ### Design
 
+The visual design of the site is inspired by the look of modern, professional design software (such as Adobe Photoshop or Affinity Designer), which usually features a dark user interface. 
 
+Dark user interfaces are easy on the eye for people who spend a long time drawing or designing, and also have the advantage of providing an undistracting backdrop to the user’s artwork. They can, however, look quite cold and unwelcoming to some people. 
 
-#### Colours and Shades
+My aim with the visual design of this project was to try to implement a generally dark UI, inspired by modern art and design software, but with some design touches to give it a warmer, more casual and fun look.
 
+#### Colours
 
+Doodle This features a dark UI and most site elements are rendered in shades of dark grey. 
+
+To add some vibrancy and energy to the design, I chose a bright, warm orange colour as the primary brand colour and this is used throughout the site to accent and emphasise elements.
+
+I added a two-tone vector drawing of the site’s logo image to the background of every page. Most content is rendered on semi-transparent panels that show the background, which helps prevent surfaces from looking too flat.
+
+I also added drop shadows to many site elements, to give the design a sense of depth. Some elements (such as the navigation bar) also have subtle gradients applied to them to enhance this impression of depth.
+
+Very few colours other than the main brand orange colour are used in the site outside of the sketchbook page. This is intended to reduce visual clutter and to make the user’s own colourful drawings stand out on pages like the product details views, the shopping cart and the gallery section. It also serves to make the few elements that do have colours applied - like the toast notifications and some call to action buttons - stand out against the background.
 
 #### Typography
 
+Two different fonts are used on the site, both sourced from [Google Fonts](https://fonts.google.com/). 
 
+[Baloo 2](https://fonts.google.com/specimen/Baloo+2)  is used for headings, buttons and the site logo. Its wide, rounded letters work well in heavier font weights and give it a friendly appearance. All other elements use [Quicksand](https://fonts.google.com/specimen/Quicksand), which is similar to Baloo 2 in that it has rounded letters, but is thinner and better suited to lighter font weights. Both fonts are highly legible, which is always a priority when selecting webfonts, and I think the combination of two light / heavy rounded fonts works well.
 
 #### Imagery
 
+The sketchbook page features a vector illustration of a sketchbook, which I drew to provide the backdrop for the user’s drawing area. In contrast to the majority of the rest of the site, which is rendered mostly in dark greys with accenting from the brand orange colour, the sketchbook illustration features a few different colours and shades. This sketchbook and the way it’s coloured is intended to make the drawing area feel natural and welcoming, inviting users to doodle on the page.
 
+When designing the four tool icons, I wanted to make the purpose of the tools as clear as possible, while also having a distinctive style and aesthetic. I settled on designs that use stark dark/light contrast and are highlighted with the bright brand colour when hovered or selected. The buttons also expand a little when hovered or selected, which gives them a slight impression of tactility, like they’re being pulled upwards by the user.
+
+On the prints page and the individual products pages, I chose to use product mockups with bright white backdrops, as this makes them stand out strongly in the context of the site’s dark interface. The product mockups are all sourced from [mockups-design.com](https://mockups-design.com/).
 
 ### Wireframes
 
@@ -300,11 +318,36 @@ It might also be possible to facilitate users sending something like a drawing c
 
 ### Languages Used
 
-
+* [HTML5](https://en.wikipedia.org/wiki/HTML5)
+* [CSS3](https://en.wikipedia.org/wiki/CSS)
+* [JavaScript](https://en.m.wikipedia.org/wiki/JavaScript)
+* [Python](https://en.m.wikipedia.org/wiki/Python_(programming_language))
 
 ### Frameworks, Libraries & Programs Used
 
+[GitHub](https://github.com/) - Used for version control.  
+[GitPod](https://gitpod.io/) - Used to write all code and test before deploying to GitHub.  
+[Django 3.2](https://docs.djangoproject.com/en/4.0/releases/3.2/) - Used as the project's web framework.  
+[Bootstrap 5](https://getbootstrap.com/) - Bootstrap 5 framework used extensively to create layout and styling of site.
+[jQuery](https://jquery.com/) - Used extensively, particularly in the Sketchbook javascript file.  
+[Heroku](https://heroku.com/) - Used to deploy the site.  
+[Atrament.js](https://github.com/jakubfiala/atrament.js) - Used to provide the drawing canvas and the pencil, fill and eraser tools.  
+[Coloris](https://github.com/mdbassit/Coloris) - Used to provide the colour mixer on the sketchbook page.  
+[intro.js](https://introjs.com/) - Used to create the user onboarding tour.  
+[Allauth](https://github.com/pennersr/django-allauth) - Used to provide many user account features.  
+[Crispy Forms](https://github.com/django-crispy-forms/django-crispy-forms) - Used along with [Crispy Bootstrap 5](https://github.com/django-crispy-forms/crispy-bootstrap5) to style Django forms.  
+[localForage](https://github.com/localForage/localForage) - Used to handle all storage of data and images in a user's browser.  
+[Balsamiq](https://balsamiq.com/) - Used to produce design wireframes.  
+[Materialize](https://materializecss.com/) - I used a few box shadow styles from the Materialize CSS framework, as I prefer these to Bootstrap's native shadow classes. 
+[Affinity Designer](https://affinity.serif.com/en-gb/designer/) - Used to design logo, icons and illustrations.  
+[Affinity Photo](https://affinity.serif.com/en-gb/designer/) - Used to customise the mockups from [Mockups Design](https://mockups-design.com/) used for product images.  
+[DBDiagram](dbdiagram.io) - Used to create initial database diagrams, though I made substantial changes to most aspects of the generated diagrams with Affinity Designer.  
 
+[Tables Generator](https://www.tablesgenerator.com/markdown_tables) - Used to generate markdown tables for README.md and TESTING.md  
+[W3C.org](https://www.w3.org/) - W3C [HTML Validator](https://validator.w3.org/nu/) and [CSS Validator](https://jigsaw.w3.org/css-validator/validator) used to check HTML and CSS code for errors.  
+[JSHint](https://jshint.com/) - Used to check JavaScript for errors.  
+[PEP8 Online](http://pep8online.com/) - Used to check Python code for errors.  
+[GraphBerry](https://www.graphberry.com/item/flat-devices-mockup) - Used to source the device templates for the site mockup at the top of this readme.  
 
 ***
 
@@ -317,3 +360,7 @@ Please see [TESTING.md](TESTING.md) for details of tests performed and bugs fixe
 ## Deployment
 
 ## Other Credits and Acknowledgements
+
+* I based my random word selection function on the one in the [Django ORM Cookbook](https://books.agiliq.com/projects/django-orm-cookbook/en/latest/random.html). 
+* Product mockup templates were sourced from the excellent collection at [Mockups Design](https://mockups-design.com/).
+* Although the purpose and process was different to mine, [this youtube video](https://www.youtube.com/watch?v=oWd7SAuCIRM) helped me figure out how to get a user's image data from a canvas into a database ImageField.
