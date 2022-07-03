@@ -41,7 +41,7 @@
 
 * A large help button is situated in the sketchbook's left/top control panel, which launches the intro tour.  
 ![](documentation/testing_images/user_stories/user-story-1-3-1.jpg)
-* An FAQ is linked in the main navigation bar, which provides more information about the site.
+* An FAQ is linked in the main navigation bar, which provides more information about the site.  
 ![](documentation/testing_images/user_stories/user-story-1-3-2.jpg)
 
 **1.4. As a new user I want to be able to easily sign up for an account so that I can store my details and save my artwork**
@@ -238,7 +238,29 @@
 
 ## Responsiveness Testing
 
+All the main pages of the site were tested for responsiveness using the Firefox browser Responsive Design Mode and screen widths of 350px, 810px and 1280px and screenshots are collected below. I tested all of the allauth account related pages, though for the sake of brevity I've only included screenshots of the tests of the most used pages (login, logout and register), as the pages all have very similar layouts.
 
+|           Page           |                                     **Mobile (350px)**                                    |                                     **Tablet (810px)**                                    |                                     **Desktop (1280px)**                                    |
+|:------------------------:|:-----------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------:|
+| **Sketchbook**           | ![](documentation/testing_images/responsiveness_testing/350/350-sketchbook.png)           | ![](documentation/testing_images/responsiveness_testing/810/810-sketchbook.png)           | ![](documentation/testing_images/responsiveness_testing/1280/1280-sketchbook.png)           |
+| **Logout**               | ![](documentation/testing_images/responsiveness_testing/350/350-logout.png)               | ![](documentation/testing_images/responsiveness_testing/810/810-logout.png)               | ![](documentation/testing_images/responsiveness_testing/1280/1280-logout.png)               |
+| **Login**                | ![](documentation/testing_images/responsiveness_testing/350/350-login.png)                | ![](documentation/testing_images/responsiveness_testing/810/810-login.png)                | ![](documentation/testing_images/responsiveness_testing/1280/1280-login.png)                |
+| **Signup**               | ![](documentation/testing_images/responsiveness_testing/350/350-signup.png)               | ![](documentation/testing_images/responsiveness_testing/810/810-signup.png)               | ![](documentation/testing_images/responsiveness_testing/1280/1280-signup.png)               |
+| **Account**              | ![](documentation/testing_images/responsiveness_testing/350/350-account.png)              | ![](documentation/testing_images/responsiveness_testing/810/810-account.png)              | ![](documentation/testing_images/responsiveness_testing/1280/1280-account.png)              |
+| **Show All Prints**      | ![](documentation/testing_images/responsiveness_testing/350/350-show-all-prints.png)      | ![](documentation/testing_images/responsiveness_testing/810/810-show-all-prints.png)      | ![](documentation/testing_images/responsiveness_testing/1280/1280-show-all-prints.png)      |
+| **Product Details**      | ![](documentation/testing_images/responsiveness_testing/350/350-product-details.png)      | ![](documentation/testing_images/responsiveness_testing/810/810-product-details.png)      | ![](documentation/testing_images/responsiveness_testing/1280/1280-product-details.png)      |
+| **Cart**                 | ![](documentation/testing_images/responsiveness_testing/350/350-cart.png)                 | ![](documentation/testing_images/responsiveness_testing/810/810-cart.png)                 | ![](documentation/testing_images/responsiveness_testing/1280/1280-cart.png)                 |
+| **Checkout**             | ![](documentation/testing_images/responsiveness_testing/350/350-checkout.png)             | ![](documentation/testing_images/responsiveness_testing/810/810-checkout.png)             | ![](documentation/testing_images/responsiveness_testing/1280/1280-checkout.png)             |
+| **Order Confirmed**      | ![](documentation/testing_images/responsiveness_testing/350/350-order-confirmed.png)      | ![](documentation/testing_images/responsiveness_testing/810/810-order-confirmed.png)      | ![](documentation/testing_images/responsiveness_testing/1280/1280-order-confirmed.png)      |
+| **Order Details**        | ![](documentation/testing_images/responsiveness_testing/350/350-order-details.png)        | ![](documentation/testing_images/responsiveness_testing/810/810-order-details.png)        | ![](documentation/testing_images/responsiveness_testing/1280/1280-order-details.png)        |
+| **Faq**                  | ![](documentation/testing_images/responsiveness_testing/350/350-faq.png)                  | ![](documentation/testing_images/responsiveness_testing/810/810-faq.png)                  | ![](documentation/testing_images/responsiveness_testing/1280/1280-faq.png)                  |
+| **Product Management**   | ![](documentation/testing_images/responsiveness_testing/350/350-product-management.png)   | ![](documentation/testing_images/responsiveness_testing/810/810-product-management.png)   | ![](documentation/testing_images/responsiveness_testing/1280/1280-product-management.png)   |
+| **Add Product**          | ![](documentation/testing_images/responsiveness_testing/350/350-add-product.png)          | ![](documentation/testing_images/responsiveness_testing/810/810-add-product.png)          | ![](documentation/testing_images/responsiveness_testing/1280/1280-add-product.png)          |
+| **Edit Product**         | ![](documentation/testing_images/responsiveness_testing/350/350-edit-product.png)         | ![](documentation/testing_images/responsiveness_testing/810/810-edit-product.png)         | ![](documentation/testing_images/responsiveness_testing/1280/1280-edit-product.png)         |
+| **Add Product Variant**  | ![](documentation/testing_images/responsiveness_testing/350/350-add-product-variant.png)  | ![](documentation/testing_images/responsiveness_testing/810/810-add-product-variant.png)  | ![](documentation/testing_images/responsiveness_testing/1280/1280-add-product-variant.png)  |
+| **Edit Product Variant** | ![](documentation/testing_images/responsiveness_testing/350/350-edit-product-variant.png) | ![](documentation/testing_images/responsiveness_testing/810/810-edit-product-variant.png) | ![](documentation/testing_images/responsiveness_testing/1280/1280-edit-product-variant.png) |
+| **Add Product Image**    | ![](documentation/testing_images/responsiveness_testing/350/350-add-product-image.png)    | ![](documentation/testing_images/responsiveness_testing/810/810-add-product-image.png)    | ![](documentation/testing_images/responsiveness_testing/1280/1280-add-product-image.png)    |
+| **Edit Product Image**   | ![](documentation/testing_images/responsiveness_testing/350/350-edit-product-image.png)   | ![](documentation/testing_images/responsiveness_testing/810/810-edit-product-image.png)   | ![](documentation/testing_images/responsiveness_testing/1280/1280-edit-product-image.png)   |
 
 ***
 
