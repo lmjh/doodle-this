@@ -4,15 +4,18 @@
 <html class="h-100" lang="en">
 
 <head>
+    <!-- Sitewide meta tags -->
     {% block meta %}
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {% endblock %}
 
+    <!-- Page-specific meta tags -->
     {% block page_meta %}
     {% endblock %}
     
+    <!-- Third-party CSS -->
     {% block vendor_css %}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" 
             integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" 
@@ -26,13 +29,16 @@
             rel="stylesheet"> 
     {% endblock %}
 
+    <!-- Sitewide CSS -->
     {% block site_css %}
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% endblock %}
 
+    <!-- Page-specific CSS -->
     {% block page_css %}
     {% endblock %}
 
+    <!-- Page-specific head elements -->
     {% block page_head %}
     {% endblock %}
 
@@ -45,22 +51,28 @@
 </head>
 
 <body class="d-flex flex-column h-100">
+    <!-- Navigation bar -->
     <header>
         {% include 'includes/navbar.html' %}
     </header>
 
+    <!-- Main content area -->
     <main>
         {% block content %}
         {% endblock %}
     </main>
-    
+
+    <!-- Container for Bootstrap toast notifications -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toast-container"></div>
 
+    <!-- Site footer -->
     {% include 'includes/footer.html' %}
 
+    <!-- Page modals -->
     {% block page_modals %}
     {% endblock %}
 
+    <!-- Third-party javascript -->
     {% block vendor_js %}
     <!-- Load jQuery 3.6.0 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" 
@@ -78,14 +90,16 @@
     <script src="https://js.stripe.com/v3/"></script>
     {% endblock %}
 
+    <!-- Sitewide javascript -->
     {% block site_js %}
     <!-- Load js to handle toast notifications -->
     <script src="{% static 'notifications/js/notifications.js' %}"></script>
     {% endblock %}
 
+    <!-- Page-specific javascript -->
     {% block page_js %}
     {% endblock %}
 
-    <!--  -->
+    <!-- Add notification app message array as json -->
     {{ message_array|json_script:"json_messages" }}
 </html>
