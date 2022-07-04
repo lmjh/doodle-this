@@ -448,6 +448,10 @@ a[aria-expanded="true"] .fa-circle-minus {
 
 /* drawing canvas */
 
+#sketchbook-section {
+    z-index: 1;
+}
+
 #sketchbook-scaler {
     transform-origin: 0px 0px !important;
 }
