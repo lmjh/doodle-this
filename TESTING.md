@@ -245,7 +245,7 @@ All the main pages of the site were tested for responsiveness using the Firefox 
 | **Sketchbook**           | ![](documentation/testing_images/responsiveness_testing/350/350-sketchbook.png)           | ![](documentation/testing_images/responsiveness_testing/810/810-sketchbook.png)           | ![](documentation/testing_images/responsiveness_testing/1280/1280-sketchbook.png)           |
 | **Logout**               | ![](documentation/testing_images/responsiveness_testing/350/350-logout.png)               | ![](documentation/testing_images/responsiveness_testing/810/810-logout.png)               | ![](documentation/testing_images/responsiveness_testing/1280/1280-logout.png)               |
 | **Login**                | ![](documentation/testing_images/responsiveness_testing/350/350-login.png)                | ![](documentation/testing_images/responsiveness_testing/810/810-login.png)                | ![](documentation/testing_images/responsiveness_testing/1280/1280-login.png)                |
-| **Signup**               | ![](documentation/testing_images/responsiveness_testing/350/350-signup.png)               | ![](documentation/testing_images/responsiveness_testing/810/810-signup.png)               | ![](documentation/testing_images/responsiveness_testing/1280/1280-signup.png)               |
+| **Signup**               | ![](documentation/testing_images/responsiveness_testing/350/350-register.png)               | ![](documentation/testing_images/responsiveness_testing/810/810-register.png)               | ![](documentation/testing_images/responsiveness_testing/1280/1280-register.png)               |
 | **Account**              | ![](documentation/testing_images/responsiveness_testing/350/350-account.png)              | ![](documentation/testing_images/responsiveness_testing/810/810-account.png)              | ![](documentation/testing_images/responsiveness_testing/1280/1280-account.png)              |
 | **Show All Prints**      | ![](documentation/testing_images/responsiveness_testing/350/350-show-all-prints.png)      | ![](documentation/testing_images/responsiveness_testing/810/810-show-all-prints.png)      | ![](documentation/testing_images/responsiveness_testing/1280/1280-show-all-prints.png)      |
 | **Product Details**      | ![](documentation/testing_images/responsiveness_testing/350/350-product-details.png)      | ![](documentation/testing_images/responsiveness_testing/810/810-product-details.png)      | ![](documentation/testing_images/responsiveness_testing/1280/1280-product-details.png)      |
@@ -266,7 +266,122 @@ All the main pages of the site were tested for responsiveness using the Firefox 
 
 ## Compatibility Testing
 
+I tested the site for compatibility with Google Chrome, Mozilla Firefox and Microsoft Edge. I wasn't able to test Safari as I didn't have access to any Apple devices to test with.
 
+![](documentation/testing_images/compatibility_testing/chrome-compatibility-testing.jpg)
+![](documentation/testing_images/compatibility_testing/firefox-compatibility-testing.jpg)
+![](documentation/testing_images/compatibility_testing/edge-compatibility-testing.jpg)
+
+I created a list of tests to check all of the site's functionality was working and all pages were displaying correctly. I ran through every test on all three browsers. 
+
+|           Page           |                      **Test**                     |     **Chrome**     |     **Firefox**    |      **Edge**      |               **Notes**              |
+|:------------------------:|:-------------------------------------------------:|:------------------:|:------------------:|:------------------:|:------------------------------------:|
+|      **Sketchbook**      | Responsive layout rendering correctly             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|      **Sketchbook**      | All links functioning                             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|      **Sketchbook**      | All drawing tools functioning                     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|      **Sketchbook**      | All preset colours functioning                    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|      **Sketchbook**      | Coloris Color mixer functioning                   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|      **Sketchbook**      | All tool and canvas settings functioning          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|      **Sketchbook**      | All tool and canvas settings being stored         | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|      **Sketchbook**      | Prompt generation functioning                     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|      **Sketchbook**      | Intro tour functioning                            | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|      **Sketchbook**      | Save and load system functioning                  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | Canvas drift bug in Chrome and Edge. |
+|      **Sketchbook**      | Undo functioning                                  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|      **Sketchbook**      | Autosave functioning                              | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|      **Sketchbook**      | Welcome popup functioning                         | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|      **Sketchbook**      | Welcome popup hidden on request                   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|        **Signup**        | Responsive layout rendering correctly             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|        **Signup**        | All links functioning                             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|        **Signup**        | All form/validation elements functioning          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|        **Signup**        | Able to register account                          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|         **Login**        | Responsive layout rendering correctly             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|         **Login**        | All links functioning                             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|         **Login**        | All form/validation elements functioning          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|         **Login**        | Able to log in                                    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|        **Logout**        | Responsive layout rendering correctly             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|        **Logout**        | Able to log out                                   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|        **Logout**        | Able to clear sketchbook on logout                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|        **Nav Bar**       | Responsive layout rendering correctly             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|        **Nav Bar**       | All links functioning                             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|        **Nav Bar**       | Correct links showing for user                    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|        **Nav Bar**       | Correct links showing for staff                   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|        **Account**       | Responsive layout rendering correctly             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|        **Account**       | All links functioning                             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|        **Account**       | All form/validation elements functioning          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|        **Account**       | Able to update details                            | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|        **Account**       | Able to view saved drawings                       | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|        **Account**       | Able to delete saved drawings                     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|        **Account**       | Order history displaying correctly                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|    **Show All Prints**   | Responsive layout rendering correctly             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|    **Show All Prints**   | All links functioning                             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|    **Show All Prints**   | All products displayed                            | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|    **Product Details**   | Responsive layout rendering correctly             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|    **Product Details**   | All links functioning                             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|    **Product Details**   | Preview overlay rendering correctly               | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|    **Product Details**   | Price, description and overlay updating correctly | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|    **Product Details**   | Able to add to cart                               | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|         **Cart**         | Responsive layout rendering correctly             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|         **Cart**         | All links functioning                             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|         **Cart**         | All form/validation elements functioning          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|         **Cart**         | Cart icon updating correctly                      | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|         **Cart**         | Able to update quantities                         | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|         **Cart**         | Able to remove items                              | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|       **Checkout**       | Responsive layout rendering correctly             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|       **Checkout**       | All links functioning                             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|       **Checkout**       | All form/validation elements functioning          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|       **Checkout**       | Saved details prepopulating form                  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|       **Checkout**       | Able to save details                              | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|       **Checkout**       | Stripe elements rendering correctly               | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|       **Checkout**       | Able to place orders                              | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|    **Order Confirmed**   | Responsive layout rendering correctly             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|    **Order Confirmed**   | Confimration email sent and received              | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|     **Order Details**    | Responsive layout rendering correctly             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|          **FAQ**         | Responsive layout rendering correctly             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | Chrome and Edge card outline bug.    |
+|          **FAQ**         | All links functioning                             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|  **Product Management**  | Responsive layout rendering correctly             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|  **Product Management**  | All links functioning                             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|  **Product Management**  | Able to delete products                           | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|  **Product Management**  | Able to delete product variants                   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|  **Product Management**  | Able to delete product images                     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|      **Add Product**     | Responsive layout rendering correctly             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|      **Add Product**     | All form/validation elements functioning          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|      **Add Product**     | Able to add products                              | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|     **Edit Product**     | Responsive layout rendering correctly             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|     **Edit Product**     | All form/validation elements functioning          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|     **Edit Product**     | Fields prepopulating with data correctly          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|     **Edit Product**     | Able to edit products                             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|  **Add Product Variant** | Responsive layout rendering correctly             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|  **Add Product Variant** | All form/validation elements functioning          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|  **Add Product Variant** | Able to add product variants                      | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+| **Edit Product Variant** | Responsive layout rendering correctly             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+| **Edit Product Variant** | All form/validation elements functioning          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+| **Edit Product Variant** | Fields prepopulating with data correctly          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+| **Edit Product Variant** | Able to edit product variants                     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|   **Add Product Image**  | Responsive layout rendering correctly             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|   **Add Product Image**  | All form/validation elements functioning          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|   **Add Product Image**  | Image overlay preview functioning correctly       | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|   **Add Product Image**  | Able to add product images                        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|  **Edit Product Image**  | Responsive layout rendering correctly             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|  **Edit Product Image**  | All form/validation elements functioning          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|  **Edit Product Image**  | Image overlay preview functioning correctly       | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|  **Edit Product Image**  | Able to edit product images                       | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+
+Two issues were discovered during compatibility testing.
+
+Firstly, I discovered an issue in Chrome and Edge where the user's drawings were drifting across canvas when saved and reloaded repeatedly. 
+
+![](documentation/testing_images/compatibility_testing/chrome-canvas-drift.png)
+
+This bug has been fixed and more detail on this can be found in the 'Canvas Drift Bug' section of the Bugs document.
+
+
+Secondly, I discovered an issue in Chrome and Edge where the cards in the FAQ section had partial white outlines. This was simply caused by the card's white background being partially visible around the edge of a dark overlay that was on top of it. 
+
+![](documentation/testing_images/compatibility_testing/edge-faq-bug.jpg)
+
+This was simply resolved by removing the overlay and changing the white background to dark grey with CSS.
+
+![](documentation/testing_images/compatibility_testing/edge-faq-bug-fixed.jpg)
 
 ***
 
