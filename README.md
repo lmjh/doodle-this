@@ -353,7 +353,7 @@ It might also be possible to facilitate users sending something like a drawing c
 
 ## Testing
 
-Please see [TESTING.md](TESTING.md) for details of tests performed and bugs fixed.
+Please see [TESTING.md](TESTING.md) for details of tests performed and [BUGS.md](BUGS.md) for details of bugs fixed.
 
 ***
 

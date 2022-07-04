@@ -372,8 +372,7 @@ Firstly, I discovered an issue in Chrome and Edge where the user's drawings were
 
 ![](documentation/testing_images/compatibility_testing/chrome-canvas-drift.png)
 
-This bug has been fixed and more detail on this can be found in the 'Canvas Drift Bug' section of the Bugs document.
-
+This bug has been fixed and more detail on this can be found in the 'Canvas Drift Bug' section of the [Bugs](BUGS.md) document.
 
 Secondly, I discovered an issue in Chrome and Edge where the cards in the FAQ section had partial white outlines. This was simply caused by the card's white background being partially visible around the edge of a dark overlay that was on top of it. 
 
@@ -387,7 +386,7 @@ This was simply resolved by removing the overlay and changing the white backgrou
 
 ## Bugs Fixed
 
-
+Please see [BUGS.md](BUGS.md) for full details of bugs fixed.
 
 ***
 
