@@ -394,7 +394,7 @@ function loadDrawingFromDb() {
             
             // update the canvas once the image has been loaded
             drawing.onload = function (event) {
-                canvasContext.drawImage(event.target, 0, 0);
+                canvasContext.drawImage(event.target, -0.5, -0.5);
                 displayToast('success', 'Your drawing has been loaded!');
                 // update the autosave
                 saveDrawingToLocal('autosave');
@@ -444,7 +444,7 @@ function loadDrawingFromLocal(key) {
         drawing.onload = function (event) {
             // revoke the no longer needed object url
             URL.revokeObjectURL(event.target.src);
-            canvasContext.drawImage(event.target, 0, 0);
+            canvasContext.drawImage(event.target, -0.5, -0.5);
         };
 
         // create an object url for the blob and assign it as the src attribute of the image 
