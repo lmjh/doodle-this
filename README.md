@@ -61,9 +61,13 @@ To add some vibrancy and energy to the design, I chose a bright, warm orange col
 
 I added a two-tone vector drawing of the site’s logo image to the background of every page. Most content is rendered on semi-transparent panels that show the background, which helps prevent surfaces from looking too flat.
 
+![](documentation/readme_images/design/content-panels.jpg)
+
 I also added drop shadows to many site elements, to give the design a sense of depth. Some elements (such as the navigation bar) also have subtle gradients applied to them to enhance this impression of depth.
 
 Very few colours other than the main brand orange colour are used in the site outside of the sketchbook page. This is intended to reduce visual clutter and to make the user’s own colourful drawings stand out on pages like the product details views, the shopping cart and the gallery section. It also serves to make the few elements that do have colours applied - like the toast notifications and some call to action buttons - stand out against the background.
+
+![](documentation/readme_images/design/toast-success.jpg)
 
 #### Typography
 
@@ -75,9 +79,15 @@ Two different fonts are used on the site, both sourced from [Google Fonts](https
 
 The sketchbook page features a vector illustration of a sketchbook, which I drew to provide the backdrop for the user’s drawing area. In contrast to the majority of the rest of the site, which is rendered mostly in dark greys with accenting from the brand orange colour, the sketchbook illustration features a few different colours and shades. This sketchbook and the way it’s coloured is intended to make the drawing area feel natural and welcoming, inviting users to doodle on the page.
 
+![](documentation/readme_images/design/sketchbook.jpg)
+
 When designing the four tool icons, I wanted to make the purpose of the tools as clear as possible, while also having a distinctive style and aesthetic. I settled on designs that use stark dark/light contrast and are highlighted with the bright brand colour when hovered or selected. The buttons also expand a little when hovered or selected, which gives them a slight impression of tactility, like they’re being pulled upwards by the user.
 
+![](documentation/readme_images/design/tool-icons.jpg)
+
 On the prints page and the individual products pages, I chose to use product mockups with bright white backdrops, as this makes them stand out strongly in the context of the site’s dark interface. The product mockups are all sourced from [mockups-design.com](https://mockups-design.com/).
+
+![](documentation/readme_images/design/prints-page.jpg)
 
 ### Wireframes
 
