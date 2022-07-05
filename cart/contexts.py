@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.shortcuts import get_object_or_404
 
 from prints.models import ProductVariant
 from accounts.models import Drawing
@@ -58,7 +57,7 @@ def cart_contents(request):
             cart_count += item["quantity"]
 
     # update the session cart with the cleaned cart list to remove any product
-    # variants in the cart that weren't found in the database 
+    # variants in the cart that weren't found in the database
     request.session["cart"] = cleaned_cart
 
     delivery = settings.STANDARD_DELIVERY_FEE

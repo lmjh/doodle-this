@@ -83,8 +83,7 @@ class Order(models.Model):
         self.order_cost = (
             self.order_items.aggregate(Sum("order_item_total"))[
                 "order_item_total__sum"
-            ]
-            or 0
+            ] or 0
         )
         self.delivery_cost = settings.STANDARD_DELIVERY_FEE
         self.grand_total = self.order_cost + self.delivery_cost
