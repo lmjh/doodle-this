@@ -1,17 +1,93 @@
 # Testing of Doodle This
 ## Code Validation
 
+* HTML code validated with W3C [HTML Validator](https://validator.w3.org/nu/).
+
+* CSS code validated with W3C [CSS Validator](https://jigsaw.w3.org/css-validator/).
+
+* Javascript code validated with [JSHint](https://jshint.com/).
+
+* Python code validated with [PEP8 Online](http://pep8online.com/).
+
 ### HTML Validation
 
+All pages validated with no warnings or errors. 
 
+As the navbar renders differet content depending on whether a user is logged out, logged in, or logged in as staff, I tested it in each of the three states.
+
+|             **Page**             |                                 **Screenshot**                                |
+|:--------------------------------:|:-----------------------------------------------------------------------------:|
+|      **navbar.html (admin)**     | ![](documentation/testing_images/validation/html/admin.jpg)                   |
+|   **navbar.html (logged out)**   | ![](documentation/testing_images/validation/html/logged-out.jpg)              |
+|    **navbar.html (logged in)**   | ![](documentation/testing_images/validation/html/logged_in.jpg)               |
+|           **faq.html**           | ![](documentation/testing_images/validation/html/faq.jpg)                     |
+|         **profile.html**         | ![](documentation/testing_images/validation/html/profile.jpg)                 |
+|           **cart.html**          | ![](documentation/testing_images/validation/html/cart.jpg)                    |
+|         **checkout.html**        | ![](documentation/testing_images/validation/html/checkout.jpg)                |
+|     **order_confirmed.html**     | ![](documentation/testing_images/validation/html/order_confirmed.jpg)         |
+|      **order_details.html**      | ![](documentation/testing_images/validation/html/order_details.jpg)           |
+|    **add_product_image.html**    | ![](documentation/testing_images/validation/html/add_product_image.jpg)       |
+|   **add_product_variant.html**   | ![](documentation/testing_images/validation/html/add_product_variant.jpg)     |
+|       **add_product.html**       | ![](documentation/testing_images/validation/html/add_product.jpg)             |
+|    **edit_product_image.html**   | ![](documentation/testing_images/validation/html/edit_product_image.jpg)      |
+|   **edit_product_variant.html**  | ![](documentation/testing_images/validation/html/edit_product_variant.jpg)    |
+|       **edit_product.html**      | ![](documentation/testing_images/validation/html/edit_product.jpg)            |
+|     **product_details.html**     | ![](documentation/testing_images/validation/html/product_details.jpg)         |
+|    **product_management.html**   | ![](documentation/testing_images/validation/html/product_management.jpg)      |
+|     **show_all_prints.html**     | ![](documentation/testing_images/validation/html/show_all_prints.jpg)         |
+|        **sketchbook.html**       | ![](documentation/testing_images/validation/html/sketchbook.jpg)              |
+|      **email_confirm.html**      | ![](documentation/testing_images/validation/html/email_confirm.jpg)           |
+|          **email.html**          | ![](documentation/testing_images/validation/html/email.jpg)                   |
+|          **login.html**          | ![](documentation/testing_images/validation/html/login.jpg)                   |
+|          **logout.html**         | ![](documentation/testing_images/validation/html/logout.jpg)                  |
+|     **password_change.html**     | ![](documentation/testing_images/validation/html/password_change.jpg)         |
+| **password_reset_from_key.html** | ![](documentation/testing_images/validation/html/password_reset_from_key.jpg) |
+|      **password_reset.html**     | ![](documentation/testing_images/validation/html/password_reset.jpg)          |
+|       **password_set.html**      | ![](documentation/testing_images/validation/html/password_set.jpg)            |
+|          **signup.html**         | ![](documentation/testing_images/validation/html/signup.jpg)                  |
 
 ### CSS Validation
 
+All CSS files passed with no errors.
 
+|          File         |                           **Screenshot**                           |
+|:---------------------:|:------------------------------------------------------------------:|
+| **product-image.css** | ![](documentation/testing_images/validation/css/product-image.jpg) |
+|     **style.css**     | ![](documentation/testing_images/validation/css/style.jpg)         |
+|      **tour.css**     | ![](documentation/testing_images/validation/css/tour.jpg)          |
+
+The validator returned 21 warnings for style.css. The majority of these were because elements had the same color for background-color and border-color. This is intentional to override Bootstrap's default styles. The remaining few warnings were related to vendor pseudo-elements. These are also Bootstrap styles that are being overwritten.
+
+The validator returned 28 warnings for tour.css. All warnings were related to the css variables used and shouldn't be a concern.
 
 ### Javascript Validation
 
+All javascript files validated with no errors. Because I made significant changes to the Atrament library's atrament.js and pointer.js files in [my fork](https://github.com/lmjh/atrament.js/) of the library, I also validated those files.
 
+|       File       |                               **Screenshot**                              |                                                       **Notes**                                                       |
+|:----------------:|:-------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------:|
+| productImage.js  | ![](documentation/testing_images/validation/javascript/productImage.jpg)  |                                                                                                                       |
+| logout.js        | ![](documentation/testing_images/validation/javascript/logout.jpg)        | One undefined variable: localforage                                                                                   |
+| cart.js          | ![](documentation/testing_images/validation/javascript/cart.jpg)          | One undefined variable: localforage                                                                                   |
+| notifications.js | ![](documentation/testing_images/validation/javascript/notifications.jpg) | One undefined variable: bootstrap                                                                                     |
+| checkout.js      | ![](documentation/testing_images/validation/javascript/orders.jpg)        | Three undefined variables: Stripe, localforage, displayToast                                                          |
+| prints.js        | ![](documentation/testing_images/validation/javascript/prints.jpg)        | Two undefined variables: localforage, displayToast                                                                    |
+| sketchbook.js    | ![](documentation/testing_images/validation/javascript/sketchbook.jpg)    | Eight undefined variables - Atrament, Coloris, bootstrap, localforage, displayToast, introJs, tourMobile, tourDesktop |
+| tour.js          | ![](documentation/testing_images/validation/javascript/tour.jpg)          | Two unused variables: tourMobile, tourDesktop                                                                         |
+| atrament.js      | ![](documentation/testing_images/validation/javascript/atrament.png)      |                                                                                                                       |
+| pointer.js       | ![](documentation/testing_images/validation/javascript/pointer.png)       |                                                                                                                       |
+
+In various combinations, the validator returned 'undefined variable' warnings about the following objects:
+
+* Atrament - This comes from the Atrament library used to provide the drawing canvas. It is loaded in the base template.
+* Stripe - This comes from the Strip javascript files which provide the payment system. It is loaded in the base template. 
+* Coloris - This comes from the Coloris library which is used to provide the colour mixer. It is loaded in the sketchbook page template.
+* bootstrap -  This comes from Bootstrap 5 and is loaded in the base template.
+* localforage - This come from the localforage library which is used to manage local storage of files and variables. It is loaded in the base template.
+* displayToast -  This is a function I wrote to display notifications. It is defined in notifications.js and loaded in the base template.
+* introJs - This come from the library used to implement the homepage tour. It is loaded in the base template.
+
+The validator returned two 'unused variable' warnings about the tourMobile and tourDesktop objects in the tour.js file. These objects define the homepage tours. They are imported to the sketchbook.js file and used there.
 
 ### Python Validation
 
@@ -368,13 +444,13 @@ I created a list of tests to check all of the site's functionality was working a
 
 Two issues were discovered during compatibility testing.
 
-Firstly, I discovered an issue in Chrome and Edge where the user's drawings were drifting across canvas when saved and reloaded repeatedly. 
+Firstly, I discovered an issue in Chrome and Edge where the user's drawings were drifting across the canvas when saved and reloaded repeatedly. 
 
 ![](documentation/testing_images/compatibility_testing/chrome-canvas-drift.png)
 
 This bug has been fixed and more detail on this can be found in the 'Canvas Drift Bug' section of the [Bugs](BUGS.md) document.
 
-Secondly, I discovered an issue in Chrome and Edge where the cards in the FAQ section had partial white outlines. This was simply caused by the card's white background being partially visible around the edge of a dark overlay that was on top of it. 
+Secondly, I discovered an issue in Chrome and Edge where the cards in the FAQ section had partial white outlines. This was caused by the card's white background being partially visible around the edge of a dark overlay that was on top of it. 
 
 ![](documentation/testing_images/compatibility_testing/edge-faq-bug.jpg)
 
