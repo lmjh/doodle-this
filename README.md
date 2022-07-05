@@ -359,6 +359,164 @@ Please see [TESTING.md](TESTING.md) for details of tests performed and [BUGS.md]
 
 ## Deployment
 
+### Forking the GitHub Repository
+
+1. Log in to GitHub and locate the [GitHub Repository](https://github.com/lmjh/doodle-this)
+2. At the top right of the page, click the "Fork" Button.
+3. You should now have a copy of the original repository in your GitHub account.
+
+### Making a Local Clone
+
+You can download the project source code as a zip file by clicking the 'Code' dropdown at the top right of the file navigation window and selecting "Download as ZIP". You can then unzip that file to wherever you want your local copy to be.
+
+If you have Git installed on your computer, you can clone the project by following these steps:
+
+1. Log in to GitHub and locate the [repository](https://github.com/lmjh/doodle-this)
+2. Click the 'Code' dropdown at the top right of the file navigation window.
+3. Copy the link under 'Clone' and 'HTTPS' to clone the repository using HTTPS.
+4. Open Git Bash
+5. Change the current working directory to the location where you want the cloned directory to be made.
+6. Type `git clone`, and then paste the URL you copied in Step 3.
+
+```
+$ git clone https://github.com/lmjh/doodle-this.git
+```
+7. Press Enter. Your local clone will be created.
+
+Alternatively, if using Gitpod, you can click below to create your own workspace using this repository.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/lmjh/doodle-this)
+
+### Local Deployment
+
+Follow the steps below to deploy the project locally using VSCode.
+
+(N.B. These instructions are for deployment on a Windows system)
+
+1. Download and install [VSCode](https://code.visualstudio.com/).
+6. Open VSCode and click File > Open Folder, then select the folder containing your local cloned repository.
+7. Download and install [Python](https://www.python.org/downloads/).
+8. Download and install the [VSCode Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+9. In VSCode, open the command palette (Ctrl + Shift + P on Windows) and search for the Python: Select Interpreter. Click it, then select the version of Python you have installed.
+10. Open a terminal in VSCode and enter the following commands to create and activate a virtual environment:
+```
+py -3 -m venv .venv
+.venv\scripts\activate
+```
+11. Open the command palette and search for Python: Select Interpreter again. You should see your new virtual environment. Select it.
+12. In the terminal, enter the following command to install all required packages:
+```
+python -m pip install -r requirements.txt
+```
+13. Create a new file in your project directory called ".env".
+14. Add the following to the env.py file, replacing YOUR_SECRET_KEY with a suitable [secret key](https://docs.djangoproject.com/en/3.2/ref/settings/#secret-key):
+```
+DEVELOPMENT = 'True'
+SECRET_KEY = YOUR_SECRET_KEY
+```
+15. Check that all necessary database migrations are present by running the following terminal command. No changes should be detected, but if any are then run the command without the --dry-run flag to make migrations. 
+```
+python manage.py makemigrations --dry-run
+```
+16. Then apply migrations to the database with (if you wish, you can check which migrations will be applied before applying them by adding the --plan flag):
+```
+python manage.py migrate
+```
+17. Create a superuser by running the command `python manage.py createsuperuser` in the terminal.
+18. Run the following commands to load initial drawing prompt data:
+```
+python3 manage.py loaddata activities.json
+python3 manage.py loaddata adjectives.json
+python3 manage.py loaddata creatures.json
+python3 manage.py loaddata locations.json
+```
+19. Finally, start the server with `python manage.py runserver` and click the link displayed in the console to visit the locally deployed site. If you receive an 'Invalid HTTP_HOST header' error, copy the IP address in the error message and add it to the ALLOWED_HOSTS array on line 37 of settings.py, then restart the server.
+
+### Remote Deployment
+
+To deploy the application on Heroku, follow these steps:
+
+1. Sign in to [Heroku](https://www.heroku.com) or create an account.
+2. Check that you have a "requirements.txt" in your project's root directory. This file tells Heroku which packages are required. If you've cloned the main branch, this should already be present. If it's missing or if you have added any additional packages, you can generate a requirements.txt file by running the following command from the terminal of your IDE:
+```
+pip3 freeze --local > requirements.txt
+```
+3. Check that you have a "Procfile" in your app's root directory. This tells Heroku what kind of application you are trying to run. Again, if you've cloned the main branch, this should already be present. If it's missing, create a new file in your project's root directory called "Procfile" (no filename extension) and add the following to it:
+```
+release: python manage.py migrate
+web: gunicorn doodle_this.wsgi:application
+```
+4. Check that there are no trailing blank lines at the bottom of your procfile. Delete any empty lines.
+5. From your Heroku dashboard, click "New", then "Create a new app".
+6. Give the app a unique App name, pick the region closest to you, then click "Create App".
+7. Click the 'Resources' tab and under 'Add-ons' type 'postgres'. Click on the 'Heroku Postgres' addon and install it with the 'Hobby Dev - Free' plan selected.
+8. Click the 'Settings' tab and scroll down to 'Config Vars'. Add a new config variable called SECRET_KEY and assign to it a suitable [secret key](https://docs.djangoproject.com/en/3.2/ref/settings/#secret-key) value.
+9. Add another config variable called DISABLE_COLLECTSTATIC and give it the value 1, to temporarily disable collection of static files.
+10. In your project's settings.py file, add your Heroku app URL to the ALLOWED_HOSTS array. Commit and push your changes.
+11. Back on Heroku, click the 'Deploy' tab and under 'Deploy Method' click 'GitHub'. Find and connect to your repository, then under 'Manual Deploy' select the main branch and click 'Deploy Branch'. If you wish, you can also click the 'Enable Automatic Deploys' button to deploy automatically when changes are pushed to your github repository.
+12. Under 'Manual Deploy' select the main branch and click 'Deploy Branch'.
+13. Click the 'More' dropdown in the top right on Heroku and select "Run console'. Type `python3 manage.py createsuperuser` into the command line and follow the instructions to add a superuser.
+14. Next, sign in to [Amazon Web Services](https://aws.amazon.com/) or create an account, then go to the S3 Management Console.
+15. Create a new bucket, give it a name and select the AWS region closest to you. Under 'Object Ownership' select 'ACLs Enabled' and under 'Block Public Access settings for this bucket' make sure that you **uncheck** 'Block all public access'. Tick the acknowledgement popup and then click 'Create Bucket'.
+16. Open your newly created bucket and click the 'Properties' tab. Scroll down to 'Static Web Hosting', click 'Edit' and then select 'Enable'. Enter default values of 'Index.html' and 'error.html', then save your changes.
+17. On the permissions tab, click 'Edit' in the Bucket Policy section. Copy the Bucket ARN on this page, then click 'Policy Generator' to generate a new Bucket policy. Use the following settings to create a statement, then generate a policy.
+  * Type of Policy: S3 Bucket Policy
+  * Effect: Allow
+  * Principal: *
+  * AWS Service: Amazon S3
+  * Action: Get object
+  * Amazon Resource Name: Your ARN
+18. Copy the resultant JSON code and paste it into the Policy box on the 'Edit Bucket policy' page. Add "/*" to the end of the "Resource" string to allow access to all resources in the bucket. Click 'Save Changes'.
+19. Back on the Bucket Permissions tab, scroll down to 'Access Control List' and click 'Edit'.
+20. Tick the "List" checkbox next to "Everyone (public access)", confirm you understand and then save changes.
+21. Back on the Bucket Permissions tab again, scroll down to "Cross-origin resource sharing" and click edit. Paste in the following CORS policy, replacing YOUR_URL with the URL of your deployed site. Save your changes.
+```
+[
+    {
+        "AllowedHeaders": [
+            "Authorization"
+        ],
+        "AllowedMethods": [
+            "GET",
+            "HEAD"
+        ],
+        "AllowedOrigins": [
+            "YOUR_URL"
+        ],
+        "ExposeHeaders": [
+            "Access-Control-Allow-Origin"
+        ]
+    }
+]
+```
+22. Use the AWS search bar to find the IAM Management Console. Click 'User Groups' from the side-nav then 'Create Group'. Give the group a name and then click 'Create Group'.
+23. Click 'Policies' from the side-nav then 'Create Policy'. Open the JSON tab, then click 'Import managed policy'. Search for 's3', select the 'AmazonS3FullAccess' policy, then click 'import'. Replace the "Resource" section of the policy JSON with the following (also replacing YOUR_ARN with the ARN code you copied earlier in the Bucket policy section).
+```
+"Resource": [
+                "YOUR_ARN",
+                "YOUR_ARN/*"
+            ]
+```
+24. Click through the Tags page to the Review page. Give your policy a name and description, then click 'Create Policy'.
+25. Return to the User Groups page and select the group you made. Go to the Permissions tab, click 'Add permissions', then 'Attach Policy'. Select the policy you created and then click 'Add permissions'.
+26. Click 'Users' from the side-nav then 'Add users'. Give the user a name and then select "Access Key - Programmatic access". Click 'Next' and then add the user to the group you created. Skip through the remaining pages and then click 'Create User'.
+27. Click 'Download .csv' to download your user's credentials.
+28. Return to your Heroku settings page and delete the DISABLE_COLLECTSTATIC config var, then add the following config vars, replacing YOUR_ACCESS_KEY and YOUR_SECRET with the Access key ID and Secret access key of the AWS user you just created.
+```
+AWS_ACCESS_KEY_ID: YOUR_ACCESS_KEY
+AWS_SECRET_ACCESS_KEY: YOUR_SECRET
+USE_AWS: True
+```  
+29. In your project's settings.py file, replace the AWS_STORAGE_BUCKET_NAME and AWS_S3_REGION_NAME variables with the bucket name and region of the AWS bucket you created, then commit and push your changes.
+30. Return to your AWS bucket and on the Objects tab create a new folder called "media". Open the media folder and then click 'Upload'. Select 'Add folder' and then upload the '/media/svg/' folder and the '/media/icons/' folder from the project files.
+31. Return to the Heroku console and run the following commands to load initial drawing prompt data:
+```
+python3 manage.py loaddata activities.json
+python3 manage.py loaddata adjectives.json
+python3 manage.py loaddata creatures.json
+python3 manage.py loaddata locations.json
+```
+
 ## Other Credits and Acknowledgements
 
 * I based my random word selection function on the one in the [Django ORM Cookbook](https://books.agiliq.com/projects/django-orm-cookbook/en/latest/random.html). 
