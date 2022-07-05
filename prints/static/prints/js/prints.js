@@ -1,3 +1,4 @@
+/* jshint esversion: 11, jquery: true */
 // INITIALISE ELEMENTS AND STYLES
 
 // retrieve user image URLs from JSON, if present

@@ -1,3 +1,4 @@
+/* jshint esversion: 11, jquery: true */
 $(document).ready(function () {
     // retrieve the autosave of the current drawing from localforage 
     localforage.getItem('autosave').then(function (blob) {

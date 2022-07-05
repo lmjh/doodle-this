@@ -1,3 +1,4 @@
+/* jshint esversion: 11, jquery: true */
 // declare toastCount at top level to allow generating a unique id for each toast
 let toastCount = 0;
 

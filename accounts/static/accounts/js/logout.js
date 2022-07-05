@@ -1,3 +1,4 @@
+/* jshint esversion: 11, jquery: true */
 document.getElementById('logout-button').addEventListener('click', function (ev) {
     ev.preventDefault();
     // if the user selected to clear their sketchbook 

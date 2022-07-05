@@ -1,3 +1,4 @@
+/* jshint esversion: 11, jquery: true */
 // INITIALISE ELEMENTS AND STYLES
 
 // retrieve Stripe public key and client secret from page

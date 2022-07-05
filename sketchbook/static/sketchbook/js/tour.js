@@ -1,3 +1,4 @@
+/* jshint esversion: 11, jquery: true */
 // intro.js tour for screens up to 1199px wide
 const tourMobile = {
     steps: [{
