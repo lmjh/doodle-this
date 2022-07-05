@@ -71,7 +71,7 @@ def add_to_cart(request):
             checkout_url = reverse("view_cart")
             # Convert number to word if < 10 and pluralise if > 1
             quantity_string = (
-                apnumber(quantity).capitalize()
+                str(apnumber(quantity)).capitalize()
                 + " product"
                 + ("s" if quantity > 1 else "")
             )
