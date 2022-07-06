@@ -108,21 +108,30 @@ On the prints page and the individual products pages, I chose to use product moc
 ## Features
 
 ### Sketchbook
-* The core feature of Doodle This is the sketchbook, where users can draw using the range of colours and tools provided.
-* The interactive canvas is provided using the library [Atrament JS](https://github.com/jakubfiala/atrament.js). I selected this library because it is relatively lightweight and it provides a smoothing option. The smoothing feature simply smooths out a user’s strokes, to avoid jagged, shaky lines being drawn. In my opinion, this makes drawing feel more fluid and natural.
+
+* The core feature of Doodle This is the sketchbook, where users can draw using the range of colours and tools provided. 
+* I put a lot of consideration into the responsive design of the sketchbook page, as there were many controls and features to accomodate and I wanted to make the best use of the screen space available in a range of formats.  
+![](documentation/readme_images/features/sketchbook-desktop.jpg)    
+![](documentation/readme_images/features/sketchbook-tablet.jpg)    
+![](documentation/readme_images/features/sketchbook-mobile.jpg)    
+* The interactive canvas is provided using the library [Atrament JS](https://github.com/jakubfiala/atrament.js). I selected this library because it is relatively lightweight and it provides a smoothing option. The smoothing feature simply smooths out a user’s strokes, to avoid jagged, shaky lines being drawn. In my opinion, this makes drawing feel more fluid and natural and improves the look of the finished drawings.
 * The Atrament library provides the functionality for the Pencil, Fill and Eraser tools.
 * I selected and implemented a range of preset colours which I hope will be versatile and diverse enough to cover a wide range of uses, while still being tonally complimentary.
-* I added a colour mixer plugin [(Coloris)](https://github.com/mdbassit/Coloris), which allows users to mix their own colours if they want a colour or shade not provided by the presets.
+* I added a colour mixer plugin [(Coloris)](https://github.com/mdbassit/Coloris), which allows users to mix their own colours if they want a colour or shade not provided by the presets.  
+![](documentation/readme_images/features/colour-mixer.jpg)    
 * Having a colour mixer tool made it necessary to have some way to store or retrieve colours, since it could become frustrating for users to mix a new colour, use it, then switch to a different colour and have no simple way of getting the old colour back. My solution to this was to provide a colour picker tool, with which users can retrieve any colour from their canvas with a click. The Atrament library didn’t have a colour picker tool by default, so I forked the library and added this myself, among a few other changes and bug fixes. My fork of the Atrament library is [here](https://github.com/lmjh/atrament.js/).
 * Stroke width can be selected by using a slider.
 * I added an undo feature, which undoes the last action the user took. The undo feature is implemented by locally storing a copy of the user’s canvas before they take an action, then loading it back when they click ‘Undo’.
 * I also added an autosave, which is similar to the undo feature but saves the user’s canvas after each action rather than before. The autosave allows users to leave the sketchbook page and return without losing their work. It also allows users who aren’t logged in to place print orders, as it persists their sketchbook contents between pages.
 * Users with accounts can save their drawings and then load them back onto the canvas using a Save / Load menu. 
+![](documentation/readme_images/features/save-load-modal.jpg)    
 * An options modal allows users to adjust the degree of stroke smoothing applied to their lines and to turn on and off Atrament’s adaptive stroke feature, which makes lines thicker based on the user’s stroke speed.
 * The options modal also allows users to change the paper background of their sketchbook. This was a feature I added just as a decorative option, so users could pick a background they liked the feel of.
 
 ### Prompt Generator
-* I created an app to randomly generate drawing prompts for users.
+
+![](documentation/readme_images/features/prompts.jpg)    
+* I created an app to randomly generate drawing prompts for users.  
 * The site uses AJAX to request new prompts and then display them on the page when a user pushes the ‘new prompt’ button.
 * The prompts use word lists and preset patterns to create random prompts.
 * It is straightforward to add additional words to the lists using Django’s admin.
@@ -130,14 +139,17 @@ On the prints page and the individual products pages, I chose to use product moc
 
 ### Onboarding and Help
 
+![](documentation/readme_images/features/tour.jpg)    
 * To help users quickly get started with the application, I wrote a tour of the sketchbook page’s features using the [intro.js](https://introjs.com/) library.
 * The tour provides users with an overview of all the main features of the sketchbook.
 * Further help and information is provided by an FAQ page which is linked to in the main nav bar.
 
 ### User Accounts
 
+![](documentation/readme_images/features/accounts.jpg)    
 * Users can sign up for a persistent account with a username and password which allows them to store data.
-* The main feature of user accounts is the ability to save and load drawings. Users are provided with three save slots in which they can save drawings. Users have full CRUD functionality with regard to their drawings.
+* The main feature of user accounts is the ability to save and load drawings. Users are provided with three save slots in which they can save drawings. Users have full CRUD functionality with regard to their drawings.  
+![](documentation/readme_images/features/gallery.jpg)  
 * Users can create / save drawings using the Save / Load menu.
 * Users can read / view drawings using the Gallery section of the Account page.
 * Users can update / load drawings by using the Save / Load menu to load the drawing onto their canvas, then saving it back into a save slot.
@@ -148,22 +160,28 @@ On the prints page and the individual products pages, I chose to use product moc
 
 ### Ecommerce Features
 
+![](documentation/readme_images/features/prints.jpg)  
 * Doodle This has fully functional ecommerce features. The Doodle This shop allows users to buy products printed with the drawings they’ve created with the sketchbook feature.
 * Users can select a type of product from the main ‘Buy Prints’ page. Three types of product are provided currently.
-Clicking on one of the products takes users to a product details page for that product.
+Clicking on one of the products takes users to a product details page for that product.  
+![](documentation/readme_images/features/product-page.jpg)  
 * On the product details page, users can select some options. Each product has ‘variants’ - either size or colour. The variants can have their own individual prices, different images, and / or unique descriptive text shown beneath the main product description. These elements will be updated as the user changes the variant selection.
 * I selected the products that are available to showcase different use cases. The framed prints have size variants which all use the same image but have different prices. The mugs have colour variants which have the same price but different preview images. The t-shirts are the simplest product type - they have size variants which have both the same preview image and the same price. The t-shirts also have no additional descriptions, which the other two products’ variants each have. This is to demonstrate that the additional descriptions are optional.
 * Users can select which of their drawings they wish to print on the product and see a preview of how that drawing might look. The preview is updated automatically as users change their drawing selection.
 * Users can add their selected product and drawing combination to their shopping cart. The cart icon updates automatically with the number of items it contains.
 * Users can manage their cart contents on the cart page. 
+![](documentation/readme_images/features/cart.jpg)  
 * Each cart item has a quantity input along with Update and Remove links.
-* The checkout page allows users to enter delivery and payment information and place orders. Users with accounts can prepopulate the delivery fields by saving their details, though an account is not required to make a purchase.
+* The checkout page allows users to enter delivery and payment information and place orders. Users with accounts can prepopulate the delivery fields by saving their details, though an account is not required to make a purchase.  
+![](documentation/readme_images/features/checkout.jpg)  
 * Payments are handled by Stripe. Stripe webhooks are used to confirm payment and ensure that orders are created in the database after payment is made, even if there are issues in the user’s browser.
 * Users are redirected to an order confirmation page and sent order confirmation emails after orders are placed.
+![](documentation/readme_images/features/order-confirmed.jpg)  
 Users with accounts can view their order history on their Account page and also view individual any order’s details on a dedicated page.
 
 ### Product Management
 
+![](documentation/readme_images/features/product-management.jpg)  
 * Users who are signed in with an account marked as ‘Staff’ get access to a dedicated product management page, accessed via a dropdown on the nav menu.
 * The product management page presents key details of every product, product variant and product image in the database in tables.
 * Staff users have full CRUD functionality with regard to the products, product variants and product images in the shop.
@@ -171,12 +189,15 @@ Users with accounts can view their order history on their Account page and also 
 * Users can read most of the important information about shop items in the tables on the Product Management screens. Clicking the Edit links will show all of the item’s details, prepopulated into a form.
 * Users can update any items by clicking the Edit link in the table, changing the form values and submitting the form.
 * Users can delete items by clicking the Delete links in the tables. Confirmation modals are used to prevent unintended deletions. 
-* Some items can be restricted from being deleted if they are in use (e.g. an image cannot be deleted if it is in use by a product). However, any item can be deleted if the items currently restricting it are either changed or deleted themselves.
+* Some items can be restricted from being deleted if they are in use (e.g. an image cannot be deleted if it is in use by a product). However, any item can be deleted if the items currently restricting it are either changed or deleted themselves.  
+![](documentation/readme_images/features/restriction.jpg)  
 * The Product Image add and edit pages require users to enter values for the overlay that will be used to position a user’s drawings over the product image on the product details page. To facilitate this, I wrote some javascript which loads the new product image the user intends to upload into a preview section, then places a semi-transparent orange overlay on top of it, to show the user where the overlay will go based on the current overlay values. The overlay preview updates automatically as the values are adjusted.
-
+![](documentation/readme_images/features/overlay.jpg)  
 
 ### Notifications
 
+![](documentation/readme_images/features/message-success.jpg)
+![](documentation/readme_images/features/message-error.jpg)  
 * I built a dedicated Django app to handle the site’s user notifications.
 * The app uses a context processor to gather messages from Django’s message framework and javascript to push the notifications onto the dom as Bootstrap toasts, then remove them from the dom after a set time.
 * In the spirit of Django’s reusable app philosophy, I wanted the notifications system to be easy to port into other projects. All that’s required to use the app to provide notifications is to add it to a project, then add four elements to the project’s base template: 
@@ -188,8 +209,8 @@ Users with accounts can view their order history on their Account page and also 
 
 * The notification app uses Django’s message tags (debug, info, success, warning, error) to style and configure the resultant toast notifications. Doodle This only uses two styles of notification (with a red or a blue heading line), but a different style for each tag can easily be implemented with CSS.
 * As well as displaying on page load based on messages in Django’s message framework, notifications can also be triggered on pages by calling the javascript function displayToast() with a tag and a message. This is used by Doodle This to provide feedback in various scenarios, such as when images are loaded/saved on the sketchbook page.
-* HTML can be added to the message text to further customise the layout and functionality of the notifications. For example, a ‘Checkout Now’ button is added to the notification confirming that a product has been added to the cart.
-
+* HTML can be added to the message text to further customise the layout and functionality of the notifications. For example, a ‘Checkout Now’ button is added to the notification confirming that a product has been added to the cart.  
+![](documentation/readme_images/features/message-html.jpg)  
 
 ***
 
