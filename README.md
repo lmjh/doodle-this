@@ -419,7 +419,7 @@ py -3 -m venv .venv
 python -m pip install -r requirements.txt
 ```
 13. Create a new file in your project directory called ".env".
-14. Add the following to the env.py file, replacing YOUR_SECRET_KEY with a suitable [secret key](https://docs.djangoproject.com/en/3.2/ref/settings/#secret-key):
+14. Add the following to the .env file, replacing YOUR_SECRET_KEY with a suitable [secret key](https://docs.djangoproject.com/en/3.2/ref/settings/#secret-key):
 ```
 DEVELOPMENT = 'True'
 SECRET_KEY = YOUR_SECRET_KEY
@@ -440,11 +440,18 @@ python3 manage.py loaddata adjectives.json
 python3 manage.py loaddata creatures.json
 python3 manage.py loaddata locations.json
 ```
+19. To configure Stripe payments, either sign in to Stripe or create an account, then go to the Developers section of the site. Copy the Publishable Key and the Secret Key and add them to your .env file as follows:
+```
+STRIPE_PUBLIC_KEY: YOUR_PUBLISHABLE_KEY
+STRIPE_SECRET_KEY: YOUR_SECRET_KEY
+```
 19. Finally, start the server with `python manage.py runserver` and click the link displayed in the console to visit the locally deployed site. If you receive an 'Invalid HTTP_HOST header' error, copy the IP address in the error message and add it to the ALLOWED_HOSTS array on line 37 of settings.py, then restart the server.
 
 ### Remote Deployment
 
 To deploy the application on Heroku, follow these steps:
+
+#### Deploying To Heroku
 
 1. Sign in to [Heroku](https://www.heroku.com) or create an account.
 2. Check that you have a "requirements.txt" in your project's root directory. This file tells Heroku which packages are required. If you've cloned the main branch, this should already be present. If it's missing or if you have added any additional packages, you can generate a requirements.txt file by running the following command from the terminal of your IDE:
@@ -466,20 +473,30 @@ web: gunicorn doodle_this.wsgi:application
 11. Back on Heroku, click the 'Deploy' tab and under 'Deploy Method' click 'GitHub'. Find and connect to your repository, then under 'Manual Deploy' select the main branch and click 'Deploy Branch'. If you wish, you can also click the 'Enable Automatic Deploys' button to deploy automatically when changes are pushed to your github repository.
 12. Under 'Manual Deploy' select the main branch and click 'Deploy Branch'.
 13. Click the 'More' dropdown in the top right on Heroku and select "Run console'. Type `python3 manage.py createsuperuser` into the command line and follow the instructions to add a superuser.
-14. Next, sign in to [Amazon Web Services](https://aws.amazon.com/) or create an account, then go to the S3 Management Console.
-15. Create a new bucket, give it a name and select the AWS region closest to you. Under 'Object Ownership' select 'ACLs Enabled' and under 'Block Public Access settings for this bucket' make sure that you **uncheck** 'Block all public access'. Tick the acknowledgement popup and then click 'Create Bucket'.
-16. Open your newly created bucket and click the 'Properties' tab. Scroll down to 'Static Web Hosting', click 'Edit' and then select 'Enable'. Enter default values of 'Index.html' and 'error.html', then save your changes.
-17. On the permissions tab, click 'Edit' in the Bucket Policy section. Copy the Bucket ARN on this page, then click 'Policy Generator' to generate a new Bucket policy. Use the following settings to create a statement, then generate a policy.
+14. Next run the following commands in the Heroku console to load initial drawing prompt data:
+```
+python3 manage.py loaddata activities.json
+python3 manage.py loaddata adjectives.json
+python3 manage.py loaddata creatures.json
+python3 manage.py loaddata locations.json
+```
+
+#### Configuring AWS Media Storage
+
+15. Next, sign in to [Amazon Web Services](https://aws.amazon.com/) or create an account, then go to the S3 Management Console.
+16. Create a new bucket, give it a name and select the AWS region closest to you. Under 'Object Ownership' select 'ACLs Enabled' and under 'Block Public Access settings for this bucket' make sure that you **uncheck** 'Block all public access'. Tick the acknowledgement popup and then click 'Create Bucket'.
+17. Open your newly created bucket and click the 'Properties' tab. Scroll down to 'Static Web Hosting', click 'Edit' and then select 'Enable'. Enter default values of 'Index.html' and 'error.html', then save your changes.
+18. On the permissions tab, click 'Edit' in the Bucket Policy section. Copy the Bucket ARN on this page, then click 'Policy Generator' to generate a new Bucket policy. Use the following settings to create a statement, then generate a policy.
   * Type of Policy: S3 Bucket Policy
   * Effect: Allow
   * Principal: *
   * AWS Service: Amazon S3
   * Action: Get object
   * Amazon Resource Name: Your ARN
-18. Copy the resultant JSON code and paste it into the Policy box on the 'Edit Bucket policy' page. Add "/*" to the end of the "Resource" string to allow access to all resources in the bucket. Click 'Save Changes'.
-19. Back on the Bucket Permissions tab, scroll down to 'Access Control List' and click 'Edit'.
-20. Tick the "List" checkbox next to "Everyone (public access)", confirm you understand and then save changes.
-21. Back on the Bucket Permissions tab again, scroll down to "Cross-origin resource sharing" and click edit. Paste in the following CORS policy, replacing YOUR_URL with the URL of your deployed site. Save your changes.
+19. Copy the resultant JSON code and paste it into the Policy box on the 'Edit Bucket policy' page. Add "/*" to the end of the "Resource" string to allow access to all resources in the bucket. Click 'Save Changes'.
+20. Back on the Bucket Permissions tab, scroll down to 'Access Control List' and click 'Edit'.
+21. Tick the "List" checkbox next to "Everyone (public access)", confirm you understand and then save changes.
+22. Back on the Bucket Permissions tab again, scroll down to "Cross-origin resource sharing" and click edit. Paste in the following CORS policy, replacing YOUR_URL with the URL of your deployed site. Save your changes.
 ```
 [
     {
@@ -499,36 +516,65 @@ web: gunicorn doodle_this.wsgi:application
     }
 ]
 ```
-22. Use the AWS search bar to find the IAM Management Console. Click 'User Groups' from the side-nav then 'Create Group'. Give the group a name and then click 'Create Group'.
-23. Click 'Policies' from the side-nav then 'Create Policy'. Open the JSON tab, then click 'Import managed policy'. Search for 's3', select the 'AmazonS3FullAccess' policy, then click 'import'. Replace the "Resource" section of the policy JSON with the following (also replacing YOUR_ARN with the ARN code you copied earlier in the Bucket policy section).
+23. Use the AWS search bar to find the IAM Management Console. Click 'User Groups' from the side-nav then 'Create Group'. Give the group a name and then click 'Create Group'.
+24. Click 'Policies' from the side-nav then 'Create Policy'. Open the JSON tab, then click 'Import managed policy'. Search for 's3', select the 'AmazonS3FullAccess' policy, then click 'import'. Replace the "Resource" section of the policy JSON with the following (also replacing YOUR_ARN with the ARN code you copied earlier in the Bucket policy section).
 ```
 "Resource": [
                 "YOUR_ARN",
                 "YOUR_ARN/*"
             ]
 ```
-24. Click through the Tags page to the Review page. Give your policy a name and description, then click 'Create Policy'.
-25. Return to the User Groups page and select the group you made. Go to the Permissions tab, click 'Add permissions', then 'Attach Policy'. Select the policy you created and then click 'Add permissions'.
-26. Click 'Users' from the side-nav then 'Add users'. Give the user a name and then select "Access Key - Programmatic access". Click 'Next' and then add the user to the group you created. Skip through the remaining pages and then click 'Create User'.
-27. Click 'Download .csv' to download your user's credentials.
-28. Return to your Heroku settings page and delete the DISABLE_COLLECTSTATIC config var, then add the following config vars, replacing YOUR_ACCESS_KEY and YOUR_SECRET with the Access key ID and Secret access key of the AWS user you just created.
+25. Click through the Tags page to the Review page. Give your policy a name and description, then click 'Create Policy'.
+26. Return to the User Groups page and select the group you made. Go to the Permissions tab, click 'Add permissions', then 'Attach Policy'. Select the policy you created and then click 'Add permissions'.
+27. Click 'Users' from the side-nav then 'Add users'. Give the user a name and then select "Access Key - Programmatic access". Click 'Next' and then add the user to the group you created. Skip through the remaining pages and then click 'Create User'.
+28. Click 'Download .csv' to download your user's credentials.
+29. Return to your Heroku settings page and delete the DISABLE_COLLECTSTATIC config var, then add the following config vars, replacing YOUR_ACCESS_KEY and YOUR_SECRET with the Access key ID and Secret access key of the AWS user you just created.
 ```
 AWS_ACCESS_KEY_ID: YOUR_ACCESS_KEY
 AWS_SECRET_ACCESS_KEY: YOUR_SECRET
 USE_AWS: True
 ```  
-29. In your project's settings.py file, replace the AWS_STORAGE_BUCKET_NAME and AWS_S3_REGION_NAME variables with the bucket name and region of the AWS bucket you created, then commit and push your changes.
-30. Return to your AWS bucket and on the Objects tab create a new folder called "media". Open the media folder and then click 'Upload'. Select 'Add folder' and then upload the '/media/svg/' folder and the '/media/icons/' folder from the project files.
-31. Return to the Heroku console and run the following commands to load initial drawing prompt data:
+30. In your project's settings.py file, replace the AWS_STORAGE_BUCKET_NAME and AWS_S3_REGION_NAME variables with the bucket name and region of the AWS bucket you created, then commit and push your changes.
+31. Return to your AWS bucket and on the Objects tab create a new folder called "media". Open the media folder and then click 'Upload'. Select 'Add folder' and then upload the '/media/svg/' folder and the '/media/icons/' folder from the project files.
+
+#### Configuring Stripe Payments
+
+32. To configure Stripe payments, either sign in to Stripe or create an account, then go to the Developers section of the site. Copy the Publishable Key and the Secret Key and add them to your Heroku config vars list as follows:
 ```
-python3 manage.py loaddata activities.json
-python3 manage.py loaddata adjectives.json
-python3 manage.py loaddata creatures.json
-python3 manage.py loaddata locations.json
+STRIPE_PUBLIC_KEY: YOUR_PUBLISHABLE_KEY
+STRIPE_SECRET_KEY: YOUR_SECRET_KEY
+```
+33. If you also wish to set up Stripe webhooks as a redundancy system for adding orders, go to the Webhooks page in the Developers section of the Stripe website and click 'Add Endpoint'. Set the Endpoint URL as `YOUR_URL/orders/webhook/`, where YOUR_URL is the URL of your deployed site. Set the endpoint to listen to all events and click 'Add Endpoint'.
+34. Select your newly created webhook from the list to view its details. Click the 'Reveal' link under 'Signing Secret' and copy the value. Add this to your Heroku config vars with the key "STRIPE_WH_SECRET".
+
+#### Configuring Emails
+
+35. To configure emails to be sent with a gmail account, follow the steps [in this tutorial](https://support.google.com/accounts/answer/185833?hl=en) to generate an app password for the email address you want to use.
+36. Finally, return to Heroku config vars and add the app password you have generated along with the email address of the email account you wish to use as follows:
+```
+EMAIL_HOST_USER: YOUR_EMAIL_ADDRESS
+EMAIL_HOST_PASSWORD: YOUR_APP_PASSWORD
+```
+
+If you have followed all steps above, your complete Heroku config var list should include the following keys:
+
+```
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+DATABASE_URL
+EMAIL_HOST_PASSWORD
+EMAIL_HOST_USER
+SECRET_KEY
+STRIPE_PUBLIC_KEY
+STRIPE_SECRET_KEY
+STRIPE_WEBHOOK_SECRET
+USE_AWS
 ```
 
 ## Other Credits and Acknowledgements
 
+* My Code Institute mentor, [Tim Nelson](https://tim.2bn.dev/), provided invaluable advice and feedback throughout the project. 
+* The Code Institute's Django tutorial project 'Boutique Ado' provided guidance for large parts of the site's ecommerce functionality.
 * I based my random word selection function on the one in the [Django ORM Cookbook](https://books.agiliq.com/projects/django-orm-cookbook/en/latest/random.html). 
 * Product mockup templates were sourced from the excellent collection at [Mockups Design](https://mockups-design.com/).
-* Although the purpose and process was different to mine, [this youtube video](https://www.youtube.com/watch?v=oWd7SAuCIRM) helped me figure out how to get a user's image data from a canvas into a database ImageField.
+* Although the purpose and process was different to mine, [this youtube video](https://www.youtube.com/watch?v=oWd7SAuCIRM) helped me develop a solution for getting a user's image data from a canvas into a database ImageField.
