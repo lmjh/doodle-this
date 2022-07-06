@@ -44,6 +44,9 @@ Doodle This is a drawing web app that gives users randomly generated drawing pro
 * 5.1. As a site administrator I want to be able to add new products and product variants so that I can sell new products in the store.
 * 5.2. As a site administrator I want to be able to update the products and product variants in the store so that I can change their details, prices and images.
 * 5.3. As a site administrator I want to be able to delete products and variants from the store so that I can remove products that are no longer sold.
+* 5.4 As a site administrator I want to be able to add, update and remove product images so that I can make sure products have up to date and accurate images.
+* 5.5 As a site administrator I want to see a preview of how a user's drawings will be positioned over the product images so that I can select appropriate overlay dimensions. 
+* 5.6 As a site administrator I want to receive clear feedback when I can't delete an item so that I can understand which objects are causing the restriction..
 
 ### Design
 

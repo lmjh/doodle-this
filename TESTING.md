@@ -354,6 +354,37 @@ Long line warnings were returned for the password validators in settings.py. Thi
 * Some items are restricted to preserve database integrity (e.g. a user cannot delete a product if it currently has variants assigned to it). In these cases, messages are shown to inform users of which items are blocking the deletion, so they can reassign or delete those items to remove the restriction.  
 ![](documentation/testing_images/user_stories/user-story-5-3-5.jpg)  
 
+**5.4 As a site administrator I want to be able to add, update and remove product images so that I can make sure products have up to date and accurate images.**
+
+* Full CRUD functionality for ProductImage objects is provided in the Product Images section of the Product Management page.  
+![](documentation/testing_images/user_stories/user-story-5-4-1.jpg)    
+* Users can add new product images by clicking the 'Add Product Image' button and filling out the form.  
+![](documentation/testing_images/user_stories/user-story-5-4-2.jpg)    
+* Users can edit existing product images by clicking the 'Edit' link next to the image and filling out the form.  
+![](documentation/testing_images/user_stories/user-story-5-4-3.jpg)    
+* Users can delete product images by clicking the 'Delete' link next to the image and the confirming in the modal that's displayed.  
+![](documentation/testing_images/user_stories/user-story-5-4-4.jpg)    
+![](documentation/testing_images/user_stories/user-story-5-4-5.jpg)    
+
+**5.5 As a site administrator I want to see a preview of how a user's drawings will be positioned over the product images so that I can select appropriate overlay dimensions.**
+
+* On the Add Product Image and Edit Product Image pages, users can add an image file by clicking 'Browse' and then selecting an image.  
+![](documentation/testing_images/user_stories/user-story-5-5-1.jpg)  
+* An image preview is loaded onto the page from the selected file.
+* An orange semi-transparent overlay is positioned over the preview image. This shows where a user's drawings will be positioned on top of the product image on the product pages.  
+![](documentation/testing_images/user_stories/user-story-5-5-2.jpg)  
+* When an admin changes the overlay settings on the Add / Edit Product Image pages, the overlay position is automatically updated to show where the drawing would be positioned with the given settings.  
+![](documentation/testing_images/user_stories/user-story-5-5-3.jpg)  
+![](documentation/testing_images/user_stories/user-story-5-5-4.jpg)  
+* The overlay is positioned by setting its 'width', 'top' and 'left' attributes with javascript, so any units valid for these properties can be entered (though % makes the most sense in this context).  
+![](documentation/testing_images/user_stories/user-story-5-5-5.jpg)  
+
+**5.6 As a site administrator I want to receive clear feedback when I can't delete an item so that I can understand which objects are causing the restriction.**
+
+* When a user tries to delete a Product that currently has Product Variants assigned to it, or a Product Image that is currently assigned to either a Product Variant or a Product, the deletion will be restricted to preserve database integrity.
+* A toast message will be displayed which will list all of the Product and/or Product Variants that are preventing the deletion.  
+![](documentation/testing_images/user_stories/user-story-5-6-1.jpg)  
+![](documentation/testing_images/user_stories/user-story-5-6-2.jpg)  
 
 ***
 
