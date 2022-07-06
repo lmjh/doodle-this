@@ -250,6 +250,10 @@ The ProductVariant’s name and display_name fields do not have to be unique, be
 
 The ProductImage model represents the images of products shown to customers on the prints pages. It has a one-to-many relationship with both Products and ProductVariants. ProductImages store an image and the information required to overlay the user’s drawings over the image on the print details pages.
 
+To preserve database integrity, the Product model uses the on_delete=models.RESTRICT setting for its ProductImage ForeignKey. This means that ProductImage objects cannot be deleted if they are in use by a Product, unless the Product is either deleted or assigned a different image first.
+
+The ProductVariant model also uses the on_delete=models.RESTRICT setting, for both its ProductImage ForeignKey and its Product ForeignKey. This means that neither ProductImage objects nor Product objects can be deleted if they are in use by a ProductVariant, unless the ProductVariant is either deleted or assigned different ProductImages/Products first.
+
 ### Orders App Models
 
 Four models have been defined for the Orders app.
