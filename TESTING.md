@@ -91,7 +91,58 @@ The validator returned two 'unused variable' warnings about the tourMobile and t
 
 ### Python Validation
 
+|                       File                       |                                 **Screenshot**                                 |   **Notes**  |
+|:------------------------------------------------:|:------------------------------------------------------------------------------:|:------------:|
+|               **accounts/forms.py**              | ![](documentation/testing_images/validation/python/accounts_forms.jpg)         |              |
+|              **accounts/models.py**              | ![](documentation/testing_images/validation/python/accounts_models.jpg)        |              |
+|               **accounts/urls.py**               | ![](documentation/testing_images/validation/python/accounts_urls.jpg)          |              |
+|               **accounts/views.py**              | ![](documentation/testing_images/validation/python/accounts_views.jpg)         |              |
+|         **accounts/tests/test_forms.py**         | ![](documentation/testing_images/validation/python/accounts_test_forms.jpg)    |              |
+|         **accounts/tests/test_models.py**        | ![](documentation/testing_images/validation/python/accounts_test_models.jpg)   |              |
+|         **accounts/tests/test_views.py**         | ![](documentation/testing_images/validation/python/accounts_test_views.jpg)    |              |
+|               **cart/contexts.py**               | ![](documentation/testing_images/validation/python/cart_contexts.jpg)          |              |
+|                 **cart/urls.py**                 | ![](documentation/testing_images/validation/python/cart_urls.jpg)              |              |
+|                 **cart/views.py**                | ![](documentation/testing_images/validation/python/cart_views.jpg)             | W503 warning |
+|          **cart/tests/test_contexts.py**         | ![](documentation/testing_images/validation/python/cart_test_contexts.jpg)     |              |
+|           **cart/tests/test_views.py**           | ![](documentation/testing_images/validation/python/cart_test_views.jpg)        |              |
+|            **doodle_this/settings.py**           | ![](documentation/testing_images/validation/python/main_settings.jpg)          | E501 warning |
+|              **doodle_this/urls.py**             | ![](documentation/testing_images/validation/python/main_urls.jpg)              |              |
+|           **notifications/contexts.py**          | ![](documentation/testing_images/validation/python/notifications_contexts.jpg) |              |
+|              **orders/__init__.py**              | ![](documentation/testing_images/validation/python/orders_init.jpg)            |              |
+|                **orders/admin.py**               | ![](documentation/testing_images/validation/python/orders_admin.jpg)           |              |
+|                **orders/apps.py**                | ![](documentation/testing_images/validation/python/orders_apps.jpg)            |              |
+|                **orders/forms.py**               | ![](documentation/testing_images/validation/python/orders_forms.jpg)           |              |
+|               **orders/models.py**               | ![](documentation/testing_images/validation/python/orders_models.jpg)          |              |
+|               **orders/signals.py**              | ![](documentation/testing_images/validation/python/orders_signals.jpg)         |              |
+|                **orders/urls.py**                | ![](documentation/testing_images/validation/python/orders_urls.jpg)            |              |
+|                **orders/views.py**               | ![](documentation/testing_images/validation/python/orders_views.jpg)           |              |
+|           **orders/webhook_handler.py**          | ![](documentation/testing_images/validation/python/orders_webhook_handler.jpg) |              |
+|              **orders/webhooks.py**              | ![](documentation/testing_images/validation/python/orders_webhooks.jpg)        |              |
+|                **prints/admin.py**               | ![](documentation/testing_images/validation/python/prints_admin.jpg)           |              |
+|                **prints/forms.py**               | ![](documentation/testing_images/validation/python/prints_forms.jpg)           |              |
+|               **prints/models.py**               | ![](documentation/testing_images/validation/python/prints_models.jpg)          |              |
+|                **prints/urls.py**                | ![](documentation/testing_images/validation/python/prints_urls.jpg)            |              |
+|                **prints/views.py**               | ![](documentation/testing_images/validation/python/prints_views.jpg)           |              |
+|               **prints/widgets.py**              | ![](documentation/testing_images/validation/python/prints_widgets.jpg)         |              |
+| **prints/template_tags/custom_template_tags.py** | ![](documentation/testing_images/validation/python/prints_template_tags.jpg)   |              |
+|          **prints/tests/test_forms.py**          | ![](documentation/testing_images/validation/python/prints_test_forms.jpg)      |              |
+|          **prints/tests/test_models.py**         | ![](documentation/testing_images/validation/python/prints_test_models.jpg)     |              |
+|          **prints/tests/test_views.py**          | ![](documentation/testing_images/validation/python/prints_test_views.jpg)      |              |
+|               **prompts/admin.py**               | ![](documentation/testing_images/validation/python/prompts_admin.jpg)          |              |
+|               **prompts/models.py**              | ![](documentation/testing_images/validation/python/prompts_models.jpg)         |              |
+|              **prompts/prompts.py**              | ![](documentation/testing_images/validation/python/prompts_prompts.jpg)        |              |
+|                **prompts/urls.py**               | ![](documentation/testing_images/validation/python/prompts_urls.jpg)           |              |
+|               **prompts/views.py**               | ![](documentation/testing_images/validation/python/prompts_views.jpg)          |              |
+|         **prompts/tests/test_models.py**         | ![](documentation/testing_images/validation/python/prompts_test_models.jpg)    |              |
+|         **prompts/tests/test_prompts.py**        | ![](documentation/testing_images/validation/python/prompts_test_prompts.jpg)   |              |
+|          **prompts/tests/test_views.py**         | ![](documentation/testing_images/validation/python/prompts_test_views.jpg)     |              |
+|              **sketchbook/urls.py**              | ![](documentation/testing_images/validation/python/sketchbook_urls.jpg)        |              |
+|              **sketchbook/views.py**             | ![](documentation/testing_images/validation/python/sketchbook_views.jpg)       |              |
+|              **custom_storages.py**              | ![](documentation/testing_images/validation/python/custom_storages.jpg)        |              |
 
+The PEP8online.com validator returned four style errors for "line break before the binary operator" in the Cart app views.py file. I'm not sure why the validation tool flags this as an error, because the PEP 8 specifications [for this style rule](https://peps.python.org/pep-0008/#should-a-line-break-before-or-after-a-binary-operator) state that line breaks either before or after a binary operator are permissible, but line breaks before are suggested for new code as it improves readability. I have therefore left this code as it was, with the line breaks before the operators.
+
+Long line warnings were returned for the password validators in settings.py. This is standard Django generated code and can't be changed to fix the errors.
 
 ***
 
@@ -224,9 +275,9 @@ The validator returned two 'unused variable' warnings about the tourMobile and t
 
 * When users click any of the product on the main shop page, they're taken to a details page for that product.  
 ![](documentation/testing_images/user_stories/user-story-4-3-1.jpg)  
-* Users can select the product variant (i.e. the colour or size) they're interested in by selecting from a drop-down menu.
+* Users can select the product variant (i.e. the colour or size) they're interested in by selecting from a drop-down menu.  
 ![](documentation/testing_images/user_stories/user-story-4-3-2.jpg)  
-* Selecting different variants of the product can update the product description text and the price, if the variants have differing descriptions and/or prices.
+* Selecting different variants of the product can update the product description text and the price, if the variants have differing descriptions and/or prices.  
 ![](documentation/testing_images/user_stories/user-story-4-3-3.jpg)  
 ![](documentation/testing_images/user_stories/user-story-4-3-4.jpg)  
 
