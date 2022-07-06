@@ -26,3 +26,6 @@ media/products/
 
 # product images
 media/order-drawings/
+
+# test images
+temp_test_data/

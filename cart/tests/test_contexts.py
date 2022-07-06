@@ -3,6 +3,7 @@ from PIL import Image
 from decimal import Decimal
 
 from django.test import TestCase
+from django.test import override_settings
 from django.shortcuts import reverse
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -10,12 +11,17 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from prints.models import ProductVariant, ProductImage, Product
 from accounts.models import Drawing
 
+# tests which use temporary files will override MEDIA_ROOT and store files in
+# this temporary directory path
+TEMP_DIR = 'temp_test_data'
+
 
 class TestCartContentsContext(TestCase):
     """
     Tests that the cart_contents context processor is behaving as expected.
     """
 
+    @override_settings(MEDIA_ROOT=TEMP_DIR)
     def setUp(self):
         # create a test user
         self.test_user = User.objects.create_user(
@@ -83,12 +89,6 @@ class TestCartContentsContext(TestCase):
             price=Decimal(2.99),
             sku="TEST-2",
         )
-
-    def tearDown(self):
-        # delete all images from filesystem after running tests
-        images = ProductImage.objects.all()
-        for image in images:
-            image.image.delete()
 
     def test_correct_context_variables_returned(self):
         response = self.client.get(reverse("view_cart"))

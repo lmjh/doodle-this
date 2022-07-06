@@ -2,10 +2,15 @@ import tempfile
 from PIL import Image
 
 from django.test import TestCase
+from django.test import override_settings
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from accounts.models import Drawing
+
+# tests which use temporary files will override MEDIA_ROOT and store files in
+# this temporary directory path
+TEMP_DIR = 'temp_test_data'
 
 
 class TestDrawingModel(TestCase):
@@ -13,6 +18,7 @@ class TestDrawingModel(TestCase):
     Tests that the Drawing model is behaving as expected.
     """
 
+    @override_settings(MEDIA_ROOT=TEMP_DIR)
     def setUp(self):
         # create a test user
         self.test_user = User.objects.create_user(
@@ -33,12 +39,6 @@ class TestDrawingModel(TestCase):
                     content=temp_file.read(),
                 ),
             )
-
-    def tearDown(self):
-        # delete all images from filesystem after running tests
-        drawings = Drawing.objects.all()
-        for drawing in drawings:
-            drawing.image.delete()
 
     def test_drawing_string_method(self):
         drawing = Drawing.objects.get(title="Test Drawing")

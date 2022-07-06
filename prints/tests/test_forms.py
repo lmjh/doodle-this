@@ -2,10 +2,15 @@ import tempfile
 from PIL import Image
 
 from django.test import TestCase
+from django.test import override_settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from prints.forms import ProductImageForm
 from prints.models import ProductImage
+
+# tests which use temporary files will override MEDIA_ROOT and store files in
+# this temporary directory path
+TEMP_DIR = 'temp_test_data'
 
 
 class TestProductImageForm(TestCase):
@@ -23,6 +28,7 @@ class TestProductImageForm(TestCase):
         form = ProductImageForm()
         self.assertEqual(form.Meta.fields, ("__all__"))
 
+    @override_settings(MEDIA_ROOT=TEMP_DIR)
     def test_users_can_create_product_image(self):
         # build dict for form data
         data = {

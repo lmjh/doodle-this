@@ -2,6 +2,7 @@ import tempfile
 from PIL import Image
 
 from django.test import TestCase
+from django.test import override_settings
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -9,12 +10,17 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from accounts.models import Drawing
 from prompts.models import Adjective, Creature, Activity, Location
 
+# tests which use temporary files will override MEDIA_ROOT and store files in
+# this temporary directory path
+TEMP_DIR = 'temp_test_data'
+
 
 class TestSketchbookView(TestCase):
     """
     Tests that the Drawing model is behaving as expected.
     """
 
+    @override_settings(MEDIA_ROOT=TEMP_DIR)
     def setUp(self):
         # create a test user
         self.test_user = User.objects.create_user(
@@ -69,12 +75,6 @@ class TestSketchbookView(TestCase):
         Location.objects.create(
             location="location",
         )
-
-    def tearDown(self):
-        # delete all images from filesystem after running tests
-        drawings = Drawing.objects.all()
-        for drawing in drawings:
-            drawing.image.delete()
 
     def test_get_sketchbook_page(self):
         response = self.client.get(reverse("sketchbook"))

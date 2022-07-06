@@ -2,9 +2,14 @@ import tempfile
 from PIL import Image
 
 from django.test import TestCase
+from django.test import override_settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from prints.models import ProductImage, product_image_path
+
+# tests which use temporary files will override MEDIA_ROOT and store files in
+# this temporary directory path
+TEMP_DIR = 'temp_test_data'
 
 
 class TestProductImagePath(TestCase):
@@ -12,12 +17,7 @@ class TestProductImagePath(TestCase):
     Tests that the product_image_path function is behaving as expected.
     """
 
-    def tearDown(self):
-        # delete all images from filesystem after running tests
-        images = ProductImage.objects.all()
-        for image in images:
-            image.image.delete()
-
+    @override_settings(MEDIA_ROOT=TEMP_DIR)
     def test_correct_path_is_returned(self):
         # create an image in a temporary file
         with tempfile.NamedTemporaryFile(suffix=".jpg") as temp_file:

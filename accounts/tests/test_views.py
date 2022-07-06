@@ -2,11 +2,16 @@ import tempfile
 from PIL import Image
 
 from django.test import TestCase
+from django.test import override_settings
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from accounts.models import Drawing
+
+# tests which use temporary files will override MEDIA_ROOT and store files in
+# this temporary directory path
+TEMP_DIR = 'temp_test_data'
 
 
 class TestProfileView(TestCase):
@@ -42,6 +47,7 @@ class TestSaveDrawingView(TestCase):
     Tests that the save_drawing view is behaving as expected.
     """
 
+    @override_settings(MEDIA_ROOT=TEMP_DIR)
     def setUp(self):
         # create a test user
         self.test_user = User.objects.create_user(
@@ -63,12 +69,6 @@ class TestSaveDrawingView(TestCase):
                 ),
             )
 
-    def tearDown(self):
-        # delete all images from filesystem after running tests
-        drawings = Drawing.objects.all()
-        for drawing in drawings:
-            drawing.image.delete()
-
     def test_redirects_if_not_logged_in(self):
         response = self.client.get(reverse("save_drawing"))
         self.assertRedirects(
@@ -85,6 +85,7 @@ class TestSaveDrawingView(TestCase):
         )
         self.assertEqual(response.status_code, 400)
 
+    @override_settings(MEDIA_ROOT=TEMP_DIR)
     def test_can_save_drawings(self):
         self.client.login(username="testuser", password="123456")
         with tempfile.NamedTemporaryFile(suffix=".jpg") as temp_file:
@@ -113,6 +114,7 @@ class TestSaveDrawingView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual("Test Drawing", drawing.title)
 
+    @override_settings(MEDIA_ROOT=TEMP_DIR)
     def test_can_overwrite_drawings(self):
         self.client.login(username="testuser", password="123456")
 
@@ -152,6 +154,7 @@ class TestGetDrawingView(TestCase):
     Tests that the get_drawing view is behaving as expected.
     """
 
+    @override_settings(MEDIA_ROOT=TEMP_DIR)
     def setUp(self):
         self.test_user = User.objects.create_user(
             username="testuser", password="123456"
@@ -170,11 +173,6 @@ class TestGetDrawingView(TestCase):
                     content=temp_file.read(),
                 ),
             )
-
-    def tearDown(self):
-        drawings = Drawing.objects.all()
-        for drawing in drawings:
-            drawing.image.delete()
 
     def test_redirects_if_not_logged_in(self):
         response = self.client.get(reverse("get_drawing"))
@@ -206,6 +204,7 @@ class TestDeleteDrawingView(TestCase):
     Tests that the delete_drawing view is behaving as expected.
     """
 
+    @override_settings(MEDIA_ROOT=TEMP_DIR)
     def setUp(self):
         # create two test users
         self.test_user = User.objects.create_user(
@@ -228,11 +227,6 @@ class TestDeleteDrawingView(TestCase):
                     content=temp_file.read(),
                 ),
             )
-
-    def tearDown(self):
-        drawings = Drawing.objects.all()
-        for drawing in drawings:
-            drawing.image.delete()
 
     def test_redirects_if_not_logged_in(self):
         drawing = Drawing.objects.get(pk=1)

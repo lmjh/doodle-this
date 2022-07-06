@@ -3,11 +3,16 @@ from PIL import Image
 from decimal import Decimal
 
 from django.test import TestCase
+from django.test import override_settings
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from prints.models import ProductVariant, Product, ProductImage
+
+# tests which use temporary files will override MEDIA_ROOT and store files in
+# this temporary directory path
+TEMP_DIR = 'temp_test_data'
 
 
 class TestViewCartView(TestCase):
@@ -26,6 +31,7 @@ class TestAddToCartView(TestCase):
     Tests that the add_to_cart view is behaving as expected.
     """
 
+    @override_settings(MEDIA_ROOT=TEMP_DIR)
     def setUp(self):
         # create a test user
         self.test_user = User.objects.create_user(
@@ -67,12 +73,6 @@ class TestAddToCartView(TestCase):
             price=Decimal(1.99),
             sku="TEST-1",
         )
-
-    def tearDown(self):
-        # delete all images from filesystem after running tests
-        images = ProductImage.objects.all()
-        for image in images:
-            image.image.delete()
 
     def test_can_add_new_item_to_cart(self):
         variant = ProductVariant.objects.get(pk=1)
@@ -116,6 +116,7 @@ class TestUpdateCartItemView(TestCase):
     Tests that the update_cart_item view is behaving as expected.
     """
 
+    @override_settings(MEDIA_ROOT=TEMP_DIR)
     def setUp(self):
         # create a test user
         self.test_user = User.objects.create_user(
@@ -155,12 +156,6 @@ class TestUpdateCartItemView(TestCase):
             price=Decimal(1.99),
             sku="TEST-1",
         )
-
-    def tearDown(self):
-        # delete all images from filesystem after running tests
-        images = ProductImage.objects.all()
-        for image in images:
-            image.image.delete()
 
     def test_can_update_item_quantity_in_cart(self):
         # add item to session cart with quantity 10
@@ -205,6 +200,7 @@ class TestRemoveCartItemView(TestCase):
     Tests that the remove_cart_item view is behaving as expected.
     """
 
+    @override_settings(MEDIA_ROOT=TEMP_DIR)
     def setUp(self):
         # create a test user
         self.test_user = User.objects.create_user(
@@ -245,12 +241,6 @@ class TestRemoveCartItemView(TestCase):
             price=Decimal(1.99),
             sku="TEST-1",
         )
-
-    def tearDown(self):
-        # delete all images from filesystem after running tests
-        images = ProductImage.objects.all()
-        for image in images:
-            image.image.delete()
 
     def test_can_remove_item_from_cart(self):
         session = self.client.session
