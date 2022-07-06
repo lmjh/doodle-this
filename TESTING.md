@@ -45,6 +45,8 @@ As the navbar renders differet content depending on whether a user is logged out
 |      **password_reset.html**     | ![](documentation/testing_images/validation/html/password_reset.jpg)          |
 |       **password_set.html**      | ![](documentation/testing_images/validation/html/password_set.jpg)            |
 |          **signup.html**         | ![](documentation/testing_images/validation/html/signup.jpg)                  |
+|           **404.html**           | ![](documentation/testing_images/validation/html/404.jpg)                     |
+|           **500.html**           | ![](documentation/testing_images/validation/html/500.jpg)                     |
 
 ### CSS Validation
 
@@ -107,6 +109,7 @@ The validator returned two 'unused variable' warnings about the tourMobile and t
 |           **cart/tests/test_views.py**           | ![](documentation/testing_images/validation/python/cart_test_views.jpg)        |              |
 |            **doodle_this/settings.py**           | ![](documentation/testing_images/validation/python/main_settings.jpg)          | E501 warning |
 |              **doodle_this/urls.py**             | ![](documentation/testing_images/validation/python/main_urls.jpg)              |              |
+|              **doodle_this/views.py**            | ![](documentation/testing_images/validation/python/main_views.jpg)              |              |
 |           **notifications/contexts.py**          | ![](documentation/testing_images/validation/python/notifications_contexts.jpg) |              |
 |              **orders/__init__.py**              | ![](documentation/testing_images/validation/python/orders_init.jpg)            |              |
 |                **orders/admin.py**               | ![](documentation/testing_images/validation/python/orders_admin.jpg)           |              |
