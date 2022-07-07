@@ -111,9 +111,10 @@ On the prints page and the individual products pages, I chose to use product moc
 
 * The core feature of Doodle This is the sketchbook, where users can draw using the range of colours and tools provided. 
 * I put a lot of consideration into the responsive design of the sketchbook page, as there were many controls and features to accomodate and I wanted to make the best use of the screen space available in a range of formats.  
-![](documentation/readme_images/features/sketchbook-desktop.jpg)    
-![](documentation/readme_images/features/sketchbook-tablet.jpg)    
-![](documentation/readme_images/features/sketchbook-mobile.jpg)    
+![](documentation/readme_images/features/sketchbook-desktop.jpg)  
+![](documentation/readme_images/features/sketchbook-tablet.jpg)  
+![](documentation/readme_images/features/sketchbook-mobile.jpg)  
+* When a user resizes the window, the canvas element is resized to fit the layout using CSS transforms calculated and applied with Javascript. There is a short delay between resizing a window and the canvas resizing and this is by design. To avoid the resize function being constantly called and creating a high burden on system resources, the function isn't called **while** a user is resizing the window, but is called when they **have stopped** resizing the window. This is determined by calling the resize function when no more window 'resize' events have triggered for 0.2 seconds. 
 * The interactive canvas is provided using the library [Atrament JS](https://github.com/jakubfiala/atrament.js). I selected this library because it is relatively lightweight and it provides a smoothing option. The smoothing feature simply smooths out a user’s strokes, to avoid jagged, shaky lines being drawn. In my opinion, this makes drawing feel more fluid and natural and improves the look of the finished drawings.
 * The Atrament library provides the functionality for the Pencil, Fill and Eraser tools.
 * I selected and implemented a range of preset colours which I hope will be versatile and diverse enough to cover a wide range of uses, while still being tonally complimentary.
