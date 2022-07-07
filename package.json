@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "test": "jest --env=jsdom --verbose"
+  },
+  "dependencies": {
+    "jest-environment-jsdom": "^28.1.2",
+    "jquery": "^3.6.0"
+  },
+  "devDependencies": {
+    "jest": "^28.1.2"
+  }
+}

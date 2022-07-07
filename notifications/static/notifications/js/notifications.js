@@ -1,8 +1,8 @@
-/* jshint esversion: 11, jquery: true */
+/* jshint esversion: 11, jquery: true, node: true */
 // declare toastCount at top level to allow generating a unique id for each toast
 let toastCount = 0;
 
-$( document ).ready(function() {
+$(document).ready(function () {
     // find and parse the json_messages element rendered by the template
     let messages = JSON.parse(document.getElementById('json_messages').textContent);
     // if the array contains messages
@@ -64,8 +64,8 @@ function generateToast(tag, message, toastCount) {
     }
 
     // generate and return toast template
-    let toastTemplate = 
-    `<div role="${role}" aria-live="${aria}" aria-atomic="true" class="toast align-items-center border-0 ${cssClass}" 
+    let toastTemplate =
+        `<div role="${role}" aria-live="${aria}" aria-atomic="true" class="toast align-items-center border-0 ${cssClass}" 
         id="toast-${toastCount}" ${timeout}>
         <div class='toast-header'></div>
         <div class="d-flex">
@@ -98,10 +98,12 @@ function displayToast(tag, message) {
     newToast.show();
 
     // add an event listener to destroy the toast after its display timer runs out
-    newToastElement.addEventListener('hidden.bs.toast', function(event) {
+    newToastElement.addEventListener('hidden.bs.toast', function (event) {
         event.target.remove();
     });
 
     // increment the toast counter
     toastCount += 1;
 }
+
+if (typeof module !== "undefined") module.exports = generateToast;
