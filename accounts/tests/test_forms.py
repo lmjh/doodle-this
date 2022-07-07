@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.test import TestCase
 
 from accounts.forms import DefaultAddressForm, DrawingForm, NameUpdateForm
@@ -65,12 +64,6 @@ class TestDrawingForm(TestCase):
     """
     Tests that the DrawingForm is behaving as expected.
     """
-
-    def setUp(self):
-        # create a test user
-        self.test_user = User.objects.create_user(
-            username="testuser", password="123456"
-        )
 
     def test_correct_fields_are_specified_in_form_meta(self):
         form = DrawingForm()

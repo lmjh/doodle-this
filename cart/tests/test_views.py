@@ -4,7 +4,6 @@ from decimal import Decimal
 
 from django.test import TestCase
 from django.test import override_settings
-from django.contrib.auth.models import User
 from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 
@@ -33,11 +32,6 @@ class TestAddToCartView(TestCase):
 
     @override_settings(MEDIA_ROOT=TEMP_DIR)
     def setUp(self):
-        # create a test user
-        self.test_user = User.objects.create_user(
-            username="testuser", password="123456"
-        )
-
         # create a ProductImage with a temporary file
         with tempfile.NamedTemporaryFile(suffix=".jpg") as temp_file:
             temp_image = Image.new("RGB", (10, 10))
@@ -118,10 +112,6 @@ class TestUpdateCartItemView(TestCase):
 
     @override_settings(MEDIA_ROOT=TEMP_DIR)
     def setUp(self):
-        # create a test user
-        self.test_user = User.objects.create_user(
-            username="testuser", password="123456"
-        )
         # create a ProductImage with a temporary file
         with tempfile.NamedTemporaryFile(suffix=".jpg") as temp_file:
             temp_image = Image.new("RGB", (10, 10))
@@ -202,11 +192,6 @@ class TestRemoveCartItemView(TestCase):
 
     @override_settings(MEDIA_ROOT=TEMP_DIR)
     def setUp(self):
-        # create a test user
-        self.test_user = User.objects.create_user(
-            username="testuser", password="123456"
-        )
-
         # create a ProductImage with a temporary file
         with tempfile.NamedTemporaryFile(suffix=".jpg") as temp_file:
             temp_image = Image.new("RGB", (10, 10))
