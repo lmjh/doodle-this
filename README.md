@@ -364,29 +364,32 @@ It might also be possible to facilitate users sending something like a drawing c
 
 ### Frameworks, Libraries & Programs Used
 
-[GitHub](https://github.com/) - Used for version control.  
-[GitPod](https://gitpod.io/) - Used to write all code and test before deploying to GitHub.  
-[Django 3.2](https://docs.djangoproject.com/en/4.0/releases/3.2/) - Used as the project's web framework.  
-[Bootstrap 5](https://getbootstrap.com/) - Bootstrap 5 framework used extensively to create layout and styling of site.
-[jQuery](https://jquery.com/) - Used extensively, particularly in the Sketchbook javascript file.  
-[Heroku](https://heroku.com/) - Used to deploy the site.  
-[Atrament.js](https://github.com/jakubfiala/atrament.js) - Used to provide the drawing canvas and the pencil, fill and eraser tools.  
-[Coloris](https://github.com/mdbassit/Coloris) - Used to provide the colour mixer on the sketchbook page.  
-[intro.js](https://introjs.com/) - Used to create the user onboarding tour.  
-[Allauth](https://github.com/pennersr/django-allauth) - Used to provide many user account features.  
-[Crispy Forms](https://github.com/django-crispy-forms/django-crispy-forms) - Used along with [Crispy Bootstrap 5](https://github.com/django-crispy-forms/crispy-bootstrap5) to style Django forms.  
-[localForage](https://github.com/localForage/localForage) - Used to handle all storage of data and images in a user's browser.  
-[Balsamiq](https://balsamiq.com/) - Used to produce design wireframes.  
-[Materialize](https://materializecss.com/) - I used a few box shadow styles from the Materialize CSS framework, as I prefer these to Bootstrap's native shadow classes. 
-[Affinity Designer](https://affinity.serif.com/en-gb/designer/) - Used to design logo, icons and illustrations.  
-[Affinity Photo](https://affinity.serif.com/en-gb/designer/) - Used to customise the mockups from [Mockups Design](https://mockups-design.com/) used for product images.  
-[DBDiagram](dbdiagram.io) - Used to create initial database diagrams, though I made substantial changes to most aspects of the generated diagrams with Affinity Designer.  
-
-[Tables Generator](https://www.tablesgenerator.com/markdown_tables) - Used to generate markdown tables for README.md and TESTING.md  
-[W3C.org](https://www.w3.org/) - W3C [HTML Validator](https://validator.w3.org/nu/) and [CSS Validator](https://jigsaw.w3.org/css-validator/validator) used to check HTML and CSS code for errors.  
-[JSHint](https://jshint.com/) - Used to check JavaScript for errors.  
-[PEP8 Online](http://pep8online.com/) - Used to check Python code for errors.  
-[GraphBerry](https://www.graphberry.com/item/flat-devices-mockup) - Used to source the device templates for the site mockup at the top of this readme.  
+* [GitHub](https://github.com/) - Used for version control.  
+* [GitPod](https://gitpod.io/) - Used to write all code and test before deploying to GitHub.  
+* [Django 3.2](https://docs.djangoproject.com/en/4.0/releases/3.2/) - Used as the project's web framework.  
+* [Bootstrap 5](https://getbootstrap.com/) - Bootstrap 5 framework used extensively to create layout and styling of site.
+* [jQuery](https://jquery.com/) - Used extensively, particularly in the Sketchbook javascript file.  
+* [Heroku](https://heroku.com/) - Used to deploy the site.  
+* [Atrament.js](https://github.com/jakubfiala/atrament.js) - Used to provide the drawing canvas and the pencil, fill and eraser tools.  
+* [Coloris](https://github.com/mdbassit/Coloris) - Used to provide the colour mixer on the sketchbook page.  
+* [intro.js](https://introjs.com/) - Used to create the user onboarding tour.  
+* [Allauth](https://github.com/pennersr/django-allauth) - Used to provide many user account features.  
+* [Crispy Forms](https://github.com/django-crispy-forms/django-crispy-forms) - Used along with [Crispy Bootstrap 5](https://github.com/django-crispy-forms/crispy-bootstrap5) to style Django forms.  
+* [Coverage](https://pypi.org/project/coverage/) - Used to calculate code coverage of unit tests.
+* [Django Storages](https://pypi.org/project/django-storages/) - Used to facilitate AWS files storage.
+* [Black](https://pypi.org/project/black/) - Used to assist with python formatting.
+* [AWS S3](https://aws.amazon.com/s3/) - Used to host media and static files for deployed site.
+* [localForage](https://github.com/localForage/localForage) - Used to handle all storage of data and images in a user's browser.  
+* [Balsamiq](https://balsamiq.com/) - Used to produce design wireframes.  
+* [Materialize](https://materializecss.com/) - I used a few box shadow styles from the Materialize CSS framework, as I prefer these to Bootstrap's native shadow classes. 
+* [Affinity Designer](https://affinity.serif.com/en-gb/designer/) - Used to design logo, icons and illustrations.  
+* [Affinity Photo](https://affinity.serif.com/en-gb/designer/) - Used to customise the mockups from [Mockups Design](https://mockups-design.com/) used for product images.  
+* [DBDiagram](dbdiagram.io) - Used to create initial database diagrams, though I made substantial changes to most aspects of the generated diagrams with Affinity Designer.  
+* [Tables Generator](https://www.tablesgenerator.com/markdown_tables) - Used to generate markdown tables for README.md and TESTING.md  
+* [W3C.org](https://www.w3.org/) - W3C [HTML Validator](https://validator.w3.org/nu/) and [CSS Validator](https://jigsaw.w3.org/css-validator/validator) used to check HTML and CSS code for errors.  
+* [JSHint](https://jshint.com/) - Used to check JavaScript for errors.  
+* [PEP8 Online](http://pep8online.com/) - Used to check Python code for errors.  
+* [GraphBerry](https://www.graphberry.com/item/flat-devices-mockup) - Used to source the device templates for the site mockup at the top of this readme.  
 
 ***
 
