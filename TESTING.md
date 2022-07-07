@@ -94,7 +94,7 @@ The validator returned two 'unused variable' warnings about the tourMobile and t
 
 #### Atrament Javascript Files
 
-I made [a fork](https://github.com/lmjh/atrament.js/) of the Atrament library in order to make some needed changes. I replaced the mouse and touch events and handlers used by the library with pointer events and handlers, to fix a bug caused by the use of touch events (details of this can be found in the [bugs document](BUGS.md) under "Atrament Canvas Mobile Touch Draw Bug"). I also added a colour picker tool, as the default library didn't include one.
+I made [a fork](https://github.com/lmjh/atrament.js/) of the Atrament library in order to make some needed changes. I replaced the mouse and touch events and handlers used by the library with pointer events and handlers, to fix a bug caused by the use of touch events (details of this can be found in the [bugs document](BUGS.md#6-atrament-canvas-mobile-touch-draw-bug) under "Atrament Canvas Mobile Touch Draw Bug"). I also added a colour picker tool, as the default library didn't include one.
 
 I only made changes to the Atrament library's atrament.js and pointer.js files, but for completeness I have validated all the source files in my fork of the Atrament library. I used the 'node: true' jshint setting when validating these files as they use the node.js objects require() and module(). 
 
@@ -181,7 +181,7 @@ Long line warnings were returned for the password validators in settings.py. Thi
 
 **1.2. As a new user I want to be able to quickly understand how to use the application so that I can start using it to create art**
 
-* The welcome modal has a link to start a tour of the site's features which users can use to quickly get an overview of all controls.
+* The welcome modal has a link to start a tour of the site's features which users can use to quickly get an overview of all controls.  
 ![](documentation/testing_images/user_stories/user-story-1-2-1.jpg)
 * The tool icons are designed so that their purpose should be fairly clear to anyone familiar with drawing software, so users who don't want to take the tour should be able to use most features quickly anyway.  
 ![](documentation/testing_images/user_stories/user-story-1-2-2.jpg)
@@ -208,7 +208,7 @@ Long line warnings were returned for the password validators in settings.py. Thi
 * Links to the sign in page are situated in the sketchbook control panel and in the main site nav.  
 ![](documentation/testing_images/user_stories/user-story-2-1-1.jpg)  
 ![](documentation/testing_images/user_stories/user-story-2-1-2.jpg)  
-* Users can complete a simple form to sign in. 
+* Users can complete a simple form to sign in.  
 ![](documentation/testing_images/user_stories/user-story-2-1-3.jpg)  
 
 **2.2. As a registered user I want to be able to save my drawings so that I can access them later**
@@ -281,7 +281,7 @@ Long line warnings were returned for the password validators in settings.py. Thi
 
 **4.1. As a shopper I want to be able to purchase products printed with my drawing so that I can own or gift a physical copy of my drawing**
 
-* Doodle This features an ecommerce shop that allows users to buy products printed with their drawings.
+* Doodle This features an ecommerce shop that allows users to buy products printed with their drawings.  
 * A 'Buy a Print' link to the shop is prominently positioned in the nav bar and styled to stand out from the others.  
 ![](documentation/testing_images/user_stories/user-story-4-1-1.jpg)  
 * On mobile screens, the button is usually hidden to save space, but the shopping cart logo is always visible, hinting that a shop is available, and the link is styled to stand out in the drop-down mobile nav.  
@@ -322,7 +322,7 @@ Long line warnings were returned for the password validators in settings.py. Thi
 ![](documentation/testing_images/user_stories/user-story-4-5-3.jpg)  
 * If a user sets a new quantity and clicks 'Update', the cart price totals will also be updated.  
 ![](documentation/testing_images/user_stories/user-story-4-5-4.jpg)  
-* Clicking the 'Remove' link removes the item from the cart.
+* Clicking the 'Remove' link removes the item from the cart.  
 ![](documentation/testing_images/user_stories/user-story-4-5-5.jpg)  
 
 
@@ -412,10 +412,18 @@ Long line warnings were returned for the password validators in settings.py. Thi
 
 ## Automated Testing
 
+### Python Automated Testing
+
 Auotmated testing of app models, forms and views was performed with Django unittests. 94 tests were written, with a total coverage of 90%. The screenshots below show the coverage report summary and a full list of unit tests.  
 
 ![](documentation/testing_images/automated_testing/unittest-coverage.jpg)  
 ![](documentation/testing_images/automated_testing/unittest-list.jpg)  
+
+### Javascript Automated Testing
+
+Automated testing of functions in the notifications and prints apps was performed with Jest tests. 10 tests were written, covering most javascript functions in the notifications and prints apps.
+
+![](documentation/testing_images/automated_testing/jest-test-list.jpg)  
 
 ***
 
