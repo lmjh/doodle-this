@@ -64,7 +64,7 @@ The validator returned 28 warnings for tour.css. All warnings were related to th
 
 ### Javascript Validation
 
-All javascript files validated with no errors. Because I made significant changes to the Atrament library's atrament.js and pointer.js files in [my fork](https://github.com/lmjh/atrament.js/) of the library, I also validated those files.
+All the project javascript files validated with no errors. 
 
 |       File       |                               **Screenshot**                              |                                                       **Notes**                                                       |
 |:----------------:|:-------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------:|
@@ -76,8 +76,7 @@ All javascript files validated with no errors. Because I made significant change
 | prints.js        | ![](documentation/testing_images/validation/javascript/prints.jpg)        | Two undefined variables: localforage, displayToast                                                                    |
 | sketchbook.js    | ![](documentation/testing_images/validation/javascript/sketchbook.jpg)    | Eight undefined variables - Atrament, Coloris, bootstrap, localforage, displayToast, introJs, tourMobile, tourDesktop |
 | tour.js          | ![](documentation/testing_images/validation/javascript/tour.jpg)          | Two unused variables: tourMobile, tourDesktop                                                                         |
-| atrament.js      | ![](documentation/testing_images/validation/javascript/atrament.png)      |                                                                                                                       |
-| pointer.js       | ![](documentation/testing_images/validation/javascript/pointer.png)       |                                                                                                                       |
+
 
 In various combinations, the validator returned 'undefined variable' warnings about the following objects:
 
@@ -90,6 +89,22 @@ In various combinations, the validator returned 'undefined variable' warnings ab
 * introJs - This come from the library used to implement the homepage tour. It is loaded in the base template.
 
 The validator returned two 'unused variable' warnings about the tourMobile and tourDesktop objects in the tour.js file. These objects define the homepage tours. They are imported to the sketchbook.js file and used there.
+
+#### Atrament Javascript Files
+
+I made [a fork](https://github.com/lmjh/atrament.js/) of the Atrament library in order to make some needed changes. I replaced the mouse and touch events and handlers used by the library with pointer events and handlers, to fix a bug caused by the use of touch events (details of this can be found in the [bugs document](BUGS.md) under "Atrament Canvas Mobile Touch Draw Bug"). I also added a colour picker tool, as the default library didn't include one.
+
+I only made changes to the Atrament library's atrament.js and pointer.js files, but for completeness I have validated all the source files in my fork of the Atrament library. I used the 'node: true' jshint setting when validation these files as they use the node.js objects require() and module(). 
+
+The file 'atrament.min.js' in the Sketchbook app javascript folder is a minified file that was compiled by [webpack](https://webpack.js.org/) from the source files in my fork of the Atrament library. It will not pass validation as it has been 'minified' by webpack. All of the actual source files do pass validation without issue.
+
+|       File       |                             **Screenshot**                            |
+|:----------------:|:---------------------------------------------------------------------:|
+|  **atrament.js** | ![](documentation/testing_images/validation/javascript/atrament.png)  |
+|  **pointer.js**  | ![](documentation/testing_images/validation/javascript/pointer.png)   |
+| **constants.js** | ![](documentation/testing_images/validation/javascript/constants.png) |
+|   **events.js**  | ![](documentation/testing_images/validation/javascript/events.png)    |
+|   **pixels.js**  | ![](documentation/testing_images/validation/javascript/pixels.png)    |
 
 ### Python Validation
 
