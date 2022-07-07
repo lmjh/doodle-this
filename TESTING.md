@@ -558,3 +558,20 @@ Please see [BUGS.md](BUGS.md) for full details of bugs fixed.
 
 ## Outstanding Issues
 
+### 1. Untested on Safari
+
+The site has not been extensively tested on the Safari browser as I didn't have access to any Apple devices. As this is a major browser, I would ideally like to extensively test the site on it for compatibility. 
+
+### 2. Internet Explorer Not Supported
+
+The site doesn't support Internet Explorer and is unlikely to display or function correctly on this browser. I don't consider adding support for Internet Explorer to be a priority, as the browser is currently not widely used and as of June 2022 has been officially retired.
+
+### 3. Intro.js Issues
+
+The javascript library I used to provide the tour of the homepage, intro.js, seems to have a couple of issues.
+
+Firstly, it sometimes causes a console warning message to be displayed as browsers cannot load the source map for the minified file. The reason for this is that the source map file hosted on cdnjs is empty. This doesn't affect the performance of the library as it only really means that it isn't possible to view the un-minified version of the source code in dev tools, but the console warning is an annoyance.
+
+Secondly, the intro.js tour content boxes sometimes slightly overflow the screen edge on mobile devices. The text was still legible in the few instances I've seen of this behaviour, but it is still less than ideal. Researching the issue seemed to indicate that this is a known bug with the library itself and not something I can fix.
+
+With more development time available, I would likely resolve these issues by replacing the intro.js library with another library ([Shepherd](https://github.com/shipshapecode/shepherd) is an open source, actively maintained alternative that would be worth considering) or code something myself to do the job. 
