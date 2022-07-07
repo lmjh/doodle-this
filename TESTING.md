@@ -393,7 +393,10 @@ Long line warnings were returned for the password validators in settings.py. Thi
 
 ## Automated Testing
 
+Auotmated testing of app models, forms and views was performed with Django unittests. 94 tests were written, with a total coverage of 90%. The screenshots below show the coverage report summary and a full list of unit tests.  
 
+![](documentation/testing_images/automated_testing/unittest-coverage.jpg)  
+![](documentation/testing_images/automated_testing/unittest-list.jpg)  
 
 ***
 
