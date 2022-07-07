@@ -222,7 +222,7 @@ let savePreview = $('#save-preview-' + saveSlot)
 savePreview.attr('src', response['url'])
 ```
 
-![](documentation/testing_images/bugs/drawing-save-preview-bug-1.jpg)  
+![](documentation/testing_images/bugs/drawing-save-preview-bug-2.jpg)  
 
 ## 11. Save  / Load Dialog Not Returning To Default State When Closed
 
@@ -268,10 +268,10 @@ This was happening because of the way I'd configured the form to handle overwrit
 ```python
 if drawing_instance:
 	form=DrawingForm(
-					request.POST,
-					request.FILES,
-					instance=drawing_instance
-					)
+        request.POST,
+        request.FILES,
+        instance=drawing_instance
+        )
 ```
 
 This meant that when the form reached the 'if form.isValid()' check, it was passing validation regardless of the contents of the request object, as the instance in the database had valid data which passed the test. Then, when the code tried to use the values it expected it to be in the request object, they weren't valid and errors were thrown.
@@ -526,7 +526,7 @@ This function obviously wouldn't work with the media files hosted on external se
 
 ```js
 if ($(`#save-preview-${saveSlot}`).attr('src').slice(-9) == 'blank.svg') {
-    ...
+    [...]
 }
 ```
 
@@ -540,7 +540,7 @@ To resolve this, I simply added a condition to check that the save preview image
 let savePreviewSrc = $(`#save-preview-${saveSlot}`).attr('src')
 if (savePreviewSrc) {
     if (savePreviewSrc.slice(-9) == 'blank.svg') {
-        ...
+        [...]
     }
 }
 ```
