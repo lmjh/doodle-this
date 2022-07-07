@@ -1,6 +1,10 @@
 # Doodle This
 
-Doodle This is a drawing web app that gives users randomly generated drawing prompts and a blank canvas to draw on. Users can save their drawings in the database and can purchase products like prints or mugs with their favourite pictures printed on them.
+Doodle This is a drawing web app that gives users randomly generated drawing prompts and a blank canvas to draw on. Users can save their drawings in the database and can purchase products like framed prints or mugs with their favourite pictures printed on them.
+
+![](documentation/readme_images/design/doodle-this-mockups.png)
+
+The live site can be viewed [here](https://doodle-this.herokuapp.com/)
 
 ***
 
@@ -124,7 +128,7 @@ On the prints page and the individual products pages, I chose to use product moc
 * Stroke width can be selected by using a slider.
 * I added an undo feature, which undoes the last action the user took. The undo feature is implemented by locally storing a copy of the user’s canvas before they take an action, then loading it back when they click ‘Undo’.
 * I also added an autosave, which is similar to the undo feature but saves the user’s canvas after each action rather than before. The autosave allows users to leave the sketchbook page and return without losing their work. It also allows users who aren’t logged in to place print orders, as it persists their sketchbook contents between pages.
-* Users with accounts can save their drawings and then load them back onto the canvas using a Save / Load menu. 
+* Users with accounts can save their drawings and then load them back onto the canvas using a Save / Load menu.  
 ![](documentation/readme_images/features/save-load-modal.jpg)    
 * An options modal allows users to adjust the degree of stroke smoothing applied to their lines and to turn on and off Atrament’s adaptive stroke feature, which makes lines thicker based on the user’s stroke speed.
 * The options modal also allows users to change the paper background of their sketchbook. This was a feature I added just as a decorative option, so users could pick a background they liked the feel of.
@@ -170,13 +174,13 @@ Clicking on one of the products takes users to a product details page for that p
 * I selected the products that are available to showcase different use cases. The framed prints have size variants which all use the same image but have different prices. The mugs have colour variants which have the same price but different preview images. The t-shirts are the simplest product type - they have size variants which have both the same preview image and the same price. The t-shirts also have no additional descriptions, which the other two products’ variants each have. This is to demonstrate that the additional descriptions are optional.
 * Users can select which of their drawings they wish to print on the product and see a preview of how that drawing might look. The preview is updated automatically as users change their drawing selection.
 * Users can add their selected product and drawing combination to their shopping cart. The cart icon updates automatically with the number of items it contains.
-* Users can manage their cart contents on the cart page. 
+* Users can manage their cart contents on the cart page.  
 ![](documentation/readme_images/features/cart.jpg)  
 * Each cart item has a quantity input along with Update and Remove links.
 * The checkout page allows users to enter delivery and payment information and place orders. Users with accounts can prepopulate the delivery fields by saving their details, though an account is not required to make a purchase.  
 ![](documentation/readme_images/features/checkout.jpg)  
 * Payments are handled by Stripe. Stripe webhooks are used to confirm payment and ensure that orders are created in the database after payment is made, even if there are issues in the user’s browser.
-* Users are redirected to an order confirmation page and sent order confirmation emails after orders are placed.
+* Users are redirected to an order confirmation page and sent order confirmation emails after orders are placed.  
 ![](documentation/readme_images/features/order-confirmed.jpg)  
 Users with accounts can view their order history on their Account page and also view individual any order’s details on a dedicated page.
 
@@ -192,7 +196,7 @@ Users with accounts can view their order history on their Account page and also 
 * Users can delete items by clicking the Delete links in the tables. Confirmation modals are used to prevent unintended deletions. 
 * Some items can be restricted from being deleted if they are in use (e.g. an image cannot be deleted if it is in use by a product). However, any item can be deleted if the items currently restricting it are either changed or deleted themselves.  
 ![](documentation/readme_images/features/restriction.jpg)  
-* The Product Image add and edit pages require users to enter values for the overlay that will be used to position a user’s drawings over the product image on the product details page. To facilitate this, I wrote some javascript which loads the new product image the user intends to upload into a preview section, then places a semi-transparent orange overlay on top of it, to show the user where the overlay will go based on the current overlay values. The overlay preview updates automatically as the values are adjusted.
+* The Product Image add and edit pages require users to enter values for the overlay that will be used to position a user’s drawings over the product image on the product details page. To facilitate this, I wrote some javascript which loads the new product image the user intends to upload into a preview section, then places a semi-transparent orange overlay on top of it, to show the user where the overlay will go based on the current overlay values. The overlay preview updates automatically as the values are adjusted.  
 ![](documentation/readme_images/features/overlay.jpg)  
 
 ### Notifications
@@ -219,13 +223,13 @@ Users with accounts can view their order history on their Account page and also 
 
 Doodle This uses an SQL relational database. An SQLite database was used in the development environment and the deployed site uses a PostgreSQL database. The full schema of models is below.
 
-![](documentation/readme_images/database/full_schema.svg)
+![](documentation/readme_images/database/full_schema.png)
 
 ### Accounts App Models
 
 Two models have been defined for the Accounts app. 
 
-![](documentation/readme_images/database/accounts_app_models.svg)
+![](documentation/readme_images/database/accounts_app_models.png)
 
 The UserAccount model has a one-to-one relationship with the User model from Django’s authentication system. An instance of the UserAccount model is created automatically when a User instance is created. The UserAccount model stores a user’s delivery information.
 
@@ -235,7 +239,7 @@ The Drawing model is responsible for storing a user’s saved drawings. It has a
 
 Four models have been defined for the Prints app.
 
-![](documentation/readme_images/database/prints_app_models.svg)
+![](documentation/readme_images/database/prints_app_models.png)
 
 The Category model is a model for categorising products. It contains a name (which must be unique) and a display_name for storing a more human-readable name. The Category isn’t currently used in the front-end of the site, but is included as it helps to keep Products organised and will be used for filtering when the shop's inventory grows.
 
@@ -259,7 +263,7 @@ The ProductVariant model also uses the on_delete=models.RESTRICT setting, for bo
 
 Four models have been defined for the Orders app.
 
-![](documentation/readme_images/database/orders_app_models.svg)
+![](documentation/readme_images/database/orders_app_models.png)
 
 The Order model represents an order that the customer has placed. Instances of this model are created after payment has been confirmed by Stripe, either by submission of a form to the checkout view or by a function triggered by a Stripe webhook, if the form submission fails.
 
@@ -279,7 +283,7 @@ When a user places an order with an unsaved drawing, the javascript first uses A
 
 Four simple models were defined for the Prompts app, each consisting of a list of words for use in the random drawing prompt generation functions that I wrote.
 
-![](documentation/readme_images/database/prompts_app_models.svg)
+![](documentation/readme_images/database/prompts_app_models.png)
 
 Prompt generation works by first randomly selecting a pattern function from seven predefined patterns, then randomly selecting words from the Prompts app models to fill out the pattern. For example, if the adjective_creature() pattern function is selected, the function will randomly select a word from the Adjective table and a word from the Creature table, then combine them into a string and return it.
 
