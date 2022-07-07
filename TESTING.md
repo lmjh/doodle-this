@@ -13,7 +13,7 @@
 
 All pages validated with no warnings or errors. 
 
-As the navbar renders differet content depending on whether a user is logged out, logged in, or logged in as staff, I tested it in each of the three states.
+As the navbar renders different content depending on whether a user is logged out, logged in, or logged in as staff, I tested it in each of the three states.
 
 |             **Page**             |                                 **Screenshot**                                |
 |:--------------------------------:|:-----------------------------------------------------------------------------:|
@@ -66,17 +66,18 @@ The validator returned 28 warnings for tour.css. All warnings were related to th
 
 All the project javascript files validated with no errors. 
 
-|       File       |                               **Screenshot**                              |                                                       **Notes**                                                       |
-|:----------------:|:-------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------:|
-| productImage.js  | ![](documentation/testing_images/validation/javascript/productImage.jpg)  |                                                                                                                       |
-| logout.js        | ![](documentation/testing_images/validation/javascript/logout.jpg)        | One undefined variable: localforage                                                                                   |
-| cart.js          | ![](documentation/testing_images/validation/javascript/cart.jpg)          | One undefined variable: localforage                                                                                   |
-| notifications.js | ![](documentation/testing_images/validation/javascript/notifications.jpg) | One undefined variable: bootstrap                                                                                     |
-| checkout.js      | ![](documentation/testing_images/validation/javascript/orders.jpg)        | Three undefined variables: Stripe, localforage, displayToast                                                          |
-| prints.js        | ![](documentation/testing_images/validation/javascript/prints.jpg)        | Two undefined variables: localforage, displayToast                                                                    |
-| sketchbook.js    | ![](documentation/testing_images/validation/javascript/sketchbook.jpg)    | Eight undefined variables - Atrament, Coloris, bootstrap, localforage, displayToast, introJs, tourMobile, tourDesktop |
-| tour.js          | ![](documentation/testing_images/validation/javascript/tour.jpg)          | Two unused variables: tourMobile, tourDesktop                                                                         |
-
+|          **File**         |                                 **Screenshot**                                 |                                                       **Notes**                                                       |
+|:-------------------------:|:------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------:|
+|    **productImage.js**    | ![](documentation/testing_images/validation/javascript/productImage.jpg)       |                                                                                                                       |
+|       **logout.js**       | ![](documentation/testing_images/validation/javascript/logout.jpg)             | One undefined variable: localforage                                                                                   |
+|        **cart.js**        | ![](documentation/testing_images/validation/javascript/cart.jpg)               | One undefined variable: localforage                                                                                   |
+|    **notifications.js**   | ![](documentation/testing_images/validation/javascript/notifications.jpg)      | One undefined variable: bootstrap                                                                                     |
+| **notifications.test.js** | ![](documentation/testing_images/validation/javascript/notifications-test.jpg) | Three undefined variables: describe, test, expect                                                                     |
+|      **checkout.js**      | ![](documentation/testing_images/validation/javascript/orders.jpg)             | Three undefined variables: Stripe, localforage, displayToast                                                          |
+|       **prints.js**       | ![](documentation/testing_images/validation/javascript/prints.jpg)             | Two undefined variables: localforage, displayToast                                                                    |
+|     **prints.test.js**    | ![](documentation/testing_images/validation/javascript/prints-test.jpg)        | Four undefined variables: beforeAll, describe, test, expect                                                           |
+|     **sketchbook.js**     | ![](documentation/testing_images/validation/javascript/sketchbook.jpg)         | Eight undefined variables: Atrament, Coloris, bootstrap, localforage, displayToast, introJs, tourMobile, tourDesktop |
+|        **tour.js**        | ![](documentation/testing_images/validation/javascript/tour.jpg)               | Two unused variables: tourMobile, tourDesktop                                                                         |
 
 In various combinations, the validator returned 'undefined variable' warnings about the following objects:
 
@@ -84,9 +85,10 @@ In various combinations, the validator returned 'undefined variable' warnings ab
 * Stripe - This comes from the Strip javascript files which provide the payment system. It is loaded in the base template. 
 * Coloris - This comes from the Coloris library which is used to provide the colour mixer. It is loaded in the sketchbook page template.
 * bootstrap -  This comes from Bootstrap 5 and is loaded in the base template.
-* localforage - This come from the localforage library which is used to manage local storage of files and variables. It is loaded in the base template.
+* localforage - This comes from the localforage library which is used to manage local storage of files and variables. It is loaded in the base template.
 * displayToast -  This is a function I wrote to display notifications. It is defined in notifications.js and loaded in the base template.
-* introJs - This come from the library used to implement the homepage tour. It is loaded in the base template.
+* introJs - This comes from the library used to implement the homepage tour. It is loaded in the base template.
+* beforeAll, describe, test, expect - These are all functions defined by the Jest testing framework and used to define Javascript tests. 
 
 The validator returned two 'unused variable' warnings about the tourMobile and tourDesktop objects in the tour.js file. These objects define the homepage tours. They are imported to the sketchbook.js file and used there.
 
@@ -94,7 +96,7 @@ The validator returned two 'unused variable' warnings about the tourMobile and t
 
 I made [a fork](https://github.com/lmjh/atrament.js/) of the Atrament library in order to make some needed changes. I replaced the mouse and touch events and handlers used by the library with pointer events and handlers, to fix a bug caused by the use of touch events (details of this can be found in the [bugs document](BUGS.md) under "Atrament Canvas Mobile Touch Draw Bug"). I also added a colour picker tool, as the default library didn't include one.
 
-I only made changes to the Atrament library's atrament.js and pointer.js files, but for completeness I have validated all the source files in my fork of the Atrament library. I used the 'node: true' jshint setting when validation these files as they use the node.js objects require() and module(). 
+I only made changes to the Atrament library's atrament.js and pointer.js files, but for completeness I have validated all the source files in my fork of the Atrament library. I used the 'node: true' jshint setting when validating these files as they use the node.js objects require() and module(). 
 
 The file 'atrament.min.js' in the Sketchbook app javascript folder is a minified file that was compiled by [webpack](https://webpack.js.org/) from the source files in my fork of the Atrament library. It will not pass validation as it has been 'minified' by webpack. All of the actual source files do pass validation without issue.
 
