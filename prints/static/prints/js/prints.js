@@ -1,4 +1,4 @@
-/* jshint esversion: 11, jquery: true */
+/* jshint esversion: 11, jquery: true, node: true */
 // INITIALISE ELEMENTS AND STYLES
 
 // retrieve user image URLs from JSON, if present
@@ -155,3 +155,9 @@ addToCart.addEventListener('submit', function (e) {
         addToCart.submit();
     }
 });
+
+if (typeof module !== "undefined") module.exports = {
+    setProductImage,
+    setOverlay,
+    positionOverlay,
+};
