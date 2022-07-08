@@ -419,11 +419,21 @@ Auotmated testing of app models, forms and views was performed with Django unitt
 ![](documentation/testing_images/automated_testing/unittest-coverage.jpg)  
 ![](documentation/testing_images/automated_testing/unittest-list.jpg)  
 
+Tests can be run from the command line in the project directory by using the command `python3 manage.py test'. The '--verbosity 2' flag can be added to the command to output a full list of tests, as in the screenshot above.
+
 ### Javascript Automated Testing
 
 Automated testing of functions in the notifications and prints apps was performed with Jest tests. 10 tests were written, covering most javascript functions in the notifications and prints apps.
 
 ![](documentation/testing_images/automated_testing/jest-test-list.jpg)  
+
+To run Jest tests, first install Jest into your environment by following [this process](https://jestjs.io/docs/getting-started). At the stage where the 'scripts' property is added to the package.json file, add the '--env=jsdom' flag to the "jest" command string to enable the jsdom test environment. The '--verbose' flag can additionally be used to output a full list of tests, as in the screenshot above.
+
+```json
+"scripts": {
+  "test": "jest --env=jsdom --verbose"
+}
+```
 
 ***
 
