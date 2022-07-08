@@ -132,7 +132,6 @@ class StripeWebhookHandler:
                     address_2__iexact=shipping_details.address.line2,
                     county__iexact=shipping_details.address.state,
                     grand_total=grand_total,
-                    shopping_cart=cart,
                     stripe_pid=pid,
                 )
                 # if order is found, set order_exists to true and break
@@ -184,9 +183,9 @@ class StripeWebhookHandler:
                 for item in json.loads(cart):
                     # if the current item's drawing is not already in the
                     # order_drawings dict, add it
-                    if item["drawing"] not in order_drawings.keys():
+                    if item["d"] not in order_drawings.keys():
                         # if the user's current sketchbook drawing is selected
-                        if item["drawing"] == "0":
+                        if item["d"] == "0":
                             # get the cached drawing
                             drawing = OrderDrawingCache.objects.filter(
                                 stripe_pid=pid
@@ -209,13 +208,13 @@ class StripeWebhookHandler:
                             # get user's saved drawing for selected save_slot
                             drawing = Drawing.objects.filter(
                                 user_account=account,
-                                save_slot=item["drawing"],
+                                save_slot=item["d"],
                             ).first()
 
                             # create an OrderDrawing
                             order_drawing = OrderDrawing(
                                 order=order,
-                                save_slot=int(item["drawing"]),
+                                save_slot=int(item["d"]),
                             )
 
                             # set the order drawing's image field to a copy of
@@ -224,20 +223,20 @@ class StripeWebhookHandler:
                             order_drawing.save()
 
                             # add order drawing to order_drawings dict
-                            order_drawings[item["drawing"]] = order_drawing
+                            order_drawings[item["d"]] = order_drawing
 
                 # iterate through items in user's cart
                 for item in json.loads(cart):
                     # for each item in the cart, add an OrderItem to the Order
                     product_variant = ProductVariant.objects.get(
-                        id=item["variant_id"]
+                        id=item["v"]
                     )
                     order_item = OrderItem(
                         order=order,
                         product_variant=product_variant,
                         # use order_drawings dict to enter selected drawing
-                        order_drawing=order_drawings[item["drawing"]],
-                        quantity=item["quantity"],
+                        order_drawing=order_drawings[item["d"]],
+                        quantity=item["q"],
                     )
                     order_item.save()
 

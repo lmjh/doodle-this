@@ -304,11 +304,12 @@ def cache_order_data(request):
         cart = request.session.get("cart", {})
         cart_items = []
 
+        # use single-character key names to save space in stripe meta
         for item in cart:
             cart_item = {
-                'variant_id': item['variant_id'],
-                'drawing': item['drawing'],
-                'quantity': item['quantity']
+                'v': item['variant_id'],
+                'd': item['drawing'],
+                'q': item['quantity']
             }
             cart_items.append(cart_item)
 
