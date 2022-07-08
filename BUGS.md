@@ -198,7 +198,7 @@ formData.append('title', title)
 
 ## 10. Lack Of Feedback On Drawing Save Preview Causing Confusing User Experience
 
-In the save drawing modal, I included small preview images of the drawings saved in each save slot, so that users could quickly decide which they wanted to overwrite if all were already filled. However, the preview images would only change when the page was reloaded. This created quite a confusing user experience, because after a user had clicked the 'Save Drawing' button, they would receive a message to confirm the drawing had saved, but the image above that slot would be the same as before.
+In the save drawing modal, I included small preview images of the drawings saved in each save slot, so that users could quickly decide which they wanted to overwrite if all were already filled. However, the preview images would only change when the page was reloaded. This created quite a confusing user experience, because after a user had clicked the 'Save Drawing' button, they would receive a message to confirm the drawing had been saved, but the image above that slot would be the same as before.
 
 ![](documentation/testing_images/bugs/drawing-save-preview-bug-1.jpg)  
 
@@ -274,7 +274,7 @@ if drawing_instance:
         )
 ```
 
-This meant that when the form reached the 'if form.isValid()' check, it was passing validation regardless of the contents of the request object, as the instance in the database had valid data which passed the test. Then, when the code tried to use the values it expected it to be in the request object, they weren't valid and errors were thrown.
+This meant that when the form reached the 'if form.isValid()' check, it was passing validation regardless of the contents of the request object, as the instance in the database had valid data which passed the test. Then, when the code tried to use the values it expected to be in the request object, they weren't valid and errors were thrown.
 
 I resolved this issue by refactoring the view so that the form was validated first, and then the process for overwriting existing save slots was handled afterwards by setting the new drawing's object id equal to the saved drawing's object id, if there was one:
 

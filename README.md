@@ -114,7 +114,7 @@ On the prints page and the individual products pages, I chose to use product moc
 ### Sketchbook
 
 * The core feature of Doodle This is the sketchbook, where users can draw using the range of colours and tools provided. 
-* I put a lot of consideration into the responsive design of the sketchbook page, as there were many controls and features to accomodate and I wanted to make the best use of the screen space available in a range of formats.  
+* I put a lot of consideration into the responsive design of the sketchbook page, as there were many controls and features to accommodate and I wanted to make the best use of the screen space available in a range of formats.  
 ![](documentation/readme_images/features/sketchbook-desktop.jpg)  
 ![](documentation/readme_images/features/sketchbook-tablet.jpg)  
 ![](documentation/readme_images/features/sketchbook-mobile.jpg)  
@@ -122,7 +122,7 @@ On the prints page and the individual products pages, I chose to use product moc
 * The interactive canvas is provided using the library [Atrament JS](https://github.com/jakubfiala/atrament.js). I selected this library because it is relatively lightweight and it provides a smoothing option. The smoothing feature simply smooths out a user’s strokes, to avoid jagged, shaky lines being drawn. In my opinion, this makes drawing feel more fluid and natural and improves the look of the finished drawings.
 * The Atrament library provides the functionality for the Pencil, Fill and Eraser tools.
 * I selected and implemented a range of preset colours which I hope will be versatile and diverse enough to cover a wide range of uses, while still being tonally complimentary.
-* I added a colour mixer plugin [(Coloris)](https://github.com/mdbassit/Coloris), which allows users to mix their own colours if they want a colour or shade not provided by the presets.  
+* I added a colour mixer plugin ([Coloris](https://github.com/mdbassit/Coloris)), which allows users to mix their own colours if they want a colour or shade not provided by the presets.  
 ![](documentation/readme_images/features/colour-mixer.jpg)    
 * Having a colour mixer tool made it necessary to have some way to store or retrieve colours, since it could become frustrating for users to mix a new colour, use it, then switch to a different colour and have no simple way of getting the old colour back. My solution to this was to provide a colour picker tool, with which users can retrieve any colour from their canvas with a click. The Atrament library didn’t have a colour picker tool by default, so I forked the library and added this myself, among a few other changes and bug fixes. My fork of the Atrament library is [here](https://github.com/lmjh/atrament.js/).
 * Stroke width can be selected by using a slider.

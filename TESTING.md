@@ -257,14 +257,14 @@ Long line warnings were returned for the password validators in settings.py. Thi
 **3.2. As a drawing app user I want to be able to select from a number of preset colours so that I can quickly create art with a balanced palette**
 
 * A range of preset colour options are provided.
-* I took time to carefully select the palette, choosing colours that I thought would would work well together and cover a wide array of needs.
+* I took time to carefully select the palette, choosing colours that I thought would work well together and cover a wide array of needs.
 * There are six primary colours, six lighter pastel shades, four skin tone colours, two greys, white and black.  
 ![](documentation/testing_images/user_stories/user-story-3-2-1.jpg)  
 
 
 **3.3. As a drawing app user I want to be able to use custom colours so that I can draw with any colour I want**
 
-* A colour mixer is availabe which allows users can select any colour they wish.  
+* A colour mixer is available which allows users to select any colour they wish.  
 ![](documentation/testing_images/user_stories/user-story-3-3-1.jpg)  
 * Custom colours can be quickly retrieved from the canvas using the colour picker tool.  
 ![](documentation/testing_images/user_stories/user-story-3-3-2.jpg)  
@@ -295,7 +295,7 @@ Long line warnings were returned for the password validators in settings.py. Thi
 
 **4.3. As a shopper I want to be able to view product details so that I can find out more about the product and any variants available**
 
-* When users click any of the product on the main shop page, they're taken to a details page for that product.  
+* When users click any of the products on the main shop page, they're taken to a details page for that product.  
 ![](documentation/testing_images/user_stories/user-story-4-3-1.jpg)  
 * Users can select the product variant (i.e. the colour or size) they're interested in by selecting from a drop-down menu.  
 ![](documentation/testing_images/user_stories/user-story-4-3-2.jpg)  
@@ -305,7 +305,7 @@ Long line warnings were returned for the password validators in settings.py. Thi
 
 **4.4. As a shopper I want to be able to view a preview of my drawing on a product so that I can get an idea of how my artwork would look when printed**
 
-* The product page use javascript to overlay the user's drawings onto the product images, to provide a preview of how the print might look.  
+* The product page uses javascript to overlay the user's drawings onto the product images, to provide a preview of how the print might look.  
 ![](documentation/testing_images/user_stories/user-story-4-4-1.jpg)  
 * If users select a different drawing with the Select Doodle dropdown, the preview is automatically updated with the selected drawing.  
 ![](documentation/testing_images/user_stories/user-story-4-4-2.jpg)  
@@ -336,7 +336,7 @@ Long line warnings were returned for the password validators in settings.py. Thi
 ![](documentation/testing_images/user_stories/user-story-4-6-3.jpg)  
 * Users also receive an email to confirm that their order has been placed.  
 ![](documentation/testing_images/user_stories/user-story-4-6-4.jpg)  
-* The system uses webhooks as a reundancy system to create orders if there are any issues with the client side order process after a payment has been made.  
+* The system uses webhooks as a redundancy system to create orders if there are any issues with the client side order process after a payment has been made.  
 ![](documentation/testing_images/user_stories/user-story-4-6-5.jpg)  
 
 #### 5. Admin User Stories
@@ -384,7 +384,7 @@ Long line warnings were returned for the password validators in settings.py. Thi
 ![](documentation/testing_images/user_stories/user-story-5-4-2.jpg)    
 * Users can edit existing product images by clicking the 'Edit' link next to the image and filling out the form.  
 ![](documentation/testing_images/user_stories/user-story-5-4-3.jpg)    
-* Users can delete product images by clicking the 'Delete' link next to the image and the confirming in the modal that's displayed.  
+* Users can delete product images by clicking the 'Delete' link next to the image and then confirming in the modal that's displayed.  
 ![](documentation/testing_images/user_stories/user-story-5-4-4.jpg)    
 ![](documentation/testing_images/user_stories/user-story-5-4-5.jpg)    
 
@@ -414,7 +414,7 @@ Long line warnings were returned for the password validators in settings.py. Thi
 
 ### Python Automated Testing
 
-Auotmated testing of app models, forms and views was performed with Django unittests. 94 tests were written, with a total coverage of 90%. The screenshots below show the coverage report summary and a full list of unit tests.  
+Automated testing of app models, forms and views was performed with Django unittests. 94 tests were written, with a total coverage of 90%. The screenshots below show the coverage report summary and a full list of unit tests.  
 
 ![](documentation/testing_images/automated_testing/unittest-coverage.jpg)  
 ![](documentation/testing_images/automated_testing/unittest-list.jpg)  
@@ -535,7 +535,7 @@ I created a list of tests to check all of the site's functionality was working a
 |       **Checkout**       | Stripe elements rendering correctly               | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
 |       **Checkout**       | Able to place orders                              | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
 |    **Order Confirmed**   | Responsive layout rendering correctly             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
-|    **Order Confirmed**   | Confimration email sent and received              | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
+|    **Order Confirmed**   | Confirmation email sent and received              | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
 |     **Order Details**    | Responsive layout rendering correctly             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
 |          **FAQ**         | Responsive layout rendering correctly             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | Chrome and Edge card outline bug.    |
 |          **FAQ**         | All links functioning                             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                      |
