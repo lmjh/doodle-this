@@ -299,12 +299,25 @@ def cache_order_data(request):
         pid = request.POST.get("client_secret").split("_secret")[0]
         # get stripe secret key from settings
         stripe.api_key = settings.STRIPE_SECRET_KEY
-        # add current shopping cart contents, save_details boolean and username
+
+        # retrieve cart items from cart
+        cart = request.session.get("cart", {})
+        cart_items = []
+
+        for item in cart:
+            cart_item = {
+                'variant_id': item['variant_id'],
+                'drawing': item['drawing'],
+                'quantity': item['quantity']
+            }
+            cart_items.append(cart_item)
+
+        # add current shopping cart items, save_details boolean and username
         # to payment intent metadata
         stripe.PaymentIntent.modify(
             pid,
             metadata={
-                "cart": json.dumps(request.session.get("cart", {})),
+                "cart": json.dumps(cart_items),
                 "save_details": request.POST.get("save_details"),
                 "username": request.user,
             },
@@ -315,8 +328,7 @@ def cache_order_data(request):
         messages.error(
             request,
             (
-                "Sorry, there was a problem with your payment. Please try "
-                "again later."
+                f"{e}"
             ),
         )
         return HttpResponse(content=e, status=400)
