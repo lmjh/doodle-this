@@ -4,7 +4,7 @@ Doodle This is a drawing web app that gives users randomly generated drawing pro
 
 ![](documentation/readme_images/design/doodle-this-mockups.png)
 
-The live site can be viewed [here](https://doodle-this.herokuapp.com/)
+The live site can be viewed [here](https://doodle-this.onrender.com/)
 
 ***
 
