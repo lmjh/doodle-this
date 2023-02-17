@@ -4,7 +4,7 @@ Doodle This is a drawing web app that gives users randomly generated drawing pro
 
 ![](documentation/readme_images/design/doodle-this-mockups.png)
 
-The live site can be viewed [here](https://doodle-this.onrender.com/)
+The live site can be viewed [here](https://doodle-this.up.railway.app/)
 
 ***
 
@@ -373,7 +373,7 @@ It might also be possible to facilitate users sending something like a drawing c
 * [Django 3.2](https://docs.djangoproject.com/en/4.0/releases/3.2/) - Used as the project's web framework.  
 * [Bootstrap 5](https://getbootstrap.com/) - Bootstrap 5 framework used extensively to create layout and styling of site.
 * [jQuery](https://jquery.com/) - Used extensively, particularly in the Sketchbook javascript file.  
-* [Heroku](https://heroku.com/) - Used to deploy the site.  
+* [Railway](https://railway.app/) - Used to deploy the site.
 * [Atrament.js](https://github.com/jakubfiala/atrament.js) - Used to provide the drawing canvas and the pencil, fill and eraser tools.  
 * [Coloris](https://github.com/mdbassit/Coloris) - Used to provide the colour mixer on the sketchbook page.  
 * [intro.js](https://introjs.com/) - Used to create the user onboarding tour.  
