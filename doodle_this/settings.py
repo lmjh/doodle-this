@@ -22,7 +22,7 @@ if 'DEVELOPMENT' in os.environ:
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = ['doodle-this.up.railway.app', '127.0.0.1']
+ALLOWED_HOSTS = ['doodle-this.up.railway.app', '127.0.0.1', 'doodlethis.thetestbay.com']
 
 # Add Render.com URL to allowed hosts
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
