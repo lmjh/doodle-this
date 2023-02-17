@@ -33,3 +33,6 @@ temp_test_data/
 # node package files
 package-lock.json
 package.json
+
+# venv files
+.venv
