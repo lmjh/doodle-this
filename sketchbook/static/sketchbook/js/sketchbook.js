@@ -378,6 +378,7 @@ function loadDrawingFromDb() {
         success: function (response) {
             // clear canvas
             sketchbook.clear();
+            
             // get canvas context
             let canvasContext = canvas.getContext('2d');
 
@@ -395,10 +396,17 @@ function loadDrawingFromDb() {
             
             // update the canvas once the image has been loaded
             drawing.onload = function (event) {
+                // save the current sketchbook mode and set the current sketchbook mode to draw
+                let initialMode = sketchbook.mode;
+                sketchbook.mode = "draw";
+
                 canvasContext.drawImage(event.target, -0.5, -0.5);
                 displayToast('success', 'Your drawing has been loaded!');
                 // update the autosave
                 saveDrawingToLocal('autosave');
+
+                // reset sketchbook to initial mode
+                sketchbook.mode = initialMode;
             };
 
             // set the src attribute of the new Image as the response url 
@@ -443,9 +451,16 @@ function loadDrawingFromLocal(key) {
 
         // update the canvas once the image has been loaded
         drawing.onload = function (event) {
+            // save the current sketchbook mode and set the current sketchbook mode to draw
+            let initialMode = sketchbook.mode
+            sketchbook.mode = "draw"
+
             // revoke the no longer needed object url
             URL.revokeObjectURL(event.target.src);
             canvasContext.drawImage(event.target, -0.5, -0.5);
+
+            // revert sketchbook to initial mode
+            sketchbook.mode = initialMode
         };
 
         // create an object url for the blob and assign it as the src attribute of the image 
