@@ -29,3 +29,7 @@ media/order-drawings/
 
 # test images
 temp_test_data/
+
+# node package files
+package-lock.json
+package.json
